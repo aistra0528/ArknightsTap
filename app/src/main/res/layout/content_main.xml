@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_service"
+        style="@style/ColoredButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="64dp"
+        android:enabled="false"
+        android:text="@string/action_service_enable" />
+
+    <Button
+        android:id="@+id/btn_archives"
+        style="@style/BorderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_service"
+        android:layout_alignStart="@id/btn_service"
+        android:text="@string/action_archives" />
+
+    <Button
+        android:id="@+id/btn_timer"
+        style="@style/BorderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_service"
+        android:layout_alignEnd="@id/btn_service"
+        android:enabled="false"
+        android:text="@string/action_timer" />
+
+    <ImageView
+        android:id="@+id/img_service_status"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_above="@id/txt_service_status"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="4dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_update_black_24dp" />
+
+    <TextView
+        android:id="@+id/txt_service_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/info_service_update"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/txt_service_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_service_status"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="4dp"
+        android:text="@string/tip_service_update"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+</RelativeLayout>

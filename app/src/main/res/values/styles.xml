@@ -1,0 +1,25 @@
+<resources>
+
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="@android:style/ThemeOverlay.Material.Dark.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="@android:style/ThemeOverlay.Material.Light" />
+
+    <style name="ColoredButtonStyle" parent="@android:style/Widget.Material.Button.Colored" />
+
+    <style name="BorderlessButtonStyle" parent="@android:style/Widget.Material.Button.Borderless.Colored" />
+
+</resources>
