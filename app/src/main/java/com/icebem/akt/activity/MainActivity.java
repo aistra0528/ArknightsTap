@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
+import com.icebem.akt.app.CoreApplication;
+import com.icebem.akt.service.CoreService;
 import com.icebem.akt.util.PreferencesManager;
 
 public class MainActivity extends Activity {
@@ -58,12 +61,16 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        updateViews();
+    }
+
+    private void updateViews() {
         if (manager.pointsAdapted()) {
-            img_status.setImageDrawable(getDrawable(serviceEnabled() ? R.drawable.ic_auto : R.drawable.ic_done));
-            txt_status.setText(serviceEnabled() ? R.string.info_service_running : R.string.info_service_ready);
-            txt_tips.setText(serviceEnabled() ? getString(R.string.tip_service_running) : String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
-            btn_timer.setEnabled(!serviceEnabled());
-            btn_service.setText(serviceEnabled() ? R.string.action_service_disable : R.string.action_service_enable);
+            img_status.setImageDrawable(getDrawable(isServiceEnabled() ? R.drawable.ic_auto : R.drawable.ic_done));
+            txt_status.setText(isServiceEnabled() ? R.string.info_service_running : R.string.info_service_ready);
+            txt_tips.setText(isServiceEnabled() ? getString(R.string.tip_service_running) : String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
+            btn_timer.setEnabled(!isServiceEnabled());
+            btn_service.setText(isServiceEnabled() ? R.string.action_service_disable : R.string.action_service_enable);
             ((AnimatedVectorDrawable) img_status.getDrawable()).start();
         }
     }
@@ -83,9 +90,13 @@ public class MainActivity extends Activity {
                 builder.create().show();
                 break;
             case R.id.btn_service:
-                if (!serviceEnabled())
+                if (isServiceEnabled()) {
+                    ((CoreApplication) getApplication()).getAccessibilityService().disableSelf();
+                    updateViews();
+                } else {
                     Toast.makeText(this, R.string.info_service_request, Toast.LENGTH_LONG).show();
-                startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                }
                 break;
         }
     }
@@ -94,7 +105,7 @@ public class MainActivity extends Activity {
         switch (which) {
             case AlertDialog.BUTTON_POSITIVE:
                 manager.setTimerTime(timer_positive);
-                if (!serviceEnabled())
+                if (!isServiceEnabled())
                     txt_tips.setText(String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
                 break;
             case DialogInterface.BUTTON_NEUTRAL:
@@ -105,8 +116,16 @@ public class MainActivity extends Activity {
         }
     }
 
-    private boolean serviceEnabled() {
-        return ((ActivityManager) getSystemService(ACTIVITY_SERVICE)).getRunningServices(1).size() == 1;
+    private boolean isServiceEnabled() {
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        if (am != null)
+            //getRunningServices方法在Android 8.0已过时，只会获取应用自身正在运行的服务，所以列表条数最大值不用太大
+            for (ActivityManager.RunningServiceInfo info : am.getRunningServices(Build.VERSION.SDK_INT < Build.VERSION_CODES.O ? Integer.MAX_VALUE : 5)) {
+                if (info.service.getClassName().equals(CoreService.class.getName())) {
+                    return true;
+                }
+            }
+        return false;
     }
 
     @Override

@@ -3,6 +3,7 @@
     package="com.icebem.akt">
 
     <application
+        android:name=".app.CoreApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"

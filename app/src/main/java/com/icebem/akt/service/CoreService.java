@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
+import com.icebem.akt.app.CoreApplication;
 import com.icebem.akt.util.PreferencesManager;
 import com.icebem.akt.util.RandomUtil;
 
@@ -25,6 +26,7 @@ public class CoreService extends AccessibilityService {
             disableSelf();
             return;
         }
+        ((CoreApplication) getApplication()).setAccessibilityService(this);
         try {
             startActivity(new Intent().setClassName("com.hypergryph.arknights", "com.u8.sdk.U8UnityContext").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } catch (Exception e) {
