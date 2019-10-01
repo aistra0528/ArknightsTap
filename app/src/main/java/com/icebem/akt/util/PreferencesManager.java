@@ -25,8 +25,8 @@ public class PreferencesManager {
     public PreferencesManager(Context context) {
         preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         if (context instanceof Activity && !pointsAdapted()) {
-            int[] res = ResolutionUtil.getResolution((Activity) context);
-            for (int[] cfg : ResolutionUtil.RESOLUTION_CONFIG) {
+            int[] res = ResolutionConfig.getResolution((Activity) context);
+            for (int[] cfg : ResolutionConfig.RESOLUTION_CONFIG) {
                 if (res[0] == cfg[0] && res[1] == cfg[1]) {
                     preferences.edit().putInt(KEY_A, cfg[2]).apply();
                     preferences.edit().putInt(KEY_B, cfg[3]).apply();

@@ -3,7 +3,7 @@ package com.icebem.akt.util;
 import android.app.Activity;
 import android.util.DisplayMetrics;
 
-public class ResolutionUtil {
+public class ResolutionConfig {
     public static final int[][] RESOLUTION_CONFIG = {
             {1280, 720, 1100, 670, 1100, 650},
             {1440, 720, 1330, 670, 1200, 650},
@@ -13,8 +13,10 @@ public class ResolutionUtil {
             {2232, 1080, 2030, 1000, 1810, 960},
             {2340, 1080, 2200, 1000, 1850, 960},
             {2560, 1440, 2200, 1330, 2200, 1280},
+            {2880, 1440, 2660, 1330, 2400, 1280},
             {2960, 1440, 2800, 1330, 2430, 1280},
-            {3120, 1440, 2940, 1330, 2470, 1280}
+            {3120, 1440, 2940, 1330, 2470, 1280},
+            {3840, 1644, 3550, 1540, 3010, 1430}
     };
 
     public static int[] getResolution(Activity activity) {
