@@ -97,13 +97,10 @@ public class PreferencesManager {
     }
 
     public int getTimerPositive() {
-        int positive = TIMER_POSITIVE;
         for (int i = 0; i < TIMER_CONFIG.length; i++) {
-            if (getTimerTime() == TIMER_CONFIG[i]) {
-                positive = i;
-                break;
-            }
+            if (getTimerTime() == TIMER_CONFIG[i])
+                return i;
         }
-        return positive;
+        return TIMER_POSITIVE;
     }
 }
