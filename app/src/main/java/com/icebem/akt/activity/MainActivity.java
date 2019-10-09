@@ -26,7 +26,7 @@ import com.icebem.akt.service.CoreService;
 import com.icebem.akt.util.PreferencesManager;
 
 public class MainActivity extends Activity {
-    private int timer_positive;
+    private int timer_position;
     private ImageView img_status;
     private TextView txt_status, txt_tips;
     private Button btn_timer, btn_service;
@@ -81,10 +81,10 @@ public class MainActivity extends Activity {
                 Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_timer:
-                timer_positive = manager.getTimerPositive();
+                timer_position = manager.getTimerPosition();
                 builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.action_timer);
-                builder.setSingleChoiceItems(manager.getTimerStrings(this), timer_positive, this::onClick);
+                builder.setSingleChoiceItems(manager.getTimerStrings(this), timer_position, this::onClick);
                 builder.setPositiveButton(android.R.string.ok, this::onClick);
                 builder.setNegativeButton(android.R.string.cancel, null);
                 builder.create().show();
@@ -104,7 +104,7 @@ public class MainActivity extends Activity {
     public void onClick(DialogInterface dialog, int which) {
         switch (which) {
             case AlertDialog.BUTTON_POSITIVE:
-                manager.setTimerTime(timer_positive);
+                manager.setTimerTime(timer_position);
                 if (!isServiceEnabled())
                     txt_tips.setText(String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
                 break;
@@ -112,7 +112,7 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://www.lanzous.com/b943175")));
                 break;
             default:
-                timer_positive = which;
+                timer_position = which;
         }
     }
 

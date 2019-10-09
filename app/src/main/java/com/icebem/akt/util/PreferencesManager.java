@@ -18,7 +18,7 @@ public class PreferencesManager {
     private static final String KEY_TIMER_TIME = "timer_time";
     private static final String KEY_VERSION = "version";
     private static final int[] TIMER_CONFIG = {10, 15, 30, 45, 60, 90, 120};
-    private static final int TIMER_POSITIVE = 0;
+    private static final int TIMER_POSITION = 0;
     private static final int UPDATE_TIME = 3500;
     private SharedPreferences preferences;
 
@@ -69,12 +69,12 @@ public class PreferencesManager {
         return UPDATE_TIME;
     }
 
-    public void setTimerTime(int positive) {
-        preferences.edit().putInt(KEY_TIMER_TIME, TIMER_CONFIG[positive]).apply();
+    public void setTimerTime(int position) {
+        preferences.edit().putInt(KEY_TIMER_TIME, TIMER_CONFIG[position]).apply();
     }
 
     public int getTimerTime() {
-        return preferences.getInt(KEY_TIMER_TIME, TIMER_CONFIG[TIMER_POSITIVE]);
+        return preferences.getInt(KEY_TIMER_TIME, TIMER_CONFIG[TIMER_POSITION]);
     }
 
     private void setVersionCode() {
@@ -96,11 +96,11 @@ public class PreferencesManager {
         return strings;
     }
 
-    public int getTimerPositive() {
+    public int getTimerPosition() {
         for (int i = 0; i < TIMER_CONFIG.length; i++) {
             if (getTimerTime() == TIMER_CONFIG[i])
                 return i;
         }
-        return TIMER_POSITIVE;
+        return TIMER_POSITION;
     }
 }
