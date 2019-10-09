@@ -3,7 +3,6 @@ package com.icebem.akt.service;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Path;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -91,7 +90,7 @@ public class CoreService extends AccessibilityService {
 
     private boolean packageInstalled(String packageName) {
         try {
-            return getPackageManager().getPackageInfo(packageName, PackageManager.GET_ACTIVITIES) != null;
+            return getPackageManager().getPackageGids(packageName) != null;
         } catch (Exception e) {
             return false;
         }
