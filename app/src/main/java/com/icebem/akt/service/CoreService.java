@@ -3,6 +3,7 @@ package com.icebem.akt.service;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Path;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -27,10 +28,12 @@ public class CoreService extends AccessibilityService {
             return;
         }
         ((CoreApplication) getApplication()).setAccessibilityService(this);
-        try {
-            startActivity(new Intent().setClassName("com.hypergryph.arknights", "com.u8.sdk.U8UnityContext").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } catch (Exception e) {
-            Log.w(getClass().getSimpleName(), e);
+        if (packageInstalled("com.hypergryph.arknights") && !packageInstalled("com.hypergryph.arknights.bilibili")) {
+            try {
+                startActivity(new Intent().setClassName("com.hypergryph.arknights", "com.u8.sdk.U8UnityContext").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            } catch (Exception e) {
+                Log.w(getClass().getSimpleName(), e);
+            }
         }
         new Thread(this::performGestures, "gesture").start();
         new Thread(() -> {
@@ -84,5 +87,13 @@ public class CoreService extends AccessibilityService {
             }
         }
         disableSelf();
+    }
+
+    private boolean packageInstalled(String packageName) {
+        try {
+            return getPackageManager().getPackageInfo(packageName, PackageManager.GET_ACTIVITIES) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
