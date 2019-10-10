@@ -26,7 +26,7 @@ public class CoreService extends AccessibilityService {
             disableSelf();
             return;
         }
-        ((CoreApplication) getApplication()).setAccessibilityService(this);
+        ((CoreApplication) getApplication()).setCoreService(this);
         if (packageInstalled("com.hypergryph.arknights") && !packageInstalled("com.hypergryph.arknights.bilibili")) {
             try {
                 startActivity(new Intent().setClassName("com.hypergryph.arknights", "com.u8.sdk.U8UnityContext").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

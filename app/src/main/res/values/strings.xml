@@ -2,7 +2,10 @@
     <string name="app_name">方舟戳戳乐</string>
     <string name="accessibility_label">一直戳™</string>
     <string name="accessibility_description">开启“一直戳™”后，可在选择的关卡连续进行代理作战，解放你的双手，不用一直盯着手机。\n\n使用前请先选择好要代理的关卡，并使用代理指挥作战。\n\n“一直戳™”所需权限仅用于模拟博士操作，方舟戳戳乐不会通过本服务搜集隐私数据。\n\n使用本服务可能会导致账号异常，请以游戏开发商的判断依据为准，开发者不承担相关责任。\n\n如有问题可在“关于”中联系开发者。</string>
-    <string name="action_archives">情报档案</string>
+    <string name="overlay_label">帮帮忙™</string>
+    <string name="title_permission_overlay">请求悬浮窗权限</string>
+    <string name="msg_permission_overlay">“帮帮忙™”可使用悬浮窗快速接管作战和【敬请期待】</string>
+    <string name="info_overlay_showing">“帮帮忙™”闲置中</string>
     <string name="action_timer">作战限时</string>
     <string name="tip_timer_time">已限时%d分钟</string>
     <string name="info_timer_min">%d分钟</string>
@@ -24,5 +27,7 @@
     <string name="action_update">获取更新</string>
     <string name="msg_about">用♥制作\n酷安 @icebem\nGitHub @IcebemAst</string>
     <string name="got_it">知道了</string>
+    <string name="go_to_settings">去设置</string>
+    <string name="no_thanks">不用了</string>
     <string name="coming_soon">敬请期待</string>
 </resources>

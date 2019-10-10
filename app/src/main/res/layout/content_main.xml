@@ -17,13 +17,13 @@
         android:text="@string/action_service_enable" />
 
     <Button
-        android:id="@+id/btn_archives"
+        android:id="@+id/btn_overlay"
         style="@style/BorderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/btn_service"
         android:layout_alignStart="@id/btn_service"
-        android:text="@string/action_archives" />
+        android:text="@string/overlay_label" />
 
     <Button
         android:id="@+id/btn_timer"
