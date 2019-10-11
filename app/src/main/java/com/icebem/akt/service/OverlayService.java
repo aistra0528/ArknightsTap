@@ -4,7 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.view.Gravity;
-import android.widget.ImageView;
+import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import com.icebem.akt.R;
@@ -17,10 +17,8 @@ public class OverlayService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        ImageView view = new ImageView(this);
-        view.setImageResource(R.drawable.ic_overlay);
         views = new OverlayView[1];
-        views[0] = new OverlayView(this, view, Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, (v -> {
+        views[0] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, (view -> {
             if (((CoreApplication) getApplication()).isCoreServiceEnabled()) {
                 ((CoreApplication) getApplication()).getCoreService().disableSelf();
             } else {
