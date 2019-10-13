@@ -1,13 +1,11 @@
 package com.icebem.akt.activity;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.CoreApplication;
-import com.icebem.akt.service.CoreService;
 import com.icebem.akt.service.OverlayService;
 import com.icebem.akt.util.PreferencesManager;
 
