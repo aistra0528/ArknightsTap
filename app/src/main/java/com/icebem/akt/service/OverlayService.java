@@ -23,8 +23,8 @@ public class OverlayService extends Service {
                 ((CoreApplication) getApplication()).getCoreService().disableSelf();
             } else {
                 Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show();
+                stopSelf();
             }
-            stopSelf();
         })).show();
         Toast.makeText(this, R.string.info_overlay_showing, Toast.LENGTH_LONG).show();
     }
