@@ -22,6 +22,7 @@ import com.icebem.akt.R;
 import com.icebem.akt.app.CoreApplication;
 import com.icebem.akt.service.OverlayService;
 import com.icebem.akt.util.PreferencesManager;
+import com.icebem.akt.util.ResolutionConfig;
 
 public class MainActivity extends Activity {
     private int timer_position;
@@ -53,7 +54,15 @@ public class MainActivity extends Activity {
 
     private void loadPreferences() {
         manager = new PreferencesManager(this);
-        if (manager.pointsAdapted()) btn_service.setEnabled(true);
+        if (manager.pointsAdapted()) {
+            btn_service.setEnabled(true);
+        } else {
+            builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.title_resolution_unsupported);
+            builder.setMessage(String.format(getString(R.string.msg_resolution_unsupported), ResolutionConfig.getResolution(this)[0], ResolutionConfig.getResolution(this)[1]));
+            builder.setPositiveButton(R.string.got_it, null);
+            builder.create().show();
+        }
     }
 
     @Override
