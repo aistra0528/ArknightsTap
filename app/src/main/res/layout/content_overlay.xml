@@ -14,10 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:paddingStart="@dimen/btn_padding_horizontal"
-            android:paddingTop="@dimen/btn_padding_vertical"
-            android:paddingEnd="@dimen/btn_padding_horizontal"
-            android:paddingBottom="@dimen/btn_padding_vertical"
+            android:padding="@dimen/view_padding"
             android:text="@string/title_overlay_hr"
             android:textColor="@android:color/white"
             android:textSize="@dimen/btn_text_size" />
@@ -27,10 +24,7 @@
             style="@style/AppTheme.Button.Borderless.Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/btn_padding_horizontal"
-            android:paddingTop="@dimen/btn_padding_vertical"
-            android:paddingEnd="@dimen/btn_padding_horizontal"
-            android:paddingBottom="@dimen/btn_padding_vertical"
+            android:padding="@dimen/view_padding"
             android:text="@string/action_overlay_collapse"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/btn_text_size" />
@@ -43,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/btn_padding_vertical"
+            android:padding="@dimen/view_padding"
             android:text="@string/coming_soon"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/btn_text_size" />
