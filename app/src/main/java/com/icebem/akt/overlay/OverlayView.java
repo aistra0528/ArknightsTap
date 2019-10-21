@@ -17,19 +17,25 @@ public class OverlayView {
 
     public OverlayView(Context context, View view, int gravity, boolean mobilizable, View.OnClickListener listener) {
         this.view = view;
-        this.listener = listener;
-        if (mobilizable) view.setOnTouchListener(this::onTouch);
+        if (mobilizable) {
+            this.listener = listener;
+            view.setOnTouchListener(this::onTouch);
+        }
         manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
         params.x = 0;
         params.y = 0;
-        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.width = mobilizable ? WindowManager.LayoutParams.WRAP_CONTENT : context.getResources().getDisplayMetrics().widthPixels;
+        params.height = mobilizable ? WindowManager.LayoutParams.WRAP_CONTENT : context.getResources().getDisplayMetrics().widthPixels;
         params.gravity = gravity;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
         params.format = PixelFormat.RGBA_8888;
         params.type = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_PHONE;
         params.windowAnimations = android.R.style.Animation_Toast;
+    }
+
+    public View getView() {
+        return view;
     }
 
     public OverlayView show() {

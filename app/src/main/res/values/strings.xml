@@ -32,4 +32,6 @@
     <string name="go_to_settings">去设置</string>
     <string name="no_thanks">不用了</string>
     <string name="coming_soon">敬请期待</string>
+    <string name="title_overlay_hr">公开招募</string>
+    <string name="action_overlay_collapse">收起</string>
 </resources>

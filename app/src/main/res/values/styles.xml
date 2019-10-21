@@ -18,8 +18,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="@android:style/ThemeOverlay.Material.Light" />
 
-    <style name="ColoredButtonStyle" parent="@android:style/Widget.Material.Button.Colored" />
+    <style name="AppTheme.Button.Colored" parent="@android:style/Widget.Material.Button.Colored" />
 
-    <style name="BorderlessButtonStyle" parent="@android:style/Widget.Material.Button.Borderless.Colored" />
+    <style name="AppTheme.Button.Borderless" parent="@android:style/Widget.Material.Button.Borderless.Colored" />
 
+    <style name="AppTheme.Button.Borderless.Dark" parent="@android:style/Widget.Material.Button.Borderless.Colored">
+        <item name="android:foreground">@drawable/fg_ripple</item>
+    </style>
 </resources>

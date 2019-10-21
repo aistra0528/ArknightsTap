@@ -2,4 +2,6 @@
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorAccent">#FFA000</color>
+    <color name="colorOverlay">#99000000</color>
+    <color name="colorRipple">#66FFFFFF</color>
 </resources>

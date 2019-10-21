@@ -5,7 +5,7 @@
 
     <Button
         android:id="@+id/btn_service"
-        style="@style/ColoredButtonStyle"
+        style="@style/AppTheme.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -18,7 +18,7 @@
 
     <Button
         android:id="@+id/btn_overlay"
-        style="@style/BorderlessButtonStyle"
+        style="@style/AppTheme.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/btn_service"
@@ -27,7 +27,7 @@
 
     <Button
         android:id="@+id/btn_timer"
-        style="@style/BorderlessButtonStyle"
+        style="@style/AppTheme.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/btn_service"

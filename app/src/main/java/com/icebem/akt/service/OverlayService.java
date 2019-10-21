@@ -17,15 +17,20 @@ public class OverlayService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        views = new OverlayView[1];
-        views[0] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, (view -> {
+        views = new OverlayView[2];
+        views[0] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.content_overlay, null), Gravity.END | Gravity.TOP, false, null);
+        views[0].getView().findViewById(R.id.action_collapse).setOnClickListener(view -> {
+            views[0].remove();
+            views[1].show();
+        });
+        views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, view -> {
             if (((CoreApplication) getApplication()).isCoreServiceEnabled()) {
                 ((CoreApplication) getApplication()).getCoreService().disableSelf();
             } else {
-                Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show();
-                stopSelf();
+                views[1].remove();
+                views[0].show();
             }
-        })).show();
+        }).show();
         Toast.makeText(this, R.string.info_overlay_showing, Toast.LENGTH_LONG).show();
     }
 

@@ -16,16 +16,16 @@ public class CharacterInfo {
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
     private static final String KEY_SEX = "sex";
-    private static final String KEY_PRIVATE = "private";
+    private static final String KEY_LIMITED = "limited";
     private static final String KEY_TAGS = "tags";
     private int star;
-    private boolean pri;
+    private boolean limited;
     private String name, type, sex;
     private String[] tags;
 
     private CharacterInfo(JSONObject obj) throws JSONException {
         star = obj.getInt(KEY_STAR);
-        pri = obj.getBoolean(KEY_PRIVATE);
+        limited = obj.getBoolean(KEY_LIMITED);
         name = obj.getString(KEY_NAME);
         type = obj.getString(KEY_TYPE);
         sex = obj.getString(KEY_SEX);
