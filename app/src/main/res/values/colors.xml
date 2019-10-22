@@ -4,6 +4,12 @@
     <color name="colorAccent">#FFA000</color>
     <color name="colorOverlay">#99000000</color>
     <color name="colorRipple">#40CCCCCC</color>
-    <color name="colorTag">#795548</color>
-    <color name="colorTagChecked">@color/colorAccent</color>
+    <color name="colorTag">#A1887F</color>
+    <color name="colorTagChecked">#E91E63</color>
+    <color name="colorDeepOrange">#FF5722</color>
+    <color name="colorOrange">#FFA000</color>
+    <color name="colorDeepPurple">#673AB7</color>
+    <color name="colorGreen">#4CAF50</color>
+    <color name="colorBrown">#795548</color>
+    <color name="colorGray">#9E9E9E</color>
 </resources>
