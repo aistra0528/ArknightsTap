@@ -1,0 +1,10 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/color_checkbox" />
+    <corners android:radius="@dimen/btn_corner_radius" />
+    <padding
+        android:bottom="@dimen/btn_padding"
+        android:left="@dimen/btn_padding"
+        android:right="@dimen/btn_padding"
+        android:top="@dimen/btn_padding" />
+</shape>

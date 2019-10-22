@@ -20,6 +20,16 @@
             android:textSize="@dimen/btn_text_size" />
 
         <Button
+            android:id="@+id/action_disconnect"
+            style="@style/AppTheme.Button.Borderless.Dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/view_padding"
+            android:text="@string/action_overlay_disconnect"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/btn_text_size" />
+
+        <Button
             android:id="@+id/action_collapse"
             style="@style/AppTheme.Button.Borderless.Dark"
             android:layout_width="wrap_content"
@@ -34,12 +44,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <CheckBox
+            style="@style/AppTheme.CheckBox.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/view_padding"
-            android:text="@string/coming_soon"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/btn_text_size" />
+            android:text="@string/coming_soon" />
     </ScrollView>
 </LinearLayout>
