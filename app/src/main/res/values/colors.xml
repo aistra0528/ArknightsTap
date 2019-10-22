@@ -3,7 +3,7 @@
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorAccent">#FFA000</color>
     <color name="colorOverlay">#99000000</color>
-    <color name="colorRipple">#66FFFFFF</color>
-    <color name="colorBrown">#6D4C41</color>
-    <color name="colorGray">#424242</color>
+    <color name="colorRipple">#40CCCCCC</color>
+    <color name="colorTag">#795548</color>
+    <color name="colorTagChecked">@color/colorAccent</color>
 </resources>

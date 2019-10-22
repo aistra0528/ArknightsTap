@@ -27,10 +27,12 @@
         <item name="android:foreground">@drawable/fg_ripple</item>
     </style>
 
-    <style name="AppTheme.CheckBox.Colored" parent="@android:style/Widget.Material.CompoundButton.CheckBox">
+    <style name="AppTheme.CheckBox.Tag" parent="@android:style/Widget.Material.CompoundButton.CheckBox">
         <item name="android:background">@drawable/bg_checkbox</item>
         <item name="android:foreground">@drawable/fg_ripple</item>
         <item name="android:button">@null</item>
+        <item name="android:layout_margin">@dimen/control_margin</item>
+        <item name="android:padding">@dimen/control_padding</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>

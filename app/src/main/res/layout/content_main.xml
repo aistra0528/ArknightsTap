@@ -41,7 +41,6 @@
         android:layout_height="84dp"
         android:layout_above="@id/txt_service_status"
         android:layout_centerHorizontal="true"
-        android:layout_margin="4dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_update_black_24dp" />
 
@@ -50,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_margin="@dimen/control_margin"
         android:text="@string/info_service_update"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -59,7 +59,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_service_status"
         android:layout_centerHorizontal="true"
-        android:layout_margin="4dp"
         android:text="@string/tip_service_update"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 </RelativeLayout>
