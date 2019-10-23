@@ -382,6 +382,12 @@
                 android:text="@string/tip_hr_result_1"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/control_text_size" />
+
+            <LinearLayout
+                android:id="@+id/container_hr_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
