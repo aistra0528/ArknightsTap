@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.CoreApplication;
+import com.icebem.akt.object.HRViewer;
 import com.icebem.akt.overlay.OverlayView;
 
 public class OverlayService extends Service {
@@ -27,6 +28,7 @@ public class OverlayService extends Service {
             views[0].remove();
             views[1].show();
         });
+        new HRViewer(views[0].getView());
         views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, view -> {
             if (((CoreApplication) getApplication()).isCoreServiceEnabled()) {
                 ((CoreApplication) getApplication()).getCoreService().disableSelf();
