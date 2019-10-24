@@ -21,7 +21,7 @@ import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.CoreApplication;
 import com.icebem.akt.service.OverlayService;
-import com.icebem.akt.util.PreferencesManager;
+import com.icebem.akt.object.PreferencesManager;
 import com.icebem.akt.util.ResolutionConfig;
 
 public class MainActivity extends Activity {

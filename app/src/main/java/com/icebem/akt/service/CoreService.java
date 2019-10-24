@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.CoreApplication;
-import com.icebem.akt.util.PreferencesManager;
+import com.icebem.akt.object.PreferencesManager;
 import com.icebem.akt.util.RandomUtil;
 
 public class CoreService extends AccessibilityService {

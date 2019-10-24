@@ -1,4 +1,4 @@
-package com.icebem.akt.util;
+package com.icebem.akt.object;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
+import com.icebem.akt.util.RandomUtil;
+import com.icebem.akt.util.ResolutionConfig;
 
 public class PreferencesManager {
     private static final String PREFERENCES_NAME = "data";
