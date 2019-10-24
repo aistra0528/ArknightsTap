@@ -6,7 +6,10 @@ import android.widget.CompoundButton;
 
 import com.icebem.akt.R;
 
+import java.util.Arrays;
+
 public class HRViewer {
+    private static final int[] CHECKED_STARS = {3, 4, 5};
     private CheckBox[] stars, qualifications;
 
     public HRViewer(View view) {
@@ -23,6 +26,7 @@ public class HRViewer {
         qualifications[1] = view.findViewById(R.id.tag_qualification_2);
         qualifications[2] = view.findViewById(R.id.tag_qualification_3);
         setOnCheckedChangeListener(qualifications);
+        setCheckedStars();
     }
 
     private void setOnCheckedChangeListener(CheckBox[] boxes) {
@@ -53,6 +57,12 @@ public class HRViewer {
                     stars[5].setChecked(isChecked);
                 }
                 break;
+        }
+    }
+
+    private void setCheckedStars() {
+        for (int i = 0; i < stars.length; i++) {
+            stars[i].setChecked(Arrays.binarySearch(CHECKED_STARS, i + 1) >= 0);
         }
     }
 }
