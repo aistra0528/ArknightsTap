@@ -155,18 +155,18 @@
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/tag_positive_1"
+                        android:id="@+id/tag_position_1"
                         style="@style/AppTheme.CheckBox.Tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_positive_1" />
+                        android:text="@string/tag_position_1" />
 
                     <CheckBox
-                        android:id="@+id/tag_positive_2"
+                        android:id="@+id/tag_position_2"
                         style="@style/AppTheme.CheckBox.Tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_positive_2" />
+                        android:text="@string/tag_position_2" />
                 </LinearLayout>
             </HorizontalScrollView>
 

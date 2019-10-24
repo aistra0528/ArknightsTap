@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.icebem.akt.R;
@@ -25,7 +26,7 @@ public class OverlayService extends Service {
             views[0].remove();
             views[1].show();
         });
-        new HRViewer(views[0].getView());
+        new HRViewer((ViewGroup) views[0].getView());
         views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, view -> {
             if (((CoreApplication) getApplication()).isCoreServiceEnabled()) {
                 ((CoreApplication) getApplication()).getCoreService().disableSelf();
