@@ -3,6 +3,7 @@ package com.icebem.akt.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -13,7 +14,12 @@ import com.icebem.akt.app.CoreApplication;
 import com.icebem.akt.object.HRViewer;
 import com.icebem.akt.overlay.OverlayView;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
 public class OverlayService extends Service {
+    private boolean HREnabled;
     private OverlayView[] views;
 
     @Override
@@ -26,13 +32,20 @@ public class OverlayService extends Service {
             views[0].remove();
             views[1].show();
         });
-        new HRViewer((ViewGroup) views[0].getView());
+        try {
+            new HRViewer(this, (ViewGroup) views[0].getView());
+            HREnabled = true;
+        } catch (IOException | JSONException e) {
+            Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
+        }
         views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, view -> {
             if (((CoreApplication) getApplication()).isCoreServiceEnabled()) {
                 ((CoreApplication) getApplication()).getCoreService().disableSelf();
-            } else {
+            } else if (HREnabled) {
                 views[1].remove();
                 views[0].show();
+            } else {
+                stopSelf();
             }
         }).show();
         Toast.makeText(this, R.string.info_overlay_connected, Toast.LENGTH_LONG).show();

@@ -2,5 +2,5 @@
     android:color="@color/colorRipple">
     <item
         android:id="@android:id/mask"
-        android:drawable="@drawable/bg_checkbox" />
+        android:drawable="@drawable/bg_tag" />
 </ripple>

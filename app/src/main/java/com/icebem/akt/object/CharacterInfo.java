@@ -43,4 +43,28 @@ public class CharacterInfo {
         }
         return infos;
     }
+
+    public int getStar() {
+        return star;
+    }
+
+    public boolean isLimited() {
+        return limited;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
 }
