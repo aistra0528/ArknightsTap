@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class CharacterInfo {
+public class CharacterInfo implements Comparable<CharacterInfo> {
     private static final String ASSETS_PATH = "data/hr.json";
     private static final String KEY_STAR = "star";
     private static final String KEY_NAME = "name";
@@ -42,6 +42,11 @@ public class CharacterInfo {
             infos[i] = new CharacterInfo(array.getJSONObject(i));
         }
         return infos;
+    }
+
+    @Override
+    public int compareTo(CharacterInfo info) {
+        return info.star - star;
     }
 
     public int getStar() {

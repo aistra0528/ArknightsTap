@@ -376,7 +376,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
-                android:text="@string/tip_hr_result_1"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/control_text_size" />
 

@@ -48,9 +48,10 @@
     <string name="tag_tags_12">召唤</string>
     <string name="tag_tags_13">爆发</string>
     <string name="tag_tags_14">控场</string>
+    <string name="tip_hr_result_0">没有符合条件的干员</string>
     <string name="tip_hr_result_1">全部可能出现的干员</string>
     <string name="tip_hr_result_2">全部可能出现的干员\n黄票+1</string>
-    <string name="tip_hr_result_3">全部可能出现的干员\n黄票+5</string>
+    <string name="tip_hr_result_3">全部可能出现的干员\n有点羡慕</string>
     <string name="tip_hr_result_4">选择“高级资深干员”招募9小时必得6★干员\n柠檬树上柠檬果，柠檬树下只有我</string>
     <string name="action_timer">作战限时</string>
     <string name="tip_timer_time">已限时%d分钟</string>
