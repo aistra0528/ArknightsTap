@@ -26,9 +26,8 @@ public class HRViewer {
     private TextView tip;
     private ViewGroup root, resultContainer;
     private CharacterInfo[] infos;
-    private ArrayList<CheckBox> stars, qualifications, positions, sexes, types, tags, checkedStars, checkedQualifications, checkedPositions, checkedSexes, checkedTypes, checkedTags;
+    private ArrayList<CheckBox> stars, qualifications, sexes, types, checkedStars, checkedTags;
     private ArrayList<CharacterInfo> checkedInfos;
-    private ArrayList<ArrayList<CheckBox>> matchTagLists;
 
     public HRViewer(Context context, ViewGroup root) throws IOException, JSONException {
         this.context = context;
@@ -37,30 +36,18 @@ public class HRViewer {
         resultContainer = root.findViewById(R.id.container_hr_result);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
-        positions = findBoxesById(R.id.tag_position_1);
         sexes = findBoxesById(R.id.tag_sex_1);
         types = findBoxesById(R.id.tag_type_1);
-        tags = findBoxesById(R.id.tag_tags_1);
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
-        setOnCheckedChangeListener(positions);
+        setOnCheckedChangeListener(findBoxesById(R.id.tag_position_1));
         setOnCheckedChangeListener(sexes);
         setOnCheckedChangeListener(types);
-        setOnCheckedChangeListener(tags);
+        setOnCheckedChangeListener(findBoxesById(R.id.tag_tags_1));
         infos = CharacterInfo.fromAssets(context);
         checkedStars = new ArrayList<>();
-        checkedQualifications = new ArrayList<>();
-        checkedPositions = new ArrayList<>();
-        checkedSexes = new ArrayList<>();
-        checkedTypes = new ArrayList<>();
         checkedTags = new ArrayList<>();
         checkedInfos = new ArrayList<>();
-        matchTagLists = new ArrayList<>();
-        matchTagLists.add(checkedQualifications);
-        matchTagLists.add(checkedPositions);
-        matchTagLists.add(checkedSexes);
-        matchTagLists.add(checkedTypes);
-        matchTagLists.add(checkedTags);
         setCheckedStars();
     }
 
@@ -92,7 +79,7 @@ public class HRViewer {
                         findBoxById(R.id.tag_qualification_3).setChecked(isChecked);
                     updateCheckedInfos((CheckBox) tag, isChecked);
                 }
-            } else if (isChecked && getCheckedTagsSize() >= TAG_MAX) {
+            } else if (isChecked && checkedTags.size() >= TAG_MAX) {
                 tag.setChecked(false);
             } else {
                 if (qualifications.contains(tag)) {
@@ -113,37 +100,11 @@ public class HRViewer {
             stars.get(i).setChecked(Arrays.binarySearch(CHECKED_STARS_ID, stars.get(i).getId()) >= 0);
     }
 
-    private int getCheckedTagsSize() {
-        return checkedQualifications.size() + checkedPositions.size() + checkedSexes.size() + checkedTypes.size() + checkedTags.size();
-    }
-
     private void updateCheckedTags(CheckBox tag, boolean isChecked) {
-        if (qualifications.contains(tag)) {
-            if (isChecked)
-                checkedQualifications.add(tag);
-            else
-                checkedQualifications.remove(tag);
-        } else if (positions.contains(tag)) {
-            if (isChecked)
-                checkedPositions.add(tag);
-            else
-                checkedPositions.remove(tag);
-        } else if (sexes.contains(tag)) {
-            if (isChecked)
-                checkedSexes.add(tag);
-            else
-                checkedSexes.remove(tag);
-        } else if (types.contains(tag)) {
-            if (isChecked)
-                checkedTypes.add(tag);
-            else
-                checkedTypes.remove(tag);
-        } else if (tags.contains(tag)) {
-            if (isChecked)
-                checkedTags.add(tag);
-            else
-                checkedTags.remove(tag);
-        }
+        if (isChecked)
+            checkedTags.add(tag);
+        else
+            checkedTags.remove(tag);
         updateHRResult();
     }
 
@@ -166,7 +127,7 @@ public class HRViewer {
 
     private void updateHRResult() {
         resultContainer.removeAllViews();
-        if (getCheckedTagsSize() == 0) {
+        if (checkedTags.size() == 0) {
             HorizontalScrollView scroll = new HorizontalScrollView(context);
             LinearLayout layout = new LinearLayout(context);
             for (CharacterInfo info : checkedInfos) {
@@ -184,20 +145,16 @@ public class HRViewer {
         ArrayList<CharacterInfo> matchedInfos = new ArrayList<>();
         for (CharacterInfo info : checkedInfos) {
             boolean matched = true;
-            for (ArrayList<CheckBox> list : matchTagLists) {
-                if (matched && list.size() > 0) {
-                    if (list == checkedQualifications) {
-                        for (CheckBox tag : list)
-                            matched &= (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 5) || (tag.getId() == R.id.tag_qualification_3 && info.getStar() == 6);
-                    } else if (list == checkedSexes) {
-                        for (CheckBox tag : list)
-                            matched &= tag.getText().toString().equals(info.getSex());
-                    } else if (list == checkedTypes) {
-                        for (CheckBox tag : list)
-                            matched &= tag.getText().toString().equals(info.getType());
+            for (CheckBox tag : checkedTags) {
+                if (matched) {
+                    if (qualifications.contains(tag)) {
+                        matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 5) || (tag.getId() == R.id.tag_qualification_3 && info.getStar() == 6);
+                    } else if (sexes.contains(tag)) {
+                        matched = tag.getText().toString().equals(info.getSex());
+                    } else if (types.contains(tag)) {
+                        matched = tag.getText().toString().equals(info.getType());
                     } else {
-                        for (CheckBox tag : list)
-                            matched &= info.includeTag(tag.getText().toString());
+                        matched = info.includeTag(tag.getText().toString());
                     }
                 }
             }
