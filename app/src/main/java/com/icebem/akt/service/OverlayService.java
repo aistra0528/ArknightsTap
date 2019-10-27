@@ -48,7 +48,7 @@ public class OverlayService extends Service {
                 stopSelf();
             }
         }).show();
-        Toast.makeText(this, R.string.info_overlay_connected, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.info_overlay_connected, Toast.LENGTH_SHORT).show();
     }
 
     @Override

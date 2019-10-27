@@ -158,9 +158,9 @@ public class HRViewer {
                     checkedInfos.add(info);
                 else
                     checkedInfos.remove(info);
-                Collections.sort(checkedInfos);
             }
         }
+        Collections.sort(checkedInfos);
         updateHRResult();
     }
 
