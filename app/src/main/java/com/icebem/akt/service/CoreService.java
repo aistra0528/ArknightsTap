@@ -43,7 +43,7 @@ public class CoreService extends AccessibilityService {
             }
             timerTimeout = true;
         }, "timer").start();
-        Toast.makeText(this, String.format(getString(R.string.info_service_enabled), manager.getTimerTime()), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, String.format(getString(R.string.info_service_enabled), manager.getTimerTime()), Toast.LENGTH_SHORT).show();
         super.onServiceConnected();
     }
 
@@ -63,7 +63,7 @@ public class CoreService extends AccessibilityService {
     public boolean onUnbind(Intent intent) {
         if (timerTimeout)
             performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME);
-        Toast.makeText(this, manager.pointsAdapted() ? R.string.info_service_disabled : R.string.info_service_update, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, manager.pointsAdapted() ? R.string.info_service_disabled : R.string.info_service_update, Toast.LENGTH_SHORT).show();
         return super.onUnbind(intent);
     }
 

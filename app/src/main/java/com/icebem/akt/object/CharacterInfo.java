@@ -49,6 +49,14 @@ public class CharacterInfo implements Comparable<CharacterInfo> {
         return info.star - star;
     }
 
+    public boolean includeTag(String tag) {
+        for (String t : tags) {
+            if (t.equals(tag))
+                return true;
+        }
+        return false;
+    }
+
     public int getStar() {
         return star;
     }

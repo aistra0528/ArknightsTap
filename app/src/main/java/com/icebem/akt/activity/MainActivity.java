@@ -110,7 +110,7 @@ public class MainActivity extends Activity {
                     ((CoreApplication) getApplication()).getCoreService().disableSelf();
                     updateViews();
                 } else {
-                    Toast.makeText(this, R.string.info_service_request, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.info_service_request, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
                 }
                 break;

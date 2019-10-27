@@ -62,6 +62,6 @@ public class OverlayService extends Service {
         for (OverlayView view : views) {
             view.remove();
         }
-        Toast.makeText(this, R.string.info_overlay_disconnected, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.info_overlay_disconnected, Toast.LENGTH_SHORT).show();
     }
 }

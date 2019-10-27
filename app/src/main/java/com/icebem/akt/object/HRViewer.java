@@ -20,7 +20,7 @@ import java.util.Collections;
 
 public class HRViewer {
     private static final int TAG_MIN = 1;
-    private static final int TAG_MAX = 5;
+    private static final int TAG_MAX = 3;
     private static final int[] CHECKED_STARS_ID = {R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5};
     private Context context;
     private TextView tip;
@@ -185,25 +185,19 @@ public class HRViewer {
         for (CharacterInfo info : checkedInfos) {
             boolean matched = true;
             for (ArrayList<CheckBox> list : matchTagLists) {
-                if (list.size() > 0) {
+                if (matched && list.size() > 0) {
                     if (list == checkedQualifications) {
                         for (CheckBox tag : list)
                             matched &= (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 5) || (tag.getId() == R.id.tag_qualification_3 && info.getStar() == 6);
-                    } else if (list == checkedPositions) {
-                        for (CheckBox tag : list)
-                            matched &= tag.getText().toString().equals(info.getTags()[0]);
                     } else if (list == checkedSexes) {
                         for (CheckBox tag : list)
                             matched &= tag.getText().toString().equals(info.getSex());
                     } else if (list == checkedTypes) {
                         for (CheckBox tag : list)
                             matched &= tag.getText().toString().equals(info.getType());
-                    } else if (list == checkedTags) {
-                        ArrayList<String> t = new ArrayList<>();
-                        for (int i = 1; i < info.getTags().length; i++)
-                            t.add(info.getTags()[i]);
+                    } else {
                         for (CheckBox tag : list)
-                            matched &= t.contains(tag.getText().toString());
+                            matched &= info.includeTag(tag.getText().toString());
                     }
                 }
             }
