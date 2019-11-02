@@ -21,12 +21,14 @@ import java.util.Collections;
 public class HRViewer {
     private static final int TAG_STAR_MIN = 1;
     private static final int TAG_CHECKED_MAX = 5;
+    private static final int TAG_COMBINED_MAX = 3;
     private static final int[] CHECKED_STARS_ID = {R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5};
+    private int minStar;
     private Context context;
     private TextView tip;
     private ViewGroup root, resultContainer;
     private CharacterInfo[] infos;
-    private ArrayList<CheckBox> stars, qualifications, sexes, types, checkedStars, checkedTags;
+    private ArrayList<CheckBox> stars, qualifications, sexes, types, checkedStars, checkedTags, combinedTags;
     private ArrayList<CharacterInfo> checkedInfos;
 
     public HRViewer(Context context, ViewGroup root) throws IOException, JSONException {
@@ -38,6 +40,7 @@ public class HRViewer {
         qualifications = findBoxesById(R.id.tag_qualification_1);
         sexes = findBoxesById(R.id.tag_sex_1);
         types = findBoxesById(R.id.tag_type_1);
+        root.findViewById(R.id.action_hr_reset).setOnClickListener(view -> resetTags());
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
         setOnCheckedChangeListener(findBoxesById(R.id.tag_position_1));
@@ -48,7 +51,8 @@ public class HRViewer {
         checkedStars = new ArrayList<>();
         checkedTags = new ArrayList<>();
         checkedInfos = new ArrayList<>();
-        setCheckedStars();
+        combinedTags = new ArrayList<>();
+        resetTags();
     }
 
     private CheckBox findBoxById(int id) {
@@ -95,9 +99,16 @@ public class HRViewer {
         }
     }
 
-    private void setCheckedStars() {
-        for (int i = 0; i < stars.size(); i++)
-            stars.get(i).setChecked(Arrays.binarySearch(CHECKED_STARS_ID, stars.get(i).getId()) >= 0);
+    private void resetTags() {
+        for (CheckBox box : stars)
+            box.setChecked(Arrays.binarySearch(CHECKED_STARS_ID, box.getId()) >= 0);
+        if (checkedTags.size() > 0) {
+            CheckBox[] boxes = new CheckBox[checkedTags.size()];
+            for (int i = 0; i < checkedTags.size(); i++)
+                boxes[i] = checkedTags.get(i);
+            for (CheckBox box : boxes)
+                box.setChecked(false);
+        }
     }
 
     private void updateCheckedTags(CheckBox tag, boolean isChecked) {
@@ -130,22 +141,53 @@ public class HRViewer {
         if (checkedTags.size() == 0) {
             HorizontalScrollView scroll = (HorizontalScrollView) LayoutInflater.from(context).inflate(R.layout.scroll_overlay, resultContainer, false);
             LinearLayout layout = new LinearLayout(context);
-            for (CharacterInfo info : checkedInfos) {
+            for (CharacterInfo info : checkedInfos)
                 layout.addView(getInfoView(info, layout));
-            }
             scroll.addView(layout);
             resultContainer.addView(scroll);
-            tip.setText(R.string.tip_hr_result_1);
+            tip.setText(R.string.tip_hr_result_normal);
         } else {
-            updateMatchedResult();
+            minStar = 0;
+            for (int i = Math.min(checkedTags.size(), TAG_COMBINED_MAX); i > 0; i--)
+                combineTags(combinedTags.size(), i, 0);
+            switch (minStar) {
+                case 6:
+                    tip.setText(R.string.tip_hr_result_excellent);
+                    break;
+                case 5:
+                    tip.setText(R.string.tip_hr_result_great);
+                    break;
+                case 4:
+                    tip.setText(R.string.tip_hr_result_good);
+                    break;
+                case 0:
+                    tip.setText(R.string.tip_hr_result_none);
+                    break;
+                default:
+                    tip.setText(R.string.tip_hr_result_normal);
+            }
         }
     }
 
-    private void updateMatchedResult() {
+    private void combineTags(int size, int targetSize, int position) {
+        if (size == targetSize) {
+            matchInfos();
+        } else {
+            for (int p = position; p < checkedTags.size(); p++) {
+                if (!combinedTags.contains(checkedTags.get(p))) {
+                    combinedTags.add(checkedTags.get(p));
+                    combineTags(combinedTags.size(), targetSize, p);
+                    combinedTags.remove(checkedTags.get(p));
+                }
+            }
+        }
+    }
+
+    private void matchInfos() {
         ArrayList<CharacterInfo> matchedInfos = new ArrayList<>();
         for (CharacterInfo info : checkedInfos) {
             boolean matched = true;
-            for (CheckBox tag : checkedTags) {
+            for (CheckBox tag : combinedTags) {
                 if (matched) {
                     if (qualifications.contains(tag)) {
                         matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 5) || (tag.getId() == R.id.tag_qualification_3 && info.getStar() == 6);
@@ -156,34 +198,42 @@ public class HRViewer {
                     } else {
                         matched = info.includeTag(tag.getText().toString());
                     }
-                }
+                } else break;
             }
             if (matched) matchedInfos.add(info);
         }
-        HorizontalScrollView scroll = new HorizontalScrollView(context);
-        LinearLayout layout = new LinearLayout(context);
-        for (CharacterInfo info : matchedInfos) {
-            layout.addView(getInfoView(info, layout));
-        }
-        scroll.addView(layout);
+        if (matchedInfos.size() > 0) addResult(matchedInfos);
+    }
+
+    private void addResult(ArrayList<CharacterInfo> infos) {
+        LinearLayout tagContainer = new LinearLayout(context);
+        for (CheckBox box : combinedTags)
+            tagContainer.addView(getTagView(box, tagContainer));
+        HorizontalScrollView scroll = (HorizontalScrollView) LayoutInflater.from(context).inflate(R.layout.scroll_overlay, resultContainer, false);
+        LinearLayout infoContainer = new LinearLayout(context);
+        for (CharacterInfo info : infos)
+            infoContainer.addView(getInfoView(info, infoContainer));
+        scroll.addView(infoContainer);
+        resultContainer.addView(tagContainer);
         resultContainer.addView(scroll);
-        if (matchedInfos.size() > 0) {
-            switch (matchedInfos.get(matchedInfos.size() - 1).getStar()) {
-                case 6:
-                    tip.setText(R.string.tip_hr_result_4);
-                    break;
-                case 5:
-                    tip.setText(R.string.tip_hr_result_3);
-                    break;
-                case 4:
-                    tip.setText(R.string.tip_hr_result_2);
-                    break;
-                default:
-                    tip.setText(R.string.tip_hr_result_1);
-            }
-        } else {
-            tip.setText(R.string.tip_hr_result_0);
+        minStar = Math.max(minStar, infos.get(infos.size() - 1).getStar());
+    }
+
+    private TextView getTagView(CheckBox box, ViewGroup container) {
+        TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false);
+        view.setText(box.getText());
+        switch (box.getId()) {
+            case R.id.tag_qualification_1:
+                view.setBackgroundResource(R.drawable.bg_tag_star_2);
+                break;
+            case R.id.tag_qualification_2:
+                view.setBackgroundResource(R.drawable.bg_tag_star_5);
+                break;
+            case R.id.tag_qualification_3:
+                view.setBackgroundResource(R.drawable.bg_tag_star_6);
+                break;
         }
+        return view;
     }
 
     private TextView getInfoView(CharacterInfo info, ViewGroup container) {
