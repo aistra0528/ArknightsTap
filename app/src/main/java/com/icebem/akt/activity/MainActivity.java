@@ -100,8 +100,8 @@ public class MainActivity extends Activity {
                 timer_position = manager.getTimerPosition();
                 builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.action_timer);
-                builder.setSingleChoiceItems(manager.getTimerStrings(this), timer_position, this::onClick);
-                builder.setPositiveButton(android.R.string.ok, this::onClick);
+                builder.setSingleChoiceItems(manager.getTimerStrings(this), timer_position, this::onCheck);
+                builder.setPositiveButton(android.R.string.ok, this::onCheck);
                 builder.setNegativeButton(android.R.string.cancel, null);
                 builder.create().show();
                 break;
@@ -117,18 +117,22 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void onClick(DialogInterface dialog, int which) {
+    private void onCheck(DialogInterface dialog, int which) {
+        if (which == AlertDialog.BUTTON_POSITIVE) {
+            manager.setTimerTime(timer_position);
+            if (!isCoreServiceEnabled())
+                txt_tips.setText(String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
+        } else timer_position = which;
+    }
+
+    private void onClick(DialogInterface dialog, int which) {
         switch (which) {
             case AlertDialog.BUTTON_POSITIVE:
-                manager.setTimerTime(timer_position);
-                if (!isCoreServiceEnabled())
-                    txt_tips.setText(String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
-                break;
-            case DialogInterface.BUTTON_NEUTRAL:
                 startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://www.lanzous.com/b943175")));
                 break;
-            default:
-                timer_position = which;
+            case AlertDialog.BUTTON_NEUTRAL:
+                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/IcebemAst/ArknightsTap")));
+                break;
         }
     }
 
@@ -162,8 +166,9 @@ public class MainActivity extends Activity {
             case R.id.action_about:
                 builder.setTitle(getString(R.string.app_name) + BuildConfig.VERSION_NAME);
                 builder.setMessage(R.string.msg_about);
-                builder.setPositiveButton(R.string.got_it, null);
-                builder.setNeutralButton(R.string.action_update, this::onClick);
+                builder.setPositiveButton(R.string.action_update, this::onClick);
+                builder.setNegativeButton(R.string.got_it, null);
+                builder.setNeutralButton(R.string.action_project, this::onClick);
                 break;
         }
         builder.create().show();

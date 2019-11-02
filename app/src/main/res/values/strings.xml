@@ -52,7 +52,7 @@
     <string name="tip_hr_result_normal">全部可能出现的干员</string>
     <string name="tip_hr_result_good">保底4★，黄票+1</string>
     <string name="tip_hr_result_great">保底5★，有点羡慕</string>
-    <string name="tip_hr_result_excellent">选择“高级资深干员”招募9小时必得6★干员\n柠檬树上柠檬果，柠檬树下只有我</string>
+    <string name="tip_hr_result_excellent">选择“高级资深干员”招募9小时必得6★干员！招募9小时必得6★干员！！必得6★干员！！！柠檬树上柠檬果，柠檬树下只有我～</string>
     <string name="action_timer">作战限时</string>
     <string name="tip_timer_time">已限时%d分钟</string>
     <string name="info_timer_min">%d分钟</string>
@@ -72,6 +72,7 @@
     <string name="info_donate_thanks">感谢你的信任，博士</string>
     <string name="action_about">关于</string>
     <string name="action_update">获取更新</string>
+    <string name="action_project">项目主页</string>
     <string name="msg_about">用♥制作\n酷安 @icebem\nGitHub @IcebemAst</string>
     <string name="got_it">知道了</string>
     <string name="go_to_settings">去设置</string>

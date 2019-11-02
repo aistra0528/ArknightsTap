@@ -1,6 +1,7 @@
 package com.icebem.akt.object;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -153,6 +154,12 @@ public class HRViewer {
             switch (minStar) {
                 case 6:
                     tip.setText(R.string.tip_hr_result_excellent);
+                    tip.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                    tip.setMarqueeRepeatLimit(-1);
+                    tip.setSingleLine(true);
+                    tip.setSelected(true);
+                    tip.setFocusable(true);
+                    tip.setFocusableInTouchMode(true);
                     break;
                 case 5:
                     tip.setText(R.string.tip_hr_result_great);
