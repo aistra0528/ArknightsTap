@@ -19,8 +19,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class HRViewer {
-    private static final int TAG_MIN = 1;
-    private static final int TAG_MAX = 3;
+    private static final int TAG_STAR_MIN = 1;
+    private static final int TAG_CHECKED_MAX = 5;
     private static final int[] CHECKED_STARS_ID = {R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5};
     private Context context;
     private TextView tip;
@@ -72,14 +72,14 @@ public class HRViewer {
     private void onCheckedChange(CompoundButton tag, boolean isChecked) {
         if (tag instanceof CheckBox) {
             if (stars.contains(tag)) {
-                if (!isChecked && checkedStars.size() == TAG_MIN) {
+                if (!isChecked && checkedStars.size() == TAG_STAR_MIN) {
                     tag.setChecked(true);
                 } else {
                     if (tag.getId() == R.id.tag_star_6 && findBoxById(R.id.tag_qualification_3).isChecked() != isChecked)
                         findBoxById(R.id.tag_qualification_3).setChecked(isChecked);
                     updateCheckedInfos((CheckBox) tag, isChecked);
                 }
-            } else if (isChecked && checkedTags.size() >= TAG_MAX) {
+            } else if (isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
                 tag.setChecked(false);
             } else {
                 if (qualifications.contains(tag)) {
@@ -128,7 +128,7 @@ public class HRViewer {
     private void updateHRResult() {
         resultContainer.removeAllViews();
         if (checkedTags.size() == 0) {
-            HorizontalScrollView scroll = new HorizontalScrollView(context);
+            HorizontalScrollView scroll = (HorizontalScrollView) LayoutInflater.from(context).inflate(R.layout.scroll_overlay, resultContainer, false);
             LinearLayout layout = new LinearLayout(context);
             for (CharacterInfo info : checkedInfos) {
                 layout.addView(getInfoView(info, layout));

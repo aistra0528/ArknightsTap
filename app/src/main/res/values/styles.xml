@@ -13,10 +13,12 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="@android:style/ThemeOverlay.Material.Dark.ActionBar">
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:colorControlNormal">@android:color/white</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="@android:style/ThemeOverlay.Material.Light" />
+    <style name="AppTheme.LightOverlay" parent="@android:style/ThemeOverlay.Material.Light" />
+
+    <style name="AppTheme.DarkOverlay" parent="@android:style/ThemeOverlay.Material.Dark" />
 
     <style name="AppTheme.Button.Colored" parent="@android:style/Widget.Material.Button.Colored" />
 

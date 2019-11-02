@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">方舟戳戳乐</string>
     <string name="accessibility_label">一直戳™</string>
-    <string name="accessibility_description">开启“一直戳™”后，可在选择的关卡持续进行代理作战，解放你的双手，不用一直盯着手机。\n\n使用前请先选择好要代理的关卡，并使用代理指挥作战。\n\n“一直戳™”所需权限仅用于模拟博士操作，方舟戳戳乐不会通过本服务搜集隐私数据。\n\n使用本服务可能会导致账号异常，请以游戏开发商的判断依据为准，开发者不承担相关责任。\n\n如有问题与建议可在“关于”中向开发者反馈。</string>
+    <string name="accessibility_description">开启“一直戳™”后，可在选择的关卡持续进行代理作战，解放你的双手，不用一直盯着手机。\n\n使用前请先选择好要代理的关卡，并使用代理指挥作战。如果是异形屏，还需在游戏设置中将“异形屏UI适配”调为0。\n\n“一直戳™”所需权限仅用于模拟博士操作，方舟戳戳乐不会通过本服务搜集隐私数据。\n\n使用本服务可能会导致账号异常，请以游戏开发商的判断依据为准，开发者不承担相关责任。\n\n如有问题与建议可在“关于”中向开发者反馈。</string>
     <string name="overlay_label">帮帮忙™</string>
     <string name="title_resolution_unsupported">设备未适配</string>
     <string name="msg_resolution_unsupported">当前版本暂未适配%d×%d分辨率，请获取更新或向开发者反馈</string>

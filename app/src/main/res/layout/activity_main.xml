@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="?android:attr/colorPrimary"
-        android:popupTheme="@style/AppTheme.PopupOverlay"
+        android:popupTheme="@style/AppTheme.LightOverlay"
         android:theme="@style/AppTheme.AppBarOverlay" />
 
     <include layout="@layout/content_main" />
