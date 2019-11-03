@@ -30,17 +30,15 @@ public class CharacterInfo implements Comparable<CharacterInfo> {
         type = obj.getString(KEY_TYPE);
         sex = obj.getString(KEY_SEX);
         tags = new String[obj.getJSONArray(KEY_TAGS).length()];
-        for (int i = 0; i < tags.length; i++) {
+        for (int i = 0; i < tags.length; i++)
             tags[i] = obj.getJSONArray(KEY_TAGS).getString(i);
-        }
     }
 
     public static CharacterInfo[] fromAssets(Context context) throws IOException, JSONException {
         JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, ASSETS_PATH)));
         CharacterInfo[] infos = new CharacterInfo[array.length()];
-        for (int i = 0; i < infos.length; i++) {
+        for (int i = 0; i < infos.length; i++)
             infos[i] = new CharacterInfo(array.getJSONObject(i));
-        }
         return infos;
     }
 
@@ -49,11 +47,9 @@ public class CharacterInfo implements Comparable<CharacterInfo> {
         return info.star - star;
     }
 
-    public boolean includeTag(String tag) {
-        for (String t : tags) {
-            if (t.equals(tag))
-                return true;
-        }
+    public boolean containsTag(String tag) {
+        for (String t : tags)
+            if (t.equals(tag)) return true;
         return false;
     }
 

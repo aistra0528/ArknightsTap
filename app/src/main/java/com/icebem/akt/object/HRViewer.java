@@ -3,6 +3,7 @@ package com.icebem.akt.object;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -41,6 +42,8 @@ public class HRViewer {
         qualifications = findBoxesById(R.id.tag_qualification_1);
         sexes = findBoxesById(R.id.tag_sex_1);
         types = findBoxesById(R.id.tag_type_1);
+        LinearLayout tagsContainer = root.findViewById(R.id.container_hr_tags);
+        tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
         root.findViewById(R.id.action_hr_reset).setOnClickListener(view -> resetTags());
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
@@ -61,12 +64,12 @@ public class HRViewer {
     }
 
     private ArrayList<CheckBox> findBoxesById(int id) {
-        ArrayList<CheckBox> list = new ArrayList<>();
+        ArrayList<CheckBox> boxes = new ArrayList<>();
         ViewGroup group = (ViewGroup) root.findViewById(id).getParent();
         for (int i = 0; i < group.getChildCount(); i++)
             if (group.getChildAt(i) instanceof CheckBox)
-                list.add((CheckBox) group.getChildAt(i));
-        return list;
+                boxes.add((CheckBox) group.getChildAt(i));
+        return boxes;
     }
 
     private void setOnCheckedChangeListener(ArrayList<CheckBox> boxes) {
@@ -77,23 +80,24 @@ public class HRViewer {
     private void onCheckedChange(CompoundButton tag, boolean isChecked) {
         if (tag instanceof CheckBox) {
             if (stars.contains(tag)) {
-                if (!isChecked && checkedStars.size() == TAG_STAR_MIN) {
-                    tag.setChecked(true);
+                if (!isChecked) {
+                    if (checkedStars.size() == TAG_STAR_MIN)
+                        tag.setChecked(true);
+                    else if (tag.getId() == R.id.tag_star_6 && findBoxById(R.id.tag_qualification_3).isChecked())
+                        findBoxById(R.id.tag_qualification_3).setChecked(false);
                 } else {
-                    if (tag.getId() == R.id.tag_star_6 && findBoxById(R.id.tag_qualification_3).isChecked() != isChecked)
-                        findBoxById(R.id.tag_qualification_3).setChecked(isChecked);
-                    updateCheckedInfos((CheckBox) tag, isChecked);
+                    updateCheckedTags((CheckBox) tag, isChecked);
                 }
             } else if (isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
                 tag.setChecked(false);
             } else {
-                if (qualifications.contains(tag)) {
-                    if (tag.getId() == R.id.tag_qualification_1 && isChecked && !findBoxById(R.id.tag_star_2).isChecked())
+                if (qualifications.contains(tag) && isChecked) {
+                    if (tag.getId() == R.id.tag_qualification_1 && !findBoxById(R.id.tag_star_2).isChecked())
                         findBoxById(R.id.tag_star_2).setChecked(true);
-                    else if (tag.getId() == R.id.tag_qualification_2 && isChecked && !findBoxById(R.id.tag_star_5).isChecked())
+                    else if (tag.getId() == R.id.tag_qualification_2 && !findBoxById(R.id.tag_star_5).isChecked())
                         findBoxById(R.id.tag_star_5).setChecked(true);
-                    else if (tag.getId() == R.id.tag_qualification_3 && findBoxById(R.id.tag_star_6).isChecked() != isChecked)
-                        findBoxById(R.id.tag_star_6).setChecked(isChecked);
+                    else if (tag.getId() == R.id.tag_qualification_3 && !findBoxById(R.id.tag_star_6).isChecked())
+                        findBoxById(R.id.tag_star_6).setChecked(true);
                 }
                 updateCheckedTags((CheckBox) tag, isChecked);
             }
@@ -105,7 +109,7 @@ public class HRViewer {
             box.setChecked(Arrays.binarySearch(CHECKED_STARS_ID, box.getId()) >= 0);
         if (checkedTags.size() > 0) {
             CheckBox[] boxes = new CheckBox[checkedTags.size()];
-            for (int i = 0; i < checkedTags.size(); i++)
+            for (int i = 0; i < boxes.length; i++)
                 boxes[i] = checkedTags.get(i);
             for (CheckBox box : boxes)
                 box.setChecked(false);
@@ -113,27 +117,26 @@ public class HRViewer {
     }
 
     private void updateCheckedTags(CheckBox tag, boolean isChecked) {
-        if (isChecked)
-            checkedTags.add(tag);
-        else
-            checkedTags.remove(tag);
-        updateHRResult();
-    }
-
-    private void updateCheckedInfos(CheckBox star, boolean isChecked) {
-        if (isChecked)
-            checkedStars.add(star);
-        else
-            checkedStars.remove(star);
-        for (CharacterInfo info : infos) {
-            if (star.getText().toString().contains(String.valueOf(info.getStar()))) {
-                if (isChecked)
-                    checkedInfos.add(info);
-                else
-                    checkedInfos.remove(info);
+        if (stars.contains(tag)) {
+            if (isChecked)
+                checkedStars.add(tag);
+            else
+                checkedStars.remove(tag);
+            for (CharacterInfo info : infos) {
+                if (tag.getText().toString().contains(String.valueOf(info.getStar()))) {
+                    if (isChecked)
+                        checkedInfos.add(info);
+                    else
+                        checkedInfos.remove(info);
+                }
             }
+            Collections.sort(checkedInfos);
+        } else {
+            if (isChecked)
+                checkedTags.add(tag);
+            else
+                checkedTags.remove(tag);
         }
-        Collections.sort(checkedInfos);
         updateHRResult();
     }
 
@@ -150,7 +153,7 @@ public class HRViewer {
         } else {
             minStar = 0;
             for (int i = Math.min(checkedTags.size(), TAG_COMBINED_MAX); i > 0; i--)
-                combineTags(combinedTags.size(), i, 0);
+                combineTags(0, combinedTags.size(), i);
             switch (minStar) {
                 case 6:
                     tip.setText(R.string.tip_hr_result_excellent);
@@ -176,15 +179,15 @@ public class HRViewer {
         }
     }
 
-    private void combineTags(int size, int targetSize, int position) {
+    private void combineTags(int index, int size, int targetSize) {
         if (size == targetSize) {
             matchInfos();
         } else {
-            for (int p = position; p < checkedTags.size(); p++) {
-                if (!combinedTags.contains(checkedTags.get(p))) {
-                    combinedTags.add(checkedTags.get(p));
-                    combineTags(combinedTags.size(), targetSize, p);
-                    combinedTags.remove(checkedTags.get(p));
+            for (int i = index; i < checkedTags.size(); i++) {
+                if (!combinedTags.contains(checkedTags.get(i))) {
+                    combinedTags.add(checkedTags.get(i));
+                    combineTags(i, combinedTags.size(), targetSize);
+                    combinedTags.remove(checkedTags.get(i));
                 }
             }
         }
@@ -193,7 +196,7 @@ public class HRViewer {
     private void matchInfos() {
         ArrayList<CharacterInfo> matchedInfos = new ArrayList<>();
         for (CharacterInfo info : checkedInfos) {
-            boolean matched = true;
+            boolean matched = info.getStar() != 6 || findBoxById(R.id.tag_qualification_3).isChecked();
             for (CheckBox tag : combinedTags) {
                 if (matched) {
                     if (qualifications.contains(tag)) {
@@ -203,7 +206,7 @@ public class HRViewer {
                     } else if (types.contains(tag)) {
                         matched = tag.getText().toString().equals(info.getType());
                     } else {
-                        matched = info.includeTag(tag.getText().toString());
+                        matched = info.containsTag(tag.getText().toString());
                     }
                 } else break;
             }
