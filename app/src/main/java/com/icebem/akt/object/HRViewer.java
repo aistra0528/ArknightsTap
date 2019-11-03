@@ -80,12 +80,11 @@ public class HRViewer {
     private void onCheckedChange(CompoundButton tag, boolean isChecked) {
         if (tag instanceof CheckBox) {
             if (stars.contains(tag)) {
-                if (!isChecked) {
-                    if (checkedStars.size() == TAG_STAR_MIN)
-                        tag.setChecked(true);
-                    else if (tag.getId() == R.id.tag_star_6 && findBoxById(R.id.tag_qualification_3).isChecked())
-                        findBoxById(R.id.tag_qualification_3).setChecked(false);
+                if (!isChecked && checkedStars.size() == TAG_STAR_MIN) {
+                    tag.setChecked(true);
                 } else {
+                    if (tag.getId() == R.id.tag_star_6 && !isChecked && findBoxById(R.id.tag_qualification_3).isChecked())
+                        findBoxById(R.id.tag_qualification_3).setChecked(false);
                     updateCheckedTags((CheckBox) tag, isChecked);
                 }
             } else if (isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
