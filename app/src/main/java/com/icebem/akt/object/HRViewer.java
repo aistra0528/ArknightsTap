@@ -106,13 +106,8 @@ public class HRViewer {
     private void resetTags() {
         for (CheckBox box : stars)
             box.setChecked(Arrays.binarySearch(CHECKED_STARS_ID, box.getId()) >= 0);
-        if (checkedTags.size() > 0) {
-            CheckBox[] boxes = new CheckBox[checkedTags.size()];
-            for (int i = 0; i < boxes.length; i++)
-                boxes[i] = checkedTags.get(i);
-            for (CheckBox box : boxes)
-                box.setChecked(false);
-        }
+        while (!checkedTags.isEmpty())
+            checkedTags.get(0).setChecked(false);
     }
 
     private void updateCheckedTags(CheckBox tag, boolean isChecked) {
@@ -141,7 +136,7 @@ public class HRViewer {
 
     private void updateHRResult() {
         resultContainer.removeAllViews();
-        if (checkedTags.size() == 0) {
+        if (checkedTags.isEmpty()) {
             HorizontalScrollView scroll = (HorizontalScrollView) LayoutInflater.from(context).inflate(R.layout.scroll_overlay, resultContainer, false);
             LinearLayout layout = new LinearLayout(context);
             for (CharacterInfo info : checkedInfos)
@@ -211,7 +206,7 @@ public class HRViewer {
             }
             if (matched) matchedInfos.add(info);
         }
-        if (matchedInfos.size() > 0) addResult(matchedInfos);
+        if (!matchedInfos.isEmpty()) addResult(matchedInfos);
     }
 
     private void addResult(ArrayList<CharacterInfo> infos) {

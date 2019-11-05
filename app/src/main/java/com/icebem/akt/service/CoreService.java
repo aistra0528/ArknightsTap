@@ -68,9 +68,10 @@ public class CoreService extends AccessibilityService {
     }
 
     private void performGestures() {
-        Path path = new Path();
-        while (!timerTimeout) {
-            try {
+        try {
+            Thread.sleep(manager.getUpdateTime());
+            Path path = new Path();
+            while (!timerTimeout) {
                 GestureDescription.Builder builder = new GestureDescription.Builder();
                 path.moveTo(RandomUtil.randomP(manager.getA()), RandomUtil.randomP(manager.getB()));
                 builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
@@ -80,10 +81,10 @@ public class CoreService extends AccessibilityService {
                 builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime()), RandomUtil.randomP(GESTURE_DURATION)));
                 dispatchGesture(builder.build(), null, null);
                 Thread.sleep(RandomUtil.randomT(manager.getUpdateTime() * 2));
-            } catch (Exception e) {
-                Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
-                timerTimeout = true;
             }
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
+            timerTimeout = true;
         }
         disableSelf();
     }

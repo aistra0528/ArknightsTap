@@ -128,7 +128,7 @@ public class MainActivity extends Activity {
     private void onClick(DialogInterface dialog, int which) {
         switch (which) {
             case AlertDialog.BUTTON_POSITIVE:
-                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://www.lanzous.com/b943175")));
+                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/IcebemAst/ArknightsTap/releases")));
                 break;
             case AlertDialog.BUTTON_NEUTRAL:
                 startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/IcebemAst/ArknightsTap")));
