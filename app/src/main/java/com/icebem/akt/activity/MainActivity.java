@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,10 +27,8 @@ import com.icebem.akt.util.ResolutionConfig;
 public class MainActivity extends Activity {
     private int timer_position;
     private ImageView img_status;
-    private TextView txt_status, txt_tips;
-    private Button btn_timer, btn_service;
+    private TextView txt_timer;
     private PreferencesManager manager;
-    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,45 +36,39 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         setActionBar(findViewById(R.id.toolbar_main));
         loadViews();
-        loadPreferences();
     }
 
     private void loadViews() {
         img_status = findViewById(R.id.img_service_status);
-        txt_status = findViewById(R.id.txt_service_status);
-        txt_tips = findViewById(R.id.txt_service_tips);
-        btn_timer = findViewById(R.id.btn_timer);
-        btn_service = findViewById(R.id.btn_service);
         findViewById(R.id.btn_overlay).setOnClickListener(this::onClick);
-        btn_timer.setOnClickListener(this::onClick);
-        btn_service.setOnClickListener(this::onClick);
-    }
-
-    private void loadPreferences() {
         manager = new PreferencesManager(this);
-        if (manager.pointsAdapted()) {
-            btn_timer.setEnabled(true);
-            btn_service.setEnabled(true);
-            img_status.setImageDrawable(getDrawable(R.drawable.ic_done));
-            txt_status.setText(R.string.info_service_ready);
-            txt_tips.setText(String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
-        } else {
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.title_resolution_unsupported);
-            builder.setMessage(String.format(getString(R.string.msg_resolution_unsupported), ResolutionConfig.getResolution(this)[0], ResolutionConfig.getResolution(this)[1]));
-            builder.setPositiveButton(R.string.got_it, null);
-            builder.create().show();
+        if (manager.isPro()) {
+            if (manager.dataUpdated()) {
+                ImageButton fab = findViewById(R.id.fab_service);
+                fab.setOnClickListener(this::onClick);
+                fab.setVisibility(View.VISIBLE);
+                txt_timer = findViewById(R.id.txt_timer);
+                txt_timer.setOnClickListener(this::onClick);
+                txt_timer.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : String.format(getString(R.string.info_timer_min), manager.getTimerTime()));
+                txt_timer.setVisibility(View.VISIBLE);
+            } else {
+                img_status.setImageDrawable(getDrawable(R.drawable.ic_update_black_24dp));
+                TextView status = findViewById(R.id.txt_service_status);
+                status.setText(R.string.status_update_request);
+                int[] res = ResolutionConfig.getResolution(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.title_resolution_unsupported);
+                builder.setMessage(String.format(getString(R.string.msg_resolution_unsupported), res[0], res[1]));
+                builder.setPositiveButton(R.string.got_it, null);
+                builder.create().show();
+            }
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateViews();
-    }
-
-    private void updateViews() {
-        if (manager.pointsAdapted())
+        if (img_status.getDrawable() instanceof AnimatedVectorDrawable)
             ((AnimatedVectorDrawable) img_status.getDrawable()).start();
     }
 
@@ -86,29 +78,28 @@ public class MainActivity extends Activity {
                 if (Settings.canDrawOverlays(this)) {
                     startService(new Intent(this, OverlayService.class));
                 } else {
-                    builder = new AlertDialog.Builder(this);
-                    builder.setTitle(R.string.title_permission_overlay);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle(R.string.status_permission_request);
                     builder.setMessage(R.string.msg_permission_overlay);
                     builder.setPositiveButton(R.string.go_to_settings, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()))));
                     builder.setNegativeButton(R.string.no_thanks, null);
                     builder.create().show();
                 }
                 break;
-            case R.id.btn_timer:
+            case R.id.txt_timer:
                 timer_position = manager.getTimerPosition();
-                builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.action_timer);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.title_timer);
                 builder.setSingleChoiceItems(manager.getTimerStrings(this), timer_position, this::onCheck);
                 builder.setPositiveButton(android.R.string.ok, this::onCheck);
                 builder.setNegativeButton(android.R.string.cancel, null);
                 builder.create().show();
                 break;
-            case R.id.btn_service:
-                if (isCoreServiceEnabled()) {
-                    ((CoreApplication) getApplication()).getCoreService().disableSelf();
-                    updateViews();
+            case R.id.fab_service:
+                if (((CoreApplication) getApplication()).isGestureServiceRunning()) {
+                    ((CoreApplication) getApplication()).getGestureService().disableSelf();
                 } else {
-                    Toast.makeText(this, R.string.info_service_request, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
                 }
                 break;
@@ -118,24 +109,19 @@ public class MainActivity extends Activity {
     private void onCheck(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             manager.setTimerTime(timer_position);
-            if (!isCoreServiceEnabled())
-                txt_tips.setText(String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
+            txt_timer.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : String.format(getString(R.string.info_timer_min), manager.getTimerTime()));
         } else timer_position = which;
     }
 
     private void onClick(DialogInterface dialog, int which) {
         switch (which) {
             case AlertDialog.BUTTON_POSITIVE:
-                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/IcebemAst/ArknightsTap/releases")));
+                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/IcebemAst/ArknightsTap/releases/latest")));
                 break;
             case AlertDialog.BUTTON_NEUTRAL:
                 startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/IcebemAst/ArknightsTap")));
                 break;
         }
-    }
-
-    private boolean isCoreServiceEnabled() {
-        return ((CoreApplication) getApplication()).isCoreServiceEnabled();
     }
 
     @Override
@@ -146,23 +132,24 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         switch (item.getItemId()) {
             case R.id.action_donate:
                 builder.setTitle(R.string.action_donate);
                 builder.setMessage(R.string.msg_donate);
-                builder.setPositiveButton(R.string.action_donate_alipay, (dialog, which) -> {
+                builder.setNeutralButton(R.string.action_donate_alipay, (dialog, which) -> {
                     try {
                         startActivity(Intent.parseUri("intent://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx00051lrjyg1ylmp9h359#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end", Intent.URI_INTENT_SCHEME));
+                        Toast.makeText(this, R.string.info_donate_thanks, Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         Log.w(getClass().getSimpleName(), e);
                     }
-                    Toast.makeText(this, R.string.info_donate_thanks, Toast.LENGTH_LONG).show();
                 });
+                builder.setPositiveButton(R.string.no_way, null);
                 builder.setNegativeButton(android.R.string.cancel, null);
                 break;
             case R.id.action_about:
-                builder.setTitle(getString(R.string.app_name) + BuildConfig.VERSION_NAME);
+                builder.setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
                 builder.setMessage(R.string.msg_about);
                 builder.setPositiveButton(R.string.action_update, this::onClick);
                 builder.setNegativeButton(R.string.got_it, null);

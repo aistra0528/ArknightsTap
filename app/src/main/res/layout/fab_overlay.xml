@@ -5,5 +5,5 @@
     android:layout_height="40dp"
     android:background="@drawable/ic_overlay_background"
     android:contentDescription="@null"
-    android:elevation="6dp"
+    android:elevation="@dimen/fab_elevation"
     android:src="@drawable/ic_overlay" />

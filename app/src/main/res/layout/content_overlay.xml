@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:padding="@dimen/view_padding"
-            android:text="@string/title_overlay_hr"
+            android:text="@string/title_hr"
             android:textColor="@android:color/white"
             android:textSize="@dimen/control_text_size" />
 

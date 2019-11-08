@@ -39,16 +39,16 @@ public class OverlayService extends Service {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }
         views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, view -> {
-            if (((CoreApplication) getApplication()).isCoreServiceEnabled()) {
-                ((CoreApplication) getApplication()).getCoreService().disableSelf();
+            if (((CoreApplication) getApplication()).isGestureServiceRunning()) {
+                ((CoreApplication) getApplication()).getGestureService().disableSelf();
             } else if (HREnabled) {
                 views[1].remove();
                 views[0].show();
-            } else {
+            } else
                 stopSelf();
-            }
         }).show();
-        Toast.makeText(this, R.string.info_overlay_connected, Toast.LENGTH_SHORT).show();
+        if (!((CoreApplication) getApplication()).isGestureServiceRunning())
+            Toast.makeText(this, R.string.info_overlay_connected, Toast.LENGTH_SHORT).show();
     }
 
     @Override

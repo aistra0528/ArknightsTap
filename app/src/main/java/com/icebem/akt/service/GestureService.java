@@ -5,6 +5,7 @@ import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
 import android.graphics.Path;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
@@ -15,7 +16,7 @@ import com.icebem.akt.app.CoreApplication;
 import com.icebem.akt.object.PreferencesManager;
 import com.icebem.akt.util.RandomUtil;
 
-public class CoreService extends AccessibilityService {
+public class GestureService extends AccessibilityService {
     private static final int GESTURE_DURATION = 120;
     private int time;
     private boolean timerTimeout;
@@ -24,11 +25,11 @@ public class CoreService extends AccessibilityService {
     @Override
     protected void onServiceConnected() {
         manager = new PreferencesManager(this);
-        if (!manager.pointsAdapted()) {
+        if (!manager.dataUpdated()) {
             disableSelf();
             return;
         }
-        ((CoreApplication) getApplication()).setCoreService(this);
+        ((CoreApplication) getApplication()).setGestureService(this);
         if (packageInstalled("com.hypergryph.arknights") && !packageInstalled("com.hypergryph.arknights.bilibili")) {
             try {
                 startActivity(new Intent().setClassName("com.hypergryph.arknights", "com.u8.sdk.U8UnityContext").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -51,7 +52,9 @@ public class CoreService extends AccessibilityService {
                 timerTimeout = true;
             }, "timer").start();
         }
-        Toast.makeText(this, String.format(getString(R.string.info_service_enabled), manager.getTimerTime()), Toast.LENGTH_SHORT).show();
+        if (Settings.canDrawOverlays(this))
+            startService(new Intent(this, OverlayService.class));
+        Toast.makeText(this, R.string.info_gesture_connected, Toast.LENGTH_SHORT).show();
         super.onServiceConnected();
     }
 
@@ -71,7 +74,7 @@ public class CoreService extends AccessibilityService {
     public boolean onUnbind(Intent intent) {
         if (timerTimeout)
             performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
-        Toast.makeText(this, manager.pointsAdapted() ? R.string.info_service_disabled : R.string.info_service_update, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, manager.dataUpdated() ? R.string.info_gesture_disconnected : R.string.status_update_request, Toast.LENGTH_SHORT).show();
         return super.onUnbind(intent);
     }
 

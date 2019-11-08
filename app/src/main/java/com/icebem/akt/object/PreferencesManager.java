@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
-import com.icebem.akt.service.CoreService;
+import com.icebem.akt.service.GestureService;
 import com.icebem.akt.util.RandomUtil;
 import com.icebem.akt.util.ResolutionConfig;
 
@@ -24,14 +24,19 @@ public class PreferencesManager {
     private static final String KEY_TIMER_TIME = "timer_time";
     private static final String KEY_PRO = "pro";
     private static final String KEY_VERSION = "version";
-    private static final int[] TIMER_CONFIG = {10, 15, 30, 45, 60, 90, 120};
-    private static final int TIMER_POSITION = 0;
+    private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
+    private static final int TIMER_POSITION = 1;
     private static final int UPDATE_TIME = 3500;
     private SharedPreferences preferences;
 
     public PreferencesManager(Context context) {
         preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
-        if (context instanceof Activity && !pointsAdapted()) {
+        if (context instanceof Activity && !dataUpdated()) {
+            if (!isPro() && getVersionCode() > 0 && getVersionCode() < BuildConfig.VERSION_CODE) {
+                setPro();
+                context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, GestureService.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+                Toast.makeText(context, R.string.info_pro, Toast.LENGTH_SHORT).show();
+            }
             int[] res = ResolutionConfig.getResolution((Activity) context);
             for (int[] cfg : ResolutionConfig.RESOLUTION_CONFIG) {
                 if (res[0] == cfg[0] && res[1] == cfg[1]) {
@@ -43,11 +48,6 @@ public class PreferencesManager {
                     preferences.edit().putInt(KEY_H, res[1] / 4 - RandomUtil.RANDOM_P).apply();
                     break;
                 }
-            }
-            if (!isPro() && getVersionCode() > 0 && getVersionCode() < 11) {
-                setPro();
-                context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, CoreService.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-                Toast.makeText(context, R.string.info_pro, Toast.LENGTH_SHORT).show();
             }
             setVersionCode();
         }
@@ -89,11 +89,11 @@ public class PreferencesManager {
         return preferences.getInt(KEY_TIMER_TIME, TIMER_CONFIG[TIMER_POSITION]);
     }
 
-    private void setPro() {
+    public void setPro() {
         preferences.edit().putBoolean(KEY_PRO, true).apply();
     }
 
-    private boolean isPro() {
+    public boolean isPro() {
         return preferences.getBoolean(KEY_PRO, false);
     }
 
@@ -105,14 +105,14 @@ public class PreferencesManager {
         return preferences.getInt(KEY_VERSION, 0);
     }
 
-    public boolean pointsAdapted() {
+    public boolean dataUpdated() {
         return getVersionCode() == BuildConfig.VERSION_CODE && getA() > 0 && getB() > 0 && getX() > 0 && getY() > 0 && getW() > 0 && getH() > 0;
     }
 
     public String[] getTimerStrings(Context context) {
         String[] strings = new String[TIMER_CONFIG.length];
         for (int i = 0; i < TIMER_CONFIG.length; i++)
-            strings[i] = String.format(context.getString(R.string.info_timer_min), TIMER_CONFIG[i]);
+            strings[i] = TIMER_CONFIG[i] == 0 ? context.getString(R.string.info_timer_none) : String.format(context.getString(R.string.info_timer_min), TIMER_CONFIG[i]);
         return strings;
     }
 

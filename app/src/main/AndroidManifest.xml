@@ -27,9 +27,9 @@
         </activity>
 
         <service
-            android:name=".service.CoreService"
+            android:name=".service.GestureService"
             android:enabled="false"
-            android:label="@string/accessibility_label"
+            android:label="@string/gesture_label"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
