@@ -1,3 +1,5 @@
 /build
 /libs
 /release
+/src/androidTest
+/src/test
