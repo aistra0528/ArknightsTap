@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
 import android.graphics.Path;
+import android.os.Build;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
@@ -15,7 +16,8 @@ import com.icebem.akt.object.PreferencesManager;
 import com.icebem.akt.util.RandomUtil;
 
 public class CoreService extends AccessibilityService {
-    private static final int GESTURE_DURATION = 100;
+    private static final int GESTURE_DURATION = 120;
+    private int time;
     private boolean timerTimeout;
     private PreferencesManager manager;
 
@@ -35,14 +37,20 @@ public class CoreService extends AccessibilityService {
             }
         }
         new Thread(this::performGestures, "gesture").start();
-        new Thread(() -> {
-            try {
-                Thread.sleep(manager.getTimerTime() * 60000);
-            } catch (Exception e) {
-                Log.w(getClass().getSimpleName(), e);
-            }
-            timerTimeout = true;
-        }, "timer").start();
+        time = manager.getTimerTime();
+        if (time > 0) {
+            new Thread(() -> {
+                try {
+                    while (time > 0) {
+                        Thread.sleep(60000);
+                        time--;
+                    }
+                } catch (Exception e) {
+                    Log.w(getClass().getSimpleName(), e);
+                }
+                timerTimeout = true;
+            }, "timer").start();
+        }
         Toast.makeText(this, String.format(getString(R.string.info_service_enabled), manager.getTimerTime()), Toast.LENGTH_SHORT).show();
         super.onServiceConnected();
     }
@@ -62,7 +70,7 @@ public class CoreService extends AccessibilityService {
     @Override
     public boolean onUnbind(Intent intent) {
         if (timerTimeout)
-            performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME);
+            performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
         Toast.makeText(this, manager.pointsAdapted() ? R.string.info_service_disabled : R.string.info_service_update, Toast.LENGTH_SHORT).show();
         return super.onUnbind(intent);
     }

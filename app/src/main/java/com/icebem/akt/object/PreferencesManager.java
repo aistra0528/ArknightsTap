@@ -1,11 +1,15 @@
 package com.icebem.akt.object;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.widget.Toast;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
+import com.icebem.akt.service.CoreService;
 import com.icebem.akt.util.RandomUtil;
 import com.icebem.akt.util.ResolutionConfig;
 
@@ -18,6 +22,7 @@ public class PreferencesManager {
     private static final String KEY_W = "point_w";
     private static final String KEY_H = "point_h";
     private static final String KEY_TIMER_TIME = "timer_time";
+    private static final String KEY_PRO = "pro";
     private static final String KEY_VERSION = "version";
     private static final int[] TIMER_CONFIG = {10, 15, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 0;
@@ -38,6 +43,11 @@ public class PreferencesManager {
                     preferences.edit().putInt(KEY_H, res[1] / 4 - RandomUtil.RANDOM_P).apply();
                     break;
                 }
+            }
+            if (!isPro() && getVersionCode() > 0 && getVersionCode() < 11) {
+                setPro();
+                context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, CoreService.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+                Toast.makeText(context, R.string.info_pro, Toast.LENGTH_SHORT).show();
             }
             setVersionCode();
         }
@@ -77,6 +87,14 @@ public class PreferencesManager {
 
     public int getTimerTime() {
         return preferences.getInt(KEY_TIMER_TIME, TIMER_CONFIG[TIMER_POSITION]);
+    }
+
+    private void setPro() {
+        preferences.edit().putBoolean(KEY_PRO, true).apply();
+    }
+
+    private boolean isPro() {
+        return preferences.getBoolean(KEY_PRO, false);
     }
 
     private void setVersionCode() {

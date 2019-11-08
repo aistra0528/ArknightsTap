@@ -55,7 +55,11 @@ public class MainActivity extends Activity {
     private void loadPreferences() {
         manager = new PreferencesManager(this);
         if (manager.pointsAdapted()) {
+            btn_timer.setEnabled(true);
             btn_service.setEnabled(true);
+            img_status.setImageDrawable(getDrawable(R.drawable.ic_done));
+            txt_status.setText(R.string.info_service_ready);
+            txt_tips.setText(String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
         } else {
             builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.title_resolution_unsupported);
@@ -72,14 +76,8 @@ public class MainActivity extends Activity {
     }
 
     private void updateViews() {
-        if (manager.pointsAdapted()) {
-            img_status.setImageDrawable(getDrawable(isCoreServiceEnabled() ? R.drawable.ic_service : R.drawable.ic_done));
-            txt_status.setText(isCoreServiceEnabled() ? R.string.info_service_running : R.string.info_service_ready);
-            txt_tips.setText(isCoreServiceEnabled() ? getString(R.string.tip_service_running) : String.format(getString(R.string.tip_timer_time), manager.getTimerTime()));
-            btn_timer.setEnabled(!isCoreServiceEnabled());
-            btn_service.setText(isCoreServiceEnabled() ? R.string.action_service_disable : R.string.action_service_enable);
+        if (manager.pointsAdapted())
             ((AnimatedVectorDrawable) img_status.getDrawable()).start();
-        }
     }
 
     public void onClick(View view) {

@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/btn_service"
         android:layout_alignStart="@id/btn_service"
-        android:text="@string/overlay_label" />
+        android:text="@string/action_overlay" />
 
     <Button
         android:id="@+id/btn_timer"

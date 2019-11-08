@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.DisplayMetrics;
 
 public class ResolutionConfig {
+    public static final float RATIO_DEFAULT = 16f / 9;
     public static final int[][] RESOLUTION_CONFIG = {
             {1280, 720, 1100, 670, 1100, 650},
             {1440, 720, 1330, 670, 1200, 650},
@@ -31,5 +32,10 @@ public class ResolutionConfig {
         DisplayMetrics metric = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getRealMetrics(metric);
         return new int[]{Math.max(metric.widthPixels, metric.heightPixels), Math.min(metric.widthPixels, metric.heightPixels)};
+    }
+
+    public static float getAspectRatio(Activity activity) {
+        int[] res = getResolution(activity);
+        return 1f * res[0] / res[1];
     }
 }
