@@ -27,16 +27,15 @@ public class PreferencesManager {
     private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
     private static final int UPDATE_TIME = 3500;
+    private Context context;
     private SharedPreferences preferences;
 
     public PreferencesManager(Context context) {
+        this.context = context;
         preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         if (context instanceof Activity && !dataUpdated()) {
-            if (!isPro() && getVersionCode() > 0 && getVersionCode() < BuildConfig.VERSION_CODE) {
+            if (!isPro() && (BuildConfig.DEBUG || (getVersionCode() > 0 && getVersionCode() < BuildConfig.VERSION_CODE)))
                 setPro();
-                context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, GestureService.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-                Toast.makeText(context, R.string.info_pro, Toast.LENGTH_SHORT).show();
-            }
             int[] res = ResolutionConfig.getResolution((Activity) context);
             for (int[] cfg : ResolutionConfig.RESOLUTION_CONFIG) {
                 if (res[0] == cfg[0] && res[1] == cfg[1]) {
@@ -91,6 +90,8 @@ public class PreferencesManager {
 
     public void setPro() {
         preferences.edit().putBoolean(KEY_PRO, true).apply();
+        context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, GestureService.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+        Toast.makeText(context, R.string.info_pro, Toast.LENGTH_SHORT).show();
     }
 
     public boolean isPro() {
