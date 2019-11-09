@@ -74,6 +74,6 @@ public class OverlayView {
                 manager.updateViewLayout(view, params);
                 break;
         }
-        return true;
+        return moving;
     }
 }

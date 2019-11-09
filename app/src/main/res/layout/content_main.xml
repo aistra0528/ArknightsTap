@@ -14,12 +14,12 @@
 
     <ImageView
         android:id="@+id/img_service_status"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_above="@id/txt_service_status"
         android:layout_centerHorizontal="true"
         android:contentDescription="@null"
-        android:src="@drawable/ic_done" />
+        android:src="@drawable/ic_ready" />
 
     <Button
         android:id="@+id/btn_overlay"
@@ -37,7 +37,7 @@
         android:layout_above="@id/fab_service"
         android:layout_centerHorizontal="true"
         android:background="@drawable/ripple_corner"
-        android:drawableStart="@drawable/ic_alarm_black_24dp"
+        android:drawableStart="@drawable/ic_timer_black_24dp"
         android:gravity="center_vertical"
         android:padding="@dimen/control_padding"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -51,6 +51,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/gesture_label"
-        android:src="@drawable/ic_service"
+        android:src="@drawable/ic_service_white_24dp"
         android:visibility="invisible" />
 </RelativeLayout>
