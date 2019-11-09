@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.util.DisplayMetrics;
 
 public class ResolutionConfig {
-    public static final float RATIO_DEFAULT = 16f / 9;
+    public static final float RATIO_MAX = 2.5f;
+    public static final float RATIO_MIN = 1.25f;
+    public static final float RATIO_DEFAULT = 1.77f;
     public static final int[][] RESOLUTION_CONFIG = {
             {1280, 720, 1100, 670, 1100, 650},
             {1440, 720, 1330, 670, 1200, 650},
@@ -24,6 +26,7 @@ public class ResolutionConfig {
             {2960, 1440, 2800, 1330, 2430, 1280},
             {3040, 1440, 2810, 1330, 2450, 1280},
             {3120, 1440, 2940, 1330, 2470, 1280},
+            {2048, 1536, 1870, 1430, 1760, 1130},
             {2560, 1600, 2310, 1470, 2220, 1250},
             {3840, 1644, 3520, 1550, 2980, 1450}
     };

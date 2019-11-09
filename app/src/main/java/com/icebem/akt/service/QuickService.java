@@ -30,8 +30,8 @@ public class QuickService extends TileService {
                 startService(intent);
                 getQsTile().setState(Tile.STATE_ACTIVE);
             }
+            getQsTile().updateTile();
         } else
             startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        getQsTile().updateTile();
     }
 }
