@@ -26,7 +26,7 @@ import com.icebem.akt.util.ResolutionConfig;
 
 public class MainActivity extends Activity {
     private int timer_position;
-    private ImageView img_status;
+    private ImageView img_state;
     private TextView txt_timer;
     private PreferencesManager manager;
 
@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
     }
 
     private void loadViews() {
-        img_status = findViewById(R.id.img_service_status);
+        img_state = findViewById(R.id.img_service_state);
         findViewById(R.id.btn_overlay).setOnClickListener(this::onClick);
         manager = new PreferencesManager(this);
         if (manager.isPro()) {
@@ -52,9 +52,9 @@ public class MainActivity extends Activity {
                 txt_timer.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : String.format(getString(R.string.info_timer_min), manager.getTimerTime()));
                 txt_timer.setVisibility(View.VISIBLE);
             } else {
-                img_status.setImageDrawable(getDrawable(R.drawable.ic_update_black_24dp));
-                TextView status = findViewById(R.id.txt_service_status);
-                status.setText(R.string.status_update_request);
+                img_state.setImageDrawable(getDrawable(R.drawable.ic_update_black_24dp));
+                TextView state = findViewById(R.id.txt_service_state);
+                state.setText(R.string.state_update_request);
                 int[] res = ResolutionConfig.getResolution(this);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.title_resolution_unsupported);
@@ -68,8 +68,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (img_status.getDrawable() instanceof AnimatedVectorDrawable)
-            ((AnimatedVectorDrawable) img_status.getDrawable()).start();
+        if (img_state.getDrawable() instanceof AnimatedVectorDrawable)
+            ((AnimatedVectorDrawable) img_state.getDrawable()).start();
     }
 
     public void onClick(View view) {
@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
                     startService(new Intent(this, OverlayService.class));
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle(R.string.status_permission_request);
+                    builder.setTitle(R.string.state_permission_request);
                     builder.setMessage(R.string.msg_permission_overlay);
                     builder.setPositiveButton(R.string.go_to_settings, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()))));
                     builder.setNegativeButton(R.string.no_thanks, null);

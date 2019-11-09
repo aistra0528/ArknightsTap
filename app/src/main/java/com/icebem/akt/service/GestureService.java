@@ -74,7 +74,7 @@ public class GestureService extends AccessibilityService {
     public boolean onUnbind(Intent intent) {
         if (timerTimeout)
             performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
-        Toast.makeText(this, manager.dataUpdated() ? R.string.info_gesture_disconnected : R.string.status_update_request, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, manager.dataUpdated() ? R.string.info_gesture_disconnected : R.string.state_update_request, Toast.LENGTH_SHORT).show();
         return super.onUnbind(intent);
     }
 

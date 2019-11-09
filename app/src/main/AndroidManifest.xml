@@ -39,6 +39,14 @@
                 android:resource="@xml/accessibility_config" />
         </service>
         <service
+            android:name=".service.QuickService"
+            android:icon="@drawable/ic_service_black_24dp"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
             android:name=".service.OverlayService"
             android:label="@string/overlay_label" />
     </application>

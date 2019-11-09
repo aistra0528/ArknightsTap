@@ -4,19 +4,19 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txt_service_status"
+        android:id="@+id/txt_service_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/control_margin"
-        android:text="@string/status_service_ready"
+        android:text="@string/state_service_ready"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
-        android:id="@+id/img_service_status"
+        android:id="@+id/img_service_state"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_above="@id/txt_service_status"
+        android:layout_above="@id/txt_service_state"
         android:layout_centerHorizontal="true"
         android:contentDescription="@null"
         android:src="@drawable/ic_ready" />
@@ -26,7 +26,7 @@
         style="@style/AppTheme.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_service_status"
+        android:layout_below="@id/txt_service_state"
         android:layout_centerHorizontal="true"
         android:text="@string/action_overlay" />
 

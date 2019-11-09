@@ -9,9 +9,9 @@
         android:pathData="M0,0h72v72h-72z" />
     <path
         android:fillColor="@color/colorAccent"
-        android:pathData="M21,49.5l15,-30 15,30z" />
+        android:pathData="M21,51l15,-30 15,30z" />
     <path
-        android:pathData="M21,49.5l15,-30 15,30h-19.2"
+        android:pathData="M21,51l15,-30 15,30h-19.2"
         android:strokeWidth="4.2"
         android:strokeColor="@android:color/white"
         android:strokeLineCap="round" />

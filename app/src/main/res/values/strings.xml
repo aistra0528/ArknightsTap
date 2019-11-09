@@ -3,9 +3,9 @@
     <string name="gesture_label">戳戳乐™</string>
     <string name="gesture_description">开启戳戳乐™后，可在选择的关卡持续进行代理作战，解放你的双手，不用一直盯着手机。\n\n使用前请先选择好要代理的关卡，并使用代理指挥作战。\n\n戳戳乐™所需权限仅用于代理博士操作，方舟帮帮忙不会通过本服务收集个人信息。\n\n使用本服务可能会导致账号异常，请以游戏开发商的判定依据为准，开发者不承担相关责任。\n\n如有问题与建议可在关于中反馈。</string>
     <string name="overlay_label">帮帮忙™</string>
-    <string name="status_update_request">请求更新</string>
-    <string name="status_permission_request">请求授权</string>
-    <string name="status_service_ready">部署已完毕</string>
+    <string name="state_update_request">请求更新</string>
+    <string name="state_permission_request">请求授权</string>
+    <string name="state_service_ready">部署已完毕</string>
     <string name="action_overlay">帮帮忙™启动！</string>
     <string name="msg_permission_overlay">- 悬浮窗权限\n可使用定向公开招募等功能</string>
     <string name="info_overlay_connected">帮帮忙™已连接</string>
