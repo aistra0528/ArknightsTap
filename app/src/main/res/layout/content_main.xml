@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/fab_service"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/fg_ripple"
+        android:background="@drawable/ripple_corner"
         android:drawableStart="@drawable/ic_alarm_black_24dp"
         android:gravity="center_vertical"
         android:padding="@dimen/control_padding"
@@ -46,11 +46,11 @@
     <ImageButton
         android:id="@+id/fab_service"
         style="@style/AppTheme.FloatingActionButton"
-        android:layout_width="@dimen/fab_size"
-        android:layout_height="@dimen/fab_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@null"
-        android:foreground="@drawable/ic_service"
+        android:contentDescription="@string/gesture_label"
+        android:src="@drawable/ic_service"
         android:visibility="invisible" />
 </RelativeLayout>

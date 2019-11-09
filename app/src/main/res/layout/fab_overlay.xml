@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fab_overlay"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:background="@drawable/ic_overlay_background"
-    android:contentDescription="@null"
-    android:elevation="@dimen/fab_elevation"
+    style="@style/AppTheme.FloatingActionButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_fab_mini"
+    android:contentDescription="@string/overlay_label"
+    android:minWidth="@dimen/fab_mini_size"
+    android:minHeight="@dimen/fab_mini_size"
     android:src="@drawable/ic_overlay" />

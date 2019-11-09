@@ -1,5 +1,6 @@
 <resources>
     <dimen name="container_margin">12dp</dimen>
+    <dimen name="fab_mini_size">40dp</dimen>
     <dimen name="fab_size">56dp</dimen>
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="fab_margin">16dp</dimen>

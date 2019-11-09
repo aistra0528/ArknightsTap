@@ -401,7 +401,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/control_margin"
                     android:background="@drawable/bg_tag_reset"
-                    android:foreground="@drawable/fg_ripple"
+                    android:foreground="@drawable/ripple_corner"
                     android:paddingStart="@dimen/view_padding"
                     android:paddingTop="@dimen/control_padding"
                     android:paddingEnd="@dimen/view_padding"
