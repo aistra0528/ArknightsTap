@@ -1,6 +1,5 @@
 package com.icebem.akt.object;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,10 +32,10 @@ public class PreferencesManager {
     public PreferencesManager(Context context) {
         this.context = context;
         preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
-        if (context instanceof Activity && !dataUpdated()) {
+        if (!dataUpdated()) {
             if (!isPro() && (BuildConfig.DEBUG || (getVersionCode() > 0 && getVersionCode() < BuildConfig.VERSION_CODE)))
                 setPro();
-            int[] res = ResolutionConfig.getResolution((Activity) context);
+            int[] res = ResolutionConfig.getResolution(context);
             for (int[] cfg : ResolutionConfig.RESOLUTION_CONFIG) {
                 if (res[0] == cfg[0] && res[1] == cfg[1]) {
                     preferences.edit().putInt(KEY_A, cfg[2]).apply();

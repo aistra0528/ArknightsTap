@@ -7,6 +7,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.icebem.akt.util.ResolutionConfig;
+
 public class OverlayView {
     private int x, y;
     private boolean showing, moving;
@@ -23,10 +25,8 @@ public class OverlayView {
         }
         manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
-        params.x = 0;
-        params.y = 0;
-        params.width = mobilizable ? WindowManager.LayoutParams.WRAP_CONTENT : context.getResources().getDisplayMetrics().widthPixels;
-        params.height = mobilizable ? WindowManager.LayoutParams.WRAP_CONTENT : context.getResources().getDisplayMetrics().widthPixels;
+        params.x = params.y = 0;
+        params.width = params.height = mobilizable ? WindowManager.LayoutParams.WRAP_CONTENT : ResolutionConfig.getResolution(manager)[1];
         params.gravity = gravity;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
         params.format = PixelFormat.RGBA_8888;

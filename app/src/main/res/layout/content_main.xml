@@ -30,26 +30,13 @@
         android:layout_centerHorizontal="true"
         android:text="@string/action_overlay" />
 
-    <TextView
-        android:id="@+id/txt_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/fab_service"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/ripple_corner"
-        android:drawableStart="@drawable/ic_timer_black_24dp"
-        android:gravity="center_vertical"
-        android:padding="@dimen/control_padding"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:visibility="invisible" />
-
     <ImageButton
         android:id="@+id/fab_service"
         style="@style/AppTheme.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:contentDescription="@string/gesture_label"
         android:src="@drawable/ic_service_white_24dp"
         android:visibility="invisible" />

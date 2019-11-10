@@ -27,7 +27,6 @@ import com.icebem.akt.util.ResolutionConfig;
 public class MainActivity extends Activity {
     private int timer_position;
     private ImageView img_state;
-    private TextView txt_timer;
     private PreferencesManager manager;
 
     @Override
@@ -47,17 +46,13 @@ public class MainActivity extends Activity {
                 ImageButton fab = findViewById(R.id.fab_service);
                 fab.setOnClickListener(this::onClick);
                 fab.setVisibility(View.VISIBLE);
-                txt_timer = findViewById(R.id.txt_timer);
-                txt_timer.setOnClickListener(this::onClick);
-                txt_timer.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : String.format(getString(R.string.info_timer_min), manager.getTimerTime()));
-                txt_timer.setVisibility(View.VISIBLE);
             } else {
                 img_state.setImageDrawable(getDrawable(R.drawable.ic_update_black_24dp));
                 TextView state = findViewById(R.id.txt_service_state);
                 state.setText(R.string.state_update_request);
                 int[] res = ResolutionConfig.getResolution(this);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.title_resolution_unsupported);
+                builder.setTitle(R.string.info_resolution_unsupported);
                 builder.setMessage(String.format(getString(R.string.msg_resolution_unsupported), res[0], res[1]));
                 builder.setPositiveButton(R.string.got_it, null);
                 builder.create().show();
@@ -86,15 +81,6 @@ public class MainActivity extends Activity {
                     builder.create().show();
                 }
                 break;
-            case R.id.txt_timer:
-                timer_position = manager.getTimerPosition();
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.title_timer);
-                builder.setSingleChoiceItems(manager.getTimerStrings(this), timer_position, this::onCheck);
-                builder.setPositiveButton(android.R.string.ok, this::onCheck);
-                builder.setNegativeButton(android.R.string.cancel, null);
-                builder.create().show();
-                break;
             case R.id.fab_service:
                 if (((CoreApplication) getApplication()).isGestureServiceRunning()) {
                     ((CoreApplication) getApplication()).getGestureService().disableSelf();
@@ -107,10 +93,10 @@ public class MainActivity extends Activity {
     }
 
     private void onCheck(DialogInterface dialog, int which) {
-        if (which == AlertDialog.BUTTON_POSITIVE) {
+        if (which == AlertDialog.BUTTON_POSITIVE)
             manager.setTimerTime(timer_position);
-            txt_timer.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : String.format(getString(R.string.info_timer_min), manager.getTimerTime()));
-        } else timer_position = which;
+        else
+            timer_position = which;
     }
 
     private void onClick(DialogInterface dialog, int which) {
@@ -127,6 +113,8 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if (!manager.isPro())
+            menu.findItem(R.id.action_timer).setVisible(false);
         return true;
     }
 
@@ -134,12 +122,19 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         switch (item.getItemId()) {
+            case R.id.action_timer:
+                timer_position = manager.getTimerPosition();
+                builder.setTitle(R.string.action_timer);
+                builder.setSingleChoiceItems(manager.getTimerStrings(this), timer_position, this::onCheck);
+                builder.setPositiveButton(android.R.string.ok, this::onCheck);
+                builder.setNegativeButton(android.R.string.cancel, null);
+                break;
             case R.id.action_donate:
                 builder.setTitle(R.string.action_donate);
                 builder.setMessage(R.string.msg_donate);
                 builder.setNeutralButton(R.string.action_donate_alipay, (dialog, which) -> {
                     try {
-                        startActivity(Intent.parseUri("intent://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx00051lrjyg1ylmp9h359#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end", Intent.URI_INTENT_SCHEME));
+                        startActivity(Intent.parseUri("intent://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx02922ajwj6xekqyd1rbf#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end", Intent.URI_INTENT_SCHEME));
                         Toast.makeText(this, R.string.info_donate_thanks, Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         Log.w(getClass().getSimpleName(), e);

@@ -5,6 +5,8 @@ import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
 import android.graphics.Path;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -16,6 +18,8 @@ import com.icebem.akt.app.CoreApplication;
 import com.icebem.akt.object.PreferencesManager;
 import com.icebem.akt.util.RandomUtil;
 
+import java.lang.ref.WeakReference;
+
 public class GestureService extends AccessibilityService {
     private static final int GESTURE_DURATION = 120;
     private int time;
@@ -24,6 +28,7 @@ public class GestureService extends AccessibilityService {
 
     @Override
     protected void onServiceConnected() {
+        super.onServiceConnected();
         manager = new PreferencesManager(this);
         if (!manager.dataUpdated()) {
             disableSelf();
@@ -40,9 +45,11 @@ public class GestureService extends AccessibilityService {
         new Thread(this::performGestures, "gesture").start();
         time = manager.getTimerTime();
         if (time > 0) {
+            Handler handler = new UIHandler(this);
             new Thread(() -> {
                 try {
-                    while (time > 0) {
+                    while (!timerTimeout && time > 0) {
+                        handler.sendEmptyMessage(time);
                         Thread.sleep(60000);
                         time--;
                     }
@@ -51,11 +58,9 @@ public class GestureService extends AccessibilityService {
                 }
                 timerTimeout = true;
             }, "timer").start();
+        } else {
+            Toast.makeText(this, R.string.info_gesture_connected, Toast.LENGTH_SHORT).show();
         }
-        if (Settings.canDrawOverlays(this))
-            startService(new Intent(this, OverlayService.class));
-        Toast.makeText(this, R.string.info_gesture_connected, Toast.LENGTH_SHORT).show();
-        super.onServiceConnected();
     }
 
     @Override
@@ -74,13 +79,17 @@ public class GestureService extends AccessibilityService {
     public boolean onUnbind(Intent intent) {
         if (timerTimeout)
             performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
-        Toast.makeText(this, manager.dataUpdated() ? R.string.info_gesture_disconnected : R.string.state_update_request, Toast.LENGTH_SHORT).show();
+        else
+            timerTimeout = true;
+        Toast.makeText(this, manager.dataUpdated() ? R.string.info_gesture_disconnected : R.string.info_resolution_unsupported, Toast.LENGTH_SHORT).show();
         return super.onUnbind(intent);
     }
 
     private void performGestures() {
         try {
             Thread.sleep(manager.getUpdateTime());
+            if (Settings.canDrawOverlays(this))
+                startService(new Intent(this, OverlayService.class));
             Path path = new Path();
             while (!timerTimeout) {
                 GestureDescription.Builder builder = new GestureDescription.Builder();
@@ -105,6 +114,22 @@ public class GestureService extends AccessibilityService {
             return getPackageManager().getPackageGids(packageName) != null;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    private static final class UIHandler extends Handler {
+        private final WeakReference<GestureService> ref;
+
+        private UIHandler(GestureService service) {
+            ref = new WeakReference<>(service);
+        }
+
+        @Override
+        public void handleMessage(@android.support.annotation.NonNull Message msg) {
+            super.handleMessage(msg);
+            GestureService service = ref.get();
+            if (service != null)
+                Toast.makeText(service, String.format(service.getString(R.string.info_gesture_running), msg.what), Toast.LENGTH_SHORT).show();
         }
     }
 }

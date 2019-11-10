@@ -13,5 +13,4 @@
         android:theme="@style/AppTheme.AppBarOverlay" />
 
     <include layout="@layout/content_main" />
-
 </LinearLayout>

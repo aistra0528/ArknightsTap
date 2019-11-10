@@ -406,7 +406,7 @@
                     android:paddingTop="@dimen/control_padding"
                     android:paddingEnd="@dimen/view_padding"
                     android:paddingBottom="@dimen/control_padding"
-                    android:text="@string/action_hr_reset"
+                    android:text="@string/action_reset"
                     android:textColor="@android:color/white" />
             </LinearLayout>
 

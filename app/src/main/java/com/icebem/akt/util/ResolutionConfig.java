@@ -1,7 +1,8 @@
 package com.icebem.akt.util;
 
-import android.app.Activity;
+import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 public class ResolutionConfig {
     public static final float RATIO_MAX = 2.5f;
@@ -31,14 +32,23 @@ public class ResolutionConfig {
             {3840, 1644, 3520, 1550, 2980, 1450}
     };
 
-    public static int[] getResolution(Activity activity) {
-        DisplayMetrics metric = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getRealMetrics(metric);
-        return new int[]{Math.max(metric.widthPixels, metric.heightPixels), Math.min(metric.widthPixels, metric.heightPixels)};
+    public static int[] getResolution(Context context) {
+        return getResolution((WindowManager) context.getSystemService(Context.WINDOW_SERVICE));
     }
 
-    public static float getAspectRatio(Activity activity) {
-        int[] res = getResolution(activity);
-        return 1f * res[0] / res[1];
+    public static int[] getResolution(WindowManager manager) {
+        int[] res = {0, 0};
+        DisplayMetrics metric = new DisplayMetrics();
+        if (manager != null) {
+            manager.getDefaultDisplay().getRealMetrics(metric);
+            res[0] = Math.max(metric.widthPixels, metric.heightPixels);
+            res[1] = Math.min(metric.widthPixels, metric.heightPixels);
+        }
+        return res;
+    }
+
+    public static float getAspectRatio(Context context) {
+        int[] res = getResolution(context);
+        return res[1] == 0 ? 0 : 1f * res[0] / res[1];
     }
 }
