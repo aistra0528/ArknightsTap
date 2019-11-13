@@ -125,7 +125,7 @@ public class GestureService extends AccessibilityService {
         }
 
         @Override
-        public void handleMessage(@android.support.annotation.NonNull Message msg) {
+        public void handleMessage(@androidx.annotation.NonNull Message msg) {
             super.handleMessage(msg);
             GestureService service = ref.get();
             if (service != null)

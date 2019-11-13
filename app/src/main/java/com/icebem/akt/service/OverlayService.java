@@ -2,6 +2,7 @@ package com.icebem.akt.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
@@ -56,11 +57,17 @@ public class OverlayService extends Service {
     }
 
     @Override
+    public void onConfigurationChanged(Configuration cfg) {
+        super.onConfigurationChanged(cfg);
+        for (OverlayView view : views)
+            view.onConfigurationChanged(cfg);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        for (OverlayView view : views) {
+        for (OverlayView view : views)
             view.remove();
-        }
         Toast.makeText(this, R.string.info_overlay_disconnected, Toast.LENGTH_SHORT).show();
     }
 }

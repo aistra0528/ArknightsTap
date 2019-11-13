@@ -1,13 +1,12 @@
 package com.icebem.akt.overlay;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-
-import com.icebem.akt.util.ResolutionConfig;
 
 public class OverlayView {
     private int x, y;
@@ -26,7 +25,7 @@ public class OverlayView {
         manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
         params.x = params.y = 0;
-        params.width = params.height = mobilizable ? WindowManager.LayoutParams.WRAP_CONTENT : ResolutionConfig.getResolution(manager)[1];
+        params.width = params.height = mobilizable ? WindowManager.LayoutParams.WRAP_CONTENT : Math.min(context.getResources().getDisplayMetrics().widthPixels, context.getResources().getDisplayMetrics().heightPixels);
         params.gravity = gravity;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
         params.format = PixelFormat.RGBA_8888;
@@ -51,6 +50,13 @@ public class OverlayView {
             manager.removeView(view);
             showing = false;
         }
+    }
+
+    public void onConfigurationChanged(Configuration cfg) {
+        if (listener != null)
+            params.x = params.y = 0;
+        if (showing)
+            manager.updateViewLayout(view, params);
     }
 
     private boolean onTouch(View view, MotionEvent event) {

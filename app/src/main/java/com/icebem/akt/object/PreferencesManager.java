@@ -34,7 +34,7 @@ public class PreferencesManager {
         preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         if (!dataUpdated()) {
             if (!isPro() && (BuildConfig.DEBUG || (getVersionCode() > 0 && getVersionCode() < BuildConfig.VERSION_CODE)))
-                setPro();
+                setPro(true);
             int[] res = ResolutionConfig.getResolution(context);
             for (int[] cfg : ResolutionConfig.RESOLUTION_CONFIG) {
                 if (res[0] == cfg[0] && res[1] == cfg[1]) {
@@ -87,9 +87,9 @@ public class PreferencesManager {
         return preferences.getInt(KEY_TIMER_TIME, TIMER_CONFIG[TIMER_POSITION]);
     }
 
-    public void setPro() {
-        preferences.edit().putBoolean(KEY_PRO, true).apply();
-        context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, GestureService.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+    public void setPro(boolean pro) {
+        preferences.edit().putBoolean(KEY_PRO, pro).apply();
+        context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, GestureService.class.getName()), pro ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         Toast.makeText(context, R.string.info_pro, Toast.LENGTH_SHORT).show();
     }
 

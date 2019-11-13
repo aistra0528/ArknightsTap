@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorOverlay"
     android:orientation="vertical"
-    android:theme="@style/AppTheme.DarkOverlay">
+    android:theme="@style/AppTheme.Dark">
 
     <LinearLayout
         android:layout_width="match_parent"

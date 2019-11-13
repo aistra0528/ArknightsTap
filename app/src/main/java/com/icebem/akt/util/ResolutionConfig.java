@@ -33,12 +33,9 @@ public class ResolutionConfig {
     };
 
     public static int[] getResolution(Context context) {
-        return getResolution((WindowManager) context.getSystemService(Context.WINDOW_SERVICE));
-    }
-
-    public static int[] getResolution(WindowManager manager) {
         int[] res = {0, 0};
         DisplayMetrics metric = new DisplayMetrics();
+        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         if (manager != null) {
             manager.getDefaultDisplay().getRealMetrics(metric);
             res[0] = Math.max(metric.widthPixels, metric.heightPixels);

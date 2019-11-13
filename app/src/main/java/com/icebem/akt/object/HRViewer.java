@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.icebem.akt.R;
 
@@ -25,13 +26,14 @@ public class HRViewer {
     private static final int TAG_CHECKED_MAX = 5;
     private static final int TAG_COMBINED_MAX = 3;
     private static final int[] CHECKED_STARS_ID = {R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5};
-    private int minStar;
+    private int maxStar, minStar;
     private Context context;
     private TextView tip;
     private ViewGroup root, resultContainer;
     private CharacterInfo[] infos;
     private ArrayList<CheckBox> stars, qualifications, sexes, types, checkedStars, checkedTags, combinedTags;
     private ArrayList<CharacterInfo> checkedInfos;
+    private ArrayList<LinearLayout> resultList;
 
     public HRViewer(Context context, ViewGroup root) throws IOException, JSONException {
         this.context = context;
@@ -145,10 +147,12 @@ public class HRViewer {
             resultContainer.addView(scroll);
             tip.setText(R.string.tip_hr_result_normal);
         } else {
-            minStar = 0;
+            maxStar = minStar = 0;
+            resultList = new ArrayList<>();
             for (int i = Math.min(checkedTags.size(), TAG_COMBINED_MAX); i > 0; i--)
                 combineTags(0, combinedTags.size(), i);
-            switch (minStar) {
+            showResultList();
+            switch (maxStar) {
                 case 6:
                     tip.setText(R.string.tip_hr_result_excellent);
                     tip.setEllipsize(TextUtils.TruncateAt.MARQUEE);
@@ -190,7 +194,7 @@ public class HRViewer {
     private void matchInfos() {
         ArrayList<CharacterInfo> matchedInfos = new ArrayList<>();
         for (CharacterInfo info : checkedInfos) {
-            boolean matched = info.getStar() != 6 || findBoxById(R.id.tag_qualification_3).isChecked();
+            boolean matched = info.getStar() != 6 || combinedTags.contains(findBoxById(R.id.tag_qualification_3));
             for (CheckBox tag : combinedTags) {
                 if (matched) {
                     if (qualifications.contains(tag)) {
@@ -206,10 +210,10 @@ public class HRViewer {
             }
             if (matched) matchedInfos.add(info);
         }
-        if (!matchedInfos.isEmpty()) addResult(matchedInfos);
+        if (!matchedInfos.isEmpty()) addResultToList(matchedInfos);
     }
 
-    private void addResult(ArrayList<CharacterInfo> infos) {
+    private void addResultToList(ArrayList<CharacterInfo> infos) {
         LinearLayout tagContainer = new LinearLayout(context);
         for (CheckBox box : combinedTags)
             tagContainer.addView(getTagView(box, tagContainer));
@@ -218,9 +222,23 @@ public class HRViewer {
         for (CharacterInfo info : infos)
             infoContainer.addView(getInfoView(info, infoContainer));
         scroll.addView(infoContainer);
-        resultContainer.addView(tagContainer);
-        resultContainer.addView(scroll);
-        minStar = Math.max(minStar, infos.get(infos.size() - 1).getStar());
+        LinearLayout itemContainer = new LinearLayout(context);
+        itemContainer.setOrientation(LinearLayout.VERTICAL);
+        itemContainer.setTag(infos.get(infos.size() - 1).getStar());
+        itemContainer.addView(tagContainer);
+        itemContainer.addView(scroll);
+        resultList.add(itemContainer);
+        maxStar = Math.max(maxStar, infos.get(infos.size() - 1).getStar());
+        minStar = minStar == 0 ? maxStar : Math.min(minStar, infos.get(infos.size() - 1).getStar());
+    }
+
+    private void showResultList() {
+        for (int i = maxStar; i >= minStar; i--) {
+            for (LinearLayout layout : resultList) {
+                if (Integer.parseInt(String.valueOf(layout.getTag())) == i)
+                    resultContainer.addView(layout);
+            }
+        }
     }
 
     private TextView getTagView(CheckBox box, ViewGroup container) {
@@ -243,6 +261,16 @@ public class HRViewer {
     private TextView getInfoView(CharacterInfo info, ViewGroup container) {
         TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false);
         view.setText(info.getName());
+        view.setOnClickListener(v -> {
+            String space = " ";
+            StringBuilder builder = new StringBuilder();
+            builder.append(info.getType());
+            for (String tag : info.getTags()) {
+                builder.append(space);
+                builder.append(tag);
+            }
+            Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
+        });
         switch (info.getStar()) {
             case 1:
                 view.setBackgroundResource(R.drawable.bg_tag_star_1);
