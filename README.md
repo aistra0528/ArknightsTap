@@ -3,7 +3,7 @@
 
 [下载最新版本](https://github.com/IcebemAst/ArknightsTap/releases/latest)
 
-[下载最新版本（酷安）](https://www.coolapk.com/apk/247929)
+[下载最新版本（酷安）](https://www.coolapk.com/apk/com.icebem.akt)
 
 ## 功能
 

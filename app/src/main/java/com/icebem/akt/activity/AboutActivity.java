@@ -102,17 +102,18 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void checkVersionUpdate() {
-        int id = R.string.version_latest;
+        int id;
         String url = "https://github.com/IcebemAst/ArknightsTap/releases/latest";
         try {
             JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb("https://api.github.com/repos/IcebemAst/ArknightsTap/releases/latest")));
-            if (!json.getString("tag_name").contains(BuildConfig.VERSION_NAME)) {
+            if (json.getString("tag_name").contains(BuildConfig.VERSION_NAME)) {
+                id = R.string.version_latest;
+            } else {
                 id = R.string.version_update;
                 url = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
             }
         } catch (Exception e) {
             id = R.string.error_occurred;
-            url = "https://github.com/IcebemAst/ArknightsTap/releases/latest";
         }
         int result = id;
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

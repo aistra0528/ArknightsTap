@@ -46,7 +46,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorRipple" />
+                    android:background="@color/colorControlHighlight" />
 
                 <LinearLayout
                     android:id="@+id/container_discuss"
@@ -71,7 +71,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorRipple" />
+                    android:background="@color/colorControlHighlight" />
 
                 <LinearLayout
                     android:id="@+id/container_project"
@@ -129,7 +129,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorRipple" />
+                    android:background="@color/colorControlHighlight" />
 
                 <LinearLayout
                     android:id="@+id/container_version_type"

@@ -3,10 +3,10 @@
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorAccent">#FFA000</color>
     <color name="colorOverlay">#99000000</color>
-    <color name="colorRipple">#33000000</color>
     <color name="colorError">#FF1744</color>
     <color name="colorControlNormal">#9E9E9E</color>
     <color name="colorControlActivated">#E91E63</color>
+    <color name="colorControlHighlight">#33000000</color>
     <color name="colorStar6">#FF5722</color>
     <color name="colorStar5">#FF9800</color>
     <color name="colorStar4">#9C27B0</color>

@@ -30,7 +30,7 @@
     <string name="info_gesture_disconnected">戳戳乐™行动结束</string>
     <string name="info_gesture_running">戳戳乐™正在行动,还有%d分钟</string>
     <string name="info_resolution_unsupported">设备未适配</string>
-    <string name="msg_resolution_unsupported">当前版本戳戳乐™暂未适配%d×%d分辨率，请在关于界面向开发者反馈。\n您仍可正常使用公开招募规划等功能。</string>
+    <string name="msg_resolution_unsupported">当前版本戳戳乐™暂未适配%d×%d分辨率，请在关于向开发者反馈。\n您仍可正常使用公开招募规划等功能。</string>
     <string name="title_about">关于</string>
     <string name="action_donate">捐赠</string>
     <string name="msg_donate">如果您乐意，可以鼓励我提高知识水平，更好地开发应用</string>
