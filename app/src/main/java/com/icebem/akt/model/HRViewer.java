@@ -1,5 +1,6 @@
-package com.icebem.akt.object;
+package com.icebem.akt.model;
 
+import android.app.Service;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,6 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.R;
 
 import org.json.JSONException;
@@ -26,14 +30,14 @@ public class HRViewer {
     private static final int TAG_CHECKED_MAX = 5;
     private static final int TAG_COMBINED_MAX = 3;
     private static final int[] CHECKED_STARS_ID = {R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5};
-    private int maxStar, minStar;
+    private int maxStar;
     private Context context;
     private TextView tip;
     private ViewGroup root, resultContainer;
-    private CharacterInfo[] infos;
+    private CharacterInfo[] infoList;
     private ArrayList<CheckBox> stars, qualifications, sexes, types, checkedStars, checkedTags, combinedTags;
-    private ArrayList<CharacterInfo> checkedInfos;
-    private ArrayList<LinearLayout> resultList;
+    private ArrayList<CharacterInfo> checkedInfoList;
+    private ArrayList<ItemContainer> resultList;
 
     public HRViewer(Context context, ViewGroup root) throws IOException, JSONException {
         this.context = context;
@@ -45,7 +49,8 @@ public class HRViewer {
         sexes = findBoxesById(R.id.tag_sex_1);
         types = findBoxesById(R.id.tag_type_1);
         LinearLayout tagsContainer = root.findViewById(R.id.container_hr_tags);
-        tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
+        if (context instanceof Service)
+            tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
         root.findViewById(R.id.action_hr_reset).setOnClickListener(view -> resetTags());
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
@@ -53,10 +58,10 @@ public class HRViewer {
         setOnCheckedChangeListener(sexes);
         setOnCheckedChangeListener(types);
         setOnCheckedChangeListener(findBoxesById(R.id.tag_tags_1));
-        infos = CharacterInfo.fromAssets(context);
+        infoList = CharacterInfo.fromAssets(context);
         checkedStars = new ArrayList<>();
         checkedTags = new ArrayList<>();
-        checkedInfos = new ArrayList<>();
+        checkedInfoList = new ArrayList<>();
         combinedTags = new ArrayList<>();
         resetTags();
     }
@@ -118,15 +123,15 @@ public class HRViewer {
                 checkedStars.add(tag);
             else
                 checkedStars.remove(tag);
-            for (CharacterInfo info : infos) {
+            for (CharacterInfo info : infoList) {
                 if (tag.getText().toString().contains(String.valueOf(info.getStar()))) {
                     if (isChecked)
-                        checkedInfos.add(info);
+                        checkedInfoList.add(info);
                     else
-                        checkedInfos.remove(info);
+                        checkedInfoList.remove(info);
                 }
             }
-            Collections.sort(checkedInfos);
+            Collections.sort(checkedInfoList);
         } else {
             if (isChecked)
                 checkedTags.add(tag);
@@ -141,17 +146,20 @@ public class HRViewer {
         if (checkedTags.isEmpty()) {
             HorizontalScrollView scroll = (HorizontalScrollView) LayoutInflater.from(context).inflate(R.layout.scroll_overlay, resultContainer, false);
             LinearLayout layout = new LinearLayout(context);
-            for (CharacterInfo info : checkedInfos)
+            for (CharacterInfo info : checkedInfoList)
                 layout.addView(getInfoView(info, layout));
             scroll.addView(layout);
             resultContainer.addView(scroll);
             tip.setText(R.string.tip_hr_result_normal);
         } else {
-            maxStar = minStar = 0;
+            maxStar = 0;
             resultList = new ArrayList<>();
+            Collections.sort(checkedTags, this::compareTags);
             for (int i = Math.min(checkedTags.size(), TAG_COMBINED_MAX); i > 0; i--)
                 combineTags(0, combinedTags.size(), i);
-            showResultList();
+            Collections.sort(resultList);
+            for (ItemContainer container : resultList)
+                resultContainer.addView(container);
             switch (maxStar) {
                 case 6:
                     tip.setText(R.string.tip_hr_result_excellent);
@@ -179,7 +187,7 @@ public class HRViewer {
 
     private void combineTags(int index, int size, int targetSize) {
         if (size == targetSize) {
-            matchInfos();
+            matchInfoList();
         } else {
             for (int i = index; i < checkedTags.size(); i++) {
                 if (!combinedTags.contains(checkedTags.get(i))) {
@@ -191,9 +199,9 @@ public class HRViewer {
         }
     }
 
-    private void matchInfos() {
-        ArrayList<CharacterInfo> matchedInfos = new ArrayList<>();
-        for (CharacterInfo info : checkedInfos) {
+    private void matchInfoList() {
+        ArrayList<CharacterInfo> matchedInfoList = new ArrayList<>();
+        for (CharacterInfo info : checkedInfoList) {
             boolean matched = info.getStar() != 6 || combinedTags.contains(findBoxById(R.id.tag_qualification_3));
             for (CheckBox tag : combinedTags) {
                 if (matched) {
@@ -208,41 +216,31 @@ public class HRViewer {
                     }
                 } else break;
             }
-            if (matched) matchedInfos.add(info);
+            if (matched) matchedInfoList.add(info);
         }
-        if (!matchedInfos.isEmpty()) addResultToList(matchedInfos);
+        if (!matchedInfoList.isEmpty()) addResultToList(matchedInfoList);
     }
 
-    private void addResultToList(ArrayList<CharacterInfo> infos) {
+    private void addResultToList(ArrayList<CharacterInfo> matchedInfoList) {
         LinearLayout tagContainer = new LinearLayout(context);
         for (CheckBox box : combinedTags)
             tagContainer.addView(getTagView(box, tagContainer));
         HorizontalScrollView scroll = (HorizontalScrollView) LayoutInflater.from(context).inflate(R.layout.scroll_overlay, resultContainer, false);
         LinearLayout infoContainer = new LinearLayout(context);
-        for (CharacterInfo info : infos)
+        for (CharacterInfo info : matchedInfoList)
             infoContainer.addView(getInfoView(info, infoContainer));
         scroll.addView(infoContainer);
-        LinearLayout itemContainer = new LinearLayout(context);
-        itemContainer.setOrientation(LinearLayout.VERTICAL);
-        itemContainer.setTag(infos.get(infos.size() - 1).getStar());
+        ItemContainer itemContainer = new ItemContainer();
+        itemContainer.setStar(matchedInfoList.get(matchedInfoList.size() - 1).getStar(), matchedInfoList.get(0).getStar());
         itemContainer.addView(tagContainer);
         itemContainer.addView(scroll);
         resultList.add(itemContainer);
-        maxStar = Math.max(maxStar, infos.get(infos.size() - 1).getStar());
-        minStar = minStar == 0 ? maxStar : Math.min(minStar, infos.get(infos.size() - 1).getStar());
-    }
-
-    private void showResultList() {
-        for (int i = maxStar; i >= minStar; i--) {
-            for (LinearLayout layout : resultList) {
-                if (Integer.parseInt(String.valueOf(layout.getTag())) == i)
-                    resultContainer.addView(layout);
-            }
-        }
+        maxStar = Math.max(maxStar, matchedInfoList.get(matchedInfoList.size() - 1).getStar());
     }
 
     private TextView getTagView(CheckBox box, ViewGroup container) {
         TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false);
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop() / 2, view.getPaddingRight(), view.getPaddingBottom() / 2);
         view.setText(box.getText());
         switch (box.getId()) {
             case R.id.tag_qualification_1:
@@ -269,7 +267,10 @@ public class HRViewer {
                 builder.append(space);
                 builder.append(tag);
             }
-            Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
+            if (context instanceof Service)
+                Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
+            else
+                Snackbar.make(root, builder.toString(), Snackbar.LENGTH_LONG).show();
         });
         switch (info.getStar()) {
             case 1:
@@ -292,5 +293,41 @@ public class HRViewer {
                 break;
         }
         return view;
+    }
+
+    private int compareTags(CheckBox t1, CheckBox t2) {
+        int i;
+        if (t1.getParent() == t2.getParent())
+            i = ((ViewGroup) t1.getParent()).indexOfChild(t1) - ((ViewGroup) t1.getParent()).indexOfChild(t2);
+        else
+            i = ((ViewGroup) t1.getParent().getParent().getParent()).indexOfChild((View) t1.getParent().getParent()) - ((ViewGroup) t2.getParent().getParent().getParent()).indexOfChild((View) t2.getParent().getParent());
+        return i;
+    }
+
+    private class ItemContainer extends LinearLayout implements Comparable<ItemContainer> {
+        private ItemContainer() {
+            super(context);
+            setOrientation(VERTICAL);
+            setPadding(0, 0, 0, context.getResources().getDimensionPixelOffset(R.dimen.control_padding));
+        }
+
+        private void setStar(int min, int max) {
+            setTag(new int[]{min, max});
+        }
+
+        private int getMaxStar() {
+            return ((int[]) getTag())[1];
+        }
+
+        private int getMinStar() {
+            return ((int[]) getTag())[0];
+        }
+
+        @Override
+        public int compareTo(@NonNull ItemContainer container) {
+            int i = container.getMinStar() - getMinStar();
+            if (i == 0) i = container.getMaxStar() - getMaxStar();
+            return i;
+        }
     }
 }

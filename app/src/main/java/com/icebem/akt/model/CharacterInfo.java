@@ -1,4 +1,4 @@
-package com.icebem.akt.object;
+package com.icebem.akt.model;
 
 import android.content.Context;
 
@@ -36,10 +36,10 @@ public class CharacterInfo implements Comparable<CharacterInfo> {
 
     public static CharacterInfo[] fromAssets(Context context) throws IOException, JSONException {
         JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, ASSETS_PATH)));
-        CharacterInfo[] infos = new CharacterInfo[array.length()];
-        for (int i = 0; i < infos.length; i++)
-            infos[i] = new CharacterInfo(array.getJSONObject(i));
-        return infos;
+        CharacterInfo[] infoList = new CharacterInfo[array.length()];
+        for (int i = 0; i < infoList.length; i++)
+            infoList[i] = new CharacterInfo(array.getJSONObject(i));
+        return infoList;
     }
 
     @Override

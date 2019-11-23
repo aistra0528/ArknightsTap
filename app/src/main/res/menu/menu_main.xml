@@ -1,15 +1,14 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.icebem.akt.activity.MainActivity">
     <item
         android:id="@+id/action_timer"
-        android:icon="@drawable/ic_timer_white_24dp"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_timer" />
-    <item
-        android:id="@+id/action_donate"
-        android:showAsAction="never"
-        android:title="@string/action_donate" />
+        android:icon="@drawable/ic_action_timer"
+        android:title="@string/action_timer"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_about"
-        android:showAsAction="never"
-        android:title="@string/action_about" />
+        android:title="@string/title_about"
+        app:showAsAction="never" />
 </menu>

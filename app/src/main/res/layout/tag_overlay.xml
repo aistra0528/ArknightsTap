@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/control_margin"
     android:background="@drawable/bg_tag"
-    android:foreground="@drawable/ripple_corner"
+    android:foreground="?selectableItemBackground"
     android:padding="@dimen/control_padding"
-    android:textColor="@android:color/white" />
+    android:textColor="@android:color/white"
+    android:theme="@style/AppTheme.Dark" />

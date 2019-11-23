@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.CoreApplication;
-import com.icebem.akt.object.PreferencesManager;
+import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.util.RandomUtil;
 
 import java.lang.ref.WeakReference;
@@ -24,12 +26,12 @@ public class GestureService extends AccessibilityService {
     private static final int GESTURE_DURATION = 120;
     private int time;
     private boolean timerTimeout;
-    private PreferencesManager manager;
+    private PreferenceManager manager;
 
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
-        manager = new PreferencesManager(this);
+        manager = new PreferenceManager(this);
         if (!manager.dataUpdated()) {
             disableSelf();
             return;
@@ -125,7 +127,7 @@ public class GestureService extends AccessibilityService {
         }
 
         @Override
-        public void handleMessage(@androidx.annotation.NonNull Message msg) {
+        public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             GestureService service = ref.get();
             if (service != null)

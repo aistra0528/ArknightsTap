@@ -1,0 +1,371 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/container_margin"
+        android:layout_marginEnd="@dimen/container_margin"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/container_hr_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/tag_star_6"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_6"
+                        android:text="@string/tag_star_6" />
+
+                    <CheckBox
+                        android:id="@+id/tag_star_5"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_5"
+                        android:text="@string/tag_star_5" />
+
+                    <CheckBox
+                        android:id="@+id/tag_star_4"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_4"
+                        android:text="@string/tag_star_4" />
+
+                    <CheckBox
+                        android:id="@+id/tag_star_3"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_3"
+                        android:text="@string/tag_star_3" />
+
+                    <CheckBox
+                        android:id="@+id/tag_star_2"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_2"
+                        android:text="@string/tag_star_2" />
+
+                    <CheckBox
+                        android:id="@+id/tag_star_1"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_1"
+                        android:text="@string/tag_star_1" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/tag_qualification_3"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_6"
+                        android:text="@string/tag_qualification_3" />
+
+                    <CheckBox
+                        android:id="@+id/tag_qualification_2"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_5"
+                        android:text="@string/tag_qualification_2" />
+
+                    <CheckBox
+                        android:id="@+id/tag_qualification_1"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_2"
+                        android:text="@string/tag_qualification_1" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/tag_position_1"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_position_1" />
+
+                    <CheckBox
+                        android:id="@+id/tag_position_2"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_position_2" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/tag_sex_1"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_sex_1" />
+
+                    <CheckBox
+                        android:id="@+id/tag_sex_2"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_sex_2" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/tag_type_1"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_type_1" />
+
+                    <CheckBox
+                        android:id="@+id/tag_type_2"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_type_2" />
+
+                    <CheckBox
+                        android:id="@+id/tag_type_3"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_type_3" />
+
+                    <CheckBox
+                        android:id="@+id/tag_type_4"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_type_4" />
+
+                    <CheckBox
+                        android:id="@+id/tag_type_5"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_type_5" />
+
+                    <CheckBox
+                        android:id="@+id/tag_type_6"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_type_6" />
+
+                    <CheckBox
+                        android:id="@+id/tag_type_7"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_type_7" />
+
+                    <CheckBox
+                        android:id="@+id/tag_type_8"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_type_8" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_1"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_1" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_2"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_2" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_3"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_3" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_4"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_4" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_5"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_5" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_6"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_6" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_7"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_7" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_8"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_8" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_9"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_9" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_10"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_10" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_11"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_11" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_12"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_12" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_13"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_13" />
+
+                    <CheckBox
+                        android:id="@+id/tag_tags_14"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tag_tags_14" />
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_hr_tips"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/control_margin"
+                android:layout_weight="1.0"
+                android:gravity="center_vertical"
+                android:text="@string/tip_hr_result_none"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <Button
+                android:id="@+id/action_hr_reset"
+                style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorError"
+                android:text="@string/action_reset"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/container_hr_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/control_padding" />
+    </LinearLayout>
+</ScrollView>

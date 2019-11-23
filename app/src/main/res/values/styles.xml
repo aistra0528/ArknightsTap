@@ -1,53 +1,31 @@
 <resources>
 
-    <style name="AppTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
-        <item name="android:colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
-    <style name="AppTheme.Dark" parent="@android:style/Theme.Material">
-        <item name="android:colorAccent">@color/colorAccent</item>
+    <style name="AppTheme.Dark" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="@android:style/ThemeOverlay.Material.Dark.ActionBar">
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-
-    <style name="AppTheme.LightOverlay" parent="@android:style/ThemeOverlay.Material.Light" />
-
-    <style name="AppTheme.DarkOverlay" parent="@android:style/ThemeOverlay.Material.Dark" />
-
-    <style name="AppTheme.Button.Colored" parent="@android:style/Widget.Material.Button.Colored" />
-
-    <style name="AppTheme.Button.Borderless" parent="@android:style/Widget.Material.Button.Borderless.Colored" />
-
-    <style name="AppTheme.Button.Borderless.Dark">
-        <item name="android:background">@null</item>
-        <item name="android:foreground">@drawable/ripple_corner</item>
-    </style>
-
-    <style name="AppTheme.CheckBox.Tag" parent="@android:style/Widget.Material.CompoundButton.CheckBox">
+    <style name="CheckBoxTagStyle">
         <item name="android:background">@drawable/bg_checkbox</item>
-        <item name="android:foreground">@drawable/ripple_corner</item>
+        <item name="android:foreground">?selectableItemBackground</item>
         <item name="android:button">@null</item>
         <item name="android:layout_margin">@dimen/control_margin</item>
         <item name="android:padding">@dimen/control_padding</item>
         <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="AppTheme.FloatingActionButton" parent="@android:style/Widget.Material.ImageButton">
-        <item name="android:background">@drawable/bg_fab</item>
-        <item name="android:elevation">@dimen/fab_elevation</item>
-        <item name="android:layout_margin">@dimen/fab_margin</item>
-        <item name="android:minWidth">@dimen/fab_size</item>
-        <item name="android:minHeight">@dimen/fab_size</item>
-        <item name="android:stateListAnimator">@animator/anim_fab</item>
     </style>
 </resources>

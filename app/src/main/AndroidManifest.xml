@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.icebem.akt">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
 
@@ -14,6 +15,7 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -24,6 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.AboutActivity"
+            android:label="@string/title_about"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".service.GestureService"
@@ -37,16 +45,20 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_config" />
         </service>
+
         <service
             android:name=".service.QuickService"
-            android:icon="@drawable/ic_service_black_24dp"
+            android:icon="@drawable/ic_service"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
+
         <service
             android:name=".service.OverlayService"
             android:label="@string/overlay_label" />
+
     </application>
+
 </manifest>

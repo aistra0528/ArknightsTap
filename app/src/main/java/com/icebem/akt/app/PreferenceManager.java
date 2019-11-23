@@ -1,10 +1,9 @@
-package com.icebem.akt.object;
+package com.icebem.akt.app;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.widget.Toast;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
@@ -12,7 +11,7 @@ import com.icebem.akt.service.GestureService;
 import com.icebem.akt.util.RandomUtil;
 import com.icebem.akt.util.ResolutionConfig;
 
-public class PreferencesManager {
+public class PreferenceManager {
     private static final String PREFERENCES_NAME = "data";
     private static final String KEY_A = "point_a";
     private static final String KEY_B = "point_b";
@@ -29,12 +28,10 @@ public class PreferencesManager {
     private Context context;
     private SharedPreferences preferences;
 
-    public PreferencesManager(Context context) {
+    public PreferenceManager(Context context) {
         this.context = context;
         preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         if (!dataUpdated()) {
-            if (!isPro() && (BuildConfig.DEBUG || (getVersionCode() > 0 && getVersionCode() < BuildConfig.VERSION_CODE)))
-                setPro(true);
             int[] res = ResolutionConfig.getResolution(context);
             for (int[] cfg : ResolutionConfig.RESOLUTION_CONFIG) {
                 if (res[0] == cfg[0] && res[1] == cfg[1]) {
@@ -90,7 +87,6 @@ public class PreferencesManager {
     public void setPro(boolean pro) {
         preferences.edit().putBoolean(KEY_PRO, pro).apply();
         context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, GestureService.class.getName()), pro ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-        Toast.makeText(context, R.string.info_pro, Toast.LENGTH_SHORT).show();
     }
 
     public boolean isPro() {
@@ -122,5 +118,9 @@ public class PreferencesManager {
                 return i;
         }
         return TIMER_POSITION;
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

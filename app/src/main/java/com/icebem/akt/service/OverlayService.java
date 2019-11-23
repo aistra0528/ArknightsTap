@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.CoreApplication;
-import com.icebem.akt.object.HRViewer;
+import com.icebem.akt.model.HRViewer;
 import com.icebem.akt.overlay.OverlayView;
 
 import org.json.JSONException;
