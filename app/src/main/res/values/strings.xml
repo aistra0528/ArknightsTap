@@ -6,7 +6,6 @@
     <string name="menu_home">首页</string>
     <string name="menu_tools">工具</string>
     <string name="menu_settings">设置</string>
-    <string name="state_update_request">请求更新</string>
     <string name="state_permission_request">请求授权</string>
     <string name="state_service_ready">部署已完毕</string>
     <string name="msg_permission_overlay">- 悬浮窗权限\n可通过悬浮窗在游戏内使用公开招募规划等功能</string>
@@ -43,7 +42,8 @@
     <string name="title_project">项目主页</string>
     <string name="desc_project">在GitHub提出建议，反馈问题</string>
     <string name="version_current">当前版本</string>
-    <string name="version_checking">正在检查更新</string>
+    <string name="version_checking">正在获取更新</string>
+    <string name="version_checking_failed">暂时无法获取更新</string>
     <string name="version_latest">已是最新版本</string>
     <string name="version_update">发现新版本</string>
     <string name="version_type">版本类型</string>
@@ -57,6 +57,11 @@
     <string name="no_way">下次一定</string>
     <string name="error_occurred">发生错误</string>
     <string name="coming_soon">敬请期待</string>
+    <string name="auto_update_title">自动更新</string>
+    <string name="auto_update_summary_on">应用会定时自动获取更新</string>
+    <string name="auto_update_summary_off">可以在关于手动获取更新</string>
+    <string name="hide_tags_title">隐藏标签</string>
+    <string name="hide_tags_summary">选择5个标签后隐藏所有标签</string>
     <string name="tag_star_6">6★</string>
     <string name="tag_star_5">5★</string>
     <string name="tag_star_4">4★</string>

@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.R;
+import com.icebem.akt.app.PreferenceManager;
 
 import org.json.JSONException;
 
@@ -33,7 +34,8 @@ public class HRViewer {
     private int maxStar;
     private Context context;
     private TextView tip;
-    private ViewGroup root, resultContainer;
+    private ViewGroup root, tagsContainer, resultContainer;
+    private PreferenceManager manager;
     private CharacterInfo[] infoList;
     private ArrayList<CheckBox> stars, qualifications, sexes, types, checkedStars, checkedTags, combinedTags;
     private ArrayList<CharacterInfo> checkedInfoList;
@@ -42,13 +44,14 @@ public class HRViewer {
     public HRViewer(Context context, ViewGroup root) throws IOException, JSONException {
         this.context = context;
         this.root = root;
+        manager = new PreferenceManager(context);
         tip = root.findViewById(R.id.txt_hr_tips);
         resultContainer = root.findViewById(R.id.container_hr_result);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
         sexes = findBoxesById(R.id.tag_sex_1);
         types = findBoxesById(R.id.tag_type_1);
-        LinearLayout tagsContainer = root.findViewById(R.id.container_hr_tags);
+        tagsContainer = root.findViewById(R.id.container_hr_tags);
         if (context instanceof Service)
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
         root.findViewById(R.id.action_hr_reset).setOnClickListener(view -> resetTags());
@@ -110,11 +113,13 @@ public class HRViewer {
         }
     }
 
-    private void resetTags() {
+    public void resetTags() {
         for (CheckBox box : stars)
             box.setChecked(Arrays.binarySearch(CHECKED_STARS_ID, box.getId()) >= 0);
         while (!checkedTags.isEmpty())
             checkedTags.get(0).setChecked(false);
+        if (tagsContainer.getVisibility() != View.VISIBLE)
+            tagsContainer.setVisibility(View.VISIBLE);
     }
 
     private void updateCheckedTags(CheckBox tag, boolean isChecked) {
@@ -137,6 +142,8 @@ public class HRViewer {
                 checkedTags.add(tag);
             else
                 checkedTags.remove(tag);
+            if (checkedTags.size() == TAG_CHECKED_MAX && manager.hideTags())
+                tagsContainer.setVisibility(View.GONE);
         }
         updateHRResult();
     }

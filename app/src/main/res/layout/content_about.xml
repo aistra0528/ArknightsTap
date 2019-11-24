@@ -119,7 +119,6 @@
                     android:showDividers="end">
 
                     <TextView
-                        android:id="@+id/txt_version_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/activity_margin"

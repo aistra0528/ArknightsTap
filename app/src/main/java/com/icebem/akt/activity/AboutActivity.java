@@ -113,7 +113,7 @@ public class AboutActivity extends AppCompatActivity {
                 url = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
             }
         } catch (Exception e) {
-            id = R.string.error_occurred;
+            id = R.string.version_checking_failed;
         }
         int result = id;
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

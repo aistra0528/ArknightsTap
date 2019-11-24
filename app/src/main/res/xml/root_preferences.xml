@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:icon="@drawable/ic_update"
+        app:key="auto_update"
+        app:summaryOff="@string/auto_update_summary_off"
+        app:summaryOn="@string/auto_update_summary_on"
+        app:title="@string/auto_update_title" />
+
+    <PreferenceCategory app:title="@string/overlay_label">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="hide_tags"
+            app:summary="@string/hide_tags_summary"
+            app:title="@string/hide_tags_title" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -22,6 +22,9 @@ public class PreferenceManager {
     private static final String KEY_TIMER_TIME = "timer_time";
     private static final String KEY_PRO = "pro";
     private static final String KEY_VERSION = "version";
+    private static final String KEY_AUTO_UPDATE = "auto_update";
+    private static final String KEY_CHECK_LAST_TIME = "check_last_time";
+    private static final String KEY_HIDE_TAGS = "hide_tags";
     private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
     private static final int UPDATE_TIME = 3500;
@@ -118,6 +121,26 @@ public class PreferenceManager {
                 return i;
         }
         return TIMER_POSITION;
+    }
+
+    private void setCheckLastTime() {
+        preferences.edit().putLong(KEY_CHECK_LAST_TIME, System.currentTimeMillis()).apply();
+    }
+
+    private long getCheckLastTime() {
+        return preferences.getLong(KEY_CHECK_LAST_TIME, 0);
+    }
+
+    public boolean autoUpdate() {
+        // 每隔2小时自动获取更新
+        if (androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(KEY_AUTO_UPDATE, false) && System.currentTimeMillis() - getCheckLastTime() > 7200000) {
+            setCheckLastTime();
+            return true;
+        } else return false;
+    }
+
+    public boolean hideTags() {
+        return androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(KEY_HIDE_TAGS, true);
     }
 
     public Context getContext() {

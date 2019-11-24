@@ -14,7 +14,6 @@
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_settings"
-            android:title="@string/menu_settings"
-            android:visible="false" />
+            android:title="@string/menu_settings" />
     </group>
 </menu>
