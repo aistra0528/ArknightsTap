@@ -44,6 +44,7 @@
     <string name="version_current">当前版本</string>
     <string name="version_checking">正在获取更新</string>
     <string name="version_checking_failed">暂时无法获取更新</string>
+    <string name="version_debug">当前版本仅供测试，实际情况请以正式版本为准</string>
     <string name="version_latest">已是最新版本</string>
     <string name="version_update">发现新版本</string>
     <string name="version_type">版本类型</string>
@@ -58,10 +59,10 @@
     <string name="error_occurred">发生错误</string>
     <string name="coming_soon">敬请期待</string>
     <string name="auto_update_title">自动更新</string>
-    <string name="auto_update_summary_on">应用会定时自动获取更新</string>
+    <string name="auto_update_summary_on">应用会定期自动获取更新</string>
     <string name="auto_update_summary_off">可以在关于手动获取更新</string>
-    <string name="hide_tags_title">隐藏标签</string>
-    <string name="hide_tags_summary">选择5个标签后隐藏所有标签</string>
+    <string name="scroll_to_result_title">滚动至结果</string>
+    <string name="scroll_to_result_summary">选择5个标签后直接滚动至规划结果</string>
     <string name="tag_star_6">6★</string>
     <string name="tag_star_5">5★</string>
     <string name="tag_star_4">4★</string>

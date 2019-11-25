@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.IOUtil;
 
 import org.json.JSONObject;
@@ -58,7 +59,7 @@ public class AboutActivity extends AppCompatActivity {
                 builder.setMessage(R.string.msg_donate);
                 builder.setNeutralButton(R.string.action_donate_alipay, (dialog, which) -> {
                     try {
-                        startActivity(Intent.parseUri("intent://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx02922ajwj6xekqyd1rbf#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end", Intent.URI_INTENT_SCHEME));
+                        startActivity(Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME));
                         Snackbar.make(view, R.string.info_donate_thanks, Snackbar.LENGTH_INDEFINITE).show();
                     } catch (Exception e) {
                         Snackbar.make(view, R.string.error_occurred, Snackbar.LENGTH_LONG).show();
@@ -77,13 +78,13 @@ public class AboutActivity extends AppCompatActivity {
                 break;
             case R.id.container_discuss:
                 try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DN_OjFuCOkERq58jO2KoJEDD2a48vzB53")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_QQ_API)));
                 } catch (Exception e) {
                     Snackbar.make(view, R.string.error_occurred, Snackbar.LENGTH_LONG).show();
                 }
                 break;
             case R.id.container_project:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/IcebemAst/ArknightsTap")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PROJECT)));
                 break;
             case R.id.container_version_state:
                 container_version.setOnClickListener(null);
@@ -103,13 +104,13 @@ public class AboutActivity extends AppCompatActivity {
 
     private void checkVersionUpdate() {
         int id;
-        String url = "https://github.com/IcebemAst/ArknightsTap/releases/latest";
+        String url = AppUtil.URL_RELEASE_LATEST;
         try {
-            JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb("https://api.github.com/repos/IcebemAst/ArknightsTap/releases/latest")));
-            if (json.getString("tag_name").contains(BuildConfig.VERSION_NAME)) {
+            if (AppUtil.isLatestVersion()) {
                 id = R.string.version_latest;
             } else {
                 id = R.string.version_update;
+                JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));
                 url = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
             }
         } catch (Exception e) {

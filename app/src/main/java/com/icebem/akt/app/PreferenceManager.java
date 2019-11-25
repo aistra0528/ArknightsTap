@@ -24,7 +24,7 @@ public class PreferenceManager {
     private static final String KEY_VERSION = "version";
     private static final String KEY_AUTO_UPDATE = "auto_update";
     private static final String KEY_CHECK_LAST_TIME = "check_last_time";
-    private static final String KEY_HIDE_TAGS = "hide_tags";
+    private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
     private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
     private static final int UPDATE_TIME = 3500;
@@ -139,8 +139,8 @@ public class PreferenceManager {
         } else return false;
     }
 
-    public boolean hideTags() {
-        return androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(KEY_HIDE_TAGS, true);
+    public boolean scrollToResult() {
+        return androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(KEY_SCROLL_TO_RESULT, true);
     }
 
     public Context getContext() {

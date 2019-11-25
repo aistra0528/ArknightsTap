@@ -11,9 +11,9 @@
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
-            app:key="hide_tags"
-            app:summary="@string/hide_tags_summary"
-            app:title="@string/hide_tags_title" />
+            app:key="scroll_to_result"
+            app:summary="@string/scroll_to_result_summary"
+            app:title="@string/scroll_to_result_title" />
 
     </PreferenceCategory>
 </PreferenceScreen>

@@ -23,6 +23,7 @@ import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.activity.AboutActivity;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.IOUtil;
 import com.icebem.akt.util.ResolutionConfig;
 
@@ -53,7 +54,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (manager.autoUpdate()) {
+        if (BuildConfig.DEBUG) {
+            Snackbar.make(state, R.string.version_debug, Snackbar.LENGTH_INDEFINITE).show();
+        } else if (manager.autoUpdate()) {
             new Thread(this::checkVersionUpdate, "update").start();
             Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_LONG).show();
         }
@@ -84,11 +87,11 @@ public class HomeFragment extends Fragment {
         int id;
         String l = null, u = null;
         try {
-            JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb("https://api.github.com/repos/IcebemAst/ArknightsTap/releases/latest")));
-            if (json.getString("tag_name").contains(BuildConfig.VERSION_NAME)) {
+            if (AppUtil.isLatestVersion()) {
                 id = R.string.version_latest;
             } else {
                 id = R.string.version_update;
+                JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));
                 l = json.getString("name") + "\n" + json.getString("body");
                 u = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
             }
@@ -103,7 +106,7 @@ public class HomeFragment extends Fragment {
                 builder.setTitle(result);
                 builder.setMessage(log);
                 builder.setPositiveButton(R.string.action_update, (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));
-                builder.setNegativeButton(android.R.string.cancel, null);
+                builder.setNegativeButton(R.string.no_thanks, null);
                 builder.create().show();
             } else Snackbar.make(state, result, Snackbar.LENGTH_LONG).show();
         });

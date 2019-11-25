@@ -1,6 +1,5 @@
 package com.icebem.akt.model;
 
-import android.app.Service;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.R;
@@ -34,6 +35,7 @@ public class HRViewer {
     private int maxStar;
     private Context context;
     private TextView tip;
+    private NestedScrollView scroll;
     private ViewGroup root, tagsContainer, resultContainer;
     private PreferenceManager manager;
     private CharacterInfo[] infoList;
@@ -46,13 +48,14 @@ public class HRViewer {
         this.root = root;
         manager = new PreferenceManager(context);
         tip = root.findViewById(R.id.txt_hr_tips);
+        scroll = root.findViewById(R.id.scroll_hr_root);
         resultContainer = root.findViewById(R.id.container_hr_result);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
         sexes = findBoxesById(R.id.tag_sex_1);
         types = findBoxesById(R.id.tag_type_1);
         tagsContainer = root.findViewById(R.id.container_hr_tags);
-        if (context instanceof Service)
+        if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
         root.findViewById(R.id.action_hr_reset).setOnClickListener(view -> resetTags());
         setOnCheckedChangeListener(stars);
@@ -114,6 +117,8 @@ public class HRViewer {
     }
 
     public void resetTags() {
+        if (checkedStars.size() == TAG_STAR_MIN)
+            findBoxById(CHECKED_STARS_ID[0]).setChecked(true);
         for (CheckBox box : stars)
             box.setChecked(Arrays.binarySearch(CHECKED_STARS_ID, box.getId()) >= 0);
         while (!checkedTags.isEmpty())
@@ -142,8 +147,6 @@ public class HRViewer {
                 checkedTags.add(tag);
             else
                 checkedTags.remove(tag);
-            if (checkedTags.size() == TAG_CHECKED_MAX && manager.hideTags())
-                tagsContainer.setVisibility(View.GONE);
         }
         updateHRResult();
     }
@@ -167,6 +170,8 @@ public class HRViewer {
             Collections.sort(resultList);
             for (ItemContainer container : resultList)
                 resultContainer.addView(container);
+            if (checkedTags.size() == TAG_CHECKED_MAX && manager.scrollToResult())
+                scroll.post(() -> scroll.smoothScrollTo(0, tagsContainer.getHeight()));
             switch (maxStar) {
                 case 6:
                     tip.setText(R.string.tip_hr_result_excellent);
@@ -274,10 +279,10 @@ public class HRViewer {
                 builder.append(space);
                 builder.append(tag);
             }
-            if (context instanceof Service)
-                Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
-            else
+            if (context instanceof AppCompatActivity)
                 Snackbar.make(root, builder.toString(), Snackbar.LENGTH_LONG).show();
+            else
+                Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
         });
         switch (info.getStar()) {
             case 1:

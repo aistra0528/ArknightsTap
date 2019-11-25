@@ -1,6 +1,7 @@
 package com.icebem.akt.service;
 
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
@@ -13,8 +14,9 @@ public class QuickService extends TileService {
     @Override
     public void onStartListening() {
         super.onStartListening();
-        getQsTile().setState(((CoreApplication) getApplication()).isOverlayServiceRunning() ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+        getQsTile().setIcon(Icon.createWithResource(this, Settings.canDrawOverlays(this) ? R.drawable.ic_service : R.drawable.ic_error_outline));
         getQsTile().setLabel(Settings.canDrawOverlays(this) ? getString(R.string.overlay_label) : getString(R.string.state_permission_request));
+        getQsTile().setState(((CoreApplication) getApplication()).isOverlayServiceRunning() ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
         getQsTile().updateTile();
     }
 
