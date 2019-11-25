@@ -112,8 +112,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_main, menu);
-        if (!manager.isPro())
-            menu.findItem(R.id.action_timer).setVisible(false);
+        inflater.inflate(R.menu.menu_home, menu);
+        if (manager.isPro())
+            menu.findItem(R.id.action_timer).setVisible(true);
     }
 }
