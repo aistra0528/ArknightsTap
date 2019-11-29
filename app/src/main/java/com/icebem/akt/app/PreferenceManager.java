@@ -12,7 +12,6 @@ import com.icebem.akt.util.RandomUtil;
 import com.icebem.akt.util.ResolutionConfig;
 
 public class PreferenceManager {
-    private static final String PREFERENCES_NAME = "data";
     private static final String KEY_A = "point_a";
     private static final String KEY_B = "point_b";
     private static final String KEY_X = "point_x";
@@ -24,6 +23,7 @@ public class PreferenceManager {
     private static final String KEY_VERSION = "version";
     private static final String KEY_AUTO_UPDATE = "auto_update";
     private static final String KEY_CHECK_LAST_TIME = "check_last_time";
+    private static final String KEY_ASCENDING_STAR = "ascending_star";
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
     private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
@@ -33,7 +33,7 @@ public class PreferenceManager {
 
     public PreferenceManager(Context context) {
         this.context = context;
-        preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+        preferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
         if (!dataUpdated()) {
             int[] res = ResolutionConfig.getResolution(context);
             for (int[] cfg : ResolutionConfig.RESOLUTION_CONFIG) {
@@ -133,14 +133,18 @@ public class PreferenceManager {
 
     public boolean autoUpdate() {
         // 每隔2小时自动获取更新
-        if (androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(KEY_AUTO_UPDATE, false) && System.currentTimeMillis() - getCheckLastTime() > 7200000) {
+        if (preferences.getBoolean(KEY_AUTO_UPDATE, false) && System.currentTimeMillis() - getCheckLastTime() > 7200000) {
             setCheckLastTime();
             return true;
         } else return false;
     }
 
+    public boolean ascendingStar() {
+        return preferences.getBoolean(KEY_ASCENDING_STAR, true);
+    }
+
     public boolean scrollToResult() {
-        return androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(KEY_SCROLL_TO_RESULT, true);
+        return preferences.getBoolean(KEY_SCROLL_TO_RESULT, true);
     }
 
     public Context getContext() {

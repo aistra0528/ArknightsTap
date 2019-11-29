@@ -1,5 +1,4 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/color_checkbox_star_1" />
-    <corners android:radius="@dimen/control_corner_radius" />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_tag_unchecked" android:state_checked="false" />
+    <item android:drawable="@drawable/bg_tag_star_1" android:state_checked="true" />
+</selector>

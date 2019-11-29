@@ -24,15 +24,12 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class HRViewer {
-    private static final int TAG_STAR_MIN = 1;
     private static final int TAG_CHECKED_MAX = 5;
     private static final int TAG_COMBINED_MAX = 3;
     private static final int[] CHECKED_STARS_ID = {R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5};
-    private int maxStar;
     private Context context;
     private TextView tip;
     private NestedScrollView scroll;
@@ -93,13 +90,9 @@ public class HRViewer {
     private void onCheckedChange(CompoundButton tag, boolean isChecked) {
         if (tag instanceof CheckBox) {
             if (stars.contains(tag)) {
-                if (!isChecked && checkedStars.size() == TAG_STAR_MIN) {
-                    tag.setChecked(true);
-                } else {
-                    if (tag.getId() == R.id.tag_star_6 && !isChecked && findBoxById(R.id.tag_qualification_3).isChecked())
-                        findBoxById(R.id.tag_qualification_3).setChecked(false);
-                    updateCheckedTags((CheckBox) tag, isChecked);
-                }
+                if (tag.getId() == R.id.tag_star_6 && !isChecked && findBoxById(R.id.tag_qualification_3).isChecked())
+                    findBoxById(R.id.tag_qualification_3).setChecked(false);
+                updateCheckedTags((CheckBox) tag, isChecked);
             } else if (isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
                 tag.setChecked(false);
             } else {
@@ -117,12 +110,12 @@ public class HRViewer {
     }
 
     public void resetTags() {
-        if (checkedStars.size() == TAG_STAR_MIN)
-            findBoxById(CHECKED_STARS_ID[0]).setChecked(true);
-        for (CheckBox box : stars)
-            box.setChecked(Arrays.binarySearch(CHECKED_STARS_ID, box.getId()) >= 0);
+        while (!checkedStars.isEmpty())
+            checkedStars.get(0).setChecked(false);
         while (!checkedTags.isEmpty())
             checkedTags.get(0).setChecked(false);
+        for (int id : CHECKED_STARS_ID)
+            findBoxById(id).setChecked(true);
         if (tagsContainer.getVisibility() != View.VISIBLE)
             tagsContainer.setVisibility(View.VISIBLE);
     }
@@ -142,6 +135,8 @@ public class HRViewer {
                 }
             }
             Collections.sort(checkedInfoList);
+            if (manager.ascendingStar())
+                Collections.reverse(checkedInfoList);
         } else {
             if (isChecked)
                 checkedTags.add(tag);
@@ -154,15 +149,14 @@ public class HRViewer {
     private void updateHRResult() {
         resultContainer.removeAllViews();
         if (checkedTags.isEmpty()) {
-            HorizontalScrollView scroll = (HorizontalScrollView) LayoutInflater.from(context).inflate(R.layout.scroll_overlay, resultContainer, false);
+            HorizontalScrollView scroll = new HorizontalScrollView(context);
             LinearLayout layout = new LinearLayout(context);
             for (CharacterInfo info : checkedInfoList)
                 layout.addView(getInfoView(info, layout));
             scroll.addView(layout);
             resultContainer.addView(scroll);
-            tip.setText(R.string.tip_hr_result_normal);
+            tip.setText(checkedInfoList.isEmpty() ? R.string.tip_hr_result_none : R.string.tip_hr_result_normal);
         } else {
-            maxStar = 0;
             resultList = new ArrayList<>();
             Collections.sort(checkedTags, this::compareTags);
             for (int i = Math.min(checkedTags.size(), TAG_COMBINED_MAX); i > 0; i--)
@@ -172,7 +166,7 @@ public class HRViewer {
                 resultContainer.addView(container);
             if (checkedTags.size() == TAG_CHECKED_MAX && manager.scrollToResult())
                 scroll.post(() -> scroll.smoothScrollTo(0, tagsContainer.getHeight()));
-            switch (maxStar) {
+            switch (resultList.isEmpty() ? 0 : resultList.get(0).getMinStar()) {
                 case 6:
                     tip.setText(R.string.tip_hr_result_excellent);
                     tip.setEllipsize(TextUtils.TruncateAt.MARQUEE);
@@ -237,17 +231,16 @@ public class HRViewer {
         LinearLayout tagContainer = new LinearLayout(context);
         for (CheckBox box : combinedTags)
             tagContainer.addView(getTagView(box, tagContainer));
-        HorizontalScrollView scroll = (HorizontalScrollView) LayoutInflater.from(context).inflate(R.layout.scroll_overlay, resultContainer, false);
+        HorizontalScrollView scroll = new HorizontalScrollView(context);
         LinearLayout infoContainer = new LinearLayout(context);
         for (CharacterInfo info : matchedInfoList)
             infoContainer.addView(getInfoView(info, infoContainer));
         scroll.addView(infoContainer);
         ItemContainer itemContainer = new ItemContainer();
-        itemContainer.setStar(matchedInfoList.get(matchedInfoList.size() - 1).getStar(), matchedInfoList.get(0).getStar());
+        itemContainer.setStar(Math.min(matchedInfoList.get(0).getStar(), matchedInfoList.get(matchedInfoList.size() - 1).getStar()), Math.max(matchedInfoList.get(0).getStar(), matchedInfoList.get(matchedInfoList.size() - 1).getStar()));
         itemContainer.addView(tagContainer);
         itemContainer.addView(scroll);
         resultList.add(itemContainer);
-        maxStar = Math.max(maxStar, matchedInfoList.get(matchedInfoList.size() - 1).getStar());
     }
 
     private TextView getTagView(CheckBox box, ViewGroup container) {

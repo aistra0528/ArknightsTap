@@ -11,6 +11,12 @@
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
+            app:key="ascending_star"
+            app:summary="@string/ascending_star_summary"
+            app:title="@string/ascending_star_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
             app:key="scroll_to_result"
             app:summary="@string/scroll_to_result_summary"
             app:title="@string/scroll_to_result_title" />

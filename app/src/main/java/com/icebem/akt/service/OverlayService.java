@@ -25,9 +25,14 @@ public class OverlayService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        setTheme(R.style.AppTheme_Dark);
         views = new OverlayView[2];
         views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.content_overlay, null), Gravity.END | Gravity.TOP, false, null);
         views[1].getView().findViewById(R.id.action_disconnect).setOnClickListener(view -> stopSelf());
+        views[1].getView().findViewById(R.id.action_collapse).setOnClickListener(view -> {
+            views[1].remove();
+            views[0].show();
+        });
         HRViewer viewer = null;
         try {
             viewer = new HRViewer(this, (ViewGroup) views[1].getView());
@@ -35,16 +40,11 @@ public class OverlayService extends Service {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }
         HRViewer hr = viewer;
-        views[1].getView().findViewById(R.id.action_collapse).setOnClickListener(view -> {
-            views[1].remove();
-            views[0].show();
-            if (hr != null)
-                hr.resetTags();
-        });
         views[0] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, view -> {
             if (((CoreApplication) getApplication()).isGestureServiceRunning()) {
                 ((CoreApplication) getApplication()).getGestureService().disableSelf();
             } else if (hr != null) {
+                hr.resetTags();
                 views[0].remove();
                 views[1].show();
             } else

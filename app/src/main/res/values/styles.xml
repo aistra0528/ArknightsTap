@@ -4,14 +4,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -22,10 +20,9 @@
 
     <style name="CheckBoxTagStyle">
         <item name="android:background">@drawable/bg_checkbox</item>
-        <item name="android:foreground">?selectableItemBackground</item>
         <item name="android:button">@null</item>
         <item name="android:layout_margin">@dimen/control_margin</item>
         <item name="android:padding">@dimen/control_padding</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/color_checkbox_text</item>
     </style>
 </resources>
