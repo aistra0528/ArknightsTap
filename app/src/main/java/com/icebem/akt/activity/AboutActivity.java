@@ -22,8 +22,8 @@ import org.json.JSONObject;
 
 public class AboutActivity extends AppCompatActivity {
     private int i;
-    private TextView desc_type;
-    private LinearLayout container_version;
+    private TextView typeDesc;
+    private LinearLayout versionContainer;
     private PreferenceManager manager;
 
     @Override
@@ -41,14 +41,13 @@ public class AboutActivity extends AppCompatActivity {
         findViewById(R.id.container_comment).setOnClickListener(this::onClick);
         findViewById(R.id.container_discuss).setOnClickListener(this::onClick);
         findViewById(R.id.container_project).setOnClickListener(this::onClick);
-        container_version = findViewById(R.id.container_version_state);
-        container_version.setOnClickListener(this::onClick);
+        versionContainer = findViewById(R.id.container_version_state);
+        versionContainer.setOnClickListener(this::onClick);
         findViewById(R.id.container_version_type).setOnClickListener(this::onClick);
-        TextView desc_state = findViewById(R.id.txt_version_state_desc);
-        desc_state.setText(BuildConfig.VERSION_NAME);
-        desc_type = findViewById(R.id.txt_version_type_desc);
+        ((TextView) findViewById(R.id.txt_version_state_desc)).setText(BuildConfig.VERSION_NAME);
+        typeDesc = findViewById(R.id.txt_version_type_desc);
         manager = new PreferenceManager(this);
-        desc_type.setText(manager.isPro() ? R.string.version_type_pro : R.string.version_type_lite);
+        typeDesc.setText(manager.isPro() ? R.string.version_type_pro : R.string.version_type_lite);
     }
 
     private void onClick(View view) {
@@ -66,7 +65,7 @@ public class AboutActivity extends AppCompatActivity {
                     }
                 });
                 builder.setPositiveButton(R.string.no_way, null);
-                builder.setNegativeButton(android.R.string.cancel, null);
+                builder.setNegativeButton(R.string.no_thanks, null);
                 builder.create().show();
                 break;
             case R.id.container_comment:
@@ -87,7 +86,7 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PROJECT)));
                 break;
             case R.id.container_version_state:
-                container_version.setOnClickListener(null);
+                versionContainer.setOnClickListener(null);
                 new Thread(this::checkVersionUpdate, "update").start();
                 Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
                 break;
@@ -95,7 +94,7 @@ public class AboutActivity extends AppCompatActivity {
                 if (i == 15) {
                     i = 0;
                     manager.setPro(!manager.isPro());
-                    desc_type.setText(manager.isPro() ? R.string.version_type_pro : R.string.version_type_lite);
+                    typeDesc.setText(manager.isPro() ? R.string.version_type_pro : R.string.version_type_lite);
                     Snackbar.make(view, R.string.version_type_changed, Snackbar.LENGTH_LONG).show();
                 } else i++;
                 break;
@@ -120,10 +119,10 @@ public class AboutActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         runOnUiThread(() -> {
             if (result == R.string.version_update)
-                Snackbar.make(desc_type, result, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_update, v -> startActivity(intent)).show();
+                Snackbar.make(typeDesc, result, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_update, v -> startActivity(intent)).show();
             else
-                Snackbar.make(desc_type, result, Snackbar.LENGTH_LONG).show();
-            container_version.setOnClickListener(v -> startActivity(intent));
+                Snackbar.make(typeDesc, result, Snackbar.LENGTH_LONG).show();
+            versionContainer.setOnClickListener(v -> startActivity(intent));
         });
     }
 }

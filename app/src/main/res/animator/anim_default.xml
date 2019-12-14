@@ -1,5 +1,5 @@
 <objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="1000"
+    android:duration="@android:integer/config_longAnimTime"
     android:interpolator="@android:interpolator/fast_out_slow_in"
     android:propertyName="trimPathEnd"
     android:valueFrom="0"

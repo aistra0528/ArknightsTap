@@ -7,7 +7,7 @@ import android.os.Build;
 import com.icebem.akt.service.GestureService;
 import com.icebem.akt.service.OverlayService;
 
-public class CoreApplication extends Application {
+public class BaseApplication extends Application {
     private GestureService service;
 
     public void setGestureService(GestureService service) {

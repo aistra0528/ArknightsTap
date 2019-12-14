@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
-import com.icebem.akt.app.CoreApplication;
+import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.util.RandomUtil;
 
@@ -36,14 +36,7 @@ public class GestureService extends AccessibilityService {
             disableSelf();
             return;
         }
-        ((CoreApplication) getApplication()).setGestureService(this);
-        if (packageInstalled("com.hypergryph.arknights") && !packageInstalled("com.hypergryph.arknights.bilibili")) {
-            try {
-                startActivity(new Intent().setClassName("com.hypergryph.arknights", "com.u8.sdk.U8UnityContext").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            } catch (Exception e) {
-                Log.w(getClass().getSimpleName(), e);
-            }
-        }
+        ((BaseApplication) getApplication()).setGestureService(this);
         new Thread(this::performGestures, "gesture").start();
         time = manager.getTimerTime();
         if (time > 0) {
@@ -83,7 +76,7 @@ public class GestureService extends AccessibilityService {
             performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
         else
             timerTimeout = true;
-        Toast.makeText(this, manager.dataUpdated() ? R.string.info_gesture_disconnected : R.string.info_resolution_unsupported, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, manager.dataUpdated() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
         return super.onUnbind(intent);
     }
 
@@ -97,10 +90,11 @@ public class GestureService extends AccessibilityService {
                 GestureDescription.Builder builder = new GestureDescription.Builder();
                 path.moveTo(RandomUtil.randomP(manager.getA()), RandomUtil.randomP(manager.getB()));
                 builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
-                path.moveTo(RandomUtil.randomP(manager.getW()), RandomUtil.randomP(manager.getH()));
-                builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2), RandomUtil.randomP(GESTURE_DURATION)));
                 path.moveTo(RandomUtil.randomP(manager.getX()), RandomUtil.randomP(manager.getY()));
                 builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime()), RandomUtil.randomP(GESTURE_DURATION)));
+                path.moveTo(RandomUtil.randomP(manager.getW()), RandomUtil.randomP(manager.getH()));
+                builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2), RandomUtil.randomP(GESTURE_DURATION)));
+                builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2 * 3), RandomUtil.randomP(GESTURE_DURATION)));
                 dispatchGesture(builder.build(), null, null);
                 Thread.sleep(RandomUtil.randomT(manager.getUpdateTime() * 2));
             }
@@ -109,14 +103,6 @@ public class GestureService extends AccessibilityService {
             timerTimeout = true;
         }
         disableSelf();
-    }
-
-    private boolean packageInstalled(String packageName) {
-        try {
-            return getPackageManager().getPackageGids(packageName) != null;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     private static final class UIHandler extends Handler {

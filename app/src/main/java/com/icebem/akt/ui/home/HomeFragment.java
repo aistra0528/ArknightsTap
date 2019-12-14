@@ -1,7 +1,9 @@
 package com.icebem.akt.ui.home;
 
 import android.content.Intent;
+import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -36,26 +39,38 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        ImageView img_state = root.findViewById(R.id.img_service_state);
-        state = root.findViewById(R.id.txt_service_state);
+        ImageView stateImg = root.findViewById(R.id.img_state);
+        state = root.findViewById(R.id.txt_state);
         manager = new PreferenceManager(inflater.getContext());
         if (manager.isPro() && !manager.dataUpdated()) {
+            stateImg.setImageResource(R.drawable.ic_state_loading);
+            state.setText(R.string.state_resolution_unsupported);
             int[] res = ResolutionConfig.getResolution(manager.getContext());
             AlertDialog.Builder builder = new AlertDialog.Builder(manager.getContext());
-            builder.setTitle(R.string.info_resolution_unsupported);
+            builder.setTitle(R.string.state_resolution_unsupported);
             builder.setMessage(String.format(getString(R.string.msg_resolution_unsupported), res[0], res[1]));
             builder.setPositiveButton(R.string.got_it, null);
             builder.create().show();
+        } else {
+            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) stateImg.getDrawable();
+            avd.registerAnimationCallback(new Animatable2.AnimationCallback() {
+                @Override
+                public void onAnimationEnd(Drawable drawable) {
+                    stateImg.setImageResource(R.drawable.ic_state_ready_anim);
+                    state.setText(R.string.state_ready);
+                    ((AnimatedVectorDrawable) stateImg.getDrawable()).start();
+                }
+            });
+            avd.start();
         }
-        ((AnimatedVectorDrawable) img_state.getDrawable()).start();
         return root;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (BuildConfig.DEBUG) {
-            Snackbar.make(state, R.string.version_debug, Snackbar.LENGTH_INDEFINITE).show();
+            Snackbar.make(state, R.string.version_type_beta, Snackbar.LENGTH_INDEFINITE).show();
         } else if (manager.autoUpdate()) {
             new Thread(this::checkVersionUpdate, "update").start();
             Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_LONG).show();

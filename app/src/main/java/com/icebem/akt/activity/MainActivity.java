@@ -13,7 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
-import com.icebem.akt.app.CoreApplication;
+import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.service.OverlayService;
 
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         switch (navController.getCurrentDestination().getId()) {
             case R.id.nav_home:
                 if (manager.isPro()) {
-                    if (((CoreApplication) getApplication()).isGestureServiceRunning()) {
-                        ((CoreApplication) getApplication()).getGestureService().disableSelf();
+                    if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
+                        ((BaseApplication) getApplication()).getGestureService().disableSelf();
                     } else {
                         Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));

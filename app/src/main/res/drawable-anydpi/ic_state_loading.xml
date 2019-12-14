@@ -3,14 +3,18 @@
     android:height="24dp"
     android:viewportWidth="24.0"
     android:viewportHeight="24.0">
+    <group
+        android:name="core_scale"
+        android:pivotX="12.0"
+        android:pivotY="12.0">
+        <path
+            android:name="core_alpha"
+            android:fillColor="@android:color/black"
+            android:pathData="M12,8l4,4l-4,4l-4,-4" />
+    </group>
     <path
+        android:name="outside"
         android:pathData="M12,4l8,8l-8,8l-8,-8z"
-        android:strokeWidth="1.2"
-        android:strokeColor="@android:color/black"
-        android:strokeLineCap="square" />
-    <path
-        android:name="inside"
-        android:pathData="M10,12l2,2l2,-2"
         android:strokeWidth="1.2"
         android:strokeColor="@android:color/black"
         android:strokeLineCap="square" />

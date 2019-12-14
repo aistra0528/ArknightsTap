@@ -8,7 +8,7 @@ import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import com.icebem.akt.R;
-import com.icebem.akt.app.CoreApplication;
+import com.icebem.akt.app.BaseApplication;
 
 public class QuickService extends TileService {
     @Override
@@ -16,7 +16,7 @@ public class QuickService extends TileService {
         super.onStartListening();
         getQsTile().setIcon(Icon.createWithResource(this, Settings.canDrawOverlays(this) ? R.drawable.ic_service : R.drawable.ic_error_outline));
         getQsTile().setLabel(Settings.canDrawOverlays(this) ? getString(R.string.overlay_label) : getString(R.string.state_permission_request));
-        getQsTile().setState(((CoreApplication) getApplication()).isOverlayServiceRunning() ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+        getQsTile().setState(((BaseApplication) getApplication()).isOverlayServiceRunning() ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
         getQsTile().updateTile();
     }
 
@@ -25,7 +25,7 @@ public class QuickService extends TileService {
         super.onClick();
         if (Settings.canDrawOverlays(this)) {
             Intent intent = new Intent(this, OverlayService.class);
-            if (((CoreApplication) getApplication()).isOverlayServiceRunning()) {
+            if (((BaseApplication) getApplication()).isOverlayServiceRunning()) {
                 stopService(intent);
                 getQsTile().setState(Tile.STATE_INACTIVE);
             } else {

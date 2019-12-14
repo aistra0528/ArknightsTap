@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,13 @@ import java.util.Collections;
 public class HRViewer {
     private static final int TAG_CHECKED_MAX = 5;
     private static final int TAG_COMBINED_MAX = 3;
-    private static final int[] CHECKED_STARS_ID = {R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5};
+    private static final int CHECKED_TIME_ID = R.id.tag_time_3;
+    private static final int[][] CHECKED_STARS_ID = {
+            {R.id.tag_time_3, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5, R.id.tag_star_6},
+            {R.id.tag_time_2, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5},
+            {R.id.tag_time_1, R.id.tag_star_1, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4}
+    };
+    private boolean autoAction;
     private Context context;
     private TextView tip;
     private NestedScrollView scroll;
@@ -44,17 +52,18 @@ public class HRViewer {
         this.context = context;
         this.root = root;
         manager = new PreferenceManager(context);
-        tip = root.findViewById(R.id.txt_hr_tips);
         scroll = root.findViewById(R.id.scroll_hr_root);
+        tip = root.findViewById(R.id.txt_hr_tips);
         resultContainer = root.findViewById(R.id.container_hr_result);
+        tagsContainer = root.findViewById(R.id.container_hr_tags);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
         sexes = findBoxesById(R.id.tag_sex_1);
         types = findBoxesById(R.id.tag_type_1);
-        tagsContainer = root.findViewById(R.id.container_hr_tags);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
         root.findViewById(R.id.action_hr_reset).setOnClickListener(view -> resetTags());
+        ((RadioGroup) tagsContainer.findViewById(R.id.group_hr_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
         setOnCheckedChangeListener(findBoxesById(R.id.tag_position_1));
@@ -70,12 +79,12 @@ public class HRViewer {
     }
 
     private CheckBox findBoxById(int id) {
-        return root.findViewById(id);
+        return tagsContainer.findViewById(id);
     }
 
     private ArrayList<CheckBox> findBoxesById(int id) {
         ArrayList<CheckBox> boxes = new ArrayList<>();
-        ViewGroup group = (ViewGroup) root.findViewById(id).getParent();
+        ViewGroup group = (ViewGroup) tagsContainer.findViewById(id).getParent();
         for (int i = 0; i < group.getChildCount(); i++)
             if (group.getChildAt(i) instanceof CheckBox)
                 boxes.add((CheckBox) group.getChildAt(i));
@@ -87,37 +96,42 @@ public class HRViewer {
             box.setOnCheckedChangeListener(this::onCheckedChange);
     }
 
+    private void onCheckedChange(RadioGroup group, int checkedId) {
+        if (group.getId() == R.id.group_hr_time) {
+            if (!autoAction)
+                autoAction = true;
+            while (!checkedStars.isEmpty())
+                checkedStars.get(0).setChecked(false);
+            for (int[] stars : CHECKED_STARS_ID) {
+                if (stars[0] == checkedId)
+                    for (int i = 1; i < stars.length; i++)
+                        findBoxById(stars[i]).setChecked(true);
+            }
+            autoAction = false;
+            updateHRResult();
+        }
+    }
+
     private void onCheckedChange(CompoundButton tag, boolean isChecked) {
         if (tag instanceof CheckBox) {
-            if (stars.contains(tag)) {
-                if (tag.getId() == R.id.tag_star_6 && !isChecked && findBoxById(R.id.tag_qualification_3).isChecked())
-                    findBoxById(R.id.tag_qualification_3).setChecked(false);
-                updateCheckedTags((CheckBox) tag, isChecked);
-            } else if (isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
+            if (!stars.contains(tag) && isChecked && checkedTags.size() >= TAG_CHECKED_MAX)
                 tag.setChecked(false);
-            } else {
-                if (qualifications.contains(tag) && isChecked) {
-                    if (tag.getId() == R.id.tag_qualification_1 && !findBoxById(R.id.tag_star_2).isChecked())
-                        findBoxById(R.id.tag_star_2).setChecked(true);
-                    else if (tag.getId() == R.id.tag_qualification_2 && !findBoxById(R.id.tag_star_5).isChecked())
-                        findBoxById(R.id.tag_star_5).setChecked(true);
-                    else if (tag.getId() == R.id.tag_qualification_3 && !findBoxById(R.id.tag_star_6).isChecked())
-                        findBoxById(R.id.tag_star_6).setChecked(true);
-                }
+            else
                 updateCheckedTags((CheckBox) tag, isChecked);
-            }
         }
     }
 
     public void resetTags() {
-        while (!checkedStars.isEmpty())
-            checkedStars.get(0).setChecked(false);
-        while (!checkedTags.isEmpty())
-            checkedTags.get(0).setChecked(false);
-        for (int id : CHECKED_STARS_ID)
-            findBoxById(id).setChecked(true);
+        autoAction = true;
         if (tagsContainer.getVisibility() != View.VISIBLE)
             tagsContainer.setVisibility(View.VISIBLE);
+        while (!checkedTags.isEmpty())
+            checkedTags.get(0).setChecked(false);
+        RadioButton timeTag = tagsContainer.findViewById(CHECKED_TIME_ID);
+        if (timeTag.isChecked())
+            onCheckedChange((RadioGroup) timeTag.getParent(), CHECKED_TIME_ID);
+        else
+            timeTag.setChecked(true);
     }
 
     private void updateCheckedTags(CheckBox tag, boolean isChecked) {
@@ -143,7 +157,8 @@ public class HRViewer {
             else
                 checkedTags.remove(tag);
         }
-        updateHRResult();
+        if (!autoAction)
+            updateHRResult();
     }
 
     private void updateHRResult() {
@@ -152,7 +167,8 @@ public class HRViewer {
             HorizontalScrollView scroll = new HorizontalScrollView(context);
             LinearLayout layout = new LinearLayout(context);
             for (CharacterInfo info : checkedInfoList)
-                layout.addView(getInfoView(info, layout));
+                if (info.getStar() != 6)
+                    layout.addView(getInfoView(info, layout));
             scroll.addView(layout);
             resultContainer.addView(scroll);
             tip.setText(checkedInfoList.isEmpty() ? R.string.tip_hr_result_none : R.string.tip_hr_result_normal);
@@ -310,6 +326,8 @@ public class HRViewer {
     }
 
     private class ItemContainer extends LinearLayout implements Comparable<ItemContainer> {
+        private int minStar, maxStar;
+
         private ItemContainer() {
             super(context);
             setOrientation(VERTICAL);
@@ -317,21 +335,22 @@ public class HRViewer {
         }
 
         private void setStar(int min, int max) {
-            setTag(new int[]{min, max});
+            minStar = min;
+            maxStar = max;
         }
 
         private int getMaxStar() {
-            return ((int[]) getTag())[1];
+            return maxStar;
         }
 
         private int getMinStar() {
-            return ((int[]) getTag())[0];
+            return minStar;
         }
 
         @Override
         public int compareTo(@NonNull ItemContainer container) {
-            int i = container.getMinStar() - getMinStar();
-            if (i == 0) i = container.getMaxStar() - getMaxStar();
+            int i = container.getMinStar() - minStar;
+            if (i == 0) i = container.getMaxStar() - maxStar;
             return i;
         }
     }

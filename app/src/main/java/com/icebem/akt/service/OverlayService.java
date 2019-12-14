@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.icebem.akt.R;
-import com.icebem.akt.app.CoreApplication;
+import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.model.HRViewer;
 import com.icebem.akt.overlay.OverlayView;
 
@@ -41,8 +41,8 @@ public class OverlayService extends Service {
         }
         HRViewer hr = viewer;
         views[0] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, view -> {
-            if (((CoreApplication) getApplication()).isGestureServiceRunning()) {
-                ((CoreApplication) getApplication()).getGestureService().disableSelf();
+            if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
+                ((BaseApplication) getApplication()).getGestureService().disableSelf();
             } else if (hr != null) {
                 hr.resetTags();
                 views[0].remove();

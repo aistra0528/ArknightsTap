@@ -21,6 +21,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+                <RadioGroup
+                    android:id="@+id/group_hr_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/tag_time_3"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_5"
+                        android:text="@string/tag_time_3" />
+
+                    <RadioButton
+                        android:id="@+id/tag_time_2"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_3"
+                        android:text="@string/tag_time_2" />
+
+                    <RadioButton
+                        android:id="@+id/tag_time_1"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_1"
+                        android:text="@string/tag_time_1" />
+                </RadioGroup>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

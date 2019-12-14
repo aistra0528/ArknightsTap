@@ -7,16 +7,16 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/img_service_state"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/img_state"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:contentDescription="@null"
-        app:srcCompat="@drawable/ic_state_ready_anim" />
+        app:srcCompat="@drawable/ic_state_loading_anim" />
 
     <TextView
-        android:id="@+id/txt_service_state"
+        android:id="@+id/txt_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/state_service_ready"
+        android:text="@string/state_loading"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 </LinearLayout>

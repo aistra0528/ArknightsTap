@@ -1,6 +1,6 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:drawable="@drawable/ic_state_ready">
     <target
-        android:name="path"
-        android:animation="@animator/anim_vector" />
+        android:name="inside"
+        android:animation="@animator/anim_default" />
 </animated-vector>
