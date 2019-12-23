@@ -10,25 +10,20 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class CharacterInfo implements Comparable<CharacterInfo> {
+public class CharacterInfo {
     private static final String ASSETS_PATH = "data/hr.json";
     private static final String KEY_STAR = "star";
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
-    private static final String KEY_SEX = "sex";
-    private static final String KEY_LIMITED = "limited";
     private static final String KEY_TAGS = "tags";
     private int star;
-    private boolean limited;
-    private String name, type, sex;
+    private String name, type;
     private String[] tags;
 
     private CharacterInfo(JSONObject obj) throws JSONException {
         star = obj.getInt(KEY_STAR);
-        limited = obj.getBoolean(KEY_LIMITED);
         name = obj.getString(KEY_NAME);
         type = obj.getString(KEY_TYPE);
-        sex = obj.getString(KEY_SEX);
         tags = new String[obj.getJSONArray(KEY_TAGS).length()];
         for (int i = 0; i < tags.length; i++)
             tags[i] = obj.getJSONArray(KEY_TAGS).getString(i);
@@ -42,11 +37,6 @@ public class CharacterInfo implements Comparable<CharacterInfo> {
         return infoList;
     }
 
-    @Override
-    public int compareTo(CharacterInfo info) {
-        return info.star - star;
-    }
-
     public boolean containsTag(String tag) {
         for (String t : tags)
             if (t.equals(tag)) return true;
@@ -57,20 +47,12 @@ public class CharacterInfo implements Comparable<CharacterInfo> {
         return star;
     }
 
-    public boolean isLimited() {
-        return limited;
-    }
-
     public String getName() {
         return name;
     }
 
     public String getType() {
         return type;
-    }
-
-    public String getSex() {
-        return sex;
     }
 
     public String[] getTags() {

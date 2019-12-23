@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
@@ -25,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    private FloatingActionButton fab;
     private AppBarConfiguration barConfig;
     private NavController navController;
     private PreferenceManager manager;
@@ -34,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        fab = findViewById(R.id.fab);
         barConfig = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_tools, R.id.nav_settings).setDrawerLayout(findViewById(R.id.drawer_layout)).build();
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        manager = new PreferenceManager(this);
         NavigationUI.setupActionBarWithNavController(this, navController, barConfig);
         NavigationUI.setupWithNavController((NavigationView) findViewById(R.id.nav_view), navController);
-        findViewById(R.id.fab).setOnClickListener(this::onClick);
-        manager = new PreferenceManager(this);
+        navController.addOnDestinationChangedListener(this::onDestinationChanged);
+        fab.setOnClickListener(this::onClick);
     }
 
     private void onClick(View view) {
@@ -58,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
             default:
                 if (Settings.canDrawOverlays(this)) {
                     startService(new Intent(this, OverlayService.class));
+                    if (((BaseApplication) getApplication()).isOverlayServiceRunning() && fab.isOrWillBeShown())
+                        fab.hide();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle(R.string.state_permission_request);
@@ -66,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
                     builder.setNegativeButton(R.string.no_thanks, null);
                     builder.create().show();
                 }
+        }
+    }
+
+    private void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+        switch (destination.getId()) {
+            case R.id.nav_settings:
+                if (fab.isOrWillBeShown())
+                    fab.hide();
+                break;
+            default:
+                if (fab.isOrWillBeHidden())
+                    fab.show();
         }
     }
 

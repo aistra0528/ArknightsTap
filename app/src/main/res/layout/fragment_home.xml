@@ -11,7 +11,7 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:contentDescription="@null"
-        app:srcCompat="@drawable/ic_state_loading_anim" />
+        app:srcCompat="@drawable/ic_state_running_anim" />
 
     <TextView
         android:id="@+id/txt_state"

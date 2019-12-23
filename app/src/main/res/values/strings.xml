@@ -75,13 +75,12 @@
     <string name="tag_star_3">3★</string>
     <string name="tag_star_2">2★</string>
     <string name="tag_star_1">1★</string>
-    <string name="tag_qualification_3">高级资深干员</string>
-    <string name="tag_qualification_2">资深干员</string>
-    <string name="tag_qualification_1">新手</string>
+    <string name="tag_qualification_6">高级资深干员</string>
+    <string name="tag_qualification_5">资深干员</string>
+    <string name="tag_qualification_2">新手</string>
+    <string name="tag_qualification_1">支援机械</string>
     <string name="tag_position_1">近战位</string>
     <string name="tag_position_2">远程位</string>
-    <string name="tag_sex_1">男性干员</string>
-    <string name="tag_sex_2">女性干员</string>
     <string name="tag_type_1">先锋干员</string>
     <string name="tag_type_2">狙击干员</string>
     <string name="tag_type_3">近卫干员</string>

@@ -1,5 +1,5 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/ic_state_loading">
+    android:drawable="@drawable/ic_state_running">
     <target
         android:name="core_alpha"
         android:animation="@animator/anim_core_alpha" />

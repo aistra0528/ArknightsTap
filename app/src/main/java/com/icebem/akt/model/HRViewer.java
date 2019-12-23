@@ -44,7 +44,7 @@ public class HRViewer {
     private ViewGroup root, tagsContainer, resultContainer;
     private PreferenceManager manager;
     private CharacterInfo[] infoList;
-    private ArrayList<CheckBox> stars, qualifications, sexes, types, checkedStars, checkedTags, combinedTags;
+    private ArrayList<CheckBox> stars, qualifications, types, checkedStars, checkedTags, combinedTags;
     private ArrayList<CharacterInfo> checkedInfoList;
     private ArrayList<ItemContainer> resultList;
 
@@ -58,7 +58,6 @@ public class HRViewer {
         tagsContainer = root.findViewById(R.id.container_hr_tags);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
-        sexes = findBoxesById(R.id.tag_sex_1);
         types = findBoxesById(R.id.tag_type_1);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
@@ -67,7 +66,6 @@ public class HRViewer {
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
         setOnCheckedChangeListener(findBoxesById(R.id.tag_position_1));
-        setOnCheckedChangeListener(sexes);
         setOnCheckedChangeListener(types);
         setOnCheckedChangeListener(findBoxesById(R.id.tag_tags_1));
         infoList = CharacterInfo.fromAssets(context);
@@ -148,9 +146,7 @@ public class HRViewer {
                         checkedInfoList.remove(info);
                 }
             }
-            Collections.sort(checkedInfoList);
-            if (manager.ascendingStar())
-                Collections.reverse(checkedInfoList);
+            Collections.sort(checkedInfoList, this::compareInfo);
         } else {
             if (isChecked)
                 checkedTags.add(tag);
@@ -224,13 +220,11 @@ public class HRViewer {
     private void matchInfoList() {
         ArrayList<CharacterInfo> matchedInfoList = new ArrayList<>();
         for (CharacterInfo info : checkedInfoList) {
-            boolean matched = info.getStar() != 6 || combinedTags.contains(findBoxById(R.id.tag_qualification_3));
+            boolean matched = info.getStar() != 6 || combinedTags.contains(findBoxById(R.id.tag_qualification_6));
             for (CheckBox tag : combinedTags) {
                 if (matched) {
                     if (qualifications.contains(tag)) {
-                        matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 5) || (tag.getId() == R.id.tag_qualification_3 && info.getStar() == 6);
-                    } else if (sexes.contains(tag)) {
-                        matched = tag.getText().toString().equals(info.getSex());
+                        matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 1) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_5 && info.getStar() == 5) || (tag.getId() == R.id.tag_qualification_6 && info.getStar() == 6);
                     } else if (types.contains(tag)) {
                         matched = tag.getText().toString().equals(info.getType());
                     } else {
@@ -265,12 +259,15 @@ public class HRViewer {
         view.setText(box.getText());
         switch (box.getId()) {
             case R.id.tag_qualification_1:
-                view.setBackgroundResource(R.drawable.bg_tag_star_2);
+                view.setBackgroundResource(R.drawable.bg_tag_star_1);
                 break;
             case R.id.tag_qualification_2:
+                view.setBackgroundResource(R.drawable.bg_tag_star_2);
+                break;
+            case R.id.tag_qualification_5:
                 view.setBackgroundResource(R.drawable.bg_tag_star_5);
                 break;
-            case R.id.tag_qualification_3:
+            case R.id.tag_qualification_6:
                 view.setBackgroundResource(R.drawable.bg_tag_star_6);
                 break;
         }
@@ -314,6 +311,10 @@ public class HRViewer {
                 break;
         }
         return view;
+    }
+
+    private int compareInfo(CharacterInfo p1, CharacterInfo p2) {
+        return manager.ascendingStar() ? p1.getStar() - p2.getStar() : p2.getStar() - p1.getStar();
     }
 
     private int compareTags(CheckBox t1, CheckBox t2) {

@@ -122,19 +122,27 @@
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/tag_qualification_3"
+                        android:id="@+id/tag_qualification_6"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_checkbox_star_6"
-                        android:text="@string/tag_qualification_3" />
+                        android:text="@string/tag_qualification_6" />
+
+                    <CheckBox
+                        android:id="@+id/tag_qualification_5"
+                        style="@style/CheckBoxTagStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_checkbox_star_5"
+                        android:text="@string/tag_qualification_5" />
 
                     <CheckBox
                         android:id="@+id/tag_qualification_2"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_checkbox_star_5"
+                        android:background="@drawable/bg_checkbox_star_2"
                         android:text="@string/tag_qualification_2" />
 
                     <CheckBox
@@ -142,7 +150,7 @@
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_checkbox_star_2"
+                        android:background="@drawable/bg_checkbox_star_1"
                         android:text="@string/tag_qualification_1" />
                 </LinearLayout>
             </HorizontalScrollView>
@@ -169,31 +177,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tag_position_2" />
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:id="@+id/tag_sex_1"
-                        style="@style/CheckBoxTagStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tag_sex_1" />
-
-                    <CheckBox
-                        android:id="@+id/tag_sex_2"
-                        style="@style/CheckBoxTagStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tag_sex_2" />
                 </LinearLayout>
             </HorizontalScrollView>
 
