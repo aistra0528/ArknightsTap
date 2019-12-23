@@ -5,7 +5,7 @@
             <solid android:color="@android:color/transparent" />
             <stroke
                 android:width="@dimen/control_corner_radius"
-                android:color="?colorControlNormal" />
+                android:color="?attr/colorControlNormal" />
         </shape>
     </item>
     <item android:drawable="?attr/selectableItemBackground" />

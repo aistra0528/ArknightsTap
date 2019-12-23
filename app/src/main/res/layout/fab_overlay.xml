@@ -8,4 +8,5 @@
     android:minWidth="@dimen/fab_mini_size"
     android:minHeight="@dimen/fab_mini_size"
     android:theme="@style/ThemeOverlay.AppCompat.Light"
+    android:tint="@android:color/black"
     app:srcCompat="@drawable/ic_service_overlay" />

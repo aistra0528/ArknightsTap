@@ -6,12 +6,12 @@
     <path
         android:pathData="M12,4l8,8l-8,8l-8,-8z"
         android:strokeWidth="1.2"
-        android:strokeColor="@android:color/black"
+        android:strokeColor="?android:attr/textColorPrimary"
         android:strokeLineCap="square" />
     <path
         android:name="inside"
         android:pathData="M10,12l2,2l2,-2"
         android:strokeWidth="1.2"
-        android:strokeColor="@android:color/black"
+        android:strokeColor="?android:attr/textColorPrimary"
         android:strokeLineCap="square" />
 </vector>

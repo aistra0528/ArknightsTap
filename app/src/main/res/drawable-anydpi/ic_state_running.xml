@@ -9,13 +9,13 @@
         android:pivotY="12.0">
         <path
             android:name="core_alpha"
-            android:fillColor="@android:color/black"
+            android:fillColor="?android:attr/textColorPrimary"
             android:pathData="M12,8l4,4l-4,4l-4,-4" />
     </group>
     <path
         android:name="outside"
         android:pathData="M12,4l8,8l-8,8l-8,-8z"
         android:strokeWidth="1.2"
-        android:strokeColor="@android:color/black"
+        android:strokeColor="?android:attr/textColorPrimary"
         android:strokeLineCap="square" />
 </vector>

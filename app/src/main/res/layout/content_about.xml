@@ -27,7 +27,7 @@
                     android:id="@+id/container_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
+                    android:background="?attr/selectableItemBackground"
                     android:divider="@drawable/dr_divider"
                     android:orientation="vertical"
                     android:showDividers="end">
@@ -54,7 +54,7 @@
                     android:id="@+id/container_discuss"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
+                    android:background="?attr/selectableItemBackground"
                     android:divider="@drawable/dr_divider"
                     android:orientation="vertical"
                     android:showDividers="end">
@@ -81,7 +81,7 @@
                     android:id="@+id/container_project"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
+                    android:background="?attr/selectableItemBackground"
                     android:orientation="vertical"
                     android:padding="@dimen/view_padding">
 
@@ -113,7 +113,7 @@
                     android:id="@+id/container_version_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
+                    android:background="?attr/selectableItemBackground"
                     android:divider="@drawable/dr_divider"
                     android:orientation="vertical"
                     android:showDividers="end">
@@ -140,7 +140,7 @@
                     android:id="@+id/container_version_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
+                    android:background="?attr/selectableItemBackground"
                     android:orientation="vertical"
                     android:padding="@dimen/view_padding">
 
