@@ -9,6 +9,11 @@
         android:visible="false"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_night"
+        android:icon="@drawable/ic_action_night"
+        android:title="@string/action_night"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_about"
         android:title="@string/title_about"
         app:showAsAction="never" />

@@ -26,6 +26,7 @@
     <string name="info_timer_min">%d分钟</string>
     <string name="info_timer_none">无限制</string>
     <string name="info_timer_set">行动时长已设置为%s</string>
+    <string name="action_night">夜间模式</string>
     <string name="info_gesture_request">请开启戳戳乐™</string>
     <string name="info_gesture_connected">戳戳乐™开始一直戳</string>
     <string name="info_gesture_disconnected">戳戳乐™行动结束</string>
