@@ -18,7 +18,8 @@
     <string name="title_hr">公开招募规划</string>
     <string name="action_reset">重置</string>
     <string name="tip_hr_result_none">暂无符合需求的干员</string>
-    <string name="tip_hr_result_normal">全部可能出现的干员</string>
+    <string name="tip_hr_result_default">全部可能出现的干员</string>
+    <string name="tip_hr_result_normal">选择支援机械招募短时限可锁定1★</string>
     <string name="tip_hr_result_good">可锁定4★，黄票+1</string>
     <string name="tip_hr_result_great">可锁定5★，有点羡慕</string>
     <string name="tip_hr_result_excellent">选择高级资深干员招募9小时必得6★干员！招募9小时必得6★干员！！必得6★干员！！！柠檬树上柠檬果，柠檬树下只有我～</string>

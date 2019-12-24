@@ -33,7 +33,7 @@ public class HRViewer {
     private static final int TAG_COMBINED_MAX = 3;
     private static final int CHECKED_TIME_ID = R.id.tag_time_3;
     private static final int[][] CHECKED_STARS_ID = {
-            {R.id.tag_time_3, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5, R.id.tag_star_6},
+            {R.id.tag_time_3, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5},
             {R.id.tag_time_2, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5},
             {R.id.tag_time_1, R.id.tag_star_1, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4}
     };
@@ -105,6 +105,8 @@ public class HRViewer {
                     for (int i = 1; i < stars.length; i++)
                         findBoxById(stars[i]).setChecked(true);
             }
+            if (findBoxById(R.id.tag_qualification_6).isChecked())
+                findBoxById(R.id.tag_star_6).setChecked(true);
             autoAction = false;
             updateHRResult();
         }
@@ -112,10 +114,13 @@ public class HRViewer {
 
     private void onCheckedChange(CompoundButton tag, boolean isChecked) {
         if (tag instanceof CheckBox) {
-            if (!stars.contains(tag) && isChecked && checkedTags.size() >= TAG_CHECKED_MAX)
+            if (!stars.contains(tag) && isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
                 tag.setChecked(false);
-            else
+            } else {
+                if (tag.getId() == R.id.tag_qualification_6 && findBoxById(R.id.tag_star_6).isChecked() != isChecked)
+                    findBoxById(R.id.tag_star_6).setChecked(isChecked);
                 updateCheckedTags((CheckBox) tag, isChecked);
+            }
         }
     }
 
@@ -167,7 +172,7 @@ public class HRViewer {
                     layout.addView(getInfoView(info, layout));
             scroll.addView(layout);
             resultContainer.addView(scroll);
-            tip.setText(checkedInfoList.isEmpty() ? R.string.tip_hr_result_none : R.string.tip_hr_result_normal);
+            tip.setText(checkedInfoList.isEmpty() ? R.string.tip_hr_result_none : R.string.tip_hr_result_default);
         } else {
             resultList = new ArrayList<>();
             Collections.sort(checkedTags, this::compareTags);
@@ -195,10 +200,10 @@ public class HRViewer {
                     tip.setText(R.string.tip_hr_result_good);
                     break;
                 case 0:
-                    tip.setText(R.string.tip_hr_result_none);
+                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_hr_result_normal : R.string.tip_hr_result_none);
                     break;
                 default:
-                    tip.setText(R.string.tip_hr_result_normal);
+                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_hr_result_normal : R.string.tip_hr_result_default);
             }
         }
     }
