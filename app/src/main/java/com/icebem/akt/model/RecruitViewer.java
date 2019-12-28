@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class HRViewer {
+public class RecruitViewer {
     private static final int TAG_CHECKED_MAX = 5;
     private static final int TAG_COMBINED_MAX = 3;
     private static final int CHECKED_TIME_ID = R.id.tag_time_3;
@@ -43,32 +43,32 @@ public class HRViewer {
     private NestedScrollView scroll;
     private ViewGroup root, tagsContainer, resultContainer;
     private PreferenceManager manager;
-    private CharacterInfo[] infoList;
+    private OperatorInfo[] infoList;
     private ArrayList<CheckBox> stars, qualifications, types, checkedStars, checkedTags, combinedTags;
-    private ArrayList<CharacterInfo> checkedInfoList;
+    private ArrayList<OperatorInfo> checkedInfoList;
     private ArrayList<ItemContainer> resultList;
 
-    public HRViewer(Context context, ViewGroup root) throws IOException, JSONException {
+    public RecruitViewer(Context context, ViewGroup root) throws IOException, JSONException {
         this.context = context;
         this.root = root;
         manager = new PreferenceManager(context);
-        scroll = root.findViewById(R.id.scroll_hr_root);
-        tip = root.findViewById(R.id.txt_hr_tips);
-        resultContainer = root.findViewById(R.id.container_hr_result);
-        tagsContainer = root.findViewById(R.id.container_hr_tags);
+        scroll = root.findViewById(R.id.scroll_recruit_root);
+        tip = root.findViewById(R.id.txt_recruit_tips);
+        resultContainer = root.findViewById(R.id.container_recruit_result);
+        tagsContainer = root.findViewById(R.id.container_recruit_tags);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
         types = findBoxesById(R.id.tag_type_1);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
-        root.findViewById(R.id.action_hr_reset).setOnClickListener(view -> resetTags());
-        ((RadioGroup) tagsContainer.findViewById(R.id.group_hr_time)).setOnCheckedChangeListener(this::onCheckedChange);
+        root.findViewById(R.id.action_recruit_reset).setOnClickListener(view -> resetTags());
+        ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
         setOnCheckedChangeListener(findBoxesById(R.id.tag_position_1));
         setOnCheckedChangeListener(types);
         setOnCheckedChangeListener(findBoxesById(R.id.tag_tags_1));
-        infoList = CharacterInfo.fromAssets(context);
+        infoList = OperatorInfo.fromAssets(context);
         checkedStars = new ArrayList<>();
         checkedTags = new ArrayList<>();
         checkedInfoList = new ArrayList<>();
@@ -95,7 +95,7 @@ public class HRViewer {
     }
 
     private void onCheckedChange(RadioGroup group, int checkedId) {
-        if (group.getId() == R.id.group_hr_time) {
+        if (group.getId() == R.id.group_recruit_time) {
             if (!autoAction)
                 autoAction = true;
             while (!checkedStars.isEmpty())
@@ -108,7 +108,7 @@ public class HRViewer {
             if (findBoxById(R.id.tag_qualification_6).isChecked())
                 findBoxById(R.id.tag_star_6).setChecked(true);
             autoAction = false;
-            updateHRResult();
+            updateRecruitResult();
         }
     }
 
@@ -143,7 +143,7 @@ public class HRViewer {
                 checkedStars.add(tag);
             else
                 checkedStars.remove(tag);
-            for (CharacterInfo info : infoList) {
+            for (OperatorInfo info : infoList) {
                 if (tag.getText().toString().contains(String.valueOf(info.getStar()))) {
                     if (isChecked)
                         checkedInfoList.add(info);
@@ -159,20 +159,20 @@ public class HRViewer {
                 checkedTags.remove(tag);
         }
         if (!autoAction)
-            updateHRResult();
+            updateRecruitResult();
     }
 
-    private void updateHRResult() {
+    private void updateRecruitResult() {
         resultContainer.removeAllViews();
         if (checkedTags.isEmpty()) {
             HorizontalScrollView scroll = new HorizontalScrollView(context);
             LinearLayout layout = new LinearLayout(context);
-            for (CharacterInfo info : checkedInfoList)
+            for (OperatorInfo info : checkedInfoList)
                 if (info.getStar() != 6)
                     layout.addView(getInfoView(info, layout));
             scroll.addView(layout);
             resultContainer.addView(scroll);
-            tip.setText(checkedInfoList.isEmpty() ? R.string.tip_hr_result_none : R.string.tip_hr_result_default);
+            tip.setText(checkedInfoList.isEmpty() ? R.string.tip_recruit_result_none : R.string.tip_recruit_result_default);
         } else {
             resultList = new ArrayList<>();
             Collections.sort(checkedTags, this::compareTags);
@@ -185,7 +185,7 @@ public class HRViewer {
                 scroll.post(() -> scroll.smoothScrollTo(0, tagsContainer.getHeight()));
             switch (resultList.isEmpty() ? 0 : resultList.get(0).getMinStar()) {
                 case 6:
-                    tip.setText(R.string.tip_hr_result_excellent);
+                    tip.setText(R.string.tip_recruit_result_excellent);
                     tip.setEllipsize(TextUtils.TruncateAt.MARQUEE);
                     tip.setMarqueeRepeatLimit(-1);
                     tip.setSingleLine(true);
@@ -194,16 +194,16 @@ public class HRViewer {
                     tip.setFocusableInTouchMode(true);
                     break;
                 case 5:
-                    tip.setText(R.string.tip_hr_result_great);
+                    tip.setText(R.string.tip_recruit_result_great);
                     break;
                 case 4:
-                    tip.setText(R.string.tip_hr_result_good);
+                    tip.setText(R.string.tip_recruit_result_good);
                     break;
                 case 0:
-                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_hr_result_normal : R.string.tip_hr_result_none);
+                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_recruit_result_normal : R.string.tip_recruit_result_none);
                     break;
                 default:
-                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_hr_result_normal : R.string.tip_hr_result_default);
+                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_recruit_result_normal : R.string.tip_recruit_result_default);
             }
         }
     }
@@ -223,8 +223,8 @@ public class HRViewer {
     }
 
     private void matchInfoList() {
-        ArrayList<CharacterInfo> matchedInfoList = new ArrayList<>();
-        for (CharacterInfo info : checkedInfoList) {
+        ArrayList<OperatorInfo> matchedInfoList = new ArrayList<>();
+        for (OperatorInfo info : checkedInfoList) {
             boolean matched = info.getStar() != 6 || combinedTags.contains(findBoxById(R.id.tag_qualification_6));
             for (CheckBox tag : combinedTags) {
                 if (matched) {
@@ -242,13 +242,13 @@ public class HRViewer {
         if (!matchedInfoList.isEmpty()) addResultToList(matchedInfoList);
     }
 
-    private void addResultToList(ArrayList<CharacterInfo> matchedInfoList) {
+    private void addResultToList(ArrayList<OperatorInfo> matchedInfoList) {
         LinearLayout tagContainer = new LinearLayout(context);
         for (CheckBox box : combinedTags)
             tagContainer.addView(getTagView(box, tagContainer));
         HorizontalScrollView scroll = new HorizontalScrollView(context);
         LinearLayout infoContainer = new LinearLayout(context);
-        for (CharacterInfo info : matchedInfoList)
+        for (OperatorInfo info : matchedInfoList)
             infoContainer.addView(getInfoView(info, infoContainer));
         scroll.addView(infoContainer);
         ItemContainer itemContainer = new ItemContainer();
@@ -279,7 +279,7 @@ public class HRViewer {
         return view;
     }
 
-    private TextView getInfoView(CharacterInfo info, ViewGroup container) {
+    private TextView getInfoView(OperatorInfo info, ViewGroup container) {
         TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false);
         view.setText(info.getName());
         view.setOnClickListener(v -> {
@@ -318,8 +318,8 @@ public class HRViewer {
         return view;
     }
 
-    private int compareInfo(CharacterInfo p1, CharacterInfo p2) {
-        return manager.ascendingStar() ? p1.getStar() - p2.getStar() : p2.getStar() - p1.getStar();
+    private int compareInfo(OperatorInfo o1, OperatorInfo o2) {
+        return manager.ascendingStar() ? o1.getStar() - o2.getStar() : o2.getStar() - o1.getStar();
     }
 
     private int compareTags(CheckBox t1, CheckBox t2) {

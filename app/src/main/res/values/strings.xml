@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">方舟帮帮忙</string>
     <string name="gesture_label">戳戳乐™</string>
-    <string name="gesture_description">开启戳戳乐™后，可在选择的关卡持续进行代理作战。\n\n使用前请先选择好要代理的关卡，并使用代理指挥作战。\n\n使用本服务可能会导致账号异常，请以游戏开发商的判定依据为准，开发者不承担相关责任。\n\n戳戳乐™所需权限仅用于代理博士行动，方舟帮帮忙不会通过本服务收集个人信息。\n\n如有问题与建议可在关于向开发者反馈。</string>
+    <string name="gesture_description">开启戳戳乐™后，可在选择的关卡持续进行代理作战。\n\n使用前请先选择好要代理的关卡，并使用代理指挥作战。\n\n使用本服务可能会导致账号异常，请以游戏开发商最新的判断方法为准，开发者不承担相关责任。\n\n戳戳乐™所需权限仅用于代理博士行动，方舟帮帮忙不会通过本服务收集个人信息。\n\n如有问题与建议可在关于向开发者反馈。</string>
     <string name="overlay_label">帮帮忙™</string>
     <string name="menu_home">首页</string>
     <string name="menu_tools">工具</string>
@@ -15,14 +15,14 @@
     <string name="info_overlay_disconnected">帮帮忙™连接解除</string>
     <string name="action_overlay_disconnect">解除</string>
     <string name="action_overlay_collapse">收起</string>
-    <string name="title_hr">公开招募规划</string>
+    <string name="title_recruit">公开招募规划</string>
     <string name="action_reset">重置</string>
-    <string name="tip_hr_result_none">暂无符合需求的干员</string>
-    <string name="tip_hr_result_default">全部可能出现的干员</string>
-    <string name="tip_hr_result_normal">选择支援机械招募短时限可锁定1★</string>
-    <string name="tip_hr_result_good">可锁定4★，黄票+1</string>
-    <string name="tip_hr_result_great">可锁定5★，有点羡慕</string>
-    <string name="tip_hr_result_excellent">选择高级资深干员招募9小时必得6★干员！招募9小时必得6★干员！！必得6★干员！！！柠檬树上柠檬果，柠檬树下只有我～</string>
+    <string name="tip_recruit_result_none">暂无符合需求的干员</string>
+    <string name="tip_recruit_result_default">全部可能出现的干员</string>
+    <string name="tip_recruit_result_normal">选择支援机械招募短时限可锁定1★</string>
+    <string name="tip_recruit_result_good">可锁定4★，黄票+1</string>
+    <string name="tip_recruit_result_great">可锁定5★，有点羡慕</string>
+    <string name="tip_recruit_result_excellent">选择高级资深干员招募9小时必得6★干员！招募9小时必得6★干员！！必得6★干员！！！柠檬树上柠檬果，柠檬树下只有我～</string>
     <string name="action_timer">行动时长</string>
     <string name="info_timer_min">%d分钟</string>
     <string name="info_timer_none">无限制</string>

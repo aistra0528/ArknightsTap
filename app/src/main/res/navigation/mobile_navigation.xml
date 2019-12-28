@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/nav_tools"
         android:name="com.icebem.akt.ui.tools.ToolsFragment"
-        android:label="@string/title_hr"
+        android:label="@string/title_recruit"
         tools:layout="@layout/fragment_tools" />
 
     <fragment

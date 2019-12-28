@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:padding="@dimen/view_padding"
-            android:text="@string/title_hr"
+            android:text="@string/title_recruit"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <Button
@@ -35,6 +35,6 @@
             android:text="@string/action_overlay_collapse" />
     </LinearLayout>
 
-    <include layout="@layout/fragment_hr" />
+    <include layout="@layout/fragment_recruit" />
 
 </LinearLayout>

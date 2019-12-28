@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.icebem.akt.R;
-import com.icebem.akt.model.HRViewer;
+import com.icebem.akt.model.RecruitViewer;
 
 import org.json.JSONException;
 
@@ -20,7 +20,7 @@ public class ToolsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_tools, container, false);
         try {
-            new HRViewer(getContext(), (ViewGroup) root);
+            new RecruitViewer(getContext(), (ViewGroup) root);
         } catch (IOException | JSONException e) {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }

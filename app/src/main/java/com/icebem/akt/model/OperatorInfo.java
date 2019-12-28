@@ -10,8 +10,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class CharacterInfo {
-    private static final String ASSETS_PATH = "data/hr.json";
+public class OperatorInfo {
+    private static final String ASSETS_PATH = "data/operator.json";
     private static final String KEY_STAR = "star";
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
@@ -20,7 +20,7 @@ public class CharacterInfo {
     private String name, type;
     private String[] tags;
 
-    private CharacterInfo(JSONObject obj) throws JSONException {
+    private OperatorInfo(JSONObject obj) throws JSONException {
         star = obj.getInt(KEY_STAR);
         name = obj.getString(KEY_NAME);
         type = obj.getString(KEY_TYPE);
@@ -29,11 +29,11 @@ public class CharacterInfo {
             tags[i] = obj.getJSONArray(KEY_TAGS).getString(i);
     }
 
-    public static CharacterInfo[] fromAssets(Context context) throws IOException, JSONException {
+    public static OperatorInfo[] fromAssets(Context context) throws IOException, JSONException {
         JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, ASSETS_PATH)));
-        CharacterInfo[] infoList = new CharacterInfo[array.length()];
+        OperatorInfo[] infoList = new OperatorInfo[array.length()];
         for (int i = 0; i < infoList.length; i++)
-            infoList[i] = new CharacterInfo(array.getJSONObject(i));
+            infoList[i] = new OperatorInfo(array.getJSONObject(i));
         return infoList;
     }
 

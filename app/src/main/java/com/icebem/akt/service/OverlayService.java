@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
-import com.icebem.akt.model.HRViewer;
+import com.icebem.akt.model.RecruitViewer;
 import com.icebem.akt.overlay.OverlayView;
 
 import org.json.JSONException;
@@ -33,18 +33,18 @@ public class OverlayService extends Service {
             views[1].remove();
             views[0].show();
         });
-        HRViewer viewer = null;
+        RecruitViewer rv = null;
         try {
-            viewer = new HRViewer(this, (ViewGroup) views[1].getView());
+            rv = new RecruitViewer(this, (ViewGroup) views[1].getView());
         } catch (IOException | JSONException e) {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }
-        HRViewer hr = viewer;
+        RecruitViewer viewer = rv;
         views[0] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null), Gravity.CENTER_HORIZONTAL | Gravity.TOP, true, view -> {
             if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
                 ((BaseApplication) getApplication()).getGestureService().disableSelf();
-            } else if (hr != null) {
-                hr.resetTags();
+            } else if (viewer != null) {
+                viewer.resetTags();
                 views[0].remove();
                 views[1].show();
             } else
