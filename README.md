@@ -1,5 +1,5 @@
 # 方舟帮帮忙
-方舟帮帮忙是明日方舟Arknights的第三方辅助 Android 应用。
+方舟帮帮忙是一款开源的明日方舟第三方辅助 Android 应用。
 
 [下载最新版本](https://github.com/IcebemAst/ArknightsTap/releases/latest)
 

@@ -10,23 +10,17 @@ import android.view.WindowManager;
 
 public class OverlayView {
     private int x, y;
-    private boolean showing, moving;
+    private boolean mobilizable, showing;
     private View view;
-    private View.OnClickListener listener;
     private WindowManager manager;
     private WindowManager.LayoutParams params;
 
-    public OverlayView(Context context, View view, int gravity, boolean mobilizable, View.OnClickListener listener) {
+    public OverlayView(Context context, View view) {
         this.view = view;
-        if (mobilizable) {
-            this.listener = listener;
-            view.setOnTouchListener(this::onTouch);
-        }
         manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
         params.x = params.y = 0;
-        params.width = params.height = mobilizable ? WindowManager.LayoutParams.WRAP_CONTENT : Math.min(context.getResources().getDisplayMetrics().widthPixels, context.getResources().getDisplayMetrics().heightPixels);
-        params.gravity = gravity;
+        params.width = params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
         params.format = PixelFormat.RGBA_8888;
         params.type = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_PHONE;
@@ -52,8 +46,26 @@ public class OverlayView {
         }
     }
 
+    public void resize(int width, int height) {
+        params.width = width;
+        params.height = height;
+        if (showing)
+            manager.updateViewLayout(view, params);
+    }
+
+    public void setGravity(int gravity) {
+        params.gravity = gravity;
+        if (showing)
+            manager.updateViewLayout(view, params);
+    }
+
+    public void setMobilizable(boolean mobilizable) {
+        this.mobilizable = mobilizable;
+        view.setOnTouchListener(mobilizable ? this::onTouch : null);
+    }
+
     public void onConfigurationChanged(Configuration cfg) {
-        if (listener != null)
+        if (mobilizable)
             params.x = params.y = 0;
         if (showing)
             manager.updateViewLayout(view, params);
@@ -61,18 +73,11 @@ public class OverlayView {
 
     private boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                if (moving) moving = false;
-                else listener.onClick(view);
-                break;
             case MotionEvent.ACTION_DOWN:
                 x = (int) event.getRawX();
                 y = (int) event.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (!moving && Math.abs((int) event.getRawX() - x) < view.getWidth() / 4 && Math.abs((int) event.getRawY() - y) < view.getHeight() / 4)
-                    break;
-                moving = true;
                 params.x += (int) event.getRawX() - x;
                 params.y += (int) event.getRawY() - y;
                 x = (int) event.getRawX();
@@ -80,6 +85,6 @@ public class OverlayView {
                 manager.updateViewLayout(view, params);
                 break;
         }
-        return moving;
+        return false;
     }
 }
