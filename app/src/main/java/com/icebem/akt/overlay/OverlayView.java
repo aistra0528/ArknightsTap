@@ -11,7 +11,7 @@ import android.view.WindowManager;
 
 public class OverlayView {
     private int x, y;
-    private boolean mobilizable, showing, moving;
+    private boolean mobilizable, handled, showing;
     private View view;
     private WindowManager manager;
     private WindowManager.LayoutParams params;
@@ -32,12 +32,11 @@ public class OverlayView {
         return view;
     }
 
-    public OverlayView show() {
+    public void show() {
         if (!showing) {
             manager.addView(view, params);
             showing = true;
         }
-        return this;
     }
 
     public void remove() {
@@ -75,25 +74,22 @@ public class OverlayView {
     private boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_UP:
-                if (!moving) {
-                    view.setLongClickable(false);
-                    view.performClick();
-                }
+                if (!handled)
+                    handled = view.performClick();
                 break;
             case MotionEvent.ACTION_DOWN:
-                moving = false;
+                handled = false;
                 x = (int) event.getRawX();
                 y = (int) event.getRawY();
-                view.setLongClickable(true);
                 view.postDelayed(() -> {
-                    if (!moving && view.isLongClickable())
-                        view.performLongClick();
+                    if (!handled)
+                        handled = view.performLongClick();
                 }, ViewConfiguration.getLongPressTimeout());
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (!moving && Math.abs((int) event.getRawX() - x) < view.getWidth() / 4 && Math.abs((int) event.getRawY() - y) < view.getHeight() / 4)
+                if (!handled && Math.abs((int) event.getRawX() - x) < view.getWidth() / 4 && Math.abs((int) event.getRawY() - y) < view.getHeight() / 4)
                     break;
-                moving = true;
+                handled = true;
                 params.x += (int) event.getRawX() - x;
                 params.y += (int) event.getRawY() - y;
                 x = (int) event.getRawX();
