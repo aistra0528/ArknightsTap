@@ -6,11 +6,12 @@ import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
 public class OverlayView {
     private int x, y;
-    private boolean mobilizable, showing;
+    private boolean mobilizable, showing, moving;
     private View view;
     private WindowManager manager;
     private WindowManager.LayoutParams params;
@@ -73,11 +74,26 @@ public class OverlayView {
 
     private boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                if (!moving) {
+                    view.setLongClickable(false);
+                    view.performClick();
+                }
+                break;
             case MotionEvent.ACTION_DOWN:
+                moving = false;
                 x = (int) event.getRawX();
                 y = (int) event.getRawY();
+                view.setLongClickable(true);
+                view.postDelayed(() -> {
+                    if (!moving && view.isLongClickable())
+                        view.performLongClick();
+                }, ViewConfiguration.getLongPressTimeout());
                 break;
             case MotionEvent.ACTION_MOVE:
+                if (!moving && Math.abs((int) event.getRawX() - x) < view.getWidth() / 4 && Math.abs((int) event.getRawY() - y) < view.getHeight() / 4)
+                    break;
+                moving = true;
                 params.x += (int) event.getRawX() - x;
                 params.y += (int) event.getRawY() - y;
                 x = (int) event.getRawX();
@@ -85,6 +101,6 @@ public class OverlayView {
                 manager.updateViewLayout(view, params);
                 break;
         }
-        return false;
+        return true;
     }
 }
