@@ -1,4 +1,4 @@
-package com.icebem.akt.util;
+package com.icebem.akt.app;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

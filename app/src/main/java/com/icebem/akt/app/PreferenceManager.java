@@ -8,8 +8,8 @@ import android.content.pm.PackageManager;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.service.GestureService;
+import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.RandomUtil;
-import com.icebem.akt.util.ResolutionConfig;
 
 public class PreferenceManager {
     private static final String KEY_A = "point_a";
@@ -23,6 +23,8 @@ public class PreferenceManager {
     private static final String KEY_VERSION = "version";
     private static final String KEY_AUTO_UPDATE = "auto_update";
     private static final String KEY_CHECK_LAST_TIME = "check_last_time";
+    private static final String KEY_LAUNCH_GAME = "launch_game";
+    private static final String KEY_LAUNCH_PACKAGE = "launch_package";
     private static final String KEY_ASCENDING_STAR = "ascending_star";
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
     private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
@@ -132,11 +134,19 @@ public class PreferenceManager {
     }
 
     public boolean autoUpdate() {
-        // 每隔2小时自动获取更新
-        if (preferences.getBoolean(KEY_AUTO_UPDATE, false) && System.currentTimeMillis() - getCheckLastTime() > 7200000) {
+        // 每隔8小时自动获取更新
+        if (preferences.getBoolean(KEY_AUTO_UPDATE, true) && System.currentTimeMillis() - getCheckLastTime() > 28800000) {
             setCheckLastTime();
             return true;
         } else return false;
+    }
+
+    public boolean launchGame() {
+        return preferences.getBoolean(KEY_LAUNCH_GAME, true);
+    }
+
+    public String getLaunchPackage() {
+        return preferences.getString(KEY_LAUNCH_PACKAGE, AppUtil.GAME_OFFICIAL);
     }
 
     public boolean ascendingStar() {

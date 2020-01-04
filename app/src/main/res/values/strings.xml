@@ -64,6 +64,9 @@
     <string name="auto_update_title">自动更新</string>
     <string name="auto_update_summary_on">应用会定期自动获取更新</string>
     <string name="auto_update_summary_off">可以在关于手动获取更新</string>
+    <string name="launch_game_title">启动游戏</string>
+    <string name="launch_game_summary">必要时自动启动游戏</string>
+    <string name="launch_package_title">启动渠道</string>
     <string name="ascending_star_title">保底优先</string>
     <string name="ascending_star_summary">规划方案中干员按★升序排序</string>
     <string name="scroll_to_result_title">快速导航</string>

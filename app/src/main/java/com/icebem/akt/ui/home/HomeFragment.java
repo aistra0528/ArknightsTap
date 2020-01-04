@@ -30,7 +30,7 @@ import com.icebem.akt.activity.AboutActivity;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.IOUtil;
-import com.icebem.akt.util.ResolutionConfig;
+import com.icebem.akt.app.ResolutionConfig;
 
 import org.json.JSONObject;
 

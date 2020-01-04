@@ -18,6 +18,7 @@ import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.RandomUtil;
 
 import java.lang.ref.WeakReference;
@@ -37,6 +38,8 @@ public class GestureService extends AccessibilityService {
             return;
         }
         ((BaseApplication) getApplication()).setGestureService(this);
+        if (manager.launchGame())
+            launchGame();
         new Thread(this::performGestures, "gesture").start();
         time = manager.getTimerTime();
         if (time > 0) {
@@ -103,6 +106,26 @@ public class GestureService extends AccessibilityService {
             timerTimeout = true;
         }
         disableSelf();
+    }
+
+    private void launchGame() {
+        Intent intent = null;
+        if (packageInstalled(AppUtil.GAME_OFFICIAL) && packageInstalled(AppUtil.GAME_BILIBILI))
+            intent = getPackageManager().getLaunchIntentForPackage(manager.getLaunchPackage());
+        else if (packageInstalled(AppUtil.GAME_OFFICIAL))
+            intent = getPackageManager().getLaunchIntentForPackage(AppUtil.GAME_OFFICIAL);
+        else if (packageInstalled(AppUtil.GAME_BILIBILI))
+            intent = getPackageManager().getLaunchIntentForPackage(AppUtil.GAME_BILIBILI);
+        if (intent != null)
+            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    private boolean packageInstalled(String packageName) {
+        try {
+            return getPackageManager().getPackageGids(packageName) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private static final class UIHandler extends Handler {

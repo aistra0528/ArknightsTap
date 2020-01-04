@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController((NavigationView) findViewById(R.id.nav_view), navController);
         navController.addOnDestinationChangedListener(this::onDestinationChanged);
         fab.setOnClickListener(this::onClick);
+        fab.setOnLongClickListener(this::onLongClick);
     }
 
     private void onClick(View view) {
@@ -63,18 +64,30 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             default:
-                if (Settings.canDrawOverlays(this)) {
-                    startService(new Intent(this, OverlayService.class));
-                    if (((BaseApplication) getApplication()).isOverlayServiceRunning() && fab.isOrWillBeShown())
-                        fab.hide();
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle(R.string.state_permission_request);
-                    builder.setMessage(R.string.msg_permission_overlay);
-                    builder.setPositiveButton(R.string.go_to_settings, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()))));
-                    builder.setNegativeButton(R.string.no_thanks, null);
-                    builder.create().show();
-                }
+                showOverlay();
+        }
+    }
+
+    private boolean onLongClick(View view) {
+        if (manager.isPro() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_home) {
+            showOverlay();
+            return true;
+        }
+        return false;
+    }
+
+    private void showOverlay() {
+        if (Settings.canDrawOverlays(this)) {
+            startService(new Intent(this, OverlayService.class));
+            if (((BaseApplication) getApplication()).isOverlayServiceRunning() && fab.isOrWillBeShown() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_home || !manager.isPro())
+                fab.hide();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.state_permission_request);
+            builder.setMessage(R.string.msg_permission_overlay);
+            builder.setPositiveButton(R.string.go_to_settings, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()))));
+            builder.setNegativeButton(R.string.no_thanks, null);
+            builder.create().show();
         }
     }
 

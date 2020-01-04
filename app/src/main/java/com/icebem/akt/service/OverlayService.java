@@ -32,6 +32,7 @@ public class OverlayService extends Service {
         views = new OverlayView[2];
         views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.content_overlay, null));
         views[1].setGravity(Gravity.END | Gravity.TOP);
+        views[1].setMobilizable(true);
         views[1].resize(Math.min(getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels), Math.min(getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels));
         views[1].getView().findViewById(R.id.action_disconnect).setOnClickListener(view -> stopSelf());
         views[1].getView().findViewById(R.id.action_collapse).setOnClickListener(view -> {

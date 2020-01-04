@@ -4,20 +4,26 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
+import com.icebem.akt.R;
+
 public class OverlayView {
-    private int x, y;
+    private int x, y, sensitivity;
     private boolean mobilizable, handled, showing;
     private View view;
     private WindowManager manager;
     private WindowManager.LayoutParams params;
+    private static final int GRAVITY_LEFT = 3;
+    private static final int GRAVITY_RIGHT = 5;
 
     public OverlayView(Context context, View view) {
         this.view = view;
+        sensitivity = context.getResources().getDimensionPixelOffset(R.dimen.control_padding);
         manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
         params.x = params.y = 0;
@@ -65,7 +71,7 @@ public class OverlayView {
     }
 
     public void onConfigurationChanged(Configuration cfg) {
-        if (mobilizable)
+        if (cfg != null && mobilizable)
             params.x = params.y = 0;
         if (showing)
             manager.updateViewLayout(view, params);
@@ -87,11 +93,17 @@ public class OverlayView {
                 }, ViewConfiguration.getLongPressTimeout());
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (!handled && Math.abs((int) event.getRawX() - x) < view.getWidth() / 4 && Math.abs((int) event.getRawY() - y) < view.getHeight() / 4)
+                if (!handled && Math.abs((int) event.getRawX() - x) < sensitivity && Math.abs((int) event.getRawY() - y) < sensitivity)
                     break;
                 handled = true;
-                params.x += (int) event.getRawX() - x;
-                params.y += (int) event.getRawY() - y;
+                if (params.gravity == (params.gravity | GRAVITY_RIGHT) && params.gravity != (params.gravity | GRAVITY_LEFT))
+                    params.x -= (int) event.getRawX() - x;
+                else
+                    params.x += (int) event.getRawX() - x;
+                if (params.gravity == (params.gravity | Gravity.BOTTOM) && params.gravity != (params.gravity | Gravity.TOP))
+                    params.y -= (int) event.getRawY() - y;
+                else
+                    params.y += (int) event.getRawY() - y;
                 x = (int) event.getRawX();
                 y = (int) event.getRawY();
                 manager.updateViewLayout(view, params);

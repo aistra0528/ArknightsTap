@@ -1,11 +1,28 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreferenceCompat
+        app:defaultValue="true"
         app:icon="@drawable/ic_update"
         app:key="auto_update"
         app:summaryOff="@string/auto_update_summary_off"
         app:summaryOn="@string/auto_update_summary_on"
         app:title="@string/auto_update_title" />
+
+    <SwitchPreferenceCompat
+        app:defaultValue="true"
+        app:icon="@drawable/ic_launch"
+        app:key="launch_game"
+        app:summary="@string/launch_game_summary"
+        app:title="@string/launch_game_title" />
+
+    <ListPreference
+        app:defaultValue="com.hypergryph.arknights"
+        app:dependency="launch_game"
+        app:entries="@array/launch_package_entries"
+        app:entryValues="@array/launch_package_values"
+        app:key="launch_package"
+        app:title="@string/launch_package_title"
+        app:useSimpleSummaryProvider="true" />
 
     <PreferenceCategory app:title="@string/overlay_label">
 
