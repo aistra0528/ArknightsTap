@@ -28,6 +28,7 @@
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
+            app:icon="@drawable/ic_sort"
             app:key="ascending_star"
             app:summary="@string/ascending_star_summary"
             app:title="@string/ascending_star_title" />
