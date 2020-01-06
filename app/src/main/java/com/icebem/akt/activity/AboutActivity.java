@@ -69,11 +69,10 @@ public class AboutActivity extends AppCompatActivity {
                 builder.create().show();
                 break;
             case R.id.container_comment:
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())).setPackage("com.coolapk.market"));
-                } catch (Exception e) {
-                    Snackbar.make(view, R.string.error_occurred, Snackbar.LENGTH_LONG).show();
-                }
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())).setPackage(AppUtil.PACKAGE_COOLAPK);
+                if (intent.resolveActivity(getPackageManager()) == null)
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_COOLAPK));
+                startActivity(intent);
                 break;
             case R.id.container_discuss:
                 try {
