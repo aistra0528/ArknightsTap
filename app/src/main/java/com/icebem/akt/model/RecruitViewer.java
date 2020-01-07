@@ -41,16 +41,15 @@ public class RecruitViewer {
     private Context context;
     private TextView tip;
     private NestedScrollView scroll;
-    private ViewGroup root, tagsContainer, resultContainer;
+    private ViewGroup tagsContainer, resultContainer;
     private PreferenceManager manager;
     private OperatorInfo[] infoList;
     private ArrayList<CheckBox> stars, qualifications, types, checkedStars, checkedTags, combinedTags;
     private ArrayList<OperatorInfo> checkedInfoList;
     private ArrayList<ItemContainer> resultList;
 
-    public RecruitViewer(Context context, ViewGroup root) throws IOException, JSONException {
+    public RecruitViewer(Context context, View root) throws IOException, JSONException {
         this.context = context;
-        this.root = root;
         manager = new PreferenceManager(context);
         scroll = root.findViewById(R.id.scroll_recruit_root);
         tip = root.findViewById(R.id.txt_recruit_tips);
@@ -283,15 +282,31 @@ public class RecruitViewer {
         TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false);
         view.setText(info.getName());
         view.setOnClickListener(v -> {
-            String space = " ";
+            char space = ' ';
             StringBuilder builder = new StringBuilder();
+            switch (info.getStar()) {
+                case 1:
+                    builder.append(context.getString(R.string.tag_qualification_1));
+                    break;
+//                case 2:
+//                    builder.append(context.getString(R.string.tag_qualification_2));
+//                    break;
+                case 5:
+                    builder.append(context.getString(R.string.tag_qualification_5));
+                    break;
+                case 6:
+                    builder.append(context.getString(R.string.tag_qualification_6));
+                    break;
+            }
+            if (builder.length() > 0)
+                builder.append(space);
             builder.append(info.getType());
             for (String tag : info.getTags()) {
                 builder.append(space);
                 builder.append(tag);
             }
             if (context instanceof AppCompatActivity)
-                Snackbar.make(root, builder.toString(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(container, builder.toString(), Snackbar.LENGTH_LONG).show();
             else
                 Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
         });

@@ -8,7 +8,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.icebem.akt.R;
@@ -41,7 +40,7 @@ public class OverlayService extends Service {
         });
         RecruitViewer rv = null;
         try {
-            rv = new RecruitViewer(this, (ViewGroup) views[1].getView());
+            rv = new RecruitViewer(this, views[1].getView());
         } catch (IOException | JSONException e) {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }

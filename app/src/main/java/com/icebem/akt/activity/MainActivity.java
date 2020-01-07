@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         if (Settings.canDrawOverlays(this)) {
             startService(new Intent(this, OverlayService.class));
             if (((BaseApplication) getApplication()).isOverlayServiceRunning() && fab.isOrWillBeShown() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_home || !manager.isPro())
-                fab.hide();
+                fab.post(fab::hide);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.state_permission_request);

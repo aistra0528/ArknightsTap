@@ -10,10 +10,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
-import com.icebem.akt.R;
-
 public class OverlayView {
-    private int x, y, sensitivity;
+    private int x, y, touchSlop;
     private boolean mobilizable, handled, showing;
     private View view;
     private WindowManager manager;
@@ -23,7 +21,7 @@ public class OverlayView {
 
     public OverlayView(Context context, View view) {
         this.view = view;
-        sensitivity = context.getResources().getDimensionPixelOffset(R.dimen.control_padding);
+        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
         params.x = params.y = 0;
@@ -93,7 +91,7 @@ public class OverlayView {
                 }, ViewConfiguration.getLongPressTimeout());
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (!handled && Math.abs((int) event.getRawX() - x) < sensitivity && Math.abs((int) event.getRawY() - y) < sensitivity)
+                if (!handled && Math.abs((int) event.getRawX() - x) < touchSlop && Math.abs((int) event.getRawY() - y) < touchSlop)
                     break;
                 handled = true;
                 if (params.gravity == (params.gravity | GRAVITY_RIGHT) && params.gravity != (params.gravity | GRAVITY_LEFT))
