@@ -10,6 +10,7 @@
         android:id="@+id/img_state"
         android:layout_width="72dp"
         android:layout_height="72dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@null"
         app:srcCompat="@drawable/ic_state_running_anim" />
 
