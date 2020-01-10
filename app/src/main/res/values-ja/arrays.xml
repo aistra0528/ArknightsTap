@@ -1,11 +1,11 @@
 <resources>
     <string-array name="launch_package_entries">
-        <item>Global (EN)</item>
-        <item>Official (CN)</item>
+        <item>Global (JP)※</item>
+        <item>Official (CN)※</item>
     </string-array>
 
     <string-array name="launch_package_values">
-        <item>com.hypergryph.arknights.global</item>
+        <item>com.hypergryph.arknights.jp</item>
         <item>com.hypergryph.arknights</item>
     </string-array>
 </resources>
