@@ -64,7 +64,7 @@ public class AboutActivity extends AppCompatActivity {
                         Snackbar.make(view, R.string.error_occurred, Snackbar.LENGTH_LONG).show();
                     }
                 });
-                builder.setPositiveButton(R.string.no_way, null);
+                builder.setPositiveButton(R.string.not_now, null);
                 builder.setNegativeButton(R.string.no_thanks, null);
                 builder.create().show();
                 break;

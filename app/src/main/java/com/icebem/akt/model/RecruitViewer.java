@@ -57,16 +57,16 @@ public class RecruitViewer {
         tagsContainer = root.findViewById(R.id.container_recruit_tags);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
-        types = findBoxesById(R.id.tag_type_1);
+        types = findBoxesById(R.id.tag_type_vanguard);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
         root.findViewById(R.id.action_recruit_reset).setOnClickListener(view -> resetTags());
         ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
-        setOnCheckedChangeListener(findBoxesById(R.id.tag_position_1));
+        setOnCheckedChangeListener(findBoxesById(R.id.tag_position_melee));
         setOnCheckedChangeListener(types);
-        setOnCheckedChangeListener(findBoxesById(R.id.tag_tags_1));
+        setOnCheckedChangeListener(findBoxesById(R.id.tag_affix_survival));
         infoList = OperatorInfo.fromAssets(context);
         checkedStars = new ArrayList<>();
         checkedTags = new ArrayList<>();
@@ -116,8 +116,11 @@ public class RecruitViewer {
             if (!stars.contains(tag) && isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
                 tag.setChecked(false);
             } else {
-                if (tag.getId() == R.id.tag_qualification_6 && findBoxById(R.id.tag_star_6).isChecked() != isChecked)
+                if (tag.getId() == R.id.tag_qualification_6 && findBoxById(R.id.tag_star_6).isChecked() != isChecked) {
+                    autoAction = true;
                     findBoxById(R.id.tag_star_6).setChecked(isChecked);
+                    autoAction = false;
+                }
                 updateCheckedTags((CheckBox) tag, isChecked);
             }
         }
@@ -184,7 +187,7 @@ public class RecruitViewer {
                 scroll.post(() -> scroll.smoothScrollTo(0, tagsContainer.getHeight()));
             switch (resultList.isEmpty() ? 0 : resultList.get(0).getMinStar()) {
                 case 6:
-                    tip.setText(R.string.tip_recruit_result_excellent);
+                    tip.setText(R.string.tip_recruit_result_6);
                     tip.setEllipsize(TextUtils.TruncateAt.MARQUEE);
                     tip.setMarqueeRepeatLimit(-1);
                     tip.setSingleLine(true);
@@ -193,16 +196,16 @@ public class RecruitViewer {
                     tip.setFocusableInTouchMode(true);
                     break;
                 case 5:
-                    tip.setText(R.string.tip_recruit_result_great);
+                    tip.setText(R.string.tip_recruit_result_5);
                     break;
                 case 4:
-                    tip.setText(R.string.tip_recruit_result_good);
+                    tip.setText(R.string.tip_recruit_result_4);
                     break;
                 case 0:
-                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_recruit_result_normal : R.string.tip_recruit_result_none);
+                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_recruit_result_1 : R.string.tip_recruit_result_none);
                     break;
                 default:
-                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_recruit_result_normal : R.string.tip_recruit_result_default);
+                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_recruit_result_1 : R.string.tip_recruit_result_default);
             }
         }
     }

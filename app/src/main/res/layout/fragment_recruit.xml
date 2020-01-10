@@ -165,18 +165,18 @@
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/tag_position_1"
+                        android:id="@+id/tag_position_melee"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_position_1" />
+                        android:text="@string/tag_position_melee" />
 
                     <CheckBox
-                        android:id="@+id/tag_position_2"
+                        android:id="@+id/tag_position_ranged"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_position_2" />
+                        android:text="@string/tag_position_ranged" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -190,60 +190,60 @@
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/tag_type_1"
+                        android:id="@+id/tag_type_vanguard"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_type_1" />
+                        android:text="@string/tag_type_vanguard" />
 
                     <CheckBox
-                        android:id="@+id/tag_type_2"
+                        android:id="@+id/tag_type_sniper"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_type_2" />
+                        android:text="@string/tag_type_sniper" />
 
                     <CheckBox
-                        android:id="@+id/tag_type_3"
+                        android:id="@+id/tag_type_guard"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_type_3" />
+                        android:text="@string/tag_type_guard" />
 
                     <CheckBox
-                        android:id="@+id/tag_type_4"
+                        android:id="@+id/tag_type_caster"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_type_4" />
+                        android:text="@string/tag_type_caster" />
 
                     <CheckBox
-                        android:id="@+id/tag_type_5"
+                        android:id="@+id/tag_type_defender"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_type_5" />
+                        android:text="@string/tag_type_defender" />
 
                     <CheckBox
-                        android:id="@+id/tag_type_6"
+                        android:id="@+id/tag_type_medic"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_type_6" />
+                        android:text="@string/tag_type_medic" />
 
                     <CheckBox
-                        android:id="@+id/tag_type_7"
+                        android:id="@+id/tag_type_special"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_type_7" />
+                        android:text="@string/tag_type_special" />
 
                     <CheckBox
-                        android:id="@+id/tag_type_8"
+                        android:id="@+id/tag_type_supporter"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_type_8" />
+                        android:text="@string/tag_type_supporter" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -257,102 +257,102 @@
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/tag_tags_1"
+                        android:id="@+id/tag_affix_survival"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_1" />
+                        android:text="@string/tag_affix_survival" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_2"
+                        android:id="@+id/tag_affix_aoe"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_2" />
+                        android:text="@string/tag_affix_aoe" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_3"
+                        android:id="@+id/tag_affix_slow"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_3" />
+                        android:text="@string/tag_affix_slow" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_4"
+                        android:id="@+id/tag_affix_healing"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_4" />
+                        android:text="@string/tag_affix_healing" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_5"
+                        android:id="@+id/tag_affix_dps"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_5" />
+                        android:text="@string/tag_affix_dps" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_6"
+                        android:id="@+id/tag_affix_defense"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_6" />
+                        android:text="@string/tag_affix_defense" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_7"
+                        android:id="@+id/tag_affix_dp"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_7" />
+                        android:text="@string/tag_affix_dp" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_8"
+                        android:id="@+id/tag_affix_redeploy"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_8" />
+                        android:text="@string/tag_affix_redeploy" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_9"
+                        android:id="@+id/tag_affix_debuff"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_9" />
+                        android:text="@string/tag_affix_debuff" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_10"
+                        android:id="@+id/tag_affix_support"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_10" />
+                        android:text="@string/tag_affix_support" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_11"
+                        android:id="@+id/tag_affix_shift"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_11" />
+                        android:text="@string/tag_affix_shift" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_12"
+                        android:id="@+id/tag_affix_summon"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_12" />
+                        android:text="@string/tag_affix_summon" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_13"
+                        android:id="@+id/tag_affix_nuker"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_13" />
+                        android:text="@string/tag_affix_nuker" />
 
                     <CheckBox
-                        android:id="@+id/tag_tags_14"
+                        android:id="@+id/tag_affix_control"
                         style="@style/CheckBoxTagStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_tags_14" />
+                        android:text="@string/tag_affix_control" />
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>
