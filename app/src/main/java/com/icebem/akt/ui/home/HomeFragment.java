@@ -62,28 +62,18 @@ public class HomeFragment extends Fragment {
                     stateImg.setImageResource(R.drawable.ic_state_ready_anim);
                     state.setText(R.string.state_ready);
                     ((AnimatedVectorDrawable) stateImg.getDrawable()).start();
-                    if (manager.isPro() && !stateImg.isClickable())
+                    if (!stateImg.isClickable())
                         stateImg.setOnClickListener(v -> {
-                            switch (i) {
-                                case 3:
-                                    stateImg.setImageResource(R.drawable.ic_state_error);
+                            if (++i >= 3 && i < 15) {
+                                if (i == 3) {
+                                    stateImg.setImageResource(R.drawable.ic_state_error_anim);
                                     state.setText(R.string.error_occurred);
-                                    break;
-                                case 6:
-                                    state.setText("？？？");
-                                    break;
-                                case 9:
-                                    state.setText("锟斤拷");
-                                    break;
-                                case 12:
-                                    state.setText("烫烫烫");
-                                    break;
-                                case 15:
-                                    i = 0;
-                                    onAnimationEnd(stateImg.getDrawable());
-                                    break;
+                                }
+                                ((AnimatedVectorDrawable) stateImg.getDrawable()).start();
+                            } else if (i >= 3) {
+                                i = 0;
+                                onAnimationEnd(stateImg.getDrawable());
                             }
-                            i++;
                         });
                 }
             });

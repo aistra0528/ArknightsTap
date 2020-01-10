@@ -17,7 +17,7 @@
     <string name="action_overlay_collapse">Collapse</string>
     <string name="title_recruit">Recruit Guide</string>
     <string name="action_reset">Reset</string>
-    <string name="tip_recruit_result_none">No operator here</string>
+    <string name="tip_recruit_result_none">No operators here</string>
     <string name="tip_recruit_result_default">Possible operators</string>
     <string name="tip_recruit_result_1">Support Machine with 3:50 is a 1★ operator</string>
     <string name="tip_recruit_result_4">Possible 4★ or higher operators</string>
