@@ -30,6 +30,7 @@ public class PreferenceManager {
     private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
     private static final int UPDATE_TIME = 3500;
+    private static final int CHECK_TIME = 28800000;
     private Context context;
     private SharedPreferences preferences;
 
@@ -135,7 +136,7 @@ public class PreferenceManager {
 
     public boolean autoUpdate() {
         // 每隔8小时自动获取更新
-        if (preferences.getBoolean(KEY_AUTO_UPDATE, true) && System.currentTimeMillis() - getCheckLastTime() > 28800000) {
+        if (preferences.getBoolean(KEY_AUTO_UPDATE, true) && System.currentTimeMillis() - getCheckLastTime() > CHECK_TIME) {
             setCheckLastTime();
             return true;
         } else return false;
@@ -146,7 +147,7 @@ public class PreferenceManager {
     }
 
     public String getLaunchPackage() {
-        return preferences.getString(KEY_LAUNCH_PACKAGE, AppUtil.GAME_OFFICIAL);
+        return preferences.getString(KEY_LAUNCH_PACKAGE, AppUtil.ARKNIGHTS_CN);
     }
 
     public boolean ascendingStar() {

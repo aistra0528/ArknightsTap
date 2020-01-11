@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
         if (BuildConfig.DEBUG) {
             Snackbar.make(state, R.string.version_type_beta, Snackbar.LENGTH_INDEFINITE).show();
         } else if (manager.autoUpdate()) {
-            new Thread(this::checkVersionUpdate, "update").start();
+            new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
             Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_LONG).show();
         }
     }
@@ -126,8 +126,8 @@ public class HomeFragment extends Fragment {
             } else {
                 id = R.string.version_update;
                 JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));
-                l = json.getString("name") + "\n" + json.getString("body");
-                u = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
+                l = AppUtil.getChangelog(json);
+                u = AppUtil.getDownloadUrl(json);
             }
         } catch (Exception e) {
             id = R.string.version_checking_failed;

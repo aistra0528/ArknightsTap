@@ -9,6 +9,7 @@ import android.service.quicksettings.TileService;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
+import com.icebem.akt.util.AppUtil;
 
 public class QuickService extends TileService {
     @Override
@@ -34,6 +35,6 @@ public class QuickService extends TileService {
             }
             getQsTile().updateTile();
         } else
-            startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(AppUtil.URL_SETTINGS)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 }

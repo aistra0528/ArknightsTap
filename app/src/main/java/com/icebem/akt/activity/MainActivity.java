@@ -20,6 +20,7 @@ import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.service.OverlayService;
+import com.icebem.akt.util.AppUtil;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.state_permission_request);
             builder.setMessage(R.string.msg_permission_overlay);
-            builder.setPositiveButton(R.string.go_to_settings, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()))));
+            builder.setPositiveButton(R.string.go_to_settings, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(AppUtil.URL_SETTINGS))));
             builder.setNegativeButton(R.string.no_thanks, null);
             builder.create().show();
         }

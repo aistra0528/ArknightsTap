@@ -69,7 +69,7 @@ public class AboutActivity extends AppCompatActivity {
                 builder.create().show();
                 break;
             case R.id.container_comment:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())).setPackage(AppUtil.PACKAGE_COOLAPK);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_MARKET)).setPackage(AppUtil.PACKAGE_COOLAPK);
                 if (intent.resolveActivity(getPackageManager()) == null)
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_COOLAPK));
                 startActivity(intent);
@@ -86,7 +86,7 @@ public class AboutActivity extends AppCompatActivity {
                 break;
             case R.id.container_version_state:
                 versionContainer.setOnClickListener(null);
-                new Thread(this::checkVersionUpdate, "update").start();
+                new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
                 Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
                 break;
             case R.id.container_version_type:
@@ -109,7 +109,7 @@ public class AboutActivity extends AppCompatActivity {
             } else {
                 id = R.string.version_update;
                 JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));
-                url = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
+                url = AppUtil.getDownloadUrl(json);
             }
         } catch (Exception e) {
             id = R.string.version_checking_failed;

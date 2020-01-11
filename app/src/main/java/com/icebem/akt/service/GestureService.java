@@ -25,6 +25,9 @@ import java.lang.ref.WeakReference;
 
 public class GestureService extends AccessibilityService {
     private static final int GESTURE_DURATION = 120;
+    private static final long LONG_MIN = 60000;
+    private static final String THREAD_GESTURE = "gesture";
+    private static final String THREAD_TIMER = "timer";
     private int time;
     private boolean timerTimeout;
     private PreferenceManager manager;
@@ -40,7 +43,7 @@ public class GestureService extends AccessibilityService {
         ((BaseApplication) getApplication()).setGestureService(this);
         if (manager.launchGame())
             launchGame();
-        new Thread(this::performGestures, "gesture").start();
+        new Thread(this::performGestures, THREAD_GESTURE).start();
         time = manager.getTimerTime();
         if (time > 0) {
             Handler handler = new UIHandler(this);
@@ -48,14 +51,14 @@ public class GestureService extends AccessibilityService {
                 try {
                     while (!timerTimeout && time > 0) {
                         handler.sendEmptyMessage(time);
-                        Thread.sleep(60000);
+                        Thread.sleep(LONG_MIN);
                         time--;
                     }
                 } catch (Exception e) {
                     Log.w(getClass().getSimpleName(), e);
                 }
                 timerTimeout = true;
-            }, "timer").start();
+            }, THREAD_TIMER).start();
         } else {
             Toast.makeText(this, R.string.info_gesture_connected, Toast.LENGTH_SHORT).show();
         }
@@ -110,12 +113,12 @@ public class GestureService extends AccessibilityService {
 
     private void launchGame() {
         Intent intent = null;
-        if (packageInstalled(AppUtil.GAME_OFFICIAL) && packageInstalled(AppUtil.GAME_BILIBILI))
+        if (packageInstalled(AppUtil.ARKNIGHTS_CN) && packageInstalled(AppUtil.ARKNIGHTS_BILIBILI))
             intent = getPackageManager().getLaunchIntentForPackage(manager.getLaunchPackage());
-        else if (packageInstalled(AppUtil.GAME_OFFICIAL))
-            intent = getPackageManager().getLaunchIntentForPackage(AppUtil.GAME_OFFICIAL);
-        else if (packageInstalled(AppUtil.GAME_BILIBILI))
-            intent = getPackageManager().getLaunchIntentForPackage(AppUtil.GAME_BILIBILI);
+        else if (packageInstalled(AppUtil.ARKNIGHTS_CN))
+            intent = getPackageManager().getLaunchIntentForPackage(AppUtil.ARKNIGHTS_CN);
+        else if (packageInstalled(AppUtil.ARKNIGHTS_BILIBILI))
+            intent = getPackageManager().getLaunchIntentForPackage(AppUtil.ARKNIGHTS_BILIBILI);
         if (intent != null)
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
