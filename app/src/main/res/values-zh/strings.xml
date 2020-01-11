@@ -103,4 +103,5 @@
     <string name="tag_affix_summon">召唤</string>
     <string name="tag_affix_nuker">爆发</string>
     <string name="tag_affix_control">控场</string>
+    <string name="data_recruit">data/recruit_chs.json</string>
 </resources>

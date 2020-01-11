@@ -2,6 +2,7 @@ package com.icebem.akt.model;
 
 import android.content.Context;
 
+import com.icebem.akt.R;
 import com.icebem.akt.util.IOUtil;
 
 import org.json.JSONArray;
@@ -11,7 +12,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class OperatorInfo {
-    private static final String ASSETS_PATH = "data/operator.json";
     private static final String KEY_STAR = "star";
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
@@ -30,7 +30,7 @@ public class OperatorInfo {
     }
 
     public static OperatorInfo[] fromAssets(Context context) throws IOException, JSONException {
-        JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, ASSETS_PATH)));
+        JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, context.getString(R.string.data_recruit))));
         OperatorInfo[] infoList = new OperatorInfo[array.length()];
         for (int i = 0; i < infoList.length; i++)
             infoList[i] = new OperatorInfo(array.getJSONObject(i));
