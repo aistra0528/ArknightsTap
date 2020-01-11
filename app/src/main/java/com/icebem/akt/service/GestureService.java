@@ -112,22 +112,13 @@ public class GestureService extends AccessibilityService {
     }
 
     private void launchGame() {
-        Intent intent = null;
-        if (packageInstalled(AppUtil.ARKNIGHTS_CN) && packageInstalled(AppUtil.ARKNIGHTS_BILIBILI))
-            intent = getPackageManager().getLaunchIntentForPackage(manager.getLaunchPackage());
-        else if (packageInstalled(AppUtil.ARKNIGHTS_CN))
-            intent = getPackageManager().getLaunchIntentForPackage(AppUtil.ARKNIGHTS_CN);
-        else if (packageInstalled(AppUtil.ARKNIGHTS_BILIBILI))
-            intent = getPackageManager().getLaunchIntentForPackage(AppUtil.ARKNIGHTS_BILIBILI);
-        if (intent != null)
-            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-    }
-
-    private boolean packageInstalled(String packageName) {
-        try {
-            return getPackageManager().getPackageGids(packageName) != null;
-        } catch (Exception e) {
-            return false;
+        String[] packages = {manager.getLaunchPackage(), AppUtil.ARKNIGHTS_CN, AppUtil.ARKNIGHTS_BILIBILI, AppUtil.ARKNIGHTS_EN, AppUtil.ARKNIGHTS_JP};
+        for (String packageName : packages) {
+            Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
+            if (intent != null) {
+                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                break;
+            }
         }
     }
 
