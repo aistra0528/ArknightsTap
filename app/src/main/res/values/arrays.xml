@@ -2,14 +2,14 @@
     <string-array name="launch_package_entries">
         <item>明日方舟</item>
         <item>明日方舟 - 哔哩哔哩</item>
-        <item>Arknights</item>
+        <item>ARKNIGHTS</item>
         <item>アークナイツ</item>
     </string-array>
 
     <string-array name="launch_package_values">
         <item>com.hypergryph.arknights</item>
         <item>com.hypergryph.arknights.bilibili</item>
-        <item>com.hypergryph.arknights.global</item>
-        <item>com.hypergryph.arknights.jp</item>
+        <item>com.YoStarEN.Arknights</item>
+        <item>com.YoStarJP.Arknights</item>
     </string-array>
 </resources>
