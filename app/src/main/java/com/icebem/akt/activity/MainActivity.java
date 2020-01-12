@@ -40,19 +40,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
+        manager = new PreferenceManager(this);
         fab = findViewById(R.id.fab);
         barConfig = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_tools, R.id.nav_settings).setDrawerLayout(findViewById(R.id.drawer_layout)).build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        manager = new PreferenceManager(this);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        TextView subtitle = navigationView.getHeaderView(0).findViewById(R.id.txt_header_subtitle);
+        subtitle.setText(BuildConfig.VERSION_NAME);
         NavigationUI.setupActionBarWithNavController(this, navController, barConfig);
-        NavigationUI.setupWithNavController((NavigationView) findViewById(R.id.nav_view), navController);
+        NavigationUI.setupWithNavController(navigationView, navController);
         navController.addOnDestinationChangedListener(this::onDestinationChanged);
         fab.setOnClickListener(this::onClick);
         fab.setOnLongClickListener(this::onLongClick);
     }
 
     private void onClick(View view) {
-        if (navController.getCurrentDestination() == null) return;
+        if (view == null || navController.getCurrentDestination() == null) return;
         switch (navController.getCurrentDestination().getId()) {
             case R.id.nav_home:
                 if (manager.isPro()) {
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean onLongClick(View view) {
-        if (manager.isPro() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_home) {
+        if (view != null && manager.isPro() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_home) {
             showOverlay();
             return true;
         }
@@ -106,9 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        TextView subtitle = findViewById(R.id.txt_header_subtitle);
-        subtitle.setText(BuildConfig.VERSION_NAME);
         return NavigationUI.navigateUp(navController, barConfig) || super.onSupportNavigateUp();
     }
 }

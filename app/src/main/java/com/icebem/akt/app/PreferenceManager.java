@@ -147,7 +147,7 @@ public class PreferenceManager {
     }
 
     public String getLaunchPackage() {
-        return preferences.getString(KEY_LAUNCH_PACKAGE, AppUtil.ARKNIGHTS_CN);
+        return preferences.getString(KEY_LAUNCH_PACKAGE, context.getResources().getStringArray(R.array.launch_package_values)[0]);
     }
 
     public boolean ascendingStar() {

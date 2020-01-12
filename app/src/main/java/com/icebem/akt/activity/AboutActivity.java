@@ -3,6 +3,7 @@ package com.icebem.akt.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -57,12 +58,16 @@ public class AboutActivity extends AppCompatActivity {
                 builder.setTitle(R.string.action_donate);
                 builder.setMessage(R.string.msg_donate);
                 builder.setNeutralButton(R.string.action_donate_payment, (dialog, which) -> {
+                    Intent intent = null;
                     try {
-                        startActivity(Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME));
-                        Snackbar.make(view, R.string.info_donate_thanks, Snackbar.LENGTH_INDEFINITE).show();
+                        intent = Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME);
                     } catch (Exception e) {
-                        Snackbar.make(view, R.string.error_occurred, Snackbar.LENGTH_LONG).show();
+                        Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
                     }
+                    if (intent == null || intent.resolveActivity(getPackageManager()) == null)
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PAYPAL));
+                    startActivity(intent);
+                    Snackbar.make(view, R.string.info_donate_thanks, Snackbar.LENGTH_INDEFINITE).show();
                 });
                 builder.setPositiveButton(R.string.not_now, null);
                 builder.setNegativeButton(R.string.no_thanks, null);

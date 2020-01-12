@@ -11,12 +11,9 @@ import java.io.IOException;
 public class AppUtil {
     public static final String THREAD_UPDATE = "update";
     public static final String PACKAGE_COOLAPK = "com.coolapk.market";
-    public static final String ARKNIGHTS_CN = "com.hypergryph.arknights";
-    public static final String ARKNIGHTS_BILIBILI = "com.hypergryph.arknights.bilibili";
-    public static final String ARKNIGHTS_EN = "com.YoStarEN.Arknights";
-    public static final String ARKNIGHTS_JP = "com.YoStarJP.Arknights";
     public static final String URL_SETTINGS = "package:com.icebem.akt";
     public static final String URL_ALIPAY_API = "intent://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx02922ajwj6xekqyd1rbf#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end";
+    public static final String URL_PAYPAL = "https://www.paypal.me/icebem";
     public static final String URL_QQ_API = "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DN_OjFuCOkERq58jO2KoJEDD2a48vzB53";
     public static final String URL_MARKET = "market://details?id=com.icebem.akt";
     public static final String URL_PROJECT = "https://github.com/IcebemAst/ArknightsTap";

@@ -112,14 +112,14 @@ public class GestureService extends AccessibilityService {
     }
 
     private void launchGame() {
-        String[] packages = {manager.getLaunchPackage(), AppUtil.ARKNIGHTS_CN, AppUtil.ARKNIGHTS_BILIBILI, AppUtil.ARKNIGHTS_EN, AppUtil.ARKNIGHTS_JP};
-        for (String packageName : packages) {
-            Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
-            if (intent != null) {
-                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                break;
+        Intent intent = getPackageManager().getLaunchIntentForPackage(manager.getLaunchPackage());
+        if (intent == null)
+            for (String packageName : getResources().getStringArray(R.array.launch_package_values)) {
+                intent = getPackageManager().getLaunchIntentForPackage(packageName);
+                if (intent != null) break;
             }
-        }
+        if (intent != null)
+            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     private static final class UIHandler extends Handler {

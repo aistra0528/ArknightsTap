@@ -18,8 +18,8 @@
   {"star":3,"name":"Ansel","type":"Medic","tags":["Ranged","Healing"]},
   {"star":3,"name":"Steward","type":"Caster","tags":["Ranged","DPS"]},
   {"star":3,"name":"Orchid","type":"Supporter","tags":["Ranged","Slow"]},
-  {"star":3,"name":"Catapult※","type":"Sniper","tags":["Ranged","AoE"]},
-  {"star":3,"name":"Midnight※","type":"Guard","tags":["Melee","DPS"]},
+  {"star":3,"name":"Catapult*","type":"Sniper","tags":["Ranged","AoE"]},
+  {"star":3,"name":"Midnight*","type":"Guard","tags":["Melee","DPS"]},
   {"star":4,"name":"Estelle","type":"Guard","tags":["Melee","AoE","Survival"]},
   {"star":4,"name":"Haze","type":"Caster","tags":["Ranged","DPS","Debuff"]},
   {"star":4,"name":"Gitano","type":"Caster","tags":["Ranged","AoE"]},
@@ -41,7 +41,7 @@
   {"star":4,"name":"Gummy","type":"Defender","tags":["Melee","Defense","Healing"]},
   {"star":4,"name":"Earthspirit","type":"Supporter","tags":["Ranged","Slow"]},
   {"star":4,"name":"Shaw","type":"Special","tags":["Melee","Shift"]},
-  {"star":4,"name":"Beehunter※","type":"Guard","tags":["Melee","DPS"]},
+  {"star":4,"name":"Beehunter*","type":"Guard","tags":["Melee","DPS"]},
   {"star":5,"name":"Indra","type":"Guard","tags":["Melee","DPS","Survival"]},
   {"star":5,"name":"Vulcan","type":"Defender","tags":["Melee","Survival","Defense","DPS"]},
   {"star":5,"name":"Ptilopsis","type":"Medic","tags":["Ranged","Healing","Support"]},
@@ -65,7 +65,7 @@
   {"star":5,"name":"Istina","type":"Supporter","tags":["Ranged","Slow","DPS"]},
   {"star":5,"name":"Manticore","type":"Special","tags":["Melee","DPS","Survival"]},
   {"star":5,"name":"FEater","type":"Special","tags":["Melee","Shift","Slow"]},
-  {"star":5,"name":"Nightmare※","type":"Caster","tags":["Ranged","DPS","Healing","Slow"]},
+  {"star":5,"name":"Nightmare*","type":"Caster","tags":["Ranged","DPS","Healing","Slow"]},
   {"star":6,"name":"Exusiai","type":"Sniper","tags":["Ranged","DPS"]},
   {"star":6,"name":"Siege","type":"Vanguard","tags":["Melee","DP-Recovery","DPS"]},
   {"star":6,"name":"Ifrit","type":"Caster","tags":["Ranged","AoE","Debuff"]},
@@ -74,5 +74,5 @@
   {"star":6,"name":"Hoshiguma","type":"Defender","tags":["Melee","Defense","DPS"]},
   {"star":6,"name":"Saria","type":"Defender","tags":["Melee","Defense","Healing","Support"]},
   {"star":6,"name":"SilverAsh","type":"Guard","tags":["Melee","DPS","Support"]},
-  {"star":6,"name":"Skadi※","type":"Guard","tags":["Melee","DPS","Survival"]}
+  {"star":6,"name":"Skadi*","type":"Guard","tags":["Melee","DPS","Survival"]}
 ]

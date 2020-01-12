@@ -72,7 +72,8 @@ public class OverlayService extends Service {
             return true;
         });
         views[0].show();
-        Toast.makeText(this, R.string.info_overlay_connected, Toast.LENGTH_SHORT).show();
+        if (!((BaseApplication) getApplication()).isGestureServiceRunning())
+            Toast.makeText(this, R.string.info_overlay_connected, Toast.LENGTH_SHORT).show();
     }
 
     @Override
