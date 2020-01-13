@@ -9,7 +9,7 @@
     <string name="state_permission_request">App needs permissions</string>
     <string name="state_resolution_unsupported">Resolution not supported</string>
     <string name="state_loading">Service loading…</string>
-    <string name="state_ready">Ready for connection</string>
+    <string name="state_ready">Ready to connect</string>
     <string name="msg_permission_overlay">- Display over other apps\nShow a floating window in game to help</string>
     <string name="info_overlay_connected">ARSS™ connected</string>
     <string name="info_overlay_disconnected">ARSS™ disconnected</string>
@@ -19,10 +19,10 @@
     <string name="action_reset">Reset</string>
     <string name="tip_recruit_result_none">No operators here</string>
     <string name="tip_recruit_result_default">Possible operators</string>
-    <string name="tip_recruit_result_1">Support Machine with 3:50 is a 1★ operator</string>
-    <string name="tip_recruit_result_4">Possible 4★ or higher operators</string>
-    <string name="tip_recruit_result_5">Possible 5★ or higher operators</string>
-    <string name="tip_recruit_result_6">Advanced Senior with 9 hour, guarantees a 6★ operator! Congratulations!</string>
+    <string name="tip_recruit_result_1">Support Machine and 3:50 is a 1★ operator</string>
+    <string name="tip_recruit_result_4">4★ or higher operators available</string>
+    <string name="tip_recruit_result_5">5★ or higher operators available!</string>
+    <string name="tip_recruit_result_6">Advanced Senior and 9 hour, guarantees a 6★ operator! Congratulations!</string>
     <string name="action_timer">ARGS™ Running time</string>
     <string name="info_timer_min">%d min</string>
     <string name="info_timer_none">∞</string>
@@ -39,11 +39,11 @@
     <string name="action_donate_payment">PayPal</string>
     <string name="info_donate_thanks">Thanks for your trust, Doctor</string>
     <string name="title_comment">Rate this app</string>
-    <string name="desc_comment">This is not available in your country yet</string>
+    <string name="desc_comment">Rate the app on the store</string>
     <string name="title_discuss">Join discussion</string>
     <string name="desc_discuss">This is not available in your country yet</string>
-    <string name="title_project">Project on GitHub</string>
-    <string name="desc_project">Submit issues on GitHub</string>
+    <string name="title_project">Contribute to project</string>
+    <string name="desc_project">Submit issues or pull requests on GitHub</string>
     <string name="version_current">Current version</string>
     <string name="version_checking">Checking for updates…</string>
     <string name="version_checking_failed">Check for updates failed</string>
@@ -54,7 +54,7 @@
     <string name="version_type_changed">Version type changed, please reboot your device</string>
     <string name="action_update">Update</string>
     <string name="got_it">Got it</string>
-    <string name="go_to_settings">Go to Settings</string>
+    <string name="go_to_settings">Allow</string>
     <string name="no_thanks">No thanks</string>
     <string name="not_now">Not now</string>
     <string name="error_occurred">Error occurred</string>
@@ -62,7 +62,7 @@
     <string name="auto_update_title">Auto check</string>
     <string name="auto_update_summary_on">Check for updates according to the schedule</string>
     <string name="auto_update_summary_off">You can check for updates by going to About</string>
-    <string name="launch_game_title">Game launching</string>
+    <string name="launch_game_title">Launch game</string>
     <string name="launch_game_summary">Launch the game if necessary</string>
     <string name="launch_package_title">Default launching</string>
     <string name="ascending_star_title">Asc sorted</string>

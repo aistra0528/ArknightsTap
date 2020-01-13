@@ -39,7 +39,7 @@
     <string name="action_donate_payment">ペイパル</string>
     <string name="info_donate_thanks">寄付をしていただきありがとうございます。これからもどうぞ宜しくお願いします。</string>
     <string name="title_comment">アプリレビュー</string>
-    <string name="desc_comment">こちらは現在あなたの地域ではご利用になりません</string>
+    <string name="desc_comment">在应用评论区吐槽※</string>
     <string name="title_discuss">チャットグループ</string>
     <string name="desc_discuss">こちらは現在あなたの地域ではご利用になりません</string>
     <string name="title_project">プロジェクトページ</string>
