@@ -57,7 +57,7 @@ public class AboutActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.action_donate);
                 builder.setMessage(R.string.msg_donate);
-                builder.setNeutralButton(R.string.action_donate, (dialog, which) -> {
+                builder.setNeutralButton(R.string.action_donate_payment, (dialog, which) -> {
                     Intent intent = null;
                     try {
                         intent = Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME);

@@ -39,7 +39,7 @@
     <string name="action_donate_payment">支付宝</string>
     <string name="info_donate_thanks">感谢你的信任，博士</string>
     <string name="title_comment">应用评分</string>
-    <string name="desc_comment">在酷安评论区吐槽</string>
+    <string name="desc_comment">在应用评论区吐槽</string>
     <string name="title_discuss">群聊讨论</string>
     <string name="desc_discuss">加入QQ群，抢先体验新版本</string>
     <string name="title_project">项目主页</string>
