@@ -57,7 +57,7 @@ public class AboutActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.action_donate);
                 builder.setMessage(R.string.msg_donate);
-                builder.setNeutralButton(R.string.action_donate_payment, (dialog, which) -> {
+                builder.setNeutralButton(R.string.action_donate, (dialog, which) -> {
                     Intent intent = null;
                     try {
                         intent = Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME);
@@ -74,17 +74,17 @@ public class AboutActivity extends AppCompatActivity {
                 builder.create().show();
                 break;
             case R.id.container_comment:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_MARKET)).setPackage(AppUtil.PACKAGE_COOLAPK);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_MARKET)).setPackage(AppUtil.MARKET_COOLAPK);
+//                if (intent.resolveActivity(getPackageManager()) == null)
+//                    intent.setPackage(AppUtil.MARKET_PLAY);
                 if (intent.resolveActivity(getPackageManager()) == null)
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_COOLAPK));
                 startActivity(intent);
                 break;
             case R.id.container_discuss:
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_QQ_API)));
-                } catch (Exception e) {
-                    Snackbar.make(view, R.string.error_occurred, Snackbar.LENGTH_LONG).show();
-                }
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_QQ_API));
+                if (intent.resolveActivity(getPackageManager()) != null)
+                    startActivity(intent);
                 break;
             case R.id.container_project:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PROJECT)));
