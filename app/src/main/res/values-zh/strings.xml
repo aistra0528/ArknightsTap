@@ -67,6 +67,8 @@
     <string name="launch_package_title">默认启动</string>
     <string name="ascending_star_title">保底优先</string>
     <string name="ascending_star_summary">规划方案中干员按★升序排序</string>
+    <string name="recruit_preview_title">显示未实装干员</string>
+    <string name="recruit_preview_summary">显示当前渠道尚未实装的干员</string>
     <string name="scroll_to_result_title">快速导航</string>
     <string name="scroll_to_result_summary">选择5个标签后直接滑动到规划方案</string>
     <string name="tag_star_6">6★</string>

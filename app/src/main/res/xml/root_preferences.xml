@@ -20,6 +20,7 @@
         app:dependency="launch_game"
         app:entries="@array/launch_package_entries"
         app:entryValues="@array/launch_package_values"
+        app:icon="@drawable/ic_language"
         app:key="launch_package"
         app:title="@string/launch_package_title"
         app:useSimpleSummaryProvider="true" />
@@ -32,6 +33,11 @@
             app:key="ascending_star"
             app:summary="@string/ascending_star_summary"
             app:title="@string/ascending_star_title" />
+
+        <SwitchPreferenceCompat
+            app:key="recruit_preview"
+            app:summary="@string/recruit_preview_summary"
+            app:title="@string/recruit_preview_title" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"

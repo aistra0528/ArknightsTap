@@ -26,6 +26,7 @@ public class PreferenceManager {
     private static final String KEY_LAUNCH_GAME = "launch_game";
     private static final String KEY_LAUNCH_PACKAGE = "launch_package";
     private static final String KEY_ASCENDING_STAR = "ascending_star";
+    private static final String KEY_RECRUIT_PREVIEW = "recruit_preview";
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
     private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
@@ -152,6 +153,10 @@ public class PreferenceManager {
 
     public boolean ascendingStar() {
         return preferences.getBoolean(KEY_ASCENDING_STAR, true);
+    }
+
+    public boolean recruitPreview() {
+        return preferences.getBoolean(KEY_RECRUIT_PREVIEW, false);
     }
 
     public boolean scrollToResult() {

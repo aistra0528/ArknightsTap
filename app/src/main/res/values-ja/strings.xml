@@ -67,6 +67,8 @@
     <string name="launch_package_title">サーバー選択</string>
     <string name="ascending_star_title">並び替え</string>
     <string name="ascending_star_summary">★の低いオペレーター順に並び替える</string>
+    <string name="recruit_preview_title">显示未实装干员※</string>
+    <string name="recruit_preview_summary">显示当前渠道尚未实装的干员※</string>
     <string name="scroll_to_result_title">オートスライディング</string>
     <string name="scroll_to_result_summary">5つのタグを選び終えたら自動的に下へスライドする</string>
     <string name="tag_star_6">★6</string>

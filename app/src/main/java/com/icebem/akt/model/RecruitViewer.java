@@ -32,6 +32,7 @@ public class RecruitViewer {
     private static final int TAG_CHECKED_MAX = 5;
     private static final int TAG_COMBINED_MAX = 3;
     private static final int CHECKED_TIME_ID = R.id.tag_time_3;
+    private static final String FLAG_UNRELEASED = "*";
     private static final int[][] CHECKED_STARS_ID = {
             {R.id.tag_time_3, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5},
             {R.id.tag_time_2, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5},
@@ -146,7 +147,7 @@ public class RecruitViewer {
             else
                 checkedStars.remove(tag);
             for (OperatorInfo info : infoList) {
-                if (tag.getText().toString().contains(String.valueOf(info.getStar()))) {
+                if (tag.getText().toString().contains(String.valueOf(info.getStar())) && (manager.recruitPreview() || !info.getName().endsWith(FLAG_UNRELEASED))) {
                     if (isChecked)
                         checkedInfoList.add(info);
                     else
