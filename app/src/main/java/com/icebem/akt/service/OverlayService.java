@@ -8,7 +8,11 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
@@ -29,7 +33,7 @@ public class OverlayService extends Service {
         setTheme(R.style.AppTheme_Dark);
         PreferenceManager manager = new PreferenceManager(this);
         views = new OverlayView[2];
-        views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.content_overlay, null));
+        views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.content_overlay, new FrameLayout(this)));
         views[1].setGravity(Gravity.END | Gravity.TOP);
         views[1].setMobilizable(true);
         int size = Math.min(getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels);
@@ -46,7 +50,15 @@ public class OverlayService extends Service {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }
         RecruitViewer viewer = rv;
-        views[0] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.fab_overlay, null));
+        ImageButton fab = new ImageButton(new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_Light));
+        fab.setImageResource(R.drawable.ic_fab_akt);
+        fab.setImageTintList(getColorStateList(android.R.color.black));
+        fab.setBackgroundResource(R.drawable.bg_fab_mini);
+        fab.setPadding(0, 0, 0, 0);
+        fab.setElevation(getResources().getDimensionPixelOffset(R.dimen.fab_elevation));
+        fab.setMinimumWidth(getResources().getDimensionPixelOffset(R.dimen.fab_mini_size));
+        fab.setMinimumHeight(getResources().getDimensionPixelOffset(R.dimen.fab_mini_size));
+        views[0] = new OverlayView(this, fab);
         views[0].setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
         views[0].setMobilizable(true);
         views[0].getView().setOnClickListener(view -> {
