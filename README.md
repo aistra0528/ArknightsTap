@@ -4,7 +4,7 @@ ArkTap is a tool app for Arknights.
 
 [Latest release](https://github.com/IcebemAst/ArknightsTap/releases/latest)
 
-## Feature
+## Features
 
 ### ARSS™
 Show possible operators in recruitment and help you choose the best combination of tags. You can use it in game by a floating window.
