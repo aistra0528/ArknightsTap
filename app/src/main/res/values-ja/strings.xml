@@ -106,7 +106,7 @@
     <string name="tag_affix_nuker">爆发※</string>
     <string name="tag_affix_control">控场※</string>
     <string name="data_recruit">data/recruit_jp.json</string>
-    <string name="special_thanks_extra">もちろん、あなたも。\nArkTapを使ってくれてありがとう(◠‿◕)\n© 2020 Icebem</string>
+    <string name="special_thanks_extra">もちろん、あなたも。\nArkTapを使ってくれてありがとう(≧▽≦)\n© 2020 Icebem</string>
     <string name="special_thanks_desc">Lee Satoshi - 日本語訳</string>
-    <string name="special_thanks_title">感謝リスト</string>
+    <string name="special_thanks_title">特別感謝</string>
 </resources>
