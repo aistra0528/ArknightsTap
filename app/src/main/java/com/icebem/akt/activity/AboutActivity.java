@@ -86,8 +86,9 @@ public class AboutActivity extends AppCompatActivity {
                 break;
             case R.id.container_discuss:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_QQ_API));
-                if (intent.resolveActivity(getPackageManager()) != null)
-                    startActivity(intent);
+                if (intent.resolveActivity(getPackageManager()) == null)
+                    intent.setData(Uri.parse(AppUtil.URL_PROJECT));
+                startActivity(intent);
                 break;
             case R.id.container_project:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PROJECT)));
