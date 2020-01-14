@@ -116,7 +116,7 @@ public class PreferenceManager {
     public String[] getTimerStrings(Context context) {
         String[] strings = new String[TIMER_CONFIG.length];
         for (int i = 0; i < TIMER_CONFIG.length; i++)
-            strings[i] = TIMER_CONFIG[i] == 0 ? context.getString(R.string.info_timer_none) : String.format(context.getString(R.string.info_timer_min), TIMER_CONFIG[i]);
+            strings[i] = TIMER_CONFIG[i] == 0 ? context.getString(R.string.info_timer_none) : context.getString(R.string.info_timer_min, TIMER_CONFIG[i]);
         return strings;
     }
 
