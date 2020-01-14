@@ -111,4 +111,7 @@
     <string name="tag_time_2" translatable="false">4:00～7:30</string>
     <string name="tag_time_1" translatable="false">1:00～3:50</string>
     <string name="data_recruit">data/recruit_en.json</string>
+    <string name="special_thanks_title">Heartfelt thanks</string>
+    <string name="special_thanks_desc">name - Japanese translation</string>
+    <string name="special_thanks_extra">And of course, you.\nThank you so much for using this app!\n© 2020 Icebem</string>
 </resources>

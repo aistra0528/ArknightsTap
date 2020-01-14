@@ -3,6 +3,7 @@ package com.icebem.akt.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,7 +24,7 @@ import org.json.JSONObject;
 
 public class AboutActivity extends AppCompatActivity {
     private int i;
-    private TextView typeDesc;
+    private TextView typeDesc, thanksDesc;
     private LinearLayout versionContainer;
     private PreferenceManager manager;
 
@@ -45,8 +46,10 @@ public class AboutActivity extends AppCompatActivity {
         versionContainer = findViewById(R.id.container_version_state);
         versionContainer.setOnClickListener(this::onClick);
         findViewById(R.id.container_version_type).setOnClickListener(this::onClick);
+        findViewById(R.id.container_special_thanks).setOnClickListener(this::onClick);
         ((TextView) findViewById(R.id.txt_version_state_desc)).setText(BuildConfig.VERSION_NAME);
         typeDesc = findViewById(R.id.txt_version_type_desc);
+        thanksDesc = findViewById(R.id.special_thanks_desc);
         manager = new PreferenceManager(this);
         typeDesc.setText(manager.isPro() ? R.string.version_type_pro : R.string.version_type_lite);
     }
@@ -95,11 +98,24 @@ public class AboutActivity extends AppCompatActivity {
                 Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
                 break;
             case R.id.container_version_type:
-                if (i == 15) {
+                if (i >= 15) {
                     i = 0;
                     manager.setPro(!manager.isPro());
                     typeDesc.setText(manager.isPro() ? R.string.version_type_pro : R.string.version_type_lite);
                     Snackbar.make(view, R.string.version_type_changed, Snackbar.LENGTH_LONG).show();
+                } else i++;
+                break;
+            case R.id.container_special_thanks:
+                if (i >= 5) {
+                    i = 0;
+                    view.setOnClickListener(null);
+                    String extra = thanksDesc.getText() + System.lineSeparator() + System.lineSeparator() + getString(R.string.special_thanks_extra);
+                    new Thread(() -> {
+                        while (thanksDesc.getText().length() < extra.length()) {
+                            runOnUiThread(() -> thanksDesc.setText(extra.substring(0, thanksDesc.getText().length() + 1)));
+                            SystemClock.sleep(100);
+                        }
+                    }, AppUtil.THREAD_UPDATE).start();
                 } else i++;
                 break;
         }

@@ -106,4 +106,7 @@
     <string name="tag_affix_nuker">爆发</string>
     <string name="tag_affix_control">控场</string>
     <string name="data_recruit">data/recruit_cn.json</string>
+    <string name="special_thanks_extra">当然，还有你。\n感谢您使用应用！\n© 2020 Icebem</string>
+    <string name="special_thanks_desc">替换为你的署名 - 日语翻译</string>
+    <string name="special_thanks_title">特别感谢</string>
 </resources>
