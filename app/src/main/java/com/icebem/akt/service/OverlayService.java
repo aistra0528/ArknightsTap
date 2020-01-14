@@ -20,10 +20,6 @@ import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.model.RecruitViewer;
 import com.icebem.akt.overlay.OverlayView;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-
 public class OverlayService extends Service {
     private OverlayView[] views;
 
@@ -46,7 +42,7 @@ public class OverlayService extends Service {
         RecruitViewer rv = null;
         try {
             rv = new RecruitViewer(this, views[1].getView());
-        } catch (IOException | JSONException e) {
+        } catch (Exception e) {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }
         RecruitViewer viewer = rv;
