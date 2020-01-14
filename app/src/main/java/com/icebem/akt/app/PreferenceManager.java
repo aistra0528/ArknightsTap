@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
+import androidx.annotation.Nullable;
+
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.service.GestureService;
@@ -146,8 +148,18 @@ public class PreferenceManager {
         return preferences.getBoolean(KEY_LAUNCH_GAME, true);
     }
 
+    @Nullable
     public String getLaunchPackage() {
-        return preferences.getString(KEY_LAUNCH_PACKAGE, context.getResources().getStringArray(R.array.launch_package_values)[0]);
+        return preferences.getString(KEY_LAUNCH_PACKAGE, null);
+    }
+
+    @Nullable
+    public String getDefaultLaunchPackage() {
+        for (String packageName : context.getResources().getStringArray(R.array.launch_package_values)) {
+            if (context.getPackageManager().getLaunchIntentForPackage(packageName) != null)
+                return packageName;
+        }
+        return null;
     }
 
     public boolean ascendingStar() {

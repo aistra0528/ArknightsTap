@@ -64,7 +64,7 @@
     <string name="auto_update_summary_off">You can check for updates by going to About</string>
     <string name="launch_game_title">Launch game</string>
     <string name="launch_game_summary">Launch the game if necessary</string>
-    <string name="launch_package_title">Default launching</string>
+    <string name="launch_package_title">Game server</string>
     <string name="ascending_star_title">Asc sorted</string>
     <string name="ascending_star_summary">Sort operators by ★ in ascending order</string>
     <string name="recruit_preview_title">Show unreleased</string>
