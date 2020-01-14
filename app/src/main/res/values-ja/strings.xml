@@ -41,7 +41,7 @@
     <string name="title_comment">アプリレビュー</string>
     <string name="desc_comment">ストアでレビューを投稿しよう</string>
     <string name="title_discuss">チャットグループ</string>
-    <string name="desc_discuss">You can follow us on GitHub for updates※</string>
+    <string name="desc_discuss">最新情報はGithubで確認できます</string>
     <string name="title_project">プロジェクトページ</string>
     <string name="desc_project">GitHubでレポートをする</string>
     <string name="version_current">現在のバージョン</string>
