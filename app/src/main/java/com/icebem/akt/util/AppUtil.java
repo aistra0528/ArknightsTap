@@ -11,7 +11,7 @@ import java.io.IOException;
 public class AppUtil {
     public static final String THREAD_UPDATE = "update";
     public static final String MARKET_COOLAPK = "com.coolapk.market";
-    public static final String MARKET_PLAY = "com.android.vending";
+    //    public static final String MARKET_PLAY = "com.android.vending";
     public static final String URL_SETTINGS = "package:com.icebem.akt";
     public static final String URL_ALIPAY_API = "intent://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx02922ajwj6xekqyd1rbf#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end";
     public static final String URL_PAYPAL = "https://www.paypal.me/icebem";

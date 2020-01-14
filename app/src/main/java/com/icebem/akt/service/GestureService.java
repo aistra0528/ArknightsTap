@@ -7,6 +7,7 @@ import android.graphics.Path;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -18,7 +19,6 @@ import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
-import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.RandomUtil;
 
 import java.lang.ref.WeakReference;
@@ -48,14 +48,10 @@ public class GestureService extends AccessibilityService {
         if (time > 0) {
             Handler handler = new UIHandler(this);
             new Thread(() -> {
-                try {
-                    while (!timerTimeout && time > 0) {
-                        handler.sendEmptyMessage(time);
-                        Thread.sleep(LONG_MIN);
-                        time--;
-                    }
-                } catch (Exception e) {
-                    Log.w(getClass().getSimpleName(), e);
+                while (!timerTimeout && time > 0) {
+                    handler.sendEmptyMessage(time);
+                    SystemClock.sleep(LONG_MIN);
+                    time--;
                 }
                 timerTimeout = true;
             }, THREAD_TIMER).start();
@@ -87,26 +83,21 @@ public class GestureService extends AccessibilityService {
     }
 
     private void performGestures() {
-        try {
-            Thread.sleep(manager.getUpdateTime());
-            if (Settings.canDrawOverlays(this))
-                startService(new Intent(this, OverlayService.class));
-            Path path = new Path();
-            while (!timerTimeout) {
-                GestureDescription.Builder builder = new GestureDescription.Builder();
-                path.moveTo(RandomUtil.randomP(manager.getA()), RandomUtil.randomP(manager.getB()));
-                builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
-                path.moveTo(RandomUtil.randomP(manager.getX()), RandomUtil.randomP(manager.getY()));
-                builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime()), RandomUtil.randomP(GESTURE_DURATION)));
-                path.moveTo(RandomUtil.randomP(manager.getW()), RandomUtil.randomP(manager.getH()));
-                builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2), RandomUtil.randomP(GESTURE_DURATION)));
-                builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2 * 3), RandomUtil.randomP(GESTURE_DURATION)));
-                dispatchGesture(builder.build(), null, null);
-                Thread.sleep(RandomUtil.randomT(manager.getUpdateTime() * 2));
-            }
-        } catch (Exception e) {
-            Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
-            timerTimeout = true;
+        SystemClock.sleep(manager.getUpdateTime());
+        if (Settings.canDrawOverlays(this))
+            startService(new Intent(this, OverlayService.class));
+        Path path = new Path();
+        while (!timerTimeout) {
+            GestureDescription.Builder builder = new GestureDescription.Builder();
+            path.moveTo(RandomUtil.randomP(manager.getA()), RandomUtil.randomP(manager.getB()));
+            builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
+            path.moveTo(RandomUtil.randomP(manager.getX()), RandomUtil.randomP(manager.getY()));
+            builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime()), RandomUtil.randomP(GESTURE_DURATION)));
+            path.moveTo(RandomUtil.randomP(manager.getW()), RandomUtil.randomP(manager.getH()));
+            builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2), RandomUtil.randomP(GESTURE_DURATION)));
+            builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2 * 3), RandomUtil.randomP(GESTURE_DURATION)));
+            dispatchGesture(builder.build(), null, null);
+            SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime() * 2));
         }
         disableSelf();
     }

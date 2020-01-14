@@ -93,7 +93,7 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PROJECT)));
                 break;
             case R.id.container_version_state:
-                versionContainer.setOnClickListener(null);
+                view.setClickable(false);
                 new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
                 Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
                 break;
@@ -108,7 +108,7 @@ public class AboutActivity extends AppCompatActivity {
             case R.id.container_special_thanks:
                 if (i >= 5) {
                     i = 0;
-                    view.setOnClickListener(null);
+                    view.setClickable(false);
                     String extra = thanksDesc.getText() + System.lineSeparator() + System.lineSeparator() + getString(R.string.special_thanks_extra);
                     new Thread(() -> {
                         while (thanksDesc.getText().length() < extra.length()) {

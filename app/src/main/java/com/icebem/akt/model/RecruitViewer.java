@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
@@ -61,7 +62,7 @@ public class RecruitViewer {
         types = findBoxesById(R.id.tag_type_vanguard);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
-        root.findViewById(R.id.action_recruit_reset).setOnClickListener(view -> resetTags());
+        root.findViewById(R.id.action_recruit_reset).setOnClickListener(RecruitViewer.this::resetTags);
         ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
@@ -73,7 +74,7 @@ public class RecruitViewer {
         checkedTags = new ArrayList<>();
         checkedInfoList = new ArrayList<>();
         combinedTags = new ArrayList<>();
-        resetTags();
+        resetTags(null);
     }
 
     private CheckBox findBoxById(int id) {
@@ -127,7 +128,9 @@ public class RecruitViewer {
         }
     }
 
-    public void resetTags() {
+    public void resetTags(@Nullable View view) {
+        if (view != null)
+            view.setClickable(false);
         autoAction = true;
         if (tagsContainer.getVisibility() != View.VISIBLE)
             tagsContainer.setVisibility(View.VISIBLE);
@@ -138,6 +141,8 @@ public class RecruitViewer {
             onCheckedChange((RadioGroup) timeTag.getParent(), CHECKED_TIME_ID);
         else
             timeTag.setChecked(true);
+        if (view != null)
+            view.setClickable(true);
     }
 
     private void updateCheckedTags(CheckBox tag, boolean isChecked) {

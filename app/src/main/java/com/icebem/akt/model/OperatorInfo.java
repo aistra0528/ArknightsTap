@@ -29,7 +29,7 @@ public class OperatorInfo {
             tags[i] = obj.getJSONArray(KEY_TAGS).getString(i);
     }
 
-    public static OperatorInfo[] fromAssets(Context context) throws IOException, JSONException {
+    static OperatorInfo[] fromAssets(Context context) throws IOException, JSONException {
         JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, context.getString(R.string.data_recruit))));
         OperatorInfo[] infoList = new OperatorInfo[array.length()];
         for (int i = 0; i < infoList.length; i++)
@@ -37,13 +37,13 @@ public class OperatorInfo {
         return infoList;
     }
 
-    public boolean containsTag(String tag) {
+    boolean containsTag(String tag) {
         for (String t : tags)
             if (t.equals(tag)) return true;
         return false;
     }
 
-    public int getStar() {
+    int getStar() {
         return star;
     }
 
@@ -51,11 +51,11 @@ public class OperatorInfo {
         return name;
     }
 
-    public String getType() {
+    String getType() {
         return type;
     }
 
-    public String[] getTags() {
+    String[] getTags() {
         return tags;
     }
 }

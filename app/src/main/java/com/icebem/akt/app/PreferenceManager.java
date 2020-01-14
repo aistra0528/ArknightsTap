@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.service.GestureService;
-import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.RandomUtil;
 
 public class PreferenceManager {

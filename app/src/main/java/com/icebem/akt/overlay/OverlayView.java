@@ -85,10 +85,7 @@ public class OverlayView {
                 handled = false;
                 x = (int) event.getRawX();
                 y = (int) event.getRawY();
-                view.postDelayed(() -> {
-                    if (!handled)
-                        handled = view.performLongClick();
-                }, ViewConfiguration.getLongPressTimeout());
+                view.postDelayed(() -> handled = handled || view.performLongClick(), ViewConfiguration.getLongPressTimeout());
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (!handled && Math.abs((int) event.getRawX() - x) < touchSlop && Math.abs((int) event.getRawY() - y) < touchSlop)

@@ -5,12 +5,11 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 public class ResolutionConfig {
-    public static final float RATIO_MAX = 2.5f;
-    public static final float RATIO_MIN = 1.25f;
-    public static final float RATIO_DEFAULT = 1.77f;
-    public static final int[][] RESOLUTION_CONFIG = {
+    //    public static final float RATIO_MAX = 2.5f;
+    //    public static final float RATIO_MIN = 1.25f;
+    //    public static final float RATIO_DEFAULT = 1.77f;
+    static final int[][] RESOLUTION_CONFIG = {
             {2340, 1080, 2125, 980, 1835, 700},
-            // TODO
             {1440, 576, 1330, 520, 1130, 510},
             {1280, 720, 1100, 670, 1100, 650},
             {1440, 720, 1330, 670, 1200, 650},
@@ -46,8 +45,8 @@ public class ResolutionConfig {
         return res;
     }
 
-    public static float getAspectRatio(Context context) {
-        int[] res = getResolution(context);
-        return res[1] == 0 ? 0 : 1f * res[0] / res[1];
-    }
+//    public static float getAspectRatio(Context context) {
+//        int[] res = getResolution(context);
+//        return res[1] == 0 ? 0 : 1f * res[0] / res[1];
+//    }
 }

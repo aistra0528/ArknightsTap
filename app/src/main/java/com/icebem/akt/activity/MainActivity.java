@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -49,27 +47,25 @@ public class MainActivity extends AppCompatActivity {
         subtitle.setText(BuildConfig.VERSION_NAME);
         NavigationUI.setupActionBarWithNavController(this, navController, barConfig);
         NavigationUI.setupWithNavController(navigationView, navController);
-        navController.addOnDestinationChangedListener(this::onDestinationChanged);
+        navController.addOnDestinationChangedListener((controller, destination, bundle) -> onDestinationChanged(destination));
         fab.setOnClickListener(this::onClick);
         fab.setOnLongClickListener(this::onLongClick);
     }
 
     private void onClick(View view) {
         if (view == null || navController.getCurrentDestination() == null) return;
-        switch (navController.getCurrentDestination().getId()) {
-            case R.id.nav_home:
-                if (manager.isPro()) {
-                    if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
-                        ((BaseApplication) getApplication()).getGestureService().disableSelf();
-                    } else {
-                        Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-                    }
-                    break;
+        if (navController.getCurrentDestination().getId() == R.id.nav_home) {
+            if (manager.isPro()) {
+                if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
+                    ((BaseApplication) getApplication()).getGestureService().disableSelf();
+                } else {
+                    Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
                 }
-            default:
-                showOverlay();
+                return;
+            }
         }
+        showOverlay();
     }
 
     private boolean onLongClick(View view) {
@@ -95,16 +91,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-        switch (destination.getId()) {
-            case R.id.nav_settings:
-                if (fab.isOrWillBeShown())
-                    fab.hide();
-                break;
-            default:
-                if (fab.isOrWillBeHidden())
-                    fab.show();
-        }
+    private void onDestinationChanged(NavDestination destination) {
+        if (destination.getId() == R.id.nav_settings) {
+            if (fab.isOrWillBeShown())
+                fab.hide();
+        } else if (fab.isOrWillBeHidden())
+            fab.show();
     }
 
     @Override

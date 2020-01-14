@@ -65,7 +65,7 @@ public class OverlayService extends Service {
             if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
                 ((BaseApplication) getApplication()).getGestureService().disableSelf();
             } else if (viewer != null) {
-                viewer.resetTags();
+                viewer.resetTags(null);
                 views[0].remove();
                 views[1].show();
             } else
