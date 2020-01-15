@@ -8,7 +8,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 21
-        versionName "2.1.7-20200115-Luna"
+        versionName "2.1.7-20200116-Luna"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

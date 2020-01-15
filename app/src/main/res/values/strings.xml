@@ -15,13 +15,13 @@
     <string name="info_overlay_disconnected">ARSS™ disconnected</string>
     <string name="action_overlay_disconnect">Disconnect</string>
     <string name="action_overlay_collapse">Collapse</string>
-    <string name="title_recruit">Recruit Guide</string>
+    <string name="title_recruit">Recruitment Guide</string>
     <string name="action_reset">Reset</string>
-    <string name="tip_recruit_result_none">No operators here</string>
+    <string name="tip_recruit_result_none">No operators</string>
     <string name="tip_recruit_result_default">Possible operators</string>
-    <string name="tip_recruit_result_1">Support Machine and 3:50 is a 1★ operator</string>
-    <string name="tip_recruit_result_4">4★ or higher operators available</string>
-    <string name="tip_recruit_result_5">5★ or higher operators available!</string>
+    <string name="tip_recruit_result_1">Support Machine and 3:50 guarantees a 1★ operator</string>
+    <string name="tip_recruit_result_4">4★ or higher operators guarantees</string>
+    <string name="tip_recruit_result_5">5★ or higher operators guarantees!</string>
     <string name="tip_recruit_result_6">Advanced Senior and 9 hour, guarantees a 6★ operator! Congratulations!</string>
     <string name="action_timer">ARGS™ Running time</string>
     <string name="info_timer_min">%d min</string>
@@ -70,7 +70,7 @@
     <string name="recruit_preview_title">Show unreleased</string>
     <string name="recruit_preview_summary">Show unreleased operators in current server</string>
     <string name="scroll_to_result_title">Quick nav</string>
-    <string name="scroll_to_result_summary">Scroll to the result area after selecting 5 tags</string>
+    <string name="scroll_to_result_summary">Scroll to the result area after choosing 5 tags</string>
     <string name="version_type_lite" translatable="false">Lily</string>
     <string name="version_type_pro" translatable="false">Originium</string>
     <string name="tag_time_3" translatable="false">7:40～9:00</string>
