@@ -173,10 +173,9 @@ public class PreferenceManager {
         }
         if (packageName == null || packageName.equals(packageArray[PACKAGE_EN]))
             return RecruitTag.INDEX_EN;
-        else if (packageName.equals(packageArray[PACKAGE_JP]))
+        if (packageName.equals(packageArray[PACKAGE_JP]))
             return RecruitTag.INDEX_JP;
-        else
-            return RecruitTag.INDEX_CN;
+        return RecruitTag.INDEX_CN;
     }
 
     public boolean ascendingStar() {

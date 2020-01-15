@@ -15,10 +15,10 @@ public class RecruitTag {
     private static final String[] STAR_4 = {"4★", "4★", "★4"};
     private static final String[] STAR_5 = {"5★", "5★", "★5"};
     private static final String[] STAR_6 = {"6★", "6★", "★6"};
-    static final String[] QUALIFICATION_1 = {"Support Machine", "支援机械", "ロボット"};
+    static final String[] QUALIFICATION_1 = {"Robot", "支援机械", "ロボット"};
     private static final String[] QUALIFICATION_2 = {"Starter", "新手", "初期"};
     static final String[] QUALIFICATION_5 = {"Senior", "资深干员", "エリート"};
-    static final String[] QUALIFICATION_6 = {"Advanced Senior", "高级资深干员", "上級エリート"};
+    static final String[] QUALIFICATION_6 = {"Top Operator", "高级资深干员", "上級エリート"};
     private static final String[] POSITION_MELEE = {"Melee", "近战位", "近距離"};
     private static final String[] POSITION_RANGED = {"Ranged", "远程位", "遠距離"};
     private static final String[] TYPE_VANGUARD = {"Vanguard", "先锋干员", "先鋒タイプ"};
