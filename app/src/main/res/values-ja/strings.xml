@@ -96,7 +96,7 @@
     <string name="tag_affix_slow">減速</string>
     <string name="tag_affix_healing">治療</string>
     <string name="tag_affix_dps">火力</string>
-    <string name="tag_affix_defense">防护※</string>
+    <string name="tag_affix_defense">防御</string>
     <string name="tag_affix_dp">COST回復</string>
     <string name="tag_affix_redeploy">快速復帰</string>
     <string name="tag_affix_debuff">削弱※</string>
