@@ -9,10 +9,13 @@ import androidx.annotation.Nullable;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
+import com.icebem.akt.model.RecruitTag;
 import com.icebem.akt.service.GestureService;
 import com.icebem.akt.util.RandomUtil;
 
 public class PreferenceManager {
+    private static final int PACKAGE_EN = 2;
+    private static final int PACKAGE_JP = 3;
     private static final String KEY_A = "point_a";
     private static final String KEY_B = "point_b";
     private static final String KEY_X = "point_x";
@@ -160,6 +163,20 @@ public class PreferenceManager {
                 return packageName;
         }
         return null;
+    }
+
+    public int getTranslationIndex() {
+        String packageName = getLaunchPackage();
+        String[] packageArray = getContext().getResources().getStringArray(R.array.launch_package_values);
+        if (packageName == null) {
+            packageName = getDefaultLaunchPackage();
+        }
+        if (packageName == null || packageName.equals(packageArray[PACKAGE_EN]))
+            return RecruitTag.INDEX_EN;
+        else if (packageName.equals(packageArray[PACKAGE_JP]))
+            return RecruitTag.INDEX_JP;
+        else
+            return RecruitTag.INDEX_CN;
     }
 
     public boolean ascendingStar() {
