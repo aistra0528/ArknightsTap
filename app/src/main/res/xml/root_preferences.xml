@@ -16,7 +16,6 @@
         app:title="@string/launch_game_title" />
 
     <ListPreference
-        app:defaultValue="com.hypergryph.arknights"
         app:dependency="launch_game"
         app:entries="@array/launch_package_entries"
         app:entryValues="@array/launch_package_values"

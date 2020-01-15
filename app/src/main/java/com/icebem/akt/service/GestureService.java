@@ -103,12 +103,12 @@ public class GestureService extends AccessibilityService {
     }
 
     private void launchGame() {
-        Intent intent = getPackageManager().getLaunchIntentForPackage(manager.getLaunchPackage());
-        if (intent == null)
-            for (String packageName : getResources().getStringArray(R.array.launch_package_values)) {
+        Intent intent = manager.getLaunchPackage() == null ? null : getPackageManager().getLaunchIntentForPackage(manager.getLaunchPackage());
+        if (intent == null) {
+            String packageName = manager.getDefaultLaunchPackage();
+            if (packageName != null)
                 intent = getPackageManager().getLaunchIntentForPackage(packageName);
-                if (intent != null) break;
-            }
+        }
         if (intent != null)
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
@@ -125,7 +125,7 @@ public class GestureService extends AccessibilityService {
             super.handleMessage(msg);
             GestureService service = ref.get();
             if (service != null)
-                Toast.makeText(service, String.format(service.getString(R.string.info_gesture_running), msg.what), Toast.LENGTH_SHORT).show();
+                Toast.makeText(service, service.getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
         }
     }
 }

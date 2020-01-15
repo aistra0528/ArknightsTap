@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
             int[] res = ResolutionConfig.getResolution(manager.getContext());
             AlertDialog.Builder builder = new AlertDialog.Builder(manager.getContext());
             builder.setTitle(R.string.state_resolution_unsupported);
-            builder.setMessage(String.format(getString(R.string.msg_resolution_unsupported), res[0], res[1]));
+            builder.setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]));
             builder.setPositiveButton(R.string.got_it, null);
             builder.create().show();
         } else {
@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
                 builder.setSingleChoiceItems(manager.getTimerStrings(getContext()), manager.getTimerPosition(), (dialog, which) -> {
                     dialog.cancel();
                     manager.setTimerTime(which);
-                    Snackbar.make(state, String.format(getString(R.string.info_timer_set), manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : String.format(getString(R.string.info_timer_min), manager.getTimerTime())), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(state, getString(R.string.info_timer_set, manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime())), Snackbar.LENGTH_LONG).show();
                 });
                 builder.setNegativeButton(android.R.string.cancel, null);
                 builder.create().show();
