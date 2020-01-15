@@ -71,46 +71,11 @@
     <string name="recruit_preview_summary">Show unreleased operators in current server</string>
     <string name="scroll_to_result_title">Quick nav</string>
     <string name="scroll_to_result_summary">Scroll to the result area after selecting 5 tags</string>
-    <string name="tag_star_6">6★</string>
-    <string name="tag_star_5">5★</string>
-    <string name="tag_star_4">4★</string>
-    <string name="tag_star_3">3★</string>
-    <string name="tag_star_2">2★</string>
-    <string name="tag_star_1">1★</string>
-    <string name="tag_qualification_6">Advanced Senior</string>
-    <string name="tag_qualification_5">Senior</string>
-    <string name="tag_qualification_2">Starter</string>
-    <string name="tag_qualification_1">Support Machine</string>
-    <string name="tag_position_melee">Melee</string>
-    <string name="tag_position_ranged">Ranged</string>
-    <string name="tag_type_vanguard">Vanguard</string>
-    <string name="tag_type_sniper">Sniper</string>
-    <string name="tag_type_guard">Guard</string>
-    <string name="tag_type_caster">Caster</string>
-    <string name="tag_type_defender">Defender</string>
-    <string name="tag_type_medic">Medic</string>
-    <string name="tag_type_special">Special</string>
-    <string name="tag_type_supporter">Supporter</string>
-    <string name="tag_affix_survival">Survival</string>
-    <string name="tag_affix_aoe">AoE</string>
-    <string name="tag_affix_slow">Slow</string>
-    <string name="tag_affix_healing">Healing</string>
-    <string name="tag_affix_dps">DPS</string>
-    <string name="tag_affix_defense">Defense</string>
-    <string name="tag_affix_dp">DP-Recovery</string>
-    <string name="tag_affix_redeploy">Fast-Redeploy</string>
-    <string name="tag_affix_debuff">Debuff</string>
-    <string name="tag_affix_support">Support</string>
-    <string name="tag_affix_shift">Shift</string>
-    <string name="tag_affix_summon">Summon</string>
-    <string name="tag_affix_nuker">Nuker</string>
-    <string name="tag_affix_control">Crowd-Control</string>
     <string name="version_type_lite" translatable="false">Lily</string>
     <string name="version_type_pro" translatable="false">Originium</string>
     <string name="tag_time_3" translatable="false">7:40～9:00</string>
     <string name="tag_time_2" translatable="false">4:00～7:30</string>
     <string name="tag_time_1" translatable="false">1:00～3:50</string>
-    <string name="data_recruit">data/recruit_en.json</string>
     <string name="special_thanks_title">Heartfelt thanks</string>
     <string name="special_thanks_desc">Satoshi Lee - Japanese translation</string>
     <string name="special_thanks_extra">And of course, you.\nThank you so much for using ArkTap!\n© 2020 Icebem</string>

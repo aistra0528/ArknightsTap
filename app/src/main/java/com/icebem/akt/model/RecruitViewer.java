@@ -2,6 +2,7 @@ package com.icebem.akt.model;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,12 @@ public class RecruitViewer {
     private static final int TAG_CHECKED_MAX = 5;
     private static final int TAG_COMBINED_MAX = 3;
     private static final int CHECKED_TIME_ID = R.id.tag_time_3;
-    private static final String FLAG_UNRELEASED = "*";
     private static final int[][] CHECKED_STARS_ID = {
             {R.id.tag_time_3, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5},
             {R.id.tag_time_2, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5},
             {R.id.tag_time_1, R.id.tag_star_1, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4}
     };
+    private int index;
     private boolean autoAction;
     private Context context;
     private TextView tip;
@@ -46,6 +47,7 @@ public class RecruitViewer {
     private ViewGroup tagsContainer, resultContainer;
     private PreferenceManager manager;
     private OperatorInfo[] infoList;
+    private SparseArray<String[]> tagArray;
     private ArrayList<CheckBox> stars, qualifications, types, checkedStars, checkedTags, combinedTags;
     private ArrayList<OperatorInfo> checkedInfoList;
     private ArrayList<ItemContainer> resultList;
@@ -57,6 +59,8 @@ public class RecruitViewer {
         tip = root.findViewById(R.id.txt_recruit_tips);
         resultContainer = root.findViewById(R.id.container_recruit_result);
         tagsContainer = root.findViewById(R.id.container_recruit_tags);
+        index = manager.getTranslationIndex();
+        tagArray = RecruitTag.getTagArray();
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
         types = findBoxesById(R.id.tag_type_vanguard);
@@ -85,8 +89,11 @@ public class RecruitViewer {
         ArrayList<CheckBox> boxes = new ArrayList<>();
         ViewGroup group = (ViewGroup) tagsContainer.findViewById(id).getParent();
         for (int i = 0; i < group.getChildCount(); i++)
-            if (group.getChildAt(i) instanceof CheckBox)
-                boxes.add((CheckBox) group.getChildAt(i));
+            if (group.getChildAt(i) instanceof CheckBox) {
+                CheckBox box = (CheckBox) group.getChildAt(i);
+                box.setText(tagArray.get(box.getId())[index]);
+                boxes.add(box);
+            }
         return boxes;
     }
 
@@ -152,7 +159,7 @@ public class RecruitViewer {
             else
                 checkedStars.remove(tag);
             for (OperatorInfo info : infoList) {
-                if (tag.getText().toString().contains(String.valueOf(info.getStar())) && (manager.recruitPreview() || !info.getName().endsWith(FLAG_UNRELEASED))) {
+                if (tag.getText().toString().contains(String.valueOf(info.getStar())) && (manager.recruitPreview() || !info.getName(index).endsWith(RecruitTag.FLAG_UNRELEASED))) {
                     if (isChecked)
                         checkedInfoList.add(info);
                     else
@@ -239,9 +246,9 @@ public class RecruitViewer {
                     if (qualifications.contains(tag)) {
                         matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 1) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_5 && info.getStar() == 5) || (tag.getId() == R.id.tag_qualification_6 && info.getStar() == 6);
                     } else if (types.contains(tag)) {
-                        matched = tag.getText().toString().equals(info.getType());
+                        matched = info.getType().equals(tagArray.get(tag.getId())[0]);
                     } else {
-                        matched = info.containsTag(tag.getText().toString());
+                        matched = info.containsTag(tagArray.get(tag.getId())[0]);
                     }
                 } else break;
             }
@@ -289,30 +296,32 @@ public class RecruitViewer {
 
     private TextView getInfoView(OperatorInfo info, ViewGroup container) {
         TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false);
-        view.setText(info.getName());
+        view.setText(info.getName(index));
         view.setOnClickListener(v -> {
             char space = ' ';
             StringBuilder builder = new StringBuilder();
+            builder.append(info.getName(index));
+            builder.append(space);
+            builder.append(info.getName(index == RecruitTag.INDEX_CN ? RecruitTag.INDEX_EN : RecruitTag.INDEX_CN));
+            builder.append(space);
             switch (info.getStar()) {
                 case 1:
-                    builder.append(context.getString(R.string.tag_qualification_1));
+                    builder.append(RecruitTag.QUALIFICATION_1[index]);
+                    builder.append(space);
                     break;
-//                case 2:
-//                    builder.append(context.getString(R.string.tag_qualification_2));
-//                    break;
                 case 5:
-                    builder.append(context.getString(R.string.tag_qualification_5));
+                    builder.append(RecruitTag.QUALIFICATION_5[index]);
+                    builder.append(space);
                     break;
                 case 6:
-                    builder.append(context.getString(R.string.tag_qualification_6));
+                    builder.append(RecruitTag.QUALIFICATION_6[index]);
+                    builder.append(space);
                     break;
             }
-            if (builder.length() > 0)
-                builder.append(space);
-            builder.append(info.getType());
+            builder.append(RecruitTag.getTagName(info.getType(), index));
             for (String tag : info.getTags()) {
                 builder.append(space);
-                builder.append(tag);
+                builder.append(RecruitTag.getTagName(tag, index));
             }
             if (context instanceof AppCompatActivity)
                 Snackbar.make(container, builder.toString(), Snackbar.LENGTH_LONG).show();

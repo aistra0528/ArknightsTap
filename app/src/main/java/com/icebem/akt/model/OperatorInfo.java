@@ -2,7 +2,6 @@ package com.icebem.akt.model;
 
 import android.content.Context;
 
-import com.icebem.akt.R;
 import com.icebem.akt.util.IOUtil;
 
 import org.json.JSONArray;
@@ -11,18 +10,23 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class OperatorInfo {
+class OperatorInfo {
+    private static final String ASSETS_DATA = "data/recruit.json";
     private static final String KEY_STAR = "star";
     private static final String KEY_NAME = "name";
+    private static final String KEY_NAME_CN = "nameCN";
+    private static final String KEY_NAME_JP = "nameJP";
     private static final String KEY_TYPE = "type";
     private static final String KEY_TAGS = "tags";
     private int star;
-    private String name, type;
+    private String name, nameCN, nameJP, type;
     private String[] tags;
 
     private OperatorInfo(JSONObject obj) throws JSONException {
         star = obj.getInt(KEY_STAR);
         name = obj.getString(KEY_NAME);
+        nameCN = obj.getString(KEY_NAME_CN);
+        nameJP = obj.getString(KEY_NAME_JP);
         type = obj.getString(KEY_TYPE);
         tags = new String[obj.getJSONArray(KEY_TAGS).length()];
         for (int i = 0; i < tags.length; i++)
@@ -30,7 +34,7 @@ public class OperatorInfo {
     }
 
     static OperatorInfo[] fromAssets(Context context) throws IOException, JSONException {
-        JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, context.getString(R.string.data_recruit))));
+        JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, ASSETS_DATA)));
         OperatorInfo[] infoList = new OperatorInfo[array.length()];
         for (int i = 0; i < infoList.length; i++)
             infoList[i] = new OperatorInfo(array.getJSONObject(i));
@@ -47,8 +51,15 @@ public class OperatorInfo {
         return star;
     }
 
-    public String getName() {
-        return name;
+    String getName(int index) {
+        switch (index) {
+            case RecruitTag.INDEX_EN:
+                return name;
+            case RecruitTag.INDEX_JP:
+                return nameJP;
+            default:
+                return nameCN;
+        }
     }
 
     String getType() {
