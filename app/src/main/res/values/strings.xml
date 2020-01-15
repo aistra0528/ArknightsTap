@@ -68,7 +68,7 @@
     <string name="ascending_star_title">Asc sorted</string>
     <string name="ascending_star_summary">Sort operators by ★ in ascending order</string>
     <string name="recruit_preview_title">Show unreleased</string>
-    <string name="recruit_preview_summary">Show unreleased operators in current game</string>
+    <string name="recruit_preview_summary">Show unreleased operators in current server</string>
     <string name="scroll_to_result_title">Quick nav</string>
     <string name="scroll_to_result_summary">Scroll to the result area after selecting 5 tags</string>
     <string name="tag_star_6">6★</string>
