@@ -15,7 +15,7 @@ public class RecruitTag {
     private static final String[] STAR_4 = {"4★", "4★", "★4"};
     private static final String[] STAR_5 = {"5★", "5★", "★5"};
     private static final String[] STAR_6 = {"6★", "6★", "★6"};
-    static final String[] QUALIFICATION_1 = {"Support Machine", "支援机械", "支援机械※"};
+    static final String[] QUALIFICATION_1 = {"Support Machine", "支援机械", "ロボット"};
     private static final String[] QUALIFICATION_2 = {"Starter", "新手", "初期"};
     static final String[] QUALIFICATION_5 = {"Senior", "资深干员", "エリート"};
     static final String[] QUALIFICATION_6 = {"Advanced Senior", "高级资深干员", "上級エリート"};
@@ -29,7 +29,7 @@ public class RecruitTag {
     private static final String[] TYPE_MEDIC = {"Medic", "医疗干员", "医療タイプ"};
     private static final String[] TYPE_SPECIAL = {"Special", "特种干员", "特殊タイプ"};
     private static final String[] TYPE_SUPPORTER = {"Supporter", "辅助干员", "補助タイプ"};
-    private static final String[] AFFIX_SURVIVAL = {"Survival", "生存", "生存※"};
+    private static final String[] AFFIX_SURVIVAL = {"Survival", "生存", "生存"};
     private static final String[] AFFIX_AOE = {"AoE", "群攻", "範囲"};
     private static final String[] AFFIX_SLOW = {"Slow", "减速", "減速"};
     private static final String[] AFFIX_HEALING = {"Healing", "治疗", "治療"};
@@ -37,12 +37,12 @@ public class RecruitTag {
     private static final String[] AFFIX_DEFENSE = {"Defense", "防护", "防御"};
     private static final String[] AFFIX_RECOVERY = {"DP-Recovery", "费用回复", "COST回復"};
     private static final String[] AFFIX_REDEPLOY = {"Fast-Redeploy", "快速复活", "快速復帰"};
-    private static final String[] AFFIX_DEBUFF = {"Debuff", "削弱", "削弱※"};
-    private static final String[] AFFIX_SUPPORT = {"Support", "支援", "支援※"};
-    private static final String[] AFFIX_SHIFT = {"Shift", "位移", "位移※"};
-    private static final String[] AFFIX_SUMMON = {"Summon", "召唤", "召唤※"};
-    private static final String[] AFFIX_NUKER = {"Nuker", "爆发", "爆发※"};
-    private static final String[] AFFIX_CONTROL = {"Crowd-Control", "控场", "控场※"};
+    private static final String[] AFFIX_DEBUFF = {"Debuff", "削弱", "弱化"};
+    private static final String[] AFFIX_SUPPORT = {"Support", "支援", "支援"};
+    private static final String[] AFFIX_SHIFT = {"Shift", "位移", "強制移動"};
+    private static final String[] AFFIX_SUMMON = {"Summon", "召唤", "召喚"};
+    private static final String[] AFFIX_NUKER = {"Nuker", "爆发", "瞬発"};
+    private static final String[] AFFIX_CONTROL = {"Crowd-Control", "控场", "牽制"};
     private static final String[][] TAG_ARRAY = {
             POSITION_MELEE,
             POSITION_RANGED,
