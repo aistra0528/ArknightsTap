@@ -30,7 +30,7 @@ public class RecruitTag {
     private static final String[] TYPE_SPECIAL = {"Special", "特种干员", "特殊タイプ"};
     private static final String[] TYPE_SUPPORTER = {"Supporter", "辅助干员", "補助タイプ"};
     private static final String[] AFFIX_SURVIVAL = {"Survival", "生存", "生存"};
-    private static final String[] AFFIX_AOE = {"AoE", "群攻", "範囲"};
+    private static final String[] AFFIX_AOE = {"AoE", "群攻", "範囲攻撃"};
     private static final String[] AFFIX_SLOW = {"Slow", "减速", "減速"};
     private static final String[] AFFIX_HEALING = {"Healing", "治疗", "治療"};
     private static final String[] AFFIX_DPS = {"DPS", "输出", "火力"};
