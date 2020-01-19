@@ -23,16 +23,16 @@ public class IOUtil {
         connection.setRequestMethod(METHOD_GET);
         connection.setConnectTimeout(CONNECT_TIMEOUT);
         connection.setReadTimeout(CONNECT_TIMEOUT);
-        connection.disconnect();
         return connection.getInputStream();
     }
 
     public static String stream2String(InputStream in) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] buffer = new byte[LENGTH_KB];
+        int len;
         try {
-            while (in.read(buffer) != -1)
-                out.write(buffer);
+            while ((len = in.read(buffer)) != -1)
+                out.write(buffer, 0, len);
         } finally {
             in.close();
         }

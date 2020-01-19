@@ -23,6 +23,7 @@ import com.icebem.akt.util.IOUtil;
 import org.json.JSONObject;
 
 public class AboutActivity extends AppCompatActivity {
+    private static final int TEXT_SPEED = 100;
     private int i;
     private TextView typeDesc, thanksDesc;
     private LinearLayout versionContainer;
@@ -114,7 +115,7 @@ public class AboutActivity extends AppCompatActivity {
                     new Thread(() -> {
                         while (thanksDesc.getText().length() < extra.length()) {
                             runOnUiThread(() -> thanksDesc.setText(extra.substring(0, thanksDesc.getText().length() + 1)));
-                            SystemClock.sleep(100);
+                            SystemClock.sleep(TEXT_SPEED);
                         }
                     }, AppUtil.THREAD_UPDATE).start();
                 } else i++;
