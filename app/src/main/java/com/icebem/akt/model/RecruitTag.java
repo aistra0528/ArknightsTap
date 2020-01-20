@@ -41,7 +41,7 @@ public class RecruitTag {
     private static final String[] AFFIX_SUPPORT = {"Support", "支援", "支援"};
     private static final String[] AFFIX_SHIFT = {"Shift", "位移", "強制移動"};
     private static final String[] AFFIX_SUMMON = {"Summon", "召唤", "召喚"};
-    private static final String[] AFFIX_NUKER = {"Nuker", "爆发", "瞬発"};
+    private static final String[] AFFIX_NUKER = {"Nuker", "爆发", "爆発力"};
     private static final String[] AFFIX_CONTROL = {"Crowd-Control", "控场", "牽制"};
     private static final String[][] TAG_ARRAY = {
             POSITION_MELEE,
