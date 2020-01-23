@@ -48,7 +48,7 @@ public class RecruitViewer {
     private PreferenceManager manager;
     private OperatorInfo[] infoList;
     private SparseArray<String[]> tagArray;
-    private ArrayList<CheckBox> stars, qualifications, types, checkedStars, checkedTags, combinedTags;
+    private ArrayList<CheckBox> stars, qualifications, positions, types, affixes, checkedStars, checkedTags, combinedTags;
     private ArrayList<OperatorInfo> checkedInfoList;
     private ArrayList<ItemContainer> resultList;
 
@@ -59,25 +59,27 @@ public class RecruitViewer {
         tip = root.findViewById(R.id.txt_recruit_tips);
         resultContainer = root.findViewById(R.id.container_recruit_result);
         tagsContainer = root.findViewById(R.id.container_recruit_tags);
-        index = manager.getTranslationIndex();
         tagArray = RecruitTag.getTagArray();
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
+        positions = findBoxesById(R.id.tag_position_melee);
         types = findBoxesById(R.id.tag_type_vanguard);
+        affixes = findBoxesById(R.id.tag_affix_survival);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
         root.findViewById(R.id.action_recruit_reset).setOnClickListener(RecruitViewer.this::resetTags);
         ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
-        setOnCheckedChangeListener(findBoxesById(R.id.tag_position_melee));
+        setOnCheckedChangeListener(positions);
         setOnCheckedChangeListener(types);
-        setOnCheckedChangeListener(findBoxesById(R.id.tag_affix_survival));
+        setOnCheckedChangeListener(affixes);
         infoList = OperatorInfo.fromAssets(context);
         checkedStars = new ArrayList<>();
         checkedTags = new ArrayList<>();
         checkedInfoList = new ArrayList<>();
         combinedTags = new ArrayList<>();
+        setBoxesText();
         resetTags(null);
     }
 
@@ -91,10 +93,23 @@ public class RecruitViewer {
         for (int i = 0; i < group.getChildCount(); i++)
             if (group.getChildAt(i) instanceof CheckBox) {
                 CheckBox box = (CheckBox) group.getChildAt(i);
-                box.setText(tagArray.get(box.getId())[index]);
                 boxes.add(box);
             }
         return boxes;
+    }
+
+    private void setBoxesText() {
+        index = manager.getTranslationIndex();
+        for (CheckBox box : stars)
+            box.setText(tagArray.get(box.getId())[index]);
+        for (CheckBox box : qualifications)
+            box.setText(tagArray.get(box.getId())[index]);
+        for (CheckBox box : positions)
+            box.setText(tagArray.get(box.getId())[index]);
+        for (CheckBox box : types)
+            box.setText(tagArray.get(box.getId())[index]);
+        for (CheckBox box : affixes)
+            box.setText(tagArray.get(box.getId())[index]);
     }
 
     private void setOnCheckedChangeListener(ArrayList<CheckBox> boxes) {
@@ -143,6 +158,8 @@ public class RecruitViewer {
             tagsContainer.setVisibility(View.VISIBLE);
         while (!checkedTags.isEmpty())
             checkedTags.get(0).setChecked(false);
+        if (index != manager.getTranslationIndex())
+            setBoxesText();
         RadioButton timeTag = tagsContainer.findViewById(CHECKED_TIME_ID);
         if (timeTag.isChecked())
             onCheckedChange((RadioGroup) timeTag.getParent(), CHECKED_TIME_ID);
@@ -159,7 +176,7 @@ public class RecruitViewer {
             else
                 checkedStars.remove(tag);
             for (OperatorInfo info : infoList) {
-                if (tag.getText().toString().contains(String.valueOf(info.getStar())) && (manager.recruitPreview() || !info.getName(index).endsWith(RecruitTag.FLAG_UNRELEASED))) {
+                if (tag.getText().toString().contains(String.valueOf(info.getStar()))) {
                     if (isChecked)
                         checkedInfoList.add(info);
                     else
@@ -183,7 +200,7 @@ public class RecruitViewer {
             HorizontalScrollView scroll = new HorizontalScrollView(context);
             LinearLayout layout = new LinearLayout(context);
             for (OperatorInfo info : checkedInfoList)
-                if (info.getStar() != 6)
+                if (hasPossibility(info))
                     layout.addView(getInfoView(info, layout));
             scroll.addView(layout);
             resultContainer.addView(scroll);
@@ -240,7 +257,7 @@ public class RecruitViewer {
     private void matchInfoList() {
         ArrayList<OperatorInfo> matchedInfoList = new ArrayList<>();
         for (OperatorInfo info : checkedInfoList) {
-            boolean matched = info.getStar() != 6 || combinedTags.contains(findBoxById(R.id.tag_qualification_6));
+            boolean matched = hasPossibility(info);
             for (CheckBox tag : combinedTags) {
                 if (matched) {
                     if (qualifications.contains(tag)) {
@@ -349,6 +366,10 @@ public class RecruitViewer {
                 break;
         }
         return view;
+    }
+
+    private boolean hasPossibility(OperatorInfo info) {
+        return (info.getStar() != 6 || combinedTags.contains(findBoxById(R.id.tag_qualification_6))) && (manager.recruitPreview() || !info.getName(index).endsWith(RecruitTag.FLAG_UNRELEASED));
     }
 
     private int compareInfo(OperatorInfo o1, OperatorInfo o2) {

@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 class OperatorInfo {
-    private static final String ASSETS_DATA = "data/recruit.json";
+    private static final String RECRUIT_DATA = "data/recruit.json";
     private static final String KEY_STAR = "star";
     private static final String KEY_NAME = "name";
     private static final String KEY_NAME_CN = "nameCN";
@@ -34,7 +34,7 @@ class OperatorInfo {
     }
 
     static OperatorInfo[] fromAssets(Context context) throws IOException, JSONException {
-        JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, ASSETS_DATA)));
+        JSONArray array = new JSONArray(IOUtil.stream2String(IOUtil.fromAssets(context, RECRUIT_DATA)));
         OperatorInfo[] infoList = new OperatorInfo[array.length()];
         for (int i = 0; i < infoList.length; i++)
             infoList[i] = new OperatorInfo(array.getJSONObject(i));
