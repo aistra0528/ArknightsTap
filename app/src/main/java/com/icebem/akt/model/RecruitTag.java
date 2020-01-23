@@ -17,7 +17,7 @@ public class RecruitTag {
     private static final String[] STAR_6 = {"6★", "6★", "★6"};
     static final String[] QUALIFICATION_1 = {"Robot", "支援机械", "ロボット"};
     private static final String[] QUALIFICATION_2 = {"Starter", "新手", "初期"};
-    static final String[] QUALIFICATION_5 = {"Senior", "资深干员", "エリート"};
+    static final String[] QUALIFICATION_5 = {"Senior Operator", "资深干员", "エリート"};
     static final String[] QUALIFICATION_6 = {"Top Operator", "高级资深干员", "上級エリート"};
     private static final String[] POSITION_MELEE = {"Melee", "近战位", "近距離"};
     private static final String[] POSITION_RANGED = {"Ranged", "远程位", "遠距離"};
@@ -36,12 +36,12 @@ public class RecruitTag {
     private static final String[] AFFIX_DPS = {"DPS", "输出", "火力"};
     private static final String[] AFFIX_DEFENSE = {"Defense", "防护", "防御"};
     private static final String[] AFFIX_RECOVERY = {"DP-Recovery", "费用回复", "COST回復"};
-    private static final String[] AFFIX_REDEPLOY = {"Fast-Redeploy", "快速复活", "快速復帰"};
+    private static final String[] AFFIX_REDEPLOY = {"Fast-Redeploy", "快速复活", "高速再配置"};
     private static final String[] AFFIX_DEBUFF = {"Debuff", "削弱", "弱化"};
     private static final String[] AFFIX_SUPPORT = {"Support", "支援", "支援"};
     private static final String[] AFFIX_SHIFT = {"Shift", "位移", "強制移動"};
     private static final String[] AFFIX_SUMMON = {"Summon", "召唤", "召喚"};
-    private static final String[] AFFIX_NUKER = {"Nuker", "爆发", "瞬発"};
+    private static final String[] AFFIX_NUKER = {"Nuker", "爆发", "爆発力"};
     private static final String[] AFFIX_CONTROL = {"Crowd-Control", "控场", "牽制"};
     private static final String[][] TAG_ARRAY = {
             POSITION_MELEE,

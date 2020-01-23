@@ -148,7 +148,7 @@ public class PreferenceManager {
     }
 
     public boolean launchGame() {
-        return preferences.getBoolean(KEY_LAUNCH_GAME, true);
+        return preferences.getBoolean(KEY_LAUNCH_GAME, false);
     }
 
     @Nullable

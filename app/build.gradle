@@ -8,7 +8,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 22
-        versionName "2.1.8-20200117-Luna"
+        versionName "2.1.8-20200123-Luna"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -28,10 +28,10 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
-    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc04'
-    implementation 'androidx.navigation:navigation-ui:2.2.0-rc04'
+    implementation 'androidx.navigation:navigation-fragment:2.2.0'
+    implementation 'androidx.navigation:navigation-ui:2.2.0'
     implementation 'androidx.preference:preference:1.1.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
     testImplementation 'junit:junit:4.13-rc-2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2-alpha03'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha03'

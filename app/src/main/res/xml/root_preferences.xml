@@ -9,7 +9,6 @@
         app:title="@string/auto_update_title" />
 
     <SwitchPreferenceCompat
-        app:defaultValue="true"
         app:icon="@drawable/ic_launch"
         app:key="launch_game"
         app:summary="@string/launch_game_summary"
