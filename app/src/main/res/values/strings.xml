@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ArkTap</string>
     <string name="gesture_label">ARGS™</string>
-    <string name="gesture_description">ARGS™ can tap the operation start button automatically.\n\nChoose a operation before start, and don\'t forget to allow Auto Deploy.\n\nUsing ARGS™ may lead to account BANS, and we are NOT responsible for this. YOU are choosing to use ARGS™, and if you point the finger at us, we will laugh at you.\n\nThe permissions required by ARGS™ are ONLY used to tap the screen, and it do NOT collect any personal information.\n\nIf you have any questions, please feel free to contact us on GitHub.</string>
+    <string name="gesture_description">ARGS™ can tap the operation start button automatically.\n\nChoose a operation before start, and don\'t forget to allow Auto Deploy.\n\nUSING ARGS™ MAY LEAD TO ACCOUNT BANS, and we are NOT responsible for this. YOU are choosing to use ARGS™, and if you point the finger at us, we will laugh at you.\n\nThe permissions required by ARGS™ are ONLY used to tap the screen, and it do NOT collect any personal information.\n\nIf you have any questions, please feel free to contact us on GitHub.</string>
     <string name="overlay_label">ARSS™</string>
     <string name="menu_home">Home</string>
     <string name="menu_tools">Tools</string>
