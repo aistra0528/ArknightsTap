@@ -34,10 +34,14 @@ public class OverlayService extends Service {
         views[1].setMobilizable(true);
         int size = Math.min(getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels);
         views[1].resize(size, size);
-        views[1].getView().findViewById(R.id.action_disconnect).setOnClickListener(view -> stopSelf());
-        views[1].getView().findViewById(R.id.action_collapse).setOnClickListener(view -> {
+        ImageButton disconnect = views[1].getView().findViewById(R.id.action_disconnect);
+        disconnect.setOnClickListener(view -> {
             views[1].remove();
             views[0].show();
+        });
+        disconnect.setOnLongClickListener(view -> {
+            stopSelf();
+            return true;
         });
         RecruitViewer rv = null;
         try {
@@ -46,6 +50,23 @@ public class OverlayService extends Service {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }
         RecruitViewer viewer = rv;
+        views[1].getView().findViewById(R.id.action_server).setOnClickListener(view -> {
+            if (viewer == null) return;
+            String packageName = manager.getGamePackage();
+            if (packageName == null)
+                packageName = manager.getDefaultGamePackage();
+            int index = PreferenceManager.PACKAGE_EN;
+            String[] values = getResources().getStringArray(R.array.game_server_values);
+            if (packageName != null) {
+                for (int i = 0; i < values.length; i++)
+                    if (packageName.equals(values[i]))
+                        index = i;
+            }
+            if (++index == values.length) index = 0;
+            manager.setGamePackage(values[index]);
+            viewer.resetTags(view);
+            Toast.makeText(this, getResources().getStringArray(R.array.game_server_entries)[index], Toast.LENGTH_SHORT).show();
+        });
         ImageButton fab = new ImageButton(new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_Light));
         fab.setImageResource(R.drawable.ic_fab_akt);
         fab.setImageTintList(getColorStateList(android.R.color.black));

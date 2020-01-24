@@ -1,12 +1,12 @@
 <resources>
-    <string-array name="launch_package_entries">
+    <string-array name="game_server_entries">
         <item>明日方舟</item>
         <item>明日方舟 - 哔哩哔哩</item>
         <item>Arknights</item>
         <item>アークナイツ</item>
     </string-array>
 
-    <string-array name="launch_package_values">
+    <string-array name="game_server_values">
         <item>com.hypergryph.arknights</item>
         <item>com.hypergryph.arknights.bilibili</item>
         <item>com.YoStarEN.Arknights</item>

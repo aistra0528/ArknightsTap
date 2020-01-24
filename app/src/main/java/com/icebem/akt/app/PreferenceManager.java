@@ -14,7 +14,7 @@ import com.icebem.akt.service.GestureService;
 import com.icebem.akt.util.RandomUtil;
 
 public class PreferenceManager {
-    private static final int PACKAGE_EN = 2;
+    public static final int PACKAGE_EN = 2;
     private static final int PACKAGE_JP = 3;
     private static final String KEY_A = "point_a";
     private static final String KEY_B = "point_b";
@@ -28,7 +28,7 @@ public class PreferenceManager {
     private static final String KEY_AUTO_UPDATE = "auto_update";
     private static final String KEY_CHECK_LAST_TIME = "check_last_time";
     private static final String KEY_LAUNCH_GAME = "launch_game";
-    private static final String KEY_LAUNCH_PACKAGE = "launch_package";
+    private static final String KEY_GAME_SERVER = "game_server";
     private static final String KEY_ASCENDING_STAR = "ascending_star";
     private static final String KEY_RECRUIT_PREVIEW = "recruit_preview";
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
@@ -151,14 +151,18 @@ public class PreferenceManager {
         return preferences.getBoolean(KEY_LAUNCH_GAME, false);
     }
 
-    @Nullable
-    public String getLaunchPackage() {
-        return preferences.getString(KEY_LAUNCH_PACKAGE, null);
+    public void setGamePackage(String packageName) {
+        preferences.edit().putString(KEY_GAME_SERVER, packageName).apply();
     }
 
     @Nullable
-    public String getDefaultLaunchPackage() {
-        for (String packageName : context.getResources().getStringArray(R.array.launch_package_values)) {
+    public String getGamePackage() {
+        return preferences.getString(KEY_GAME_SERVER, null);
+    }
+
+    @Nullable
+    public String getDefaultGamePackage() {
+        for (String packageName : context.getResources().getStringArray(R.array.game_server_values)) {
             if (context.getPackageManager().getLaunchIntentForPackage(packageName) != null)
                 return packageName;
         }
@@ -166,11 +170,10 @@ public class PreferenceManager {
     }
 
     public int getTranslationIndex() {
-        String packageName = getLaunchPackage();
-        String[] packageArray = getContext().getResources().getStringArray(R.array.launch_package_values);
-        if (packageName == null) {
-            packageName = getDefaultLaunchPackage();
-        }
+        String packageName = getGamePackage();
+        String[] packageArray = getContext().getResources().getStringArray(R.array.game_server_values);
+        if (packageName == null)
+            packageName = getDefaultGamePackage();
         if (packageName == null || packageName.equals(packageArray[PACKAGE_EN]))
             return RecruitTag.INDEX_EN;
         if (packageName.equals(packageArray[PACKAGE_JP]))

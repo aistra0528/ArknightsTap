@@ -64,7 +64,7 @@
     <string name="auto_update_summary_off">‘ArkTapについて’でのアップデートチェックも可能</string>
     <string name="launch_game_title">ゲームを起動する</string>
     <string name="launch_game_summary">必要時にゲームを自動起動する</string>
-    <string name="launch_package_title">サーバー選択</string>
+    <string name="game_server_title">サーバー選択</string>
     <string name="ascending_star_title">並び替え</string>
     <string name="ascending_star_summary">★の低いオペレーター順に並び替える</string>
     <string name="recruit_preview_title">未実装のオペレーターを加える</string>

@@ -64,7 +64,7 @@
     <string name="auto_update_summary_off">可以在关于手动获取更新</string>
     <string name="launch_game_title">启动游戏</string>
     <string name="launch_game_summary">必要时自动启动游戏</string>
-    <string name="launch_package_title">游戏渠道</string>
+    <string name="game_server_title">游戏渠道</string>
     <string name="ascending_star_title">保底优先</string>
     <string name="ascending_star_summary">规划方案中干员按★升序排序</string>
     <string name="recruit_preview_title">显示未实装干员</string>
