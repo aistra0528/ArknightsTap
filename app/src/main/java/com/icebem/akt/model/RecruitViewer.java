@@ -122,8 +122,7 @@ public class RecruitViewer {
 
     private void onCheckedChange(RadioGroup group, int checkedId) {
         if (group.getId() == R.id.group_recruit_time) {
-            if (!autoAction)
-                autoAction = true;
+            autoAction = true;
             while (!checkedStars.isEmpty())
                 checkedStars.get(0).setChecked(false);
             for (int[] stars : CHECKED_STARS_ID) {
@@ -145,12 +144,13 @@ public class RecruitViewer {
             if (!stars.contains(tag) && isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
                 tag.setChecked(false);
             } else {
+                boolean state = autoAction;
                 autoAction = true;
                 if (tag == top && findBoxById(R.id.tag_star_6).isChecked() != isChecked)
                     findBoxById(R.id.tag_star_6).setChecked(isChecked);
                 else if (tag.getId() == R.id.tag_qualification_5 && findBoxById(R.id.tag_star_5).isChecked() != isChecked && (isChecked || ((RadioButton) tagsContainer.findViewById(R.id.tag_time_1)).isChecked()))
                     findBoxById(R.id.tag_star_5).setChecked(isChecked);
-                autoAction = false;
+                autoAction = state;
                 updateCheckedTags((CheckBox) tag, isChecked);
             }
         }
