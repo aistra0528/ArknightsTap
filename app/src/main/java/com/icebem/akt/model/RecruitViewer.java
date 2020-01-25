@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.R;
 import com.icebem.akt.app.PreferenceManager;
@@ -42,6 +43,7 @@ public class RecruitViewer {
     private int index;
     private boolean autoAction;
     private Context context;
+    private CheckBox top;
     private TextView tip;
     private NestedScrollView scroll;
     private ViewGroup tagsContainer, resultContainer;
@@ -60,6 +62,7 @@ public class RecruitViewer {
         resultContainer = root.findViewById(R.id.container_recruit_result);
         tagsContainer = root.findViewById(R.id.container_recruit_tags);
         tagArray = RecruitTag.getTagArray();
+        top = findBoxById(R.id.tag_qualification_6);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
         positions = findBoxesById(R.id.tag_position_melee);
@@ -128,8 +131,10 @@ public class RecruitViewer {
                     for (int i = 1; i < stars.length; i++)
                         findBoxById(stars[i]).setChecked(true);
             }
-            if (findBoxById(R.id.tag_qualification_6).isChecked())
+            if (top.isChecked())
                 findBoxById(R.id.tag_star_6).setChecked(true);
+            if (findBoxById(R.id.tag_qualification_5).isChecked() && !findBoxById(R.id.tag_star_5).isChecked())
+                findBoxById(R.id.tag_star_5).setChecked(true);
             autoAction = false;
             updateRecruitResult();
         }
@@ -140,11 +145,12 @@ public class RecruitViewer {
             if (!stars.contains(tag) && isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
                 tag.setChecked(false);
             } else {
-                if (tag.getId() == R.id.tag_qualification_6 && findBoxById(R.id.tag_star_6).isChecked() != isChecked) {
-                    autoAction = true;
+                autoAction = true;
+                if (tag == top && findBoxById(R.id.tag_star_6).isChecked() != isChecked)
                     findBoxById(R.id.tag_star_6).setChecked(isChecked);
-                    autoAction = false;
-                }
+                else if (tag.getId() == R.id.tag_qualification_5 && findBoxById(R.id.tag_star_5).isChecked() != isChecked && (isChecked || ((RadioButton) tagsContainer.findViewById(R.id.tag_time_1)).isChecked()))
+                    findBoxById(R.id.tag_star_5).setChecked(isChecked);
+                autoAction = false;
                 updateCheckedTags((CheckBox) tag, isChecked);
             }
         }
@@ -165,6 +171,7 @@ public class RecruitViewer {
             onCheckedChange((RadioGroup) timeTag.getParent(), CHECKED_TIME_ID);
         else
             timeTag.setChecked(true);
+        scroll.post(() -> scroll.smoothScrollTo(0, context instanceof AppCompatActivity ? 0 : ((ViewGroup) top.getParent()).getTop()));
         if (view != null)
             view.setClickable(true);
     }
@@ -197,13 +204,12 @@ public class RecruitViewer {
     private void updateRecruitResult() {
         resultContainer.removeAllViews();
         if (checkedTags.isEmpty()) {
-            HorizontalScrollView scroll = new HorizontalScrollView(context);
-            LinearLayout layout = new LinearLayout(context);
+            FlexboxLayout flex = new FlexboxLayout(context);
+            flex.setFlexWrap(FlexWrap.WRAP);
             for (OperatorInfo info : checkedInfoList)
                 if (hasPossibility(info))
-                    layout.addView(getInfoView(info, layout));
-            scroll.addView(layout);
-            resultContainer.addView(scroll);
+                    flex.addView(getInfoView(info, flex));
+            resultContainer.addView(flex);
             tip.setText(checkedInfoList.isEmpty() ? R.string.tip_recruit_result_none : R.string.tip_recruit_result_default);
         } else {
             resultList = new ArrayList<>();
@@ -261,7 +267,7 @@ public class RecruitViewer {
             for (CheckBox tag : combinedTags) {
                 if (matched) {
                     if (qualifications.contains(tag)) {
-                        matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 1) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_5 && info.getStar() == 5) || (tag.getId() == R.id.tag_qualification_6 && info.getStar() == 6);
+                        matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 1) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_5 && info.getStar() == 5) || (tag == top && info.getStar() == 6);
                     } else if (types.contains(tag)) {
                         matched = info.getType().equals(tagArray.get(tag.getId())[0]);
                     } else {
@@ -278,15 +284,14 @@ public class RecruitViewer {
         LinearLayout tagContainer = new LinearLayout(context);
         for (CheckBox box : combinedTags)
             tagContainer.addView(getTagView(box, tagContainer));
-        HorizontalScrollView scroll = new HorizontalScrollView(context);
-        LinearLayout infoContainer = new LinearLayout(context);
+        FlexboxLayout flex = new FlexboxLayout(context);
+        flex.setFlexWrap(FlexWrap.WRAP);
         for (OperatorInfo info : matchedInfoList)
-            infoContainer.addView(getInfoView(info, infoContainer));
-        scroll.addView(infoContainer);
+            flex.addView(getInfoView(info, flex));
         ItemContainer itemContainer = new ItemContainer();
         itemContainer.setStar(Math.min(matchedInfoList.get(0).getStar(), matchedInfoList.get(matchedInfoList.size() - 1).getStar()), Math.max(matchedInfoList.get(0).getStar(), matchedInfoList.get(matchedInfoList.size() - 1).getStar()));
         itemContainer.addView(tagContainer);
-        itemContainer.addView(scroll);
+        itemContainer.addView(flex);
         resultList.add(itemContainer);
     }
 
@@ -369,7 +374,7 @@ public class RecruitViewer {
     }
 
     private boolean hasPossibility(OperatorInfo info) {
-        return (info.getStar() != 6 || combinedTags.contains(findBoxById(R.id.tag_qualification_6))) && (manager.recruitPreview() || !info.getName(index).endsWith(RecruitTag.FLAG_UNRELEASED));
+        return (info.getStar() != 6 || combinedTags.contains(top)) && (manager.recruitPreview() || !info.getName(index).endsWith(RecruitTag.FLAG_UNRELEASED));
     }
 
     private int compareInfo(OperatorInfo o1, OperatorInfo o2) {
@@ -377,12 +382,9 @@ public class RecruitViewer {
     }
 
     private int compareTags(CheckBox t1, CheckBox t2) {
-        int i;
         if (t1.getParent() == t2.getParent())
-            i = ((ViewGroup) t1.getParent()).indexOfChild(t1) - ((ViewGroup) t1.getParent()).indexOfChild(t2);
-        else
-            i = ((ViewGroup) t1.getParent().getParent().getParent()).indexOfChild((View) t1.getParent().getParent()) - ((ViewGroup) t2.getParent().getParent().getParent()).indexOfChild((View) t2.getParent().getParent());
-        return i;
+            return ((ViewGroup) t1.getParent()).indexOfChild(t1) - ((ViewGroup) t1.getParent()).indexOfChild(t2);
+        return ((ViewGroup) t1.getParent().getParent()).indexOfChild((View) t1.getParent()) - ((ViewGroup) t2.getParent().getParent()).indexOfChild((View) t2.getParent());
     }
 
     private class ItemContainer extends LinearLayout implements Comparable<ItemContainer> {
