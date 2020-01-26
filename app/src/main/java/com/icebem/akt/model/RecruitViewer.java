@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +23,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.R;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.overlay.OverlayToast;
 
 import org.json.JSONException;
 
@@ -325,7 +325,7 @@ public class RecruitViewer {
             builder.append(info.getName(index));
             builder.append(space);
             builder.append(info.getName(index == RecruitTag.INDEX_CN ? RecruitTag.INDEX_EN : RecruitTag.INDEX_CN));
-            builder.append(space);
+            builder.append(context instanceof AppCompatActivity ? space : System.lineSeparator());
             switch (info.getStar()) {
                 case 1:
                     builder.append(RecruitTag.QUALIFICATION_1[index]);
@@ -348,7 +348,7 @@ public class RecruitViewer {
             if (context instanceof AppCompatActivity)
                 Snackbar.make(container, builder.toString(), Snackbar.LENGTH_LONG).show();
             else
-                Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
+                OverlayToast.show(context, builder.toString(), OverlayToast.LENGTH_LONG);
         });
         switch (info.getStar()) {
             case 1:

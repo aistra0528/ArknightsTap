@@ -136,7 +136,8 @@ public class HomeFragment extends Fragment {
         int result = id;
         String log = l, url = u;
         getActivity().runOnUiThread(() -> {
-            ((MainActivity) getActivity()).updateSubtitleTime();
+            if (result != R.string.version_checking_failed)
+                ((MainActivity) getActivity()).updateSubtitleTime();
             if (result == R.string.version_update) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(result);

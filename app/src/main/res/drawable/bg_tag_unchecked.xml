@@ -1,10 +1,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/control_corner_radius" />
+            <corners android:radius="@dimen/control_radius" />
             <solid android:color="@android:color/transparent" />
             <stroke
-                android:width="@dimen/control_corner_radius"
+                android:width="@dimen/control_radius"
                 android:color="?attr/colorControlNormal" />
         </shape>
     </item>

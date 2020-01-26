@@ -16,8 +16,8 @@ import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
-import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.model.RecruitViewer;
+import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.overlay.OverlayView;
 
 public class OverlayService extends Service {
@@ -56,7 +56,7 @@ public class OverlayService extends Service {
             if (++index == values.length) index = 0;
             viewer.getManager().setGamePackage(values[index]);
             viewer.resetTags(view);
-            Toast.makeText(this, getResources().getStringArray(R.array.game_server_entries)[index], Toast.LENGTH_SHORT).show();
+            OverlayToast.show(this, getResources().getStringArray(R.array.game_server_entries)[index], OverlayToast.LENGTH_SHORT);
         });
         ImageButton fab = new ImageButton(new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_Light));
         fab.setImageResource(R.drawable.ic_fab_akt);

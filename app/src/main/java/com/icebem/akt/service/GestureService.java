@@ -123,9 +123,8 @@ public class GestureService extends AccessibilityService {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            GestureService service = ref.get();
-            if (service != null)
-                Toast.makeText(service, service.getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
+            if (ref.get() != null)
+                Toast.makeText(ref.get(), ref.get().getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
         }
     }
 }
