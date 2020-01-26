@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         ImageView stateImg = root.findViewById(R.id.img_state);
         state = root.findViewById(R.id.txt_state);
-        manager = new PreferenceManager(inflater.getContext());
+        manager = new PreferenceManager(getActivity());
         if (manager.isPro() && !manager.dataUpdated()) {
             stateImg.setImageResource(R.drawable.ic_state_running);
             state.setText(R.string.state_resolution_unsupported);
@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
             case R.id.action_timer:
                 AlertDialog.Builder builder = new AlertDialog.Builder(manager.getContext());
                 builder.setTitle(R.string.action_timer);
-                builder.setSingleChoiceItems(manager.getTimerStrings(getContext()), manager.getTimerPosition(), (dialog, which) -> {
+                builder.setSingleChoiceItems(manager.getTimerStrings(getActivity()), manager.getTimerPosition(), (dialog, which) -> {
                     dialog.cancel();
                     manager.setTimerTime(which);
                     Snackbar.make(state, getString(R.string.info_timer_set, manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime())), Snackbar.LENGTH_LONG).show();
@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY : AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case R.id.action_about:
-                startActivity(new Intent(manager.getContext(), AboutActivity.class));
+                startActivity(new Intent(getActivity(), AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

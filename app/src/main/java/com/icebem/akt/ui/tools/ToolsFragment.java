@@ -27,7 +27,7 @@ public class ToolsFragment extends Fragment {
         setHasOptionsMenu(true);
         View root = inflater.inflate(R.layout.fragment_tools, container, false);
         try {
-            viewer = new RecruitViewer(getContext(), root);
+            viewer = new RecruitViewer(getActivity(), root);
         } catch (Exception e) {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }
@@ -49,7 +49,7 @@ public class ToolsFragment extends Fragment {
                 builder.setTitle(R.string.game_server_title);
                 builder.setSingleChoiceItems(viewer.getContext().getResources().getStringArray(R.array.game_server_entries), viewer.getManager().getGamePackagePosition(), (dialog, which) -> {
                     dialog.cancel();
-                    viewer.getManager().setGamePackage(viewer.getManager().getContext().getResources().getStringArray(R.array.game_server_values)[which]);
+                    viewer.getManager().setGamePackage(viewer.getContext().getResources().getStringArray(R.array.game_server_values)[which]);
                     viewer.resetTags(null);
                 });
                 builder.setNegativeButton(android.R.string.cancel, null);
