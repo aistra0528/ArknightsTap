@@ -5,7 +5,6 @@ import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
@@ -27,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.activity.AboutActivity;
+import com.icebem.akt.activity.MainActivity;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.IOUtil;
@@ -108,7 +107,7 @@ public class HomeFragment extends Fragment {
                 builder.create().show();
                 break;
             case R.id.action_night:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY : AppCompatDelegate.MODE_NIGHT_YES);
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM : AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case R.id.action_about:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
@@ -118,10 +117,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void checkVersionUpdate() {
+        if (!(getActivity() instanceof MainActivity)) return;
         int id;
         String l = null, u = null;
         try {
-            if (AppUtil.isLatestVersion(manager.getContext())) {
+            if (AppUtil.isLatestVersion(getActivity())) {
                 id = R.string.version_latest;
             } else {
                 id = R.string.version_update;
@@ -129,14 +129,16 @@ public class HomeFragment extends Fragment {
                 l = AppUtil.getChangelog(json);
                 u = AppUtil.getDownloadUrl(json);
             }
+            manager.setCheckLastTime();
         } catch (Exception e) {
             id = R.string.version_checking_failed;
         }
         int result = id;
         String log = l, url = u;
-        ((AppCompatActivity) manager.getContext()).runOnUiThread(() -> {
+        getActivity().runOnUiThread(() -> {
+            ((MainActivity) getActivity()).updateSubtitleTime();
             if (result == R.string.version_update) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(manager.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(result);
                 builder.setMessage(log);
                 builder.setPositiveButton(R.string.action_update, (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));

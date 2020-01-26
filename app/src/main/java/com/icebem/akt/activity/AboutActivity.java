@@ -134,6 +134,7 @@ public class AboutActivity extends AppCompatActivity {
                 JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));
                 url = AppUtil.getDownloadUrl(json);
             }
+            manager.setCheckLastTime();
         } catch (Exception e) {
             id = R.string.version_checking_failed;
         }

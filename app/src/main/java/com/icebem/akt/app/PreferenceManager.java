@@ -62,11 +62,12 @@ public class PreferenceManager {
             if (getVersionCode() < BuildConfig.VERSION_CODE) {
                 try {
                     AppUtil.updateData(context, false);
+                    setCheckLastTime();
+                    setVersionCode();
                 } catch (IOException e) {
                     Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
                 }
             }
-            setVersionCode();
         }
     }
 
@@ -142,20 +143,17 @@ public class PreferenceManager {
         return TIMER_POSITION;
     }
 
-    private void setCheckLastTime() {
+    public void setCheckLastTime() {
         preferences.edit().putLong(KEY_CHECK_LAST_TIME, System.currentTimeMillis()).apply();
     }
 
-    private long getCheckLastTime() {
+    public long getCheckLastTime() {
         return preferences.getLong(KEY_CHECK_LAST_TIME, 0);
     }
 
     public boolean autoUpdate() {
         // 每隔8小时自动获取更新
-        if (preferences.getBoolean(KEY_AUTO_UPDATE, true) && System.currentTimeMillis() - getCheckLastTime() > CHECK_TIME) {
-            setCheckLastTime();
-            return true;
-        } else return false;
+        return preferences.getBoolean(KEY_AUTO_UPDATE, true) && System.currentTimeMillis() - getCheckLastTime() > CHECK_TIME;
     }
 
     public boolean launchGame() {
