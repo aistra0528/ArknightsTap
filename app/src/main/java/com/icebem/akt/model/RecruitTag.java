@@ -44,6 +44,7 @@ public class RecruitTag {
     private static final String[] AFFIX_NUKER = {"Nuker", "爆发", "爆発力"};
     private static final String[] AFFIX_CONTROL = {"Crowd-Control", "控场", "牽制"};
     private static final String[][] TAG_ARRAY = {
+            QUALIFICATION_2,
             POSITION_MELEE,
             POSITION_RANGED,
             TYPE_VANGUARD,

@@ -206,6 +206,7 @@
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/control_padding"
                 app:flexWrap="wrap">
 
                 <CheckBox

@@ -26,7 +26,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/game_server_title"
             android:padding="@dimen/view_padding"
-            android:src="@drawable/ic_language" />
+            android:src="@drawable/ic_action_language" />
 
         <ImageButton
             android:id="@+id/action_disconnect"

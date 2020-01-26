@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
             Snackbar.make(state, R.string.version_type_beta, Snackbar.LENGTH_INDEFINITE).show();
         } else if (manager.autoUpdate()) {
             new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
-            Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
         }
     }
 

@@ -27,7 +27,6 @@ public class OverlayService extends Service {
     public void onCreate() {
         super.onCreate();
         setTheme(R.style.AppTheme_Dark);
-        PreferenceManager manager = new PreferenceManager(this);
         views = new OverlayView[2];
         views[1] = new OverlayView(this, LayoutInflater.from(this).inflate(R.layout.content_overlay, new FrameLayout(this)));
         views[1].setGravity(Gravity.END | Gravity.TOP);
@@ -52,18 +51,10 @@ public class OverlayService extends Service {
         RecruitViewer viewer = rv;
         views[1].getView().findViewById(R.id.action_server).setOnClickListener(view -> {
             if (viewer == null) return;
-            String packageName = manager.getGamePackage();
-            if (packageName == null)
-                packageName = manager.getDefaultGamePackage();
-            int index = PreferenceManager.PACKAGE_EN;
+            int index = viewer.getManager().getGamePackagePosition();
             String[] values = getResources().getStringArray(R.array.game_server_values);
-            if (packageName != null) {
-                for (int i = 0; i < values.length; i++)
-                    if (packageName.equals(values[i]))
-                        index = i;
-            }
             if (++index == values.length) index = 0;
-            manager.setGamePackage(values[index]);
+            viewer.getManager().setGamePackage(values[index]);
             viewer.resetTags(view);
             Toast.makeText(this, getResources().getStringArray(R.array.game_server_entries)[index], Toast.LENGTH_SHORT).show();
         });
@@ -89,7 +80,7 @@ public class OverlayService extends Service {
                 stopSelf();
         });
         views[0].getView().setOnLongClickListener(view -> {
-            if (manager.isPro()) {
+            if (viewer != null && viewer.getManager().isPro()) {
                 if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
                     ((BaseApplication) getApplication()).getGestureService().disableSelf();
                 } else {

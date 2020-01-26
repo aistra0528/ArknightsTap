@@ -70,7 +70,7 @@ public class RecruitViewer {
         affixes = findBoxesById(R.id.tag_affix_survival);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
-        root.findViewById(R.id.action_recruit_reset).setOnClickListener(RecruitViewer.this::resetTags);
+        root.findViewById(R.id.action_recruit_reset).setOnClickListener(this::resetTags);
         ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
@@ -415,5 +415,13 @@ public class RecruitViewer {
             if (i == 0) i = container.getMaxStar() - maxStar;
             return i;
         }
+    }
+
+    public PreferenceManager getManager() {
+        return manager;
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

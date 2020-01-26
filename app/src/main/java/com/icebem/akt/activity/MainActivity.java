@@ -71,16 +71,16 @@ public class MainActivity extends AppCompatActivity {
     private boolean onLongClick(View view) {
         if (view != null && manager.isPro() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_home) {
             showOverlay();
+            if (((BaseApplication) getApplication()).isOverlayServiceRunning() && fab.isOrWillBeShown() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_home || !manager.isPro())
+                fab.post(fab::hide);
             return true;
         }
         return false;
     }
 
-    private void showOverlay() {
+    public void showOverlay() {
         if (Settings.canDrawOverlays(this)) {
             startService(new Intent(this, OverlayService.class));
-            if (((BaseApplication) getApplication()).isOverlayServiceRunning() && fab.isOrWillBeShown() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_home || !manager.isPro())
-                fab.post(fab::hide);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.state_permission_request);
@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onDestinationChanged(NavDestination destination) {
-        if (destination.getId() == R.id.nav_settings) {
-            if (fab.isOrWillBeShown())
-                fab.hide();
-        } else if (fab.isOrWillBeHidden())
-            fab.show();
+        if (destination.getId() == R.id.nav_home) {
+            if (fab.isOrWillBeHidden())
+                fab.show();
+        } else if (fab.isOrWillBeShown())
+            fab.hide();
     }
 
     @Override

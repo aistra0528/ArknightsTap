@@ -14,7 +14,7 @@ import com.icebem.akt.service.GestureService;
 import com.icebem.akt.util.RandomUtil;
 
 public class PreferenceManager {
-    public static final int PACKAGE_EN = 2;
+    private static final int PACKAGE_EN = 2;
     private static final int PACKAGE_JP = 3;
     private static final String KEY_A = "point_a";
     private static final String KEY_B = "point_b";
@@ -169,14 +169,27 @@ public class PreferenceManager {
         return null;
     }
 
-    public int getTranslationIndex() {
+    public int getGamePackagePosition() {
         String packageName = getGamePackage();
-        String[] packageArray = getContext().getResources().getStringArray(R.array.game_server_values);
         if (packageName == null)
             packageName = getDefaultGamePackage();
-        if (packageName == null || packageName.equals(packageArray[PACKAGE_EN]))
+        if (packageName != null) {
+            String[] values = context.getResources().getStringArray(R.array.game_server_values);
+            for (int i = 0; i < values.length; i++)
+                if (packageName.equals(values[i]))
+                    return i;
+        }
+        return PACKAGE_EN;
+    }
+
+    public int getTranslationIndex() {
+        String packageName = getGamePackage();
+        String[] values = getContext().getResources().getStringArray(R.array.game_server_values);
+        if (packageName == null)
+            packageName = getDefaultGamePackage();
+        if (packageName == null || packageName.equals(values[PACKAGE_EN]))
             return RecruitTag.INDEX_EN;
-        if (packageName.equals(packageArray[PACKAGE_JP]))
+        if (packageName.equals(values[PACKAGE_JP]))
             return RecruitTag.INDEX_JP;
         return RecruitTag.INDEX_CN;
     }
