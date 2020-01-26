@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -11,7 +12,10 @@ import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.model.RecruitTag;
 import com.icebem.akt.service.GestureService;
+import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.RandomUtil;
+
+import java.io.IOException;
 
 public class PreferenceManager {
     private static final int PACKAGE_EN = 2;
@@ -53,6 +57,13 @@ public class PreferenceManager {
                     preferences.edit().putInt(KEY_W, res[0] - RandomUtil.RANDOM_P).apply();
                     preferences.edit().putInt(KEY_H, res[1] / 4 - RandomUtil.RANDOM_P).apply();
                     break;
+                }
+            }
+            if (getVersionCode() < BuildConfig.VERSION_CODE) {
+                try {
+                    AppUtil.updateData(context, false);
+                } catch (IOException e) {
+                    Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
                 }
             }
             setVersionCode();

@@ -3,6 +3,9 @@ package com.icebem.akt.util;
 import android.content.Context;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -14,8 +17,12 @@ public class IOUtil {
     private static final int CONNECT_TIMEOUT = 10000;
     private static final String METHOD_GET = "GET";
 
-    public static InputStream fromAssets(Context context, String path) throws IOException {
+    static InputStream fromAssets(Context context, String path) throws IOException {
         return context.getAssets().open(path);
+    }
+
+    static InputStream fromFile(File file) throws IOException {
+        return new FileInputStream(file);
     }
 
     public static InputStream fromWeb(String url) throws IOException {
@@ -26,7 +33,7 @@ public class IOUtil {
         return connection.getInputStream();
     }
 
-    public static String stream2String(InputStream in) throws IOException {
+    private static ByteArrayOutputStream stream2Bytes(InputStream in) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] buffer = new byte[LENGTH_KB];
         int len;
@@ -36,6 +43,17 @@ public class IOUtil {
         } finally {
             in.close();
         }
-        return out.toString(StandardCharsets.UTF_8.name());
+        return out;
+    }
+
+    public static String stream2String(InputStream in) throws IOException {
+        return stream2Bytes(in).toString(StandardCharsets.UTF_8.name());
+    }
+
+    static void stream2File(InputStream in, String path) throws IOException {
+        File file = new File(path);
+        FileOutputStream out = new FileOutputStream(file);
+        stream2Bytes(in).writeTo(out);
+        out.close();
     }
 }

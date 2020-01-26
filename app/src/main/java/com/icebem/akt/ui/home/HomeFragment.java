@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment {
         int id;
         String l = null, u = null;
         try {
-            if (AppUtil.isLatestVersion()) {
+            if (AppUtil.isLatestVersion(manager.getContext())) {
                 id = R.string.version_latest;
             } else {
                 id = R.string.version_update;

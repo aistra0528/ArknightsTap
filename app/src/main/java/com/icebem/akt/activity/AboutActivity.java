@@ -127,7 +127,7 @@ public class AboutActivity extends AppCompatActivity {
         int id;
         String url = AppUtil.URL_RELEASE_LATEST;
         try {
-            if (AppUtil.isLatestVersion()) {
+            if (AppUtil.isLatestVersion(this)) {
                 id = R.string.version_latest;
             } else {
                 id = R.string.version_update;

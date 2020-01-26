@@ -61,13 +61,15 @@ public class RecruitViewer {
         tip = root.findViewById(R.id.txt_recruit_tips);
         resultContainer = root.findViewById(R.id.container_recruit_result);
         tagsContainer = root.findViewById(R.id.container_recruit_tags);
-        tagArray = RecruitTag.getTagArray();
         top = findBoxById(R.id.tag_qualification_6);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
         positions = findBoxesById(R.id.tag_position_melee);
         types = findBoxesById(R.id.tag_type_vanguard);
         affixes = findBoxesById(R.id.tag_affix_survival);
+        tagArray = RecruitTag.getTagArray();
+        setBoxesText();
+        infoList = OperatorInfo.fromAssets(context);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
         root.findViewById(R.id.action_recruit_reset).setOnClickListener(this::resetTags);
@@ -77,12 +79,10 @@ public class RecruitViewer {
         setOnCheckedChangeListener(positions);
         setOnCheckedChangeListener(types);
         setOnCheckedChangeListener(affixes);
-        infoList = OperatorInfo.fromAssets(context);
         checkedStars = new ArrayList<>();
         checkedTags = new ArrayList<>();
         checkedInfoList = new ArrayList<>();
         combinedTags = new ArrayList<>();
-        setBoxesText();
         resetTags(null);
     }
 

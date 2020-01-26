@@ -2,7 +2,6 @@ package com.icebem.akt.ui.tools;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +18,7 @@ import com.icebem.akt.activity.AboutActivity;
 import com.icebem.akt.activity.MainActivity;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.model.RecruitViewer;
+import com.icebem.akt.util.AppUtil;
 
 public class ToolsFragment extends Fragment {
     private RecruitViewer viewer;
@@ -29,7 +29,8 @@ public class ToolsFragment extends Fragment {
         try {
             viewer = new RecruitViewer(getActivity(), root);
         } catch (Exception e) {
-            Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
+            if (getActivity() instanceof MainActivity)
+                AppUtil.showLogDialog(getActivity(), e);
         }
         return root;
     }
@@ -45,6 +46,7 @@ public class ToolsFragment extends Fragment {
                 }
                 break;
             case R.id.action_language:
+                if (viewer == null) break;
                 AlertDialog.Builder builder = new AlertDialog.Builder(viewer.getContext());
                 builder.setTitle(R.string.game_server_title);
                 builder.setSingleChoiceItems(viewer.getContext().getResources().getStringArray(R.array.game_server_entries), viewer.getManager().getGamePackagePosition(), (dialog, which) -> {
