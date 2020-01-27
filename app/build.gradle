@@ -7,8 +7,8 @@ android {
         applicationId "com.icebem.akt"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 23
-        versionName "2.1.9-20200127-Luna"
+        versionCode 24
+        versionName "2.1.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
