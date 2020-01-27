@@ -23,18 +23,20 @@
             android:id="@+id/action_server"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/action_margin"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/game_server_title"
-            android:padding="@dimen/view_padding"
+            android:padding="@dimen/action_padding"
             android:src="@drawable/ic_action_language" />
 
         <ImageButton
             android:id="@+id/action_disconnect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/action_margin"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/action_overlay_disconnect"
-            android:padding="@dimen/view_padding"
+            android:padding="@dimen/action_padding"
             android:src="@drawable/ic_exit" />
     </LinearLayout>
 
