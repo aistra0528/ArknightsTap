@@ -36,7 +36,7 @@ public class GestureService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         manager = new PreferenceManager(this);
-        if (!manager.dataUpdated()) {
+        if (!manager.resolutionSupported()) {
             disableSelf();
             return;
         }
@@ -78,7 +78,7 @@ public class GestureService extends AccessibilityService {
             performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
         else
             timerTimeout = true;
-        Toast.makeText(this, manager.dataUpdated() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
         return super.onUnbind(intent);
     }
 
@@ -89,11 +89,11 @@ public class GestureService extends AccessibilityService {
         Path path = new Path();
         while (!timerTimeout) {
             GestureDescription.Builder builder = new GestureDescription.Builder();
-            path.moveTo(RandomUtil.randomP(manager.getA()), RandomUtil.randomP(manager.getB()));
+            path.moveTo(RandomUtil.randomP(manager.getBlueX()), RandomUtil.randomP(manager.getBlueY()));
             builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
-            path.moveTo(RandomUtil.randomP(manager.getX()), RandomUtil.randomP(manager.getY()));
+            path.moveTo(RandomUtil.randomP(manager.getRedX()), RandomUtil.randomP(manager.getRedY()));
             builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime()), RandomUtil.randomP(GESTURE_DURATION)));
-            path.moveTo(RandomUtil.randomP(manager.getW()), RandomUtil.randomP(manager.getH()));
+            path.moveTo(RandomUtil.randomP(manager.getGreenX()), RandomUtil.randomP(manager.getGreenY()));
             builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2), RandomUtil.randomP(GESTURE_DURATION)));
             builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2 * 3), RandomUtil.randomP(GESTURE_DURATION)));
             dispatchGesture(builder.build(), null, null);

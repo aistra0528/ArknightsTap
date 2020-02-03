@@ -36,15 +36,28 @@ import org.json.JSONObject;
 public class HomeFragment extends Fragment {
     private int i;
     private TextView state;
+    private ImageView stateImg;
     private PreferenceManager manager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        ImageView stateImg = root.findViewById(R.id.img_state);
+        stateImg = root.findViewById(R.id.img_state);
         state = root.findViewById(R.id.txt_state);
         manager = new PreferenceManager(getActivity());
-        if (manager.isPro() && !manager.dataUpdated()) {
+        return root;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (BuildConfig.DEBUG) {
+            Snackbar.make(state, R.string.version_type_beta, Snackbar.LENGTH_LONG).show();
+        }
+        if (manager.autoUpdate()) {
+            startUpdateThread();
+        }
+        if (manager.isPro() && !manager.resolutionSupported()) {
             stateImg.setImageResource(R.drawable.ic_state_running);
             state.setText(R.string.state_resolution_unsupported);
             int[] res = ResolutionConfig.getResolution(manager.getContext());
@@ -52,6 +65,7 @@ public class HomeFragment extends Fragment {
             builder.setTitle(R.string.state_resolution_unsupported);
             builder.setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]));
             builder.setPositiveButton(R.string.got_it, null);
+            builder.setNeutralButton(R.string.action_update, (dialog, which) -> startUpdateThread());
             builder.create().show();
         } else {
             AnimatedVectorDrawable avd = (AnimatedVectorDrawable) stateImg.getDrawable();
@@ -77,18 +91,6 @@ public class HomeFragment extends Fragment {
                 }
             });
             avd.start();
-        }
-        return root;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (BuildConfig.DEBUG) {
-            Snackbar.make(state, R.string.version_type_beta, Snackbar.LENGTH_INDEFINITE).show();
-        } else if (manager.autoUpdate()) {
-            new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
-            Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
         }
     }
 
@@ -116,12 +118,17 @@ public class HomeFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    private void startUpdateThread() {
+        new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
+        Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
+    }
+
     private void checkVersionUpdate() {
         if (!(getActivity() instanceof MainActivity)) return;
         int id;
         String l = null, u = null;
         try {
-            if (AppUtil.isLatestVersion(getActivity())) {
+            if (AppUtil.isLatestVersion(manager)) {
                 id = R.string.version_latest;
             } else {
                 id = R.string.version_update;
