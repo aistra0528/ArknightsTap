@@ -22,7 +22,7 @@
         app:title="@string/game_server_title"
         app:useSimpleSummaryProvider="true" />
 
-    <PreferenceCategory app:title="@string/overlay_label">
+    <PreferenceCategory app:title="@string/title_recruit">
 
         <SwitchPreferenceCompat
             app:defaultValue="true"

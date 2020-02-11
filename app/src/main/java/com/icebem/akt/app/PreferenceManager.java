@@ -39,6 +39,7 @@ public class PreferenceManager {
     private static final String KEY_CHECK_LAST_TIME = "check_last_time";
     private static final String KEY_LAUNCH_GAME = "launch_game";
     private static final String KEY_GAME_SERVER = "game_server";
+    private static final String KEY_HEADHUNT_COUNT = "headhunt_count";
     private static final String KEY_ASCENDING_STAR = "ascending_star";
     private static final String KEY_RECRUIT_PREVIEW = "recruit_preview";
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
@@ -210,6 +211,14 @@ public class PreferenceManager {
         if (packageName.equals(values[PACKAGE_JP]))
             return RecruitTag.INDEX_JP;
         return RecruitTag.INDEX_CN;
+    }
+
+    public void setHeadhuntCount(int count) {
+        preferences.edit().putInt(KEY_HEADHUNT_COUNT, count).apply();
+    }
+
+    public int getHeadhuntCount() {
+        return preferences.getInt(KEY_HEADHUNT_COUNT, 0);
     }
 
     public boolean ascendingStar() {

@@ -11,6 +11,15 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
+        <ImageButton
+            android:id="@+id/action_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@null"
+            android:padding="@dimen/view_padding"
+            android:src="@drawable/ic_menu" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -23,21 +32,19 @@
             android:id="@+id/action_server"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/action_margin"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/game_server_title"
-            android:padding="@dimen/action_padding"
+            android:padding="@dimen/view_padding"
             android:src="@drawable/ic_action_language" />
 
         <ImageButton
-            android:id="@+id/action_disconnect"
+            android:id="@+id/action_collapse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/action_margin"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/action_overlay_disconnect"
-            android:padding="@dimen/action_padding"
-            android:src="@drawable/ic_exit" />
+            android:contentDescription="@string/action_overlay_collapse"
+            android:padding="@dimen/view_padding"
+            android:src="@drawable/ic_collapse" />
     </LinearLayout>
 
     <include layout="@layout/fragment_recruit" />

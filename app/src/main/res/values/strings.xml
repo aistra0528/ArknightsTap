@@ -79,4 +79,6 @@
     <string name="special_thanks_title">Heartfelt thanks</string>
     <string name="special_thanks_desc">Satoshi Lee - Japanese translation</string>
     <string name="special_thanks_extra">And of course, you.\nThank you so much for using ArkTap!\n© 2020 Icebem</string>
+    <string name="action_counter">Headhunt Counter</string>
+    <string name="tip_counter_default">Rolls: %d\nPossibility of 6★ in the next roll: %d%%\nLong press + to x10, - to clear</string>
 </resources>

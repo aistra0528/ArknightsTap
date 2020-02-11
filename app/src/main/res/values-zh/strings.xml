@@ -74,4 +74,6 @@
     <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2020 Icebem</string>
     <string name="special_thanks_desc">酷安@Wasurenagusa - 日语翻译</string>
     <string name="special_thanks_title">特别感谢</string>
+    <string name="action_counter">寻访计数器</string>
+    <string name="tip_counter_default">已寻访：%d次\n下次获得6★概率：%d%%\n长按+十连，-清零</string>
 </resources>

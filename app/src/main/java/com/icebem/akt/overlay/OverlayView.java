@@ -5,10 +5,12 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 public class OverlayView {
     private int x, y, touchSlop;
@@ -32,15 +34,26 @@ public class OverlayView {
         params.windowAnimations = android.R.style.Animation_Toast;
     }
 
+    public OverlayView(Context context, int res) {
+        this(context, LayoutInflater.from(context).inflate(res, new FrameLayout(context)));
+    }
+
     public View getView() {
         return view;
     }
 
-    public void show() {
+    public OverlayView show() {
         if (!showing) {
             manager.addView(view, params);
             showing = true;
         }
+        return this;
+    }
+
+    public OverlayView show(OverlayView current) {
+        if (current != null && current != this)
+            current.remove();
+        return show();
     }
 
     public void remove() {

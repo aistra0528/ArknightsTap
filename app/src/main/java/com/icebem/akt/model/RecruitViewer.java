@@ -58,9 +58,9 @@ public class RecruitViewer {
         this.context = context;
         manager = new PreferenceManager(context);
         scroll = root.findViewById(R.id.scroll_recruit_root);
-        tip = root.findViewById(R.id.txt_recruit_tips);
-        resultContainer = root.findViewById(R.id.container_recruit_result);
-        tagsContainer = root.findViewById(R.id.container_recruit_tags);
+        tip = scroll.findViewById(R.id.txt_recruit_tips);
+        resultContainer = scroll.findViewById(R.id.container_recruit_result);
+        tagsContainer = scroll.findViewById(R.id.container_recruit_tags);
         top = findBoxById(R.id.tag_qualification_6);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
@@ -72,7 +72,7 @@ public class RecruitViewer {
         infoList = OperatorInfo.fromAssets(context);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
-        root.findViewById(R.id.action_recruit_reset).setOnClickListener(this::resetTags);
+        scroll.findViewById(R.id.action_recruit_reset).setOnClickListener(this::resetTags);
         ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
