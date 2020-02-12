@@ -5,9 +5,12 @@
     <dimen name="container_margin">12dp</dimen>
     <dimen name="control_margin">4dp</dimen>
     <dimen name="control_padding">8dp</dimen>
-    <dimen name="control_corner_radius">2dp</dimen>
+    <dimen name="control_radius">2dp</dimen>
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="fab_mini_size">40dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="overlay_elevation">8dp</dimen>
+    <dimen name="overlay_width">280dp</dimen>
     <dimen name="view_padding">16dp</dimen>
+    <dimen name="toast_radius">22dp</dimen>
 </resources>

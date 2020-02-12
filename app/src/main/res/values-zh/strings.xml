@@ -13,7 +13,7 @@
     <string name="msg_permission_overlay">- 显示在其他应用的上层\n可通过悬浮球在游戏内使用公开招募规划等功能</string>
     <string name="info_overlay_connected">帮帮忙™已连接</string>
     <string name="info_overlay_disconnected">帮帮忙™连接解除</string>
-    <string name="action_overlay_disconnect">解除</string>
+    <string name="action_disconnect">解除</string>
     <string name="action_overlay_collapse">收起</string>
     <string name="title_recruit">公开招募规划</string>
     <string name="action_reset">重置</string>
@@ -64,7 +64,7 @@
     <string name="auto_update_summary_off">可以在关于手动获取更新</string>
     <string name="launch_game_title">启动游戏</string>
     <string name="launch_game_summary">必要时自动启动游戏</string>
-    <string name="launch_package_title">游戏渠道</string>
+    <string name="game_server_title">游戏渠道</string>
     <string name="ascending_star_title">保底优先</string>
     <string name="ascending_star_summary">规划方案中干员按★升序排序</string>
     <string name="recruit_preview_title">显示未实装干员</string>
@@ -74,4 +74,6 @@
     <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2020 Icebem</string>
     <string name="special_thanks_desc">酷安@Wasurenagusa - 日语翻译</string>
     <string name="special_thanks_title">特别感谢</string>
+    <string name="action_counter">寻访计数器</string>
+    <string name="tip_counter_default">已寻访：%d次\n下次获得6★概率：%d%%\n长按+十连，-清零</string>
 </resources>

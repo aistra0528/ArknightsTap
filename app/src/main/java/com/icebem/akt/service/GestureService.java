@@ -19,6 +19,7 @@ import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.util.RandomUtil;
 
 import java.lang.ref.WeakReference;
@@ -36,7 +37,7 @@ public class GestureService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         manager = new PreferenceManager(this);
-        if (!manager.dataUpdated()) {
+        if (!manager.resolutionSupported()) {
             disableSelf();
             return;
         }
@@ -55,6 +56,8 @@ public class GestureService extends AccessibilityService {
                 }
                 timerTimeout = true;
             }, THREAD_TIMER).start();
+        } else if (Settings.canDrawOverlays(this)) {
+            OverlayToast.show(this, R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT);
         } else {
             Toast.makeText(this, R.string.info_gesture_connected, Toast.LENGTH_SHORT).show();
         }
@@ -78,7 +81,10 @@ public class GestureService extends AccessibilityService {
             performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
         else
             timerTimeout = true;
-        Toast.makeText(this, manager.dataUpdated() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
+        if (Settings.canDrawOverlays(this))
+            OverlayToast.show(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
+        else
+            Toast.makeText(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
         return super.onUnbind(intent);
     }
 
@@ -89,11 +95,11 @@ public class GestureService extends AccessibilityService {
         Path path = new Path();
         while (!timerTimeout) {
             GestureDescription.Builder builder = new GestureDescription.Builder();
-            path.moveTo(RandomUtil.randomP(manager.getA()), RandomUtil.randomP(manager.getB()));
+            path.moveTo(RandomUtil.randomP(manager.getBlueX()), RandomUtil.randomP(manager.getBlueY()));
             builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
-            path.moveTo(RandomUtil.randomP(manager.getX()), RandomUtil.randomP(manager.getY()));
+            path.moveTo(RandomUtil.randomP(manager.getRedX()), RandomUtil.randomP(manager.getRedY()));
             builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime()), RandomUtil.randomP(GESTURE_DURATION)));
-            path.moveTo(RandomUtil.randomP(manager.getW()), RandomUtil.randomP(manager.getH()));
+            path.moveTo(RandomUtil.randomP(manager.getGreenX()), RandomUtil.randomP(manager.getGreenY()));
             builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2), RandomUtil.randomP(GESTURE_DURATION)));
             builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2 * 3), RandomUtil.randomP(GESTURE_DURATION)));
             dispatchGesture(builder.build(), null, null);
@@ -103,9 +109,9 @@ public class GestureService extends AccessibilityService {
     }
 
     private void launchGame() {
-        Intent intent = manager.getLaunchPackage() == null ? null : getPackageManager().getLaunchIntentForPackage(manager.getLaunchPackage());
+        Intent intent = manager.getGamePackage() == null ? null : getPackageManager().getLaunchIntentForPackage(manager.getGamePackage());
         if (intent == null) {
-            String packageName = manager.getDefaultLaunchPackage();
+            String packageName = manager.getDefaultGamePackage();
             if (packageName != null)
                 intent = getPackageManager().getLaunchIntentForPackage(packageName);
         }
@@ -123,9 +129,12 @@ public class GestureService extends AccessibilityService {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            GestureService service = ref.get();
-            if (service != null)
-                Toast.makeText(service, service.getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
+            if (ref.get() != null) {
+                if (Settings.canDrawOverlays(ref.get()))
+                    OverlayToast.show(ref.get(), ref.get().getString(R.string.info_gesture_running, msg.what), OverlayToast.LENGTH_SHORT);
+                else
+                    Toast.makeText(ref.get(), ref.get().getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

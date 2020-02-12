@@ -3,12 +3,13 @@
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorAccent">#FFA000</color>
     <color name="colorOverlay">#99000000</color>
+    <color name="colorToast">#E6EEEEEE</color>
     <color name="colorError">#FF1744</color>
     <color name="colorControlActivated">#8D6E63</color>
-    <color name="colorStar6">#FF5722</color>
-    <color name="colorStar5">#FF9800</color>
-    <color name="colorStar4">#9C27B0</color>
-    <color name="colorStar3">#00BCD4</color>
-    <color name="colorStar2">#4CAF50</color>
-    <color name="colorStar1">#9E9E9E</color>
+    <color name="colorStar6">#B71C1C</color>
+    <color name="colorStar5">#E65100</color>
+    <color name="colorStar4">#512DA8</color>
+    <color name="colorStar3">#0097A7</color>
+    <color name="colorStar2">#388E3C</color>
+    <color name="colorStar1">#616161</color>
 </resources>

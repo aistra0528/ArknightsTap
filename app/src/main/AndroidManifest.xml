@@ -45,7 +45,7 @@
         </service>
         <service
             android:name=".service.QuickService"
-            android:icon="@drawable/ic_fab_akt"
+            android:icon="@drawable/ic_akt"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

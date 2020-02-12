@@ -1,6 +1,7 @@
 package com.icebem.akt.activity;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,7 +14,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    private TextView subtitle;
     private FloatingActionButton fab;
     private AppBarConfiguration barConfig;
     private NavController navController;
@@ -43,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         barConfig = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_tools, R.id.nav_settings).setDrawerLayout(findViewById(R.id.drawer_layout)).build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        TextView subtitle = navigationView.getHeaderView(0).findViewById(R.id.txt_header_subtitle);
-        subtitle.setText(BuildConfig.VERSION_NAME);
+        subtitle = navigationView.getHeaderView(0).findViewById(R.id.txt_header_subtitle);
+        updateSubtitleTime();
         NavigationUI.setupActionBarWithNavController(this, navController, barConfig);
         NavigationUI.setupWithNavController(navigationView, navController);
         navController.addOnDestinationChangedListener((controller, destination, bundle) -> onDestinationChanged(destination));
@@ -71,16 +72,16 @@ public class MainActivity extends AppCompatActivity {
     private boolean onLongClick(View view) {
         if (view != null && manager.isPro() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_home) {
             showOverlay();
+            if (((BaseApplication) getApplication()).isOverlayServiceRunning() && fab.isOrWillBeShown() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_home || !manager.isPro())
+                fab.post(fab::hide);
             return true;
         }
         return false;
     }
 
-    private void showOverlay() {
+    public void showOverlay() {
         if (Settings.canDrawOverlays(this)) {
             startService(new Intent(this, OverlayService.class));
-            if (((BaseApplication) getApplication()).isOverlayServiceRunning() && fab.isOrWillBeShown() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_home || !manager.isPro())
-                fab.post(fab::hide);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.state_permission_request);
@@ -91,12 +92,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void updateSubtitleTime() {
+        subtitle.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(manager.getCheckLastTime()));
+    }
+
     private void onDestinationChanged(NavDestination destination) {
-        if (destination.getId() == R.id.nav_settings) {
-            if (fab.isOrWillBeShown())
-                fab.hide();
-        } else if (fab.isOrWillBeHidden())
-            fab.show();
+        if (destination.getId() == R.id.nav_home) {
+            if (fab.isOrWillBeHidden())
+                fab.show();
+        } else if (fab.isOrWillBeShown())
+            fab.hide();
     }
 
     @Override

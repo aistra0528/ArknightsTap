@@ -8,7 +8,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/action_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@null"
+            android:padding="@dimen/view_padding"
+            android:src="@drawable/ic_menu" />
 
         <TextView
             android:layout_width="0dp"
@@ -18,21 +28,23 @@
             android:text="@string/title_recruit"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <Button
-            android:id="@+id/action_disconnect"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        <ImageButton
+            android:id="@+id/action_server"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/game_server_title"
             android:padding="@dimen/view_padding"
-            android:text="@string/action_overlay_disconnect" />
+            android:src="@drawable/ic_action_language" />
 
-        <Button
+        <ImageButton
             android:id="@+id/action_collapse"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/action_overlay_collapse"
             android:padding="@dimen/view_padding"
-            android:text="@string/action_overlay_collapse" />
+            android:src="@drawable/ic_collapse" />
     </LinearLayout>
 
     <include layout="@layout/fragment_recruit" />

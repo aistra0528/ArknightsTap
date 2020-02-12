@@ -15,7 +15,7 @@ public class QuickService extends TileService {
     @Override
     public void onStartListening() {
         super.onStartListening();
-        getQsTile().setIcon(Icon.createWithResource(this, Settings.canDrawOverlays(this) ? R.drawable.ic_fab_akt : R.drawable.ic_error_outline));
+        getQsTile().setIcon(Icon.createWithResource(this, Settings.canDrawOverlays(this) ? R.drawable.ic_akt : R.drawable.ic_error_outline));
         getQsTile().setLabel(Settings.canDrawOverlays(this) ? getString(R.string.overlay_label) : getString(R.string.state_permission_request));
         getQsTile().setState(((BaseApplication) getApplication()).isOverlayServiceRunning() ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
         getQsTile().updateTile();

@@ -127,13 +127,14 @@ public class AboutActivity extends AppCompatActivity {
         int id;
         String url = AppUtil.URL_RELEASE_LATEST;
         try {
-            if (AppUtil.isLatestVersion()) {
+            if (AppUtil.isLatestVersion(manager)) {
                 id = R.string.version_latest;
             } else {
                 id = R.string.version_update;
                 JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));
                 url = AppUtil.getDownloadUrl(json);
             }
+            manager.setCheckLastTime();
         } catch (Exception e) {
             id = R.string.version_checking_failed;
         }

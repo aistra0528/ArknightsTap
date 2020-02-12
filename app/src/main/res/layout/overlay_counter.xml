@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_radius"
+    android:backgroundTint="@color/colorOverlay"
+    android:minWidth="@dimen/overlay_width"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/action_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@null"
+            android:padding="@dimen/view_padding"
+            android:src="@drawable/ic_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/view_padding"
+            android:text="@string/action_counter"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_counter_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingStart="@dimen/view_padding"
+        android:paddingEnd="@dimen/view_padding"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/action_minus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@null"
+            android:padding="@dimen/view_padding"
+            android:src="@drawable/ic_remove" />
+
+        <ImageButton
+            android:id="@+id/action_plus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@null"
+            android:padding="@dimen/view_padding"
+            android:src="@drawable/ic_add" />
+
+        <ImageButton
+            android:id="@+id/action_collapse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/action_overlay_collapse"
+            android:padding="@dimen/view_padding"
+            android:src="@drawable/ic_collapse" />
+    </LinearLayout>
+</LinearLayout>

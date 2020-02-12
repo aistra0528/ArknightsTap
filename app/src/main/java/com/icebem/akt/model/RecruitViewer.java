@@ -8,21 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.R;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.overlay.OverlayToast;
 
 import org.json.JSONException;
 
@@ -42,13 +43,14 @@ public class RecruitViewer {
     private int index;
     private boolean autoAction;
     private Context context;
+    private CheckBox top;
     private TextView tip;
     private NestedScrollView scroll;
     private ViewGroup tagsContainer, resultContainer;
     private PreferenceManager manager;
     private OperatorInfo[] infoList;
     private SparseArray<String[]> tagArray;
-    private ArrayList<CheckBox> stars, qualifications, types, checkedStars, checkedTags, combinedTags;
+    private ArrayList<CheckBox> stars, qualifications, positions, types, affixes, checkedStars, checkedTags, combinedTags;
     private ArrayList<OperatorInfo> checkedInfoList;
     private ArrayList<ItemContainer> resultList;
 
@@ -56,24 +58,27 @@ public class RecruitViewer {
         this.context = context;
         manager = new PreferenceManager(context);
         scroll = root.findViewById(R.id.scroll_recruit_root);
-        tip = root.findViewById(R.id.txt_recruit_tips);
-        resultContainer = root.findViewById(R.id.container_recruit_result);
-        tagsContainer = root.findViewById(R.id.container_recruit_tags);
-        index = manager.getTranslationIndex();
-        tagArray = RecruitTag.getTagArray();
+        tip = scroll.findViewById(R.id.txt_recruit_tips);
+        resultContainer = scroll.findViewById(R.id.container_recruit_result);
+        tagsContainer = scroll.findViewById(R.id.container_recruit_tags);
+        top = findBoxById(R.id.tag_qualification_6);
         stars = findBoxesById(R.id.tag_star_1);
         qualifications = findBoxesById(R.id.tag_qualification_1);
+        positions = findBoxesById(R.id.tag_position_melee);
         types = findBoxesById(R.id.tag_type_vanguard);
+        affixes = findBoxesById(R.id.tag_affix_survival);
+        tagArray = RecruitTag.getTagArray();
+        setBoxesText();
+        infoList = OperatorInfo.fromAssets(context);
         if (!(context instanceof AppCompatActivity))
             tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
-        root.findViewById(R.id.action_recruit_reset).setOnClickListener(RecruitViewer.this::resetTags);
+        scroll.findViewById(R.id.action_recruit_reset).setOnClickListener(this::resetTags);
         ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
         setOnCheckedChangeListener(qualifications);
-        setOnCheckedChangeListener(findBoxesById(R.id.tag_position_melee));
+        setOnCheckedChangeListener(positions);
         setOnCheckedChangeListener(types);
-        setOnCheckedChangeListener(findBoxesById(R.id.tag_affix_survival));
-        infoList = OperatorInfo.fromAssets(context);
+        setOnCheckedChangeListener(affixes);
         checkedStars = new ArrayList<>();
         checkedTags = new ArrayList<>();
         checkedInfoList = new ArrayList<>();
@@ -91,10 +96,23 @@ public class RecruitViewer {
         for (int i = 0; i < group.getChildCount(); i++)
             if (group.getChildAt(i) instanceof CheckBox) {
                 CheckBox box = (CheckBox) group.getChildAt(i);
-                box.setText(tagArray.get(box.getId())[index]);
                 boxes.add(box);
             }
         return boxes;
+    }
+
+    private void setBoxesText() {
+        index = manager.getTranslationIndex();
+        for (CheckBox box : stars)
+            box.setText(tagArray.get(box.getId())[index]);
+        for (CheckBox box : qualifications)
+            box.setText(tagArray.get(box.getId())[index]);
+        for (CheckBox box : positions)
+            box.setText(tagArray.get(box.getId())[index]);
+        for (CheckBox box : types)
+            box.setText(tagArray.get(box.getId())[index]);
+        for (CheckBox box : affixes)
+            box.setText(tagArray.get(box.getId())[index]);
     }
 
     private void setOnCheckedChangeListener(ArrayList<CheckBox> boxes) {
@@ -104,8 +122,7 @@ public class RecruitViewer {
 
     private void onCheckedChange(RadioGroup group, int checkedId) {
         if (group.getId() == R.id.group_recruit_time) {
-            if (!autoAction)
-                autoAction = true;
+            autoAction = true;
             while (!checkedStars.isEmpty())
                 checkedStars.get(0).setChecked(false);
             for (int[] stars : CHECKED_STARS_ID) {
@@ -113,8 +130,10 @@ public class RecruitViewer {
                     for (int i = 1; i < stars.length; i++)
                         findBoxById(stars[i]).setChecked(true);
             }
-            if (findBoxById(R.id.tag_qualification_6).isChecked())
+            if (top.isChecked())
                 findBoxById(R.id.tag_star_6).setChecked(true);
+            if (findBoxById(R.id.tag_qualification_5).isChecked() && !findBoxById(R.id.tag_star_5).isChecked())
+                findBoxById(R.id.tag_star_5).setChecked(true);
             autoAction = false;
             updateRecruitResult();
         }
@@ -125,11 +144,13 @@ public class RecruitViewer {
             if (!stars.contains(tag) && isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
                 tag.setChecked(false);
             } else {
-                if (tag.getId() == R.id.tag_qualification_6 && findBoxById(R.id.tag_star_6).isChecked() != isChecked) {
-                    autoAction = true;
+                boolean state = autoAction;
+                autoAction = true;
+                if (tag == top && findBoxById(R.id.tag_star_6).isChecked() != isChecked)
                     findBoxById(R.id.tag_star_6).setChecked(isChecked);
-                    autoAction = false;
-                }
+                else if (tag.getId() == R.id.tag_qualification_5 && findBoxById(R.id.tag_star_5).isChecked() != isChecked && (isChecked || ((RadioButton) tagsContainer.findViewById(R.id.tag_time_1)).isChecked()))
+                    findBoxById(R.id.tag_star_5).setChecked(isChecked);
+                autoAction = state;
                 updateCheckedTags((CheckBox) tag, isChecked);
             }
         }
@@ -143,11 +164,14 @@ public class RecruitViewer {
             tagsContainer.setVisibility(View.VISIBLE);
         while (!checkedTags.isEmpty())
             checkedTags.get(0).setChecked(false);
+        if (index != manager.getTranslationIndex())
+            setBoxesText();
         RadioButton timeTag = tagsContainer.findViewById(CHECKED_TIME_ID);
         if (timeTag.isChecked())
             onCheckedChange((RadioGroup) timeTag.getParent(), CHECKED_TIME_ID);
         else
             timeTag.setChecked(true);
+        scroll.post(() -> scroll.smoothScrollTo(0, context instanceof AppCompatActivity ? 0 : ((ViewGroup) top.getParent()).getTop()));
         if (view != null)
             view.setClickable(true);
     }
@@ -159,7 +183,7 @@ public class RecruitViewer {
             else
                 checkedStars.remove(tag);
             for (OperatorInfo info : infoList) {
-                if (tag.getText().toString().contains(String.valueOf(info.getStar())) && (manager.recruitPreview() || !info.getName(index).endsWith(RecruitTag.FLAG_UNRELEASED))) {
+                if (tag.getText().toString().contains(String.valueOf(info.getStar()))) {
                     if (isChecked)
                         checkedInfoList.add(info);
                     else
@@ -180,13 +204,12 @@ public class RecruitViewer {
     private void updateRecruitResult() {
         resultContainer.removeAllViews();
         if (checkedTags.isEmpty()) {
-            HorizontalScrollView scroll = new HorizontalScrollView(context);
-            LinearLayout layout = new LinearLayout(context);
+            FlexboxLayout flex = new FlexboxLayout(context);
+            flex.setFlexWrap(FlexWrap.WRAP);
             for (OperatorInfo info : checkedInfoList)
-                if (info.getStar() != 6)
-                    layout.addView(getInfoView(info, layout));
-            scroll.addView(layout);
-            resultContainer.addView(scroll);
+                if (hasPossibility(info))
+                    flex.addView(getInfoView(info, flex));
+            resultContainer.addView(flex);
             tip.setText(checkedInfoList.isEmpty() ? R.string.tip_recruit_result_none : R.string.tip_recruit_result_default);
         } else {
             resultList = new ArrayList<>();
@@ -240,11 +263,11 @@ public class RecruitViewer {
     private void matchInfoList() {
         ArrayList<OperatorInfo> matchedInfoList = new ArrayList<>();
         for (OperatorInfo info : checkedInfoList) {
-            boolean matched = info.getStar() != 6 || combinedTags.contains(findBoxById(R.id.tag_qualification_6));
+            boolean matched = hasPossibility(info);
             for (CheckBox tag : combinedTags) {
                 if (matched) {
                     if (qualifications.contains(tag)) {
-                        matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 1) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_5 && info.getStar() == 5) || (tag.getId() == R.id.tag_qualification_6 && info.getStar() == 6);
+                        matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 1) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_5 && info.getStar() == 5) || (tag == top && info.getStar() == 6);
                     } else if (types.contains(tag)) {
                         matched = info.getType().equals(tagArray.get(tag.getId())[0]);
                     } else {
@@ -261,15 +284,14 @@ public class RecruitViewer {
         LinearLayout tagContainer = new LinearLayout(context);
         for (CheckBox box : combinedTags)
             tagContainer.addView(getTagView(box, tagContainer));
-        HorizontalScrollView scroll = new HorizontalScrollView(context);
-        LinearLayout infoContainer = new LinearLayout(context);
+        FlexboxLayout flex = new FlexboxLayout(context);
+        flex.setFlexWrap(FlexWrap.WRAP);
         for (OperatorInfo info : matchedInfoList)
-            infoContainer.addView(getInfoView(info, infoContainer));
-        scroll.addView(infoContainer);
+            flex.addView(getInfoView(info, flex));
         ItemContainer itemContainer = new ItemContainer();
         itemContainer.setStar(Math.min(matchedInfoList.get(0).getStar(), matchedInfoList.get(matchedInfoList.size() - 1).getStar()), Math.max(matchedInfoList.get(0).getStar(), matchedInfoList.get(matchedInfoList.size() - 1).getStar()));
         itemContainer.addView(tagContainer);
-        itemContainer.addView(scroll);
+        itemContainer.addView(flex);
         resultList.add(itemContainer);
     }
 
@@ -303,7 +325,7 @@ public class RecruitViewer {
             builder.append(info.getName(index));
             builder.append(space);
             builder.append(info.getName(index == RecruitTag.INDEX_CN ? RecruitTag.INDEX_EN : RecruitTag.INDEX_CN));
-            builder.append(space);
+            builder.append(context instanceof AppCompatActivity ? space : System.lineSeparator());
             switch (info.getStar()) {
                 case 1:
                     builder.append(RecruitTag.QUALIFICATION_1[index]);
@@ -326,7 +348,7 @@ public class RecruitViewer {
             if (context instanceof AppCompatActivity)
                 Snackbar.make(container, builder.toString(), Snackbar.LENGTH_LONG).show();
             else
-                Toast.makeText(context, builder.toString(), Toast.LENGTH_LONG).show();
+                OverlayToast.show(context, builder.toString(), OverlayToast.LENGTH_LONG);
         });
         switch (info.getStar()) {
             case 1:
@@ -351,17 +373,18 @@ public class RecruitViewer {
         return view;
     }
 
+    private boolean hasPossibility(OperatorInfo info) {
+        return (info.getStar() != 6 || combinedTags.contains(top)) && (manager.recruitPreview() || !info.getName(index).endsWith(RecruitTag.FLAG_UNRELEASED));
+    }
+
     private int compareInfo(OperatorInfo o1, OperatorInfo o2) {
         return manager.ascendingStar() ? o1.getStar() - o2.getStar() : o2.getStar() - o1.getStar();
     }
 
     private int compareTags(CheckBox t1, CheckBox t2) {
-        int i;
         if (t1.getParent() == t2.getParent())
-            i = ((ViewGroup) t1.getParent()).indexOfChild(t1) - ((ViewGroup) t1.getParent()).indexOfChild(t2);
-        else
-            i = ((ViewGroup) t1.getParent().getParent().getParent()).indexOfChild((View) t1.getParent().getParent()) - ((ViewGroup) t2.getParent().getParent().getParent()).indexOfChild((View) t2.getParent().getParent());
-        return i;
+            return ((ViewGroup) t1.getParent()).indexOfChild(t1) - ((ViewGroup) t1.getParent()).indexOfChild(t2);
+        return ((ViewGroup) t1.getParent().getParent()).indexOfChild((View) t1.getParent()) - ((ViewGroup) t2.getParent().getParent()).indexOfChild((View) t2.getParent());
     }
 
     private class ItemContainer extends LinearLayout implements Comparable<ItemContainer> {
@@ -392,5 +415,13 @@ public class RecruitViewer {
             if (i == 0) i = container.getMaxStar() - maxStar;
             return i;
         }
+    }
+
+    public PreferenceManager getManager() {
+        return manager;
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

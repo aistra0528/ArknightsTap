@@ -5,10 +5,12 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 public class OverlayView {
     private int x, y, touchSlop;
@@ -24,7 +26,6 @@ public class OverlayView {
         touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
-        params.x = params.y = 0;
         params.width = params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
         params.format = PixelFormat.RGBA_8888;
@@ -32,15 +33,26 @@ public class OverlayView {
         params.windowAnimations = android.R.style.Animation_Toast;
     }
 
+    public OverlayView(Context context, int resId) {
+        this(context, LayoutInflater.from(context).inflate(resId, new FrameLayout(context)));
+    }
+
     public View getView() {
         return view;
     }
 
-    public void show() {
+    public OverlayView show() {
         if (!showing) {
             manager.addView(view, params);
             showing = true;
         }
+        return this;
+    }
+
+    public OverlayView show(OverlayView current) {
+        if (current != null && current != this)
+            current.remove();
+        return show();
     }
 
     public void remove() {
@@ -66,6 +78,12 @@ public class OverlayView {
     public void setMobilizable(boolean mobilizable) {
         this.mobilizable = mobilizable;
         view.setOnTouchListener(mobilizable ? this::onTouch : null);
+    }
+
+    void setRelativeY(int y) {
+        params.y = y;
+        if (showing)
+            manager.updateViewLayout(view, params);
     }
 
     public void onConfigurationChanged(Configuration cfg) {

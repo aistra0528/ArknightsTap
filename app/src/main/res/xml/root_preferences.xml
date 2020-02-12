@@ -9,21 +9,20 @@
         app:title="@string/auto_update_title" />
 
     <SwitchPreferenceCompat
-        app:defaultValue="true"
         app:icon="@drawable/ic_launch"
         app:key="launch_game"
         app:summary="@string/launch_game_summary"
         app:title="@string/launch_game_title" />
 
     <ListPreference
-        app:entries="@array/launch_package_entries"
-        app:entryValues="@array/launch_package_values"
-        app:icon="@drawable/ic_language"
-        app:key="launch_package"
-        app:title="@string/launch_package_title"
+        app:entries="@array/game_server_entries"
+        app:entryValues="@array/game_server_values"
+        app:icon="@drawable/ic_action_language"
+        app:key="game_server"
+        app:title="@string/game_server_title"
         app:useSimpleSummaryProvider="true" />
 
-    <PreferenceCategory app:title="@string/overlay_label">
+    <PreferenceCategory app:title="@string/title_recruit">
 
         <SwitchPreferenceCompat
             app:defaultValue="true"

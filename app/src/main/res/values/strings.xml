@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ArkTap</string>
     <string name="gesture_label">ARGS™</string>
-    <string name="gesture_description">ARGS™ can tap the operation start button automatically.\n\nChoose a operation before start, and don\'t forget to allow Auto Deploy.\n\nUsing ARGS™ may lead to account BANS, and we are NOT responsible for this. YOU are choosing to use ARGS™, and if you point the finger at us, we will laugh at you.\n\nThe permissions required by ARGS™ are ONLY used to tap the screen, and it do NOT collect any personal information.\n\nIf you have any questions, please feel free to contact us on GitHub.</string>
+    <string name="gesture_description">ARGS™ can tap the operation start button automatically.\n\nChoose a operation before start, and don\'t forget to allow Auto Deploy.\n\nUSING ARGS™ MAY LEAD TO ACCOUNT BANS, and we are NOT responsible for this. YOU are choosing to use ARGS™, and if you point the finger at us, we will laugh at you.\n\nThe permissions required by ARGS™ are ONLY used to tap the screen, and it do NOT collect any personal information.\n\nIf you have any questions, please feel free to contact us on GitHub.</string>
     <string name="overlay_label">ARSS™</string>
     <string name="menu_home">Home</string>
     <string name="menu_tools">Tools</string>
@@ -13,7 +13,7 @@
     <string name="msg_permission_overlay">- Display over other apps\nShow a floating window in game to help</string>
     <string name="info_overlay_connected">ARSS™ connected</string>
     <string name="info_overlay_disconnected">ARSS™ disconnected</string>
-    <string name="action_overlay_disconnect">Disconnect</string>
+    <string name="action_disconnect">Disconnect</string>
     <string name="action_overlay_collapse">Collapse</string>
     <string name="title_recruit">Recruitment Guide</string>
     <string name="action_reset">Reset</string>
@@ -64,7 +64,7 @@
     <string name="auto_update_summary_off">You can check for updates by going to About</string>
     <string name="launch_game_title">Launch game</string>
     <string name="launch_game_summary">Launch the game if necessary</string>
-    <string name="launch_package_title">Game server</string>
+    <string name="game_server_title">Game server</string>
     <string name="ascending_star_title">Asc sorted</string>
     <string name="ascending_star_summary">Sort operators by ★ in ascending order</string>
     <string name="recruit_preview_title">Show unreleased</string>
@@ -79,4 +79,6 @@
     <string name="special_thanks_title">Heartfelt thanks</string>
     <string name="special_thanks_desc">Satoshi Lee - Japanese translation</string>
     <string name="special_thanks_extra">And of course, you.\nThank you so much for using ArkTap!\n© 2020 Icebem</string>
+    <string name="action_counter">Headhunt Counter</string>
+    <string name="tip_counter_default">Rolls: %d\nPossibility of 6★ in the next roll: %d%%\nLong press + to x10, - to clear</string>
 </resources>

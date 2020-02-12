@@ -5,7 +5,6 @@ import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
@@ -27,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.activity.AboutActivity;
+import com.icebem.akt.activity.MainActivity;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.IOUtil;
@@ -37,15 +36,28 @@ import org.json.JSONObject;
 public class HomeFragment extends Fragment {
     private int i;
     private TextView state;
+    private ImageView stateImg;
     private PreferenceManager manager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        ImageView stateImg = root.findViewById(R.id.img_state);
+        stateImg = root.findViewById(R.id.img_state);
         state = root.findViewById(R.id.txt_state);
-        manager = new PreferenceManager(inflater.getContext());
-        if (manager.isPro() && !manager.dataUpdated()) {
+        manager = new PreferenceManager(getActivity());
+        return root;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (BuildConfig.DEBUG) {
+            Snackbar.make(state, R.string.version_type_beta, Snackbar.LENGTH_LONG).show();
+        }
+        if (manager.autoUpdate()) {
+            startUpdateThread();
+        }
+        if (manager.isPro() && !manager.resolutionSupported()) {
             stateImg.setImageResource(R.drawable.ic_state_running);
             state.setText(R.string.state_resolution_unsupported);
             int[] res = ResolutionConfig.getResolution(manager.getContext());
@@ -53,6 +65,7 @@ public class HomeFragment extends Fragment {
             builder.setTitle(R.string.state_resolution_unsupported);
             builder.setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]));
             builder.setPositiveButton(R.string.got_it, null);
+            builder.setNeutralButton(R.string.action_update, (dialog, which) -> startUpdateThread());
             builder.create().show();
         } else {
             AnimatedVectorDrawable avd = (AnimatedVectorDrawable) stateImg.getDrawable();
@@ -79,18 +92,6 @@ public class HomeFragment extends Fragment {
             });
             avd.start();
         }
-        return root;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (BuildConfig.DEBUG) {
-            Snackbar.make(state, R.string.version_type_beta, Snackbar.LENGTH_INDEFINITE).show();
-        } else if (manager.autoUpdate()) {
-            new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
-            Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_LONG).show();
-        }
     }
 
     @Override
@@ -99,7 +100,7 @@ public class HomeFragment extends Fragment {
             case R.id.action_timer:
                 AlertDialog.Builder builder = new AlertDialog.Builder(manager.getContext());
                 builder.setTitle(R.string.action_timer);
-                builder.setSingleChoiceItems(manager.getTimerStrings(getContext()), manager.getTimerPosition(), (dialog, which) -> {
+                builder.setSingleChoiceItems(manager.getTimerStrings(getActivity()), manager.getTimerPosition(), (dialog, which) -> {
                     dialog.cancel();
                     manager.setTimerTime(which);
                     Snackbar.make(state, getString(R.string.info_timer_set, manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime())), Snackbar.LENGTH_LONG).show();
@@ -108,20 +109,26 @@ public class HomeFragment extends Fragment {
                 builder.create().show();
                 break;
             case R.id.action_night:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM : AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY : AppCompatDelegate.MODE_NIGHT_YES);
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM : AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case R.id.action_about:
-                startActivity(new Intent(manager.getContext(), AboutActivity.class));
+                startActivity(new Intent(getActivity(), AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void startUpdateThread() {
+        new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
+        Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
+    }
+
     private void checkVersionUpdate() {
+        if (!(getActivity() instanceof MainActivity)) return;
         int id;
         String l = null, u = null;
         try {
-            if (AppUtil.isLatestVersion()) {
+            if (AppUtil.isLatestVersion(manager)) {
                 id = R.string.version_latest;
             } else {
                 id = R.string.version_update;
@@ -129,14 +136,17 @@ public class HomeFragment extends Fragment {
                 l = AppUtil.getChangelog(json);
                 u = AppUtil.getDownloadUrl(json);
             }
+            manager.setCheckLastTime();
         } catch (Exception e) {
             id = R.string.version_checking_failed;
         }
         int result = id;
         String log = l, url = u;
-        ((AppCompatActivity) manager.getContext()).runOnUiThread(() -> {
+        getActivity().runOnUiThread(() -> {
+            if (result != R.string.version_checking_failed)
+                ((MainActivity) getActivity()).updateSubtitleTime();
             if (result == R.string.version_update) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(manager.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(result);
                 builder.setMessage(log);
                 builder.setPositiveButton(R.string.action_update, (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));
