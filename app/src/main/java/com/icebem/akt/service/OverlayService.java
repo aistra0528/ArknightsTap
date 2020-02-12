@@ -22,6 +22,7 @@ import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.overlay.OverlayView;
 
 public class OverlayService extends Service {
+    private TextView disconnect;
     private RecruitViewer viewer;
     private PreferenceManager manager;
     private OverlayView current, fab, menu, recruit, counter;
@@ -116,17 +117,22 @@ public class OverlayService extends Service {
             View gesture = root.findViewById(R.id.action_gesture);
             gesture.setVisibility(View.VISIBLE);
             gesture.setOnClickListener(v -> {
+                showTargetView(fab);
                 if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
                     ((BaseApplication) getApplication()).getGestureService().disableSelf();
                 } else {
-                    showTargetView(fab);
                     Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             });
+            disconnect = gesture.findViewById(R.id.action_gesture_disconnect);
         }
         root.findViewById(R.id.action_collapse).setOnClickListener(v -> showTargetView(fab));
         root.findViewById(R.id.action_disconnect).setOnClickListener(this::stopSelf);
+    }
+
+    private void updateMenuView() {
+        disconnect.setVisibility(((BaseApplication) getApplication()).isGestureServiceRunning() ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void initFabView() {
@@ -149,6 +155,8 @@ public class OverlayService extends Service {
             target.show(current);
         else {
             fab.remove();
+            if (target == menu)
+                updateMenuView();
             current = target.show(current);
         }
     }

@@ -84,11 +84,22 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1.0"
             android:padding="@dimen/control_padding"
             android:text="@string/gesture_label"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/action_gesture_disconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/view_padding"
+            android:paddingEnd="@dimen/view_padding"
+            android:text="@string/action_disconnect"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+            android:textColor="@color/colorError" />
     </LinearLayout>
 
     <LinearLayout
@@ -143,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/control_padding"
-            android:text="@string/action_overlay_disconnect"
+            android:text="@string/action_disconnect"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </LinearLayout>
 </LinearLayout>

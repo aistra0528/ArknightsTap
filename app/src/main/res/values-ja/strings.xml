@@ -13,7 +13,7 @@
     <string name="msg_permission_overlay">- 他のアプリの上に重ねて表示する権限\n公開求人の企画等の機能をゲーム内での使用が可能になります</string>
     <string name="info_overlay_connected">ARSS™接続込み</string>
     <string name="info_overlay_disconnected">ARSS™接続解除</string>
-    <string name="action_overlay_disconnect">解除</string>
+    <string name="action_disconnect">解除</string>
     <string name="action_overlay_collapse">最小化</string>
     <string name="title_recruit">公開求人の企画</string>
     <string name="action_reset">リセット</string>

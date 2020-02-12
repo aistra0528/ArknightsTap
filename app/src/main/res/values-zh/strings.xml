@@ -13,7 +13,7 @@
     <string name="msg_permission_overlay">- 显示在其他应用的上层\n可通过悬浮球在游戏内使用公开招募规划等功能</string>
     <string name="info_overlay_connected">帮帮忙™已连接</string>
     <string name="info_overlay_disconnected">帮帮忙™连接解除</string>
-    <string name="action_overlay_disconnect">解除</string>
+    <string name="action_disconnect">解除</string>
     <string name="action_overlay_collapse">收起</string>
     <string name="title_recruit">公开招募规划</string>
     <string name="action_reset">重置</string>
