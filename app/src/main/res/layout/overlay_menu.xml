@@ -92,67 +92,58 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/action_collapse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/control_padding">
 
-        <LinearLayout
-            android:id="@+id/action_disconnect"
-            android:layout_width="0dp"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/control_padding">
+            android:layout_margin="@dimen/control_margin"
+            android:background="@drawable/bg_oval"
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@null"
+            android:padding="@dimen/control_padding"
+            android:src="@drawable/ic_collapse"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/control_margin"
-                android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/colorError"
-                android:contentDescription="@null"
-                android:padding="@dimen/control_padding"
-                android:src="@drawable/ic_exit"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/control_padding"
-                android:text="@string/action_overlay_disconnect"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/action_collapse"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/control_padding">
+            android:padding="@dimen/control_padding"
+            android:text="@string/action_overlay_collapse"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/control_margin"
-                android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/colorAccent"
-                android:contentDescription="@null"
-                android:padding="@dimen/control_padding"
-                android:src="@drawable/ic_collapse"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+    <LinearLayout
+        android:id="@+id/action_disconnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/control_padding">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/control_padding"
-                android:text="@string/action_overlay_collapse"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/control_margin"
+            android:background="@drawable/bg_oval"
+            android:backgroundTint="@color/colorError"
+            android:contentDescription="@null"
+            android:padding="@dimen/control_padding"
+            android:src="@drawable/ic_exit"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/control_padding"
+            android:text="@string/action_overlay_disconnect"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </LinearLayout>
 </LinearLayout>

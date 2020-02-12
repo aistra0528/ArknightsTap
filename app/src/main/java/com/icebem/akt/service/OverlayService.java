@@ -35,9 +35,10 @@ public class OverlayService extends Service {
         initCounterView();
         initMenuView();
         initFabView();
-        current = fab.show();
+        current = menu;
+        showTargetView(fab);
         if (!((BaseApplication) getApplication()).isGestureServiceRunning())
-            Toast.makeText(this, R.string.info_overlay_connected, Toast.LENGTH_SHORT).show();
+            OverlayToast.show(this, R.string.info_overlay_connected, OverlayToast.LENGTH_SHORT);
     }
 
     private void initRecruitView() {
@@ -52,7 +53,7 @@ public class OverlayService extends Service {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }
         if (viewer == null) return;
-        recruit.getView().findViewById(R.id.action_menu).setOnClickListener(v -> current = menu.show(current));
+        recruit.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
         recruit.getView().findViewById(R.id.action_server).setOnClickListener(view -> {
             int index = viewer.getManager().getGamePackagePosition();
             String[] values = getResources().getStringArray(R.array.game_server_values);
@@ -62,7 +63,7 @@ public class OverlayService extends Service {
             OverlayToast.show(this, getResources().getStringArray(R.array.game_server_entries)[index], OverlayToast.LENGTH_SHORT);
         });
         ImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
-        collapse.setOnClickListener(v -> current = fab.show(current));
+        collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
     }
 
@@ -70,7 +71,7 @@ public class OverlayService extends Service {
         counter = new OverlayView(this, R.layout.overlay_counter);
         counter.setMobilizable(true);
         TextView tip = counter.getView().findViewById(R.id.txt_counter_tips);
-        counter.getView().findViewById(R.id.action_menu).setOnClickListener(v -> current = menu.show(current));
+        counter.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
         ImageButton minus = counter.getView().findViewById(R.id.action_minus);
         minus.setOnClickListener(v -> updateCounterView(tip, manager.getHeadhuntCount(), -1));
         minus.setOnLongClickListener(v -> updateCounterView(tip, 0, 0));
@@ -78,7 +79,7 @@ public class OverlayService extends Service {
         plus.setOnClickListener(v -> updateCounterView(tip, manager.getHeadhuntCount(), 1));
         plus.setOnLongClickListener(v -> updateCounterView(tip, manager.getHeadhuntCount(), 10));
         ImageButton collapse = counter.getView().findViewById(R.id.action_collapse);
-        collapse.setOnClickListener(v -> current = fab.show(current));
+        collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
         updateCounterView(tip, manager.getHeadhuntCount(), 0);
     }
@@ -104,13 +105,13 @@ public class OverlayService extends Service {
         root.setElevation(getResources().getDimensionPixelOffset(R.dimen.overlay_elevation));
         root.findViewById(R.id.action_recruit).setOnClickListener(v -> {
             if (viewer == null) {
-                Toast.makeText(this, R.string.error_occurred, Toast.LENGTH_SHORT).show();
+                OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
             } else {
                 viewer.resetTags(null);
-                current = recruit.show(current);
+                showTargetView(recruit);
             }
         });
-        root.findViewById(R.id.action_counter).setOnClickListener(v -> current = counter.show(current));
+        root.findViewById(R.id.action_counter).setOnClickListener(v -> showTargetView(counter));
         if (manager.isPro()) {
             View gesture = root.findViewById(R.id.action_gesture);
             gesture.setVisibility(View.VISIBLE);
@@ -118,13 +119,13 @@ public class OverlayService extends Service {
                 if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
                     ((BaseApplication) getApplication()).getGestureService().disableSelf();
                 } else {
-                    current = fab.show(current);
+                    showTargetView(fab);
                     Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             });
         }
-        root.findViewById(R.id.action_collapse).setOnClickListener(v -> current = fab.show(current));
+        root.findViewById(R.id.action_collapse).setOnClickListener(v -> showTargetView(fab));
         root.findViewById(R.id.action_disconnect).setOnClickListener(this::stopSelf);
     }
 
@@ -136,16 +137,20 @@ public class OverlayService extends Service {
         btn.setElevation(getResources().getDimensionPixelOffset(R.dimen.fab_elevation));
         btn.setMinimumWidth(getResources().getDimensionPixelOffset(R.dimen.fab_mini_size));
         btn.setMinimumHeight(getResources().getDimensionPixelOffset(R.dimen.fab_mini_size));
-        btn.setOnClickListener(v -> {
-            if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
-                ((BaseApplication) getApplication()).getGestureService().disableSelf();
-            }
-            current = menu.show(current);
-        });
+        btn.setOnClickListener(v -> showTargetView(current));
         btn.setOnLongClickListener(this::stopSelf);
         fab = new OverlayView(this, btn);
         fab.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
         fab.setMobilizable(true);
+    }
+
+    private void showTargetView(OverlayView target) {
+        if (target == fab)
+            target.show(current);
+        else {
+            fab.remove();
+            current = target.show(current);
+        }
     }
 
     private boolean stopSelf(View view) {
@@ -161,13 +166,15 @@ public class OverlayService extends Service {
     @Override
     public void onConfigurationChanged(Configuration cfg) {
         super.onConfigurationChanged(cfg);
+        fab.onConfigurationChanged(cfg);
         current.onConfigurationChanged(cfg);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        fab.remove();
         current.remove();
-        Toast.makeText(this, R.string.info_overlay_disconnected, Toast.LENGTH_SHORT).show();
+        OverlayToast.show(this, R.string.info_overlay_disconnected, OverlayToast.LENGTH_SHORT);
     }
 }

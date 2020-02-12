@@ -26,7 +26,6 @@ public class OverlayView {
         touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
-        params.x = params.y = 0;
         params.width = params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
         params.format = PixelFormat.RGBA_8888;
@@ -34,8 +33,8 @@ public class OverlayView {
         params.windowAnimations = android.R.style.Animation_Toast;
     }
 
-    public OverlayView(Context context, int res) {
-        this(context, LayoutInflater.from(context).inflate(res, new FrameLayout(context)));
+    public OverlayView(Context context, int resId) {
+        this(context, LayoutInflater.from(context).inflate(resId, new FrameLayout(context)));
     }
 
     public View getView() {
@@ -79,6 +78,12 @@ public class OverlayView {
     public void setMobilizable(boolean mobilizable) {
         this.mobilizable = mobilizable;
         view.setOnTouchListener(mobilizable ? this::onTouch : null);
+    }
+
+    void setRelativeY(int y) {
+        params.y = y;
+        if (showing)
+            manager.updateViewLayout(view, params);
     }
 
     public void onConfigurationChanged(Configuration cfg) {

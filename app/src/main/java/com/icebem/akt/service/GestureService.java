@@ -19,6 +19,7 @@ import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.util.RandomUtil;
 
 import java.lang.ref.WeakReference;
@@ -55,6 +56,8 @@ public class GestureService extends AccessibilityService {
                 }
                 timerTimeout = true;
             }, THREAD_TIMER).start();
+        } else if (Settings.canDrawOverlays(this)) {
+            OverlayToast.show(this, R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT);
         } else {
             Toast.makeText(this, R.string.info_gesture_connected, Toast.LENGTH_SHORT).show();
         }
@@ -78,7 +81,10 @@ public class GestureService extends AccessibilityService {
             performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
         else
             timerTimeout = true;
-        Toast.makeText(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
+        if (Settings.canDrawOverlays(this))
+            OverlayToast.show(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
+        else
+            Toast.makeText(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
         return super.onUnbind(intent);
     }
 
@@ -123,8 +129,12 @@ public class GestureService extends AccessibilityService {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            if (ref.get() != null)
-                Toast.makeText(ref.get(), ref.get().getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
+            if (ref.get() != null) {
+                if (Settings.canDrawOverlays(ref.get()))
+                    OverlayToast.show(ref.get(), ref.get().getString(R.string.info_gesture_running, msg.what), OverlayToast.LENGTH_SHORT);
+                else
+                    Toast.makeText(ref.get(), ref.get().getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

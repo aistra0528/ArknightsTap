@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_radius"
     android:backgroundTint="@color/colorOverlay"
-    android:maxWidth="@dimen/overlay_width"
+    android:minWidth="@dimen/overlay_width"
     android:orientation="vertical">
 
     <LinearLayout
@@ -49,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?attr/selectableItemBackground"
             android:contentDescription="@null"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_remove" />
@@ -59,7 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?attr/selectableItemBackground"
             android:contentDescription="@null"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_add" />
@@ -69,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/action_overlay_collapse"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_collapse" />
