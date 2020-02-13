@@ -1,4 +1,4 @@
-### [English](README.md) | [简体中文](README_CN.md) | 日本語
+##### [简体中文](README.md) | [English](README_EN.md) | 日本語
 # ArkTap
 ArkTapとは、株式会社Yostarのスマホゲーム、アークナイツのサードパーティサポートアプリです。
 
