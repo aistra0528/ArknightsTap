@@ -60,12 +60,16 @@ public class OverlayService extends Service {
             String[] values = getResources().getStringArray(R.array.game_server_values);
             if (++index == values.length) index = 0;
             viewer.getManager().setGamePackage(values[index]);
-            viewer.resetTags(view);
+            resetRecruitView(view);
             OverlayToast.show(this, getResources().getStringArray(R.array.game_server_entries)[index], OverlayToast.LENGTH_SHORT);
         });
         ImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
+    }
+
+    private void resetRecruitView(View view) {
+        viewer.resetTags(view);
     }
 
     private void initCounterView() {
@@ -105,12 +109,10 @@ public class OverlayService extends Service {
         root.setBackgroundResource(R.drawable.bg_radius);
         root.setElevation(getResources().getDimensionPixelOffset(R.dimen.overlay_elevation));
         root.findViewById(R.id.action_recruit).setOnClickListener(v -> {
-            if (viewer == null) {
+            if (viewer == null)
                 OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
-            } else {
-                viewer.resetTags(null);
+            else
                 showTargetView(recruit);
-            }
         });
         root.findViewById(R.id.action_counter).setOnClickListener(v -> showTargetView(counter));
         if (manager.isPro()) {
@@ -157,6 +159,8 @@ public class OverlayService extends Service {
             fab.remove();
             if (target == menu)
                 updateMenuView();
+            else if (target == recruit && target == current)
+                resetRecruitView(fab.getView());
             current = target.show(current);
         }
     }
