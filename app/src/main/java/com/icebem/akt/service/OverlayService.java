@@ -22,7 +22,6 @@ import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.overlay.OverlayView;
 
 public class OverlayService extends Service {
-    private TextView disconnect;
     private RecruitViewer viewer;
     private PreferenceManager manager;
     private OverlayView current, fab, menu, recruit, counter;
@@ -35,8 +34,8 @@ public class OverlayService extends Service {
         manager = viewer == null ? new PreferenceManager(this) : viewer.getManager();
         initCounterView();
         initMenuView();
-        initFabView();
         current = menu;
+        initFabView();
         showTargetView(fab);
         if (!((BaseApplication) getApplication()).isGestureServiceRunning())
             OverlayToast.show(this, R.string.info_overlay_connected, OverlayToast.LENGTH_SHORT);
@@ -127,14 +126,14 @@ public class OverlayService extends Service {
                     startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             });
-            disconnect = gesture.findViewById(R.id.action_gesture_disconnect);
         }
         root.findViewById(R.id.action_collapse).setOnClickListener(v -> showTargetView(fab));
         root.findViewById(R.id.action_disconnect).setOnClickListener(this::stopSelf);
     }
 
     private void updateMenuView() {
-        disconnect.setVisibility(((BaseApplication) getApplication()).isGestureServiceRunning() ? View.VISIBLE : View.INVISIBLE);
+        if (manager.isPro())
+            menu.getView().findViewById(R.id.action_gesture_disconnect).setVisibility(((BaseApplication) getApplication()).isGestureServiceRunning() ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void initFabView() {
@@ -156,11 +155,13 @@ public class OverlayService extends Service {
         if (target == fab)
             target.show(current);
         else {
-            fab.remove();
+            if (target == current) {
+                fab.remove();
+                if (target == recruit)
+                    resetRecruitView(fab.getView());
+            }
             if (target == menu)
                 updateMenuView();
-            else if (target == recruit && target == current)
-                resetRecruitView(fab.getView());
             current = target.show(current);
         }
     }

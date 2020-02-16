@@ -95,20 +95,22 @@ public class OverlayView {
 
     private boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                if (!handled)
-                    handled = view.performClick();
-                break;
             case MotionEvent.ACTION_DOWN:
                 handled = false;
                 x = (int) event.getRawX();
                 y = (int) event.getRawY();
                 view.postDelayed(() -> handled = handled || view.performLongClick(), ViewConfiguration.getLongPressTimeout());
                 break;
+            case MotionEvent.ACTION_UP:
+                if (!handled)
+                    handled = view.performClick();
+                break;
             case MotionEvent.ACTION_MOVE:
-                if (!handled && Math.abs((int) event.getRawX() - x) < touchSlop && Math.abs((int) event.getRawY() - y) < touchSlop)
-                    break;
-                handled = true;
+                if (!handled) {
+                    if (Math.abs((int) event.getRawX() - x) < touchSlop && Math.abs((int) event.getRawY() - y) < touchSlop)
+                        break;
+                    handled = true;
+                }
                 if (params.gravity == (params.gravity | GRAVITY_RIGHT) && params.gravity != (params.gravity | GRAVITY_LEFT))
                     params.x -= (int) event.getRawX() - x;
                 else
