@@ -2,14 +2,12 @@ package com.icebem.akt.service;
 
 import android.content.Intent;
 import android.graphics.drawable.Icon;
-import android.net.Uri;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
-import com.icebem.akt.util.AppUtil;
 
 public class QuickService extends TileService {
     @Override
@@ -35,6 +33,6 @@ public class QuickService extends TileService {
             }
             getQsTile().updateTile();
         } else
-            startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(AppUtil.URL_SETTINGS)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 }

@@ -2,10 +2,14 @@ package com.icebem.akt.activity;
 
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
-import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -19,13 +23,6 @@ import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.service.OverlayService;
 import com.icebem.akt.util.AppUtil;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.provider.Settings;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private TextView subtitle;
@@ -86,14 +83,14 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.state_permission_request);
             builder.setMessage(R.string.msg_permission_overlay);
-            builder.setPositiveButton(R.string.go_to_settings, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(AppUtil.URL_SETTINGS))));
+            builder.setPositiveButton(R.string.go_to_settings, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)));
             builder.setNegativeButton(R.string.no_thanks, null);
             builder.create().show();
         }
     }
 
     public void updateSubtitleTime() {
-        subtitle.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(manager.getCheckLastTime()));
+        subtitle.setText(new SimpleDateFormat(AppUtil.DATE_FORMAT).format(manager.getCheckLastTime()));
     }
 
     private void onDestinationChanged(NavDestination destination) {

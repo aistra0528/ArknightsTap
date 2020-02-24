@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
         if (manager.isPro() && !manager.resolutionSupported()) {
             stateImg.setImageResource(R.drawable.ic_state_running);
             state.setText(R.string.state_resolution_unsupported);
-            int[] res = ResolutionConfig.getResolution(manager.getContext());
+            int[] res = ResolutionConfig.getAbsoluteResolution(manager.getContext());
             AlertDialog.Builder builder = new AlertDialog.Builder(manager.getContext());
             builder.setTitle(R.string.state_resolution_unsupported);
             builder.setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]));

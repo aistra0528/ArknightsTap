@@ -1,7 +1,6 @@
 package com.icebem.akt.overlay;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.Gravity;
@@ -14,7 +13,7 @@ import android.widget.FrameLayout;
 
 public class OverlayView {
     private int x, y, touchSlop;
-    private boolean mobilizable, handled, showing;
+    private boolean handled, showing;
     private View view;
     private WindowManager manager;
     private WindowManager.LayoutParams params;
@@ -62,35 +61,30 @@ public class OverlayView {
         }
     }
 
+    private void update() {
+        if (showing)
+            manager.updateViewLayout(view, params);
+    }
+
     public void resize(int width, int height) {
         params.width = width;
         params.height = height;
-        if (showing)
-            manager.updateViewLayout(view, params);
+        update();
     }
 
     public void setGravity(int gravity) {
         params.gravity = gravity;
-        if (showing)
-            manager.updateViewLayout(view, params);
+        update();
     }
 
     public void setMobilizable(boolean mobilizable) {
-        this.mobilizable = mobilizable;
         view.setOnTouchListener(mobilizable ? this::onTouch : null);
     }
 
-    void setRelativeY(int y) {
+    public void setRelativePosition(int x, int y) {
+        params.x = x;
         params.y = y;
-        if (showing)
-            manager.updateViewLayout(view, params);
-    }
-
-    public void onConfigurationChanged(Configuration cfg) {
-        if (cfg != null && mobilizable)
-            params.x = params.y = 0;
-        if (showing)
-            manager.updateViewLayout(view, params);
+        update();
     }
 
     private boolean onTouch(View view, MotionEvent event) {
@@ -121,7 +115,7 @@ public class OverlayView {
                     params.y += (int) event.getRawY() - y;
                 x = (int) event.getRawX();
                 y = (int) event.getRawY();
-                manager.updateViewLayout(view, params);
+                update();
                 break;
         }
         return true;

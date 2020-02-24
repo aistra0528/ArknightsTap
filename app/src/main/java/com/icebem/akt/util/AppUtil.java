@@ -22,7 +22,7 @@ public class AppUtil {
     public static final String THREAD_UPDATE = "update";
     public static final String MARKET_COOLAPK = "com.coolapk.market";
     //    public static final String MARKET_PLAY = "com.android.vending";
-    public static final String URL_SETTINGS = "package:com.icebem.akt";
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
     public static final String URL_ALIPAY_API = "intent://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx02922ajwj6xekqyd1rbf#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end";
     public static final String URL_PAYPAL = "https://www.paypal.me/icebem";
     public static final String URL_QQ_API = "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DN_OjFuCOkERq58jO2KoJEDD2a48vzB53";
@@ -50,7 +50,8 @@ public class AppUtil {
 
     public static void updateData(PreferenceManager manager, boolean fromWeb) throws IOException, JSONException {
         IOUtil.stream2File(fromWeb ? IOUtil.fromWeb(AppUtil.URL_WEB_DATA + DATA_RECRUIT) : IOUtil.fromAssets(manager.getContext(), TYPE_DATA + File.separatorChar + DATA_RECRUIT), manager.getContext().getExternalFilesDir(TYPE_DATA) + File.separator + DATA_RECRUIT);
-        manager.setResolutionConfig(fromWeb);
+        if (manager.isPro() || !fromWeb)
+            manager.setResolutionConfig(fromWeb);
     }
 
     public static JSONArray getRecruitArray(Context context) throws IOException, JSONException {

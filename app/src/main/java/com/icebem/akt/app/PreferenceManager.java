@@ -89,7 +89,7 @@ public class PreferenceManager {
     }
 
     public void setResolutionConfig(boolean fromWeb) throws IOException, JSONException {
-        int[] res = ResolutionConfig.getResolution(context);
+        int[] res = ResolutionConfig.getAbsoluteResolution(context);
         JSONArray array = AppUtil.getResolutionArray(context, fromWeb);
         for (int i = 0; i < array.length(); i++) {
             JSONObject obj = array.getJSONObject(i);

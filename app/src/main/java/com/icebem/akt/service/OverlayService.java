@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.app.ResolutionConfig;
 import com.icebem.akt.model.RecruitViewer;
 import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.overlay.OverlayView;
@@ -44,8 +46,7 @@ public class OverlayService extends Service {
     private void initRecruitView() {
         recruit = new OverlayView(this, R.layout.overlay_recruit);
         recruit.setGravity(Gravity.END | Gravity.TOP);
-        recruit.setMobilizable(true);
-        int size = Math.min(getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels);
+        int size = ResolutionConfig.getAbsoluteHeight(this);
         recruit.resize(size, size);
         try {
             viewer = new RecruitViewer(this, recruit.getView());
@@ -53,6 +54,7 @@ public class OverlayService extends Service {
             Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
         }
         if (viewer == null) return;
+        recruit.getView().findViewById(R.id.txt_title).setOnTouchListener(this::updateRecruitView);
         recruit.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
         recruit.getView().findViewById(R.id.action_server).setOnClickListener(view -> {
             int index = viewer.getManager().getGamePackagePosition();
@@ -65,6 +67,18 @@ public class OverlayService extends Service {
         ImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
+    }
+
+    private boolean updateRecruitView(View view, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                viewer.getRootView().setVisibility(View.INVISIBLE);
+                break;
+            case MotionEvent.ACTION_UP:
+                viewer.getRootView().setVisibility(View.VISIBLE);
+                break;
+        }
+        return view != null;
     }
 
     private void resetRecruitView(View view) {
@@ -142,12 +156,14 @@ public class OverlayService extends Service {
         btn.setBackgroundResource(R.drawable.bg_oval);
         btn.setPadding(0, 0, 0, 0);
         btn.setElevation(getResources().getDimensionPixelOffset(R.dimen.fab_elevation));
-        btn.setMinimumWidth(getResources().getDimensionPixelOffset(R.dimen.fab_mini_size));
-        btn.setMinimumHeight(getResources().getDimensionPixelOffset(R.dimen.fab_mini_size));
+        int size = getResources().getDimensionPixelOffset(R.dimen.fab_mini_size);
+        btn.setMinimumWidth(size);
+        btn.setMinimumHeight(size);
         btn.setOnClickListener(v -> showTargetView(current));
         btn.setOnLongClickListener(this::stopSelf);
         fab = new OverlayView(this, btn);
-        fab.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        fab.setGravity(Gravity.END | Gravity.TOP);
+        fab.setRelativePosition(ResolutionConfig.getAbsoluteHeight(this) - size >> 1, 0);
         fab.setMobilizable(true);
     }
 
@@ -179,8 +195,8 @@ public class OverlayService extends Service {
     @Override
     public void onConfigurationChanged(Configuration cfg) {
         super.onConfigurationChanged(cfg);
-        fab.onConfigurationChanged(cfg);
-        current.onConfigurationChanged(cfg);
+        fab.setRelativePosition(ResolutionConfig.getAbsoluteHeight(this) - fab.getView().getWidth() >> 1, 0);
+        counter.setRelativePosition(0, 0);
     }
 
     @Override

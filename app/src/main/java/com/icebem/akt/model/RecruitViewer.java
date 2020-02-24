@@ -70,8 +70,6 @@ public class RecruitViewer {
         tagArray = RecruitTag.getTagArray();
         setBoxesText();
         infoList = OperatorInfo.fromAssets(context);
-        if (!(context instanceof AppCompatActivity))
-            tip.setOnClickListener(view -> tagsContainer.setVisibility(tagsContainer.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE));
         scroll.findViewById(R.id.action_recruit_reset).setOnClickListener(this::resetTags);
         ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
@@ -160,8 +158,6 @@ public class RecruitViewer {
         if (view != null)
             view.setClickable(false);
         autoAction = true;
-        if (tagsContainer.getVisibility() != View.VISIBLE)
-            tagsContainer.setVisibility(View.VISIBLE);
         while (!checkedTags.isEmpty())
             checkedTags.get(0).setChecked(false);
         if (index != manager.getTranslationIndex())
@@ -289,7 +285,9 @@ public class RecruitViewer {
         for (OperatorInfo info : matchedInfoList)
             flex.addView(getInfoView(info, flex));
         ItemContainer itemContainer = new ItemContainer();
-        itemContainer.setStar(Math.min(matchedInfoList.get(0).getStar(), matchedInfoList.get(matchedInfoList.size() - 1).getStar()), Math.max(matchedInfoList.get(0).getStar(), matchedInfoList.get(matchedInfoList.size() - 1).getStar()));
+        int startStar = matchedInfoList.get(0).getStar();
+        int endStar = matchedInfoList.get(matchedInfoList.size() - 1).getStar();
+        itemContainer.setStar(Math.min(startStar, endStar), Math.max(startStar, endStar));
         itemContainer.addView(tagContainer);
         itemContainer.addView(flex);
         resultList.add(itemContainer);
@@ -423,5 +421,9 @@ public class RecruitViewer {
 
     public Context getContext() {
         return context;
+    }
+
+    public NestedScrollView getRootView() {
+        return scroll;
     }
 }

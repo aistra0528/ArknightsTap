@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.icebem.akt.R;
+import com.icebem.akt.app.ResolutionConfig;
 
 import java.lang.ref.WeakReference;
 
@@ -27,7 +28,7 @@ public class OverlayToast {
             view.setTextAppearance(R.style.TextAppearance_AppCompat);
             view.setOnClickListener(v -> ref.get().remove());
             ref = new WeakReference<>(new OverlayView(context, view));
-            ref.get().setRelativeY(Math.min(context.getResources().getDisplayMetrics().widthPixels, context.getResources().getDisplayMetrics().heightPixels) >> 2);
+            ref.get().setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) >> 2);
         } else {
             view = (TextView) ref.get().getView();
         }
