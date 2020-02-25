@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'android-R'
+    compileSdkVersion 29
     buildToolsVersion '30.0.0 rc1'
     defaultConfig {
         applicationId 'com.icebem.akt'

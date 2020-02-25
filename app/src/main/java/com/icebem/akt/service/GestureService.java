@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Path;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -63,6 +64,43 @@ public class GestureService extends AccessibilityService {
         }
     }
 
+    private void performGestures() {
+        SystemClock.sleep(manager.getUpdateTime());
+        if (Settings.canDrawOverlays(this))
+            startService(new Intent(this, OverlayService.class));
+        int process = 0;
+        Path path = new Path();
+        while (!timerTimeout) {
+            switch (process) {
+                case 0:
+                    path.moveTo(RandomUtil.randomP(manager.getBlueX()), RandomUtil.randomP(manager.getBlueY()));
+                    break;
+                case 2:
+                    path.moveTo(RandomUtil.randomP(manager.getRedX()), RandomUtil.randomP(manager.getRedY()));
+                    break;
+                default:
+                    path.moveTo(RandomUtil.randomP(manager.getGreenX()), RandomUtil.randomP(manager.getGreenY()));
+            }
+            if (++process > 3) process = 0;
+            GestureDescription.Builder builder = new GestureDescription.Builder();
+            builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
+            dispatchGesture(builder.build(), null, null);
+            SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime()));
+        }
+        disableSelf();
+    }
+
+    private void launchGame() {
+        Intent intent = manager.getGamePackage() == null ? null : getPackageManager().getLaunchIntentForPackage(manager.getGamePackage());
+        if (intent == null) {
+            String packageName = manager.getDefaultGamePackage();
+            if (packageName != null)
+                intent = getPackageManager().getLaunchIntentForPackage(packageName);
+        }
+        if (intent != null)
+            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (BuildConfig.DEBUG)
@@ -88,41 +126,11 @@ public class GestureService extends AccessibilityService {
         return super.onUnbind(intent);
     }
 
-    private void performGestures() {
-        SystemClock.sleep(manager.getUpdateTime());
-        if (Settings.canDrawOverlays(this))
-            startService(new Intent(this, OverlayService.class));
-        Path path = new Path();
-        while (!timerTimeout) {
-            GestureDescription.Builder builder = new GestureDescription.Builder();
-            path.moveTo(RandomUtil.randomP(manager.getBlueX()), RandomUtil.randomP(manager.getBlueY()));
-            builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
-            path.moveTo(RandomUtil.randomP(manager.getRedX()), RandomUtil.randomP(manager.getRedY()));
-            builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime()), RandomUtil.randomP(GESTURE_DURATION)));
-            path.moveTo(RandomUtil.randomP(manager.getGreenX()), RandomUtil.randomP(manager.getGreenY()));
-            builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2), RandomUtil.randomP(GESTURE_DURATION)));
-            builder.addStroke(new GestureDescription.StrokeDescription(path, RandomUtil.randomT(manager.getUpdateTime() / 2 * 3), RandomUtil.randomP(GESTURE_DURATION)));
-            dispatchGesture(builder.build(), null, null);
-            SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime() * 2));
-        }
-        disableSelf();
-    }
-
-    private void launchGame() {
-        Intent intent = manager.getGamePackage() == null ? null : getPackageManager().getLaunchIntentForPackage(manager.getGamePackage());
-        if (intent == null) {
-            String packageName = manager.getDefaultGamePackage();
-            if (packageName != null)
-                intent = getPackageManager().getLaunchIntentForPackage(packageName);
-        }
-        if (intent != null)
-            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-    }
-
     private static final class UIHandler extends Handler {
         private final WeakReference<GestureService> ref;
 
         private UIHandler(GestureService service) {
+            super(Looper.getMainLooper());
             ref = new WeakReference<>(service);
         }
 

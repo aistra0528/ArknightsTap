@@ -204,6 +204,9 @@ public class OverlayService extends Service {
         super.onDestroy();
         fab.remove();
         current.remove();
-        OverlayToast.show(this, R.string.info_overlay_disconnected, OverlayToast.LENGTH_SHORT);
+        if (((BaseApplication) getApplication()).isGestureServiceRunning())
+            ((BaseApplication) getApplication()).getGestureService().disableSelf();
+        else
+            OverlayToast.show(this, R.string.info_overlay_disconnected, OverlayToast.LENGTH_SHORT);
     }
 }

@@ -45,7 +45,7 @@ public class PreferenceManager {
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
     private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
-    private static final int UPDATE_TIME = 3500;
+    private static final int UPDATE_TIME = 2000;
     private static final int CHECK_TIME = 28800000;
     private Context context;
     private SharedPreferences preferences;
