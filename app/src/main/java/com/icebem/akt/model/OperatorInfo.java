@@ -2,7 +2,7 @@ package com.icebem.akt.model;
 
 import android.content.Context;
 
-import com.icebem.akt.util.AppUtil;
+import com.icebem.akt.util.DataUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +33,7 @@ class OperatorInfo {
     }
 
     static OperatorInfo[] fromAssets(Context context) throws IOException, JSONException {
-        JSONArray array = AppUtil.getRecruitArray(context);
+        JSONArray array = DataUtil.getRecruitData(context);
         OperatorInfo[] infoList = new OperatorInfo[array.length()];
         for (int i = 0; i < infoList.length; i++)
             infoList[i] = new OperatorInfo(array.getJSONObject(i));

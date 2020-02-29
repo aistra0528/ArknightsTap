@@ -18,6 +18,7 @@ import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.util.AppUtil;
+import com.icebem.akt.util.DataUtil;
 import com.icebem.akt.util.IOUtil;
 
 import org.json.JSONObject;
@@ -46,6 +47,7 @@ public class AboutActivity extends AppCompatActivity {
         findViewById(R.id.container_project).setOnClickListener(this::onClick);
         versionContainer = findViewById(R.id.container_version_state);
         versionContainer.setOnClickListener(this::onClick);
+        versionContainer.setOnLongClickListener(this::onLongClick);
         findViewById(R.id.container_version_type).setOnClickListener(this::onClick);
         findViewById(R.id.container_special_thanks).setOnClickListener(this::onClick);
         ((TextView) findViewById(R.id.txt_version_state_desc)).setText(BuildConfig.VERSION_NAME);
@@ -123,12 +125,29 @@ public class AboutActivity extends AppCompatActivity {
         }
     }
 
+    private boolean onLongClick(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.action_reset);
+        builder.setMessage(R.string.msg_reset);
+        builder.setPositiveButton(R.string.action_reset, (dialog, which) -> {
+            try {
+                DataUtil.updateData(manager, false);
+                manager.setCheckLastTime();
+            } catch (Exception e) {
+                Snackbar.make(view, R.string.error_occurred, Snackbar.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.create().show();
+        return true;
+    }
+
     private void checkVersionUpdate() {
         int id;
         String url = AppUtil.URL_RELEASE_LATEST;
         try {
-            if (AppUtil.isLatestVersion(manager)) {
-                id = R.string.version_latest;
+            if (AppUtil.isLatestVersion()) {
+                id = DataUtil.updateData(manager, true) ? R.string.data_updated : R.string.version_latest;
             } else {
                 id = R.string.version_update;
                 JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));

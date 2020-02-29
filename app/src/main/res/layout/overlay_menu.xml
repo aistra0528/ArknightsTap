@@ -1,157 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minWidth="@dimen/overlay_width"
-    android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Light">
 
     <LinearLayout
-        android:id="@+id/action_recruit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/control_padding">
+        android:minWidth="@dimen/overlay_width"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/control_margin"
-            android:background="@drawable/bg_oval"
-            android:backgroundTint="@color/colorPrimary"
-            android:contentDescription="@null"
-            android:padding="@dimen/control_padding"
-            android:src="@drawable/ic_recruit"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/action_recruit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/control_padding"
-            android:text="@string/title_recruit"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    </LinearLayout>
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/control_padding">
 
-    <LinearLayout
-        android:id="@+id/action_counter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/control_padding">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/control_margin"
+                android:background="@drawable/bg_oval"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@null"
+                android:padding="@dimen/control_padding"
+                android:src="@drawable/ic_recruit"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/control_margin"
-            android:background="@drawable/bg_oval"
-            android:backgroundTint="@color/colorAccent"
-            android:contentDescription="@null"
-            android:padding="@dimen/control_padding"
-            android:src="@drawable/ic_headhunt"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/control_padding"
+                android:text="@string/title_recruit"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/action_counter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/control_padding"
-            android:text="@string/action_counter"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    </LinearLayout>
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/control_padding">
 
-    <LinearLayout
-        android:id="@+id/action_gesture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/control_padding"
-        android:visibility="gone">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/control_margin"
+                android:background="@drawable/bg_oval"
+                android:backgroundTint="@color/colorAccent"
+                android:contentDescription="@null"
+                android:padding="@dimen/control_padding"
+                android:src="@drawable/ic_headhunt"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/control_margin"
-            android:background="@drawable/bg_oval"
-            android:backgroundTint="@color/colorPrimary"
-            android:contentDescription="@null"
-            android:padding="@dimen/control_padding"
-            android:src="@drawable/ic_akt"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/control_padding"
+                android:text="@string/action_counter"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:padding="@dimen/control_padding"
-            android:text="@string/gesture_label"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-        <TextView
-            android:id="@+id/action_gesture_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/view_padding"
-            android:paddingEnd="@dimen/view_padding" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/action_collapse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/control_padding">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/control_margin"
-            android:background="@drawable/bg_oval"
-            android:backgroundTint="@color/colorAccent"
-            android:contentDescription="@null"
-            android:padding="@dimen/control_padding"
-            android:src="@drawable/ic_collapse"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/action_gesture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:padding="@dimen/control_padding"
-            android:text="@string/action_overlay_collapse"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    </LinearLayout>
+            android:visibility="gone">
 
-    <LinearLayout
-        android:id="@+id/action_disconnect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/control_padding">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/control_margin"
+                android:background="@drawable/bg_oval"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@null"
+                android:padding="@dimen/control_padding"
+                android:src="@drawable/ic_akt"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/control_margin"
-            android:background="@drawable/bg_oval"
-            android:backgroundTint="@color/colorError"
-            android:contentDescription="@null"
-            android:padding="@dimen/control_padding"
-            android:src="@drawable/ic_exit"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:padding="@dimen/control_padding"
+                android:text="@string/gesture_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <TextView
+            <TextView
+                android:id="@+id/action_gesture_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/view_padding"
+                android:paddingEnd="@dimen/view_padding" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/action_collapse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/control_padding"
-            android:text="@string/action_disconnect"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/control_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/control_margin"
+                android:background="@drawable/bg_oval"
+                android:backgroundTint="@color/colorAccent"
+                android:contentDescription="@null"
+                android:padding="@dimen/control_padding"
+                android:src="@drawable/ic_collapse"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/control_padding"
+                android:text="@string/action_overlay_collapse"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/action_disconnect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/control_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/control_margin"
+                android:background="@drawable/bg_oval"
+                android:backgroundTint="@color/colorError"
+                android:contentDescription="@null"
+                android:padding="@dimen/control_padding"
+                android:src="@drawable/ic_exit"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/control_padding"
+                android:text="@string/action_disconnect"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

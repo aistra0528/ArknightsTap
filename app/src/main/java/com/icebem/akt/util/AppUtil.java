@@ -6,19 +6,14 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
-import com.icebem.akt.app.PreferenceManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 
 public class AppUtil {
-    private static final String TYPE_DATA = "data";
-    private static final String DATA_RECRUIT = "recruit.json";
-    private static final String DATA_RESOLUTION = "resolution.json";
     public static final String THREAD_UPDATE = "update";
     public static final String MARKET_COOLAPK = "com.coolapk.market";
     //    public static final String MARKET_PLAY = "com.android.vending";
@@ -32,10 +27,8 @@ public class AppUtil {
     public static final String URL_RELEASE_LATEST = "https://github.com/IcebemAst/ArknightsTap/releases/latest";
     public static final String URL_RELEASE_LATEST_API = "https://api.github.com/repos/IcebemAst/ArknightsTap/releases/latest";
     private static final String URL_RELEASE_DATA = "https://raw.githubusercontent.com/IcebemAst/ArknightsTap/master/app/release/output.json";
-    private static final String URL_WEB_DATA = "https://raw.githubusercontent.com/IcebemAst/ArknightsTap/master/app/src/main/assets/data/";
 
-    public static boolean isLatestVersion(PreferenceManager manager) throws IOException, JSONException {
-        updateData(manager, true);
+    public static boolean isLatestVersion() throws IOException, JSONException {
         int version = new JSONArray(IOUtil.stream2String(IOUtil.fromWeb(URL_RELEASE_DATA))).getJSONObject(0).getJSONObject("apkData").getInt("versionCode");
         return BuildConfig.VERSION_CODE >= version;
     }
@@ -46,21 +39,6 @@ public class AppUtil {
 
     public static String getDownloadUrl(JSONObject json) throws JSONException {
         return json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
-    }
-
-    public static void updateData(PreferenceManager manager, boolean fromWeb) throws IOException, JSONException {
-        IOUtil.stream2File(fromWeb ? IOUtil.fromWeb(AppUtil.URL_WEB_DATA + DATA_RECRUIT) : IOUtil.fromAssets(manager.getContext(), TYPE_DATA + File.separatorChar + DATA_RECRUIT), manager.getContext().getExternalFilesDir(TYPE_DATA) + File.separator + DATA_RECRUIT);
-        if (manager.isPro() || !fromWeb)
-            manager.setResolutionConfig(fromWeb);
-    }
-
-    public static JSONArray getRecruitArray(Context context) throws IOException, JSONException {
-        File file = new File(context.getExternalFilesDir(TYPE_DATA) + File.separator + DATA_RECRUIT);
-        return new JSONArray(IOUtil.stream2String(file.exists() ? IOUtil.fromFile(file) : IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + DATA_RECRUIT)));
-    }
-
-    public static JSONArray getResolutionArray(Context context, boolean fromWeb) throws IOException, JSONException {
-        return new JSONArray(IOUtil.stream2String(fromWeb ? IOUtil.fromWeb(AppUtil.URL_WEB_DATA + DATA_RESOLUTION) : IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + DATA_RESOLUTION)));
     }
 
     public static void showLogDialog(Context context, Throwable t) {

@@ -12,7 +12,7 @@ import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.model.RecruitTag;
 import com.icebem.akt.service.GestureService;
-import com.icebem.akt.util.AppUtil;
+import com.icebem.akt.util.DataUtil;
 import com.icebem.akt.util.RandomUtil;
 
 import org.json.JSONArray;
@@ -55,7 +55,7 @@ public class PreferenceManager {
         preferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
         if (getVersionCode() < BuildConfig.VERSION_CODE) {
             try {
-                AppUtil.updateData(this, false);
+                DataUtil.updateData(this, false);
                 setCheckLastTime();
                 setVersionCode();
             } catch (Exception e) {
@@ -90,7 +90,7 @@ public class PreferenceManager {
 
     public void setResolutionConfig(boolean fromWeb) throws IOException, JSONException {
         int[] res = ResolutionConfig.getAbsoluteResolution(context);
-        JSONArray array = AppUtil.getResolutionArray(context, fromWeb);
+        JSONArray array = DataUtil.getResolutionData(context, fromWeb);
         for (int i = 0; i < array.length(); i++) {
             JSONObject obj = array.getJSONObject(i);
             if (obj.getInt(KEY_WIDTH) == res[0] && obj.getInt(KEY_HEIGHT) == res[1]) {

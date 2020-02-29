@@ -28,6 +28,7 @@ import com.icebem.akt.activity.AboutActivity;
 import com.icebem.akt.activity.MainActivity;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.util.AppUtil;
+import com.icebem.akt.util.DataUtil;
 import com.icebem.akt.util.IOUtil;
 import com.icebem.akt.app.ResolutionConfig;
 
@@ -128,8 +129,8 @@ public class HomeFragment extends Fragment {
         int id;
         String l = null, u = null;
         try {
-            if (AppUtil.isLatestVersion(manager)) {
-                id = R.string.version_latest;
+            if (AppUtil.isLatestVersion()) {
+                id = DataUtil.updateData(manager, true) ? R.string.data_updated : R.string.version_latest;
             } else {
                 id = R.string.version_update;
                 JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));

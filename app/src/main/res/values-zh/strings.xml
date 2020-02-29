@@ -76,4 +76,6 @@
     <string name="special_thanks_title">特别感谢</string>
     <string name="action_counter">寻访计数器</string>
     <string name="tip_counter_default">已寻访：%d次\n下次获得6★概率：%d%%\n长按“+”十连，“-”清零</string>
+    <string name="msg_reset">重置已下载的更新数据吗？</string>
+    <string name="data_updated">已更新最新数据</string>
 </resources>
