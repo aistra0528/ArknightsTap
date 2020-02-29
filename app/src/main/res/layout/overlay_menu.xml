@@ -92,14 +92,11 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
-            android:id="@+id/action_gesture_disconnect"
+            android:id="@+id/action_gesture_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/view_padding"
-            android:paddingEnd="@dimen/view_padding"
-            android:text="@string/action_disconnect"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-            android:textColor="@color/colorError" />
+            android:paddingEnd="@dimen/view_padding" />
     </LinearLayout>
 
     <LinearLayout

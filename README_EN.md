@@ -12,4 +12,4 @@ Show possible operators in recruitment and help you choose the best combination 
 ### ARGS™
 **Tap Version type 16 times in About to unlock this service**
 
-Tap the operation start button automatically. In that way you can put down your phone and do something more meaningful.
+Tap the mission start button automatically. In that way you can put down your phone and do something more meaningful.

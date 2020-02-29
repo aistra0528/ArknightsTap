@@ -27,7 +27,7 @@ public class RecruitTag {
     private static final String[] TYPE_CASTER = {"Caster", "术师干员", "術士タイプ"};
     private static final String[] TYPE_DEFENDER = {"Defender", "重装干员", "重装タイプ"};
     private static final String[] TYPE_MEDIC = {"Medic", "医疗干员", "医療タイプ"};
-    private static final String[] TYPE_SPECIAL = {"Special", "特种干员", "特殊タイプ"};
+    private static final String[] TYPE_SPECIALIST = {"Specialist", "特种干员", "特殊タイプ"};
     private static final String[] TYPE_SUPPORTER = {"Supporter", "辅助干员", "補助タイプ"};
     private static final String[] AFFIX_SURVIVAL = {"Survival", "生存", "生存"};
     private static final String[] AFFIX_AOE = {"AoE", "群攻", "範囲攻撃"};
@@ -53,7 +53,7 @@ public class RecruitTag {
             TYPE_CASTER,
             TYPE_DEFENDER,
             TYPE_MEDIC,
-            TYPE_SPECIAL,
+            TYPE_SPECIALIST,
             TYPE_SUPPORTER,
             AFFIX_SURVIVAL,
             AFFIX_AOE,
@@ -91,7 +91,7 @@ public class RecruitTag {
         array.put(R.id.tag_type_caster, TYPE_CASTER);
         array.put(R.id.tag_type_defender, TYPE_DEFENDER);
         array.put(R.id.tag_type_medic, TYPE_MEDIC);
-        array.put(R.id.tag_type_special, TYPE_SPECIAL);
+        array.put(R.id.tag_type_specialist, TYPE_SPECIALIST);
         array.put(R.id.tag_type_supporter, TYPE_SUPPORTER);
         array.put(R.id.tag_affix_survival, AFFIX_SURVIVAL);
         array.put(R.id.tag_affix_aoe, AFFIX_AOE);

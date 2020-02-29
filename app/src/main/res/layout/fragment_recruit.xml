@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content" />
 
                 <CheckBox
-                    android:id="@+id/tag_type_special"
+                    android:id="@+id/tag_type_specialist"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

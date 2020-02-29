@@ -146,8 +146,17 @@ public class OverlayService extends Service {
     }
 
     private void updateMenuView() {
-        if (manager.isPro())
-            menu.getView().findViewById(R.id.action_gesture_disconnect).setVisibility(((BaseApplication) getApplication()).isGestureServiceRunning() ? View.VISIBLE : View.INVISIBLE);
+        if (manager.isPro()) {
+            TextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
+            if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
+                desc.setTextAppearance(R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored);
+                desc.setTextColor(getColor(R.color.colorError));
+                desc.setText(R.string.action_disconnect);
+            } else {
+                desc.setTextAppearance(R.style.TextAppearance_AppCompat_Body1);
+                desc.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime()));
+            }
+        }
     }
 
     private void initFabView() {
