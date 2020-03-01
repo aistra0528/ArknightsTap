@@ -34,11 +34,5 @@
   {"star":4,"name":"聚合凝胶*","nameCN":"聚合凝胶","nameJP":"聚合凝胶*","from":[]},
   {"star":3,"name":"凝胶*","nameCN":"凝胶","nameJP":"凝胶*","from":[{"mission":"S4-10","sanity":18,"frequency":0.285}]},
   {"star":4,"name":"炽合金块*","nameCN":"炽合金块","nameJP":"炽合金块*","from":[]},
-  {"star":3,"name":"炽合金*","nameCN":"炽合金","nameJP":"炽合金*","from":[{"mission":"S3-6","sanity":15,"frequency":0.38}]},
-  {"star":4,"name":"Carbon Brick","nameCN":"碳素组","nameJP":"上級炭素材","from":[{"mission":"SK-5","sanity":30,"frequency":3}]},
-  {"star":3,"name":"Carbon Brick","nameCN":"碳素","nameJP":"中級炭素材","from":[{"mission":"SK-3","sanity":20,"frequency":2.5}]},
-  {"star":2,"name":"Carbon Stick","nameCN":"碳","nameJP":"初級炭素材","from":[{"mission":"SK-2","sanity":15,"frequency":4}]},
-  {"star":4,"name":"Skill Summary - 3","nameCN":"技巧概要·卷3","nameJP":"アーツ学Ⅲ","from":[{"mission":"CA-5","sanity":30,"frequency":2}]},
-  {"star":3,"name":"Skill Summary - 2","nameCN":"技巧概要·卷2","nameJP":"アーツ学Ⅱ","from":[{"mission":"CA-3","sanity":20,"frequency":3}]},
-  {"star":2,"name":"Skill Summary - 1","nameCN":"技巧概要·卷1","nameJP":"アーツ学Ⅰ","from":[{"mission":"CA-2","sanity":15,"frequency":5}]}
+  {"star":3,"name":"炽合金*","nameCN":"炽合金","nameJP":"炽合金*","from":[{"mission":"S3-6","sanity":15,"frequency":0.38}]}
 ]

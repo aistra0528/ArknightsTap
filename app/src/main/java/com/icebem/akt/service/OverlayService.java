@@ -19,22 +19,27 @@ import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.app.ResolutionConfig;
+import com.icebem.akt.model.MaterialGuide;
 import com.icebem.akt.model.RecruitViewer;
 import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.overlay.OverlayView;
 
 public class OverlayService extends Service {
+    private int screenSize;
+    private MaterialGuide guide;
     private RecruitViewer viewer;
     private PreferenceManager manager;
-    private OverlayView current, fab, menu, recruit, counter;
+    private OverlayView current, fab, menu, recruit, counter, material;
 
     @Override
     public void onCreate() {
         super.onCreate();
         setTheme(R.style.AppTheme_Dark);
+        screenSize = ResolutionConfig.getAbsoluteHeight(this);
         initRecruitView();
         manager = viewer == null ? new PreferenceManager(this) : viewer.getManager();
         initCounterView();
+        initMaterialView();
         initMenuView();
         current = menu;
         initFabView();
@@ -46,8 +51,7 @@ public class OverlayService extends Service {
     private void initRecruitView() {
         recruit = new OverlayView(this, R.layout.overlay_recruit);
         recruit.setGravity(Gravity.END | Gravity.TOP);
-        int size = ResolutionConfig.getAbsoluteHeight(this);
-        recruit.resize(size, size);
+        recruit.resize(screenSize, screenSize);
         try {
             viewer = new RecruitViewer(this, recruit.getView());
         } catch (Exception e) {
@@ -75,6 +79,7 @@ public class OverlayService extends Service {
                 viewer.getRootView().setVisibility(View.INVISIBLE);
                 break;
             case MotionEvent.ACTION_UP:
+                resetRecruitView(view);
                 viewer.getRootView().setVisibility(View.VISIBLE);
                 break;
         }
@@ -116,6 +121,23 @@ public class OverlayService extends Service {
         return true;
     }
 
+    private void initMaterialView() {
+        material = new OverlayView(this, R.layout.overlay_material);
+        material.setGravity(Gravity.START | Gravity.TOP);
+        material.setMobilizable(true);
+        material.resize(screenSize, screenSize);
+        try {
+            guide = new MaterialGuide(manager, material.getView());
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
+        }
+        if (guide == null) return;
+        material.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
+        ImageButton collapse = material.getView().findViewById(R.id.action_collapse);
+        collapse.setOnClickListener(v -> showTargetView(fab));
+        collapse.setOnLongClickListener(this::stopSelf);
+    }
+
     private void initMenuView() {
         menu = new OverlayView(this, R.layout.overlay_menu);
         View root = menu.getView();
@@ -128,6 +150,12 @@ public class OverlayService extends Service {
                 showTargetView(recruit);
         });
         root.findViewById(R.id.action_counter).setOnClickListener(v -> showTargetView(counter));
+        root.findViewById(R.id.action_material).setOnClickListener(v -> {
+            if (guide == null)
+                OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
+            else
+                showTargetView(material);
+        });
         if (manager.isPro()) {
             View gesture = root.findViewById(R.id.action_gesture);
             gesture.setVisibility(View.VISIBLE);
@@ -172,7 +200,7 @@ public class OverlayService extends Service {
         btn.setOnLongClickListener(this::stopSelf);
         fab = new OverlayView(this, btn);
         fab.setGravity(Gravity.END | Gravity.TOP);
-        fab.setRelativePosition(ResolutionConfig.getAbsoluteHeight(this) - size >> 1, 0);
+        fab.setRelativePosition(screenSize - size >> 1, 0);
         fab.setMobilizable(true);
     }
 
@@ -204,8 +232,9 @@ public class OverlayService extends Service {
     @Override
     public void onConfigurationChanged(Configuration cfg) {
         super.onConfigurationChanged(cfg);
-        fab.setRelativePosition(ResolutionConfig.getAbsoluteHeight(this) - fab.getView().getWidth() >> 1, 0);
+        fab.setRelativePosition(screenSize - fab.getView().getWidth() >> 1, 0);
         counter.setRelativePosition(0, 0);
+        material.setRelativePosition(0, 0);
     }
 
     @Override

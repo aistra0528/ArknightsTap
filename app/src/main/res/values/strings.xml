@@ -15,7 +15,7 @@
     <string name="info_overlay_disconnected">ARSS™ disconnected</string>
     <string name="action_disconnect">Fin</string>
     <string name="action_overlay_collapse">Min</string>
-    <string name="title_recruit">Recruitment Guide</string>
+    <string name="title_recruit">Recruit Guide</string>
     <string name="action_reset">Reset</string>
     <string name="tip_recruit_result_none">No operators</string>
     <string name="tip_recruit_result_default">Possible operators</string>
@@ -87,4 +87,6 @@
     <string name="action_material">Material Guide</string>
     <string name="double_speed_title">Double speed</string>
     <string name="double_speed_summary">Operate at 2x speed</string>
+    <string name="tip_material_from">Data from Penguin Statistics, for reference only</string>
+    <string name="tip_material_workshop">Workshop</string>
 </resources>
