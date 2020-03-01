@@ -84,4 +84,5 @@
     <string name="double_speed_summary">行动保持2倍速</string>
     <string name="tip_material_from">数据来自企鹅物流数据统计，仅供参考</string>
     <string name="tip_material_workshop">加工站</string>
+    <string name="tip_material_item">%s% 8.1f%%%n约%.2f理智/个</string>
 </resources>

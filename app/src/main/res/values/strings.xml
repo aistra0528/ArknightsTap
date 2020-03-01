@@ -89,4 +89,5 @@
     <string name="double_speed_summary">Operate at 2x speed</string>
     <string name="tip_material_from">Data from Penguin Statistics, for reference only</string>
     <string name="tip_material_workshop">Workshop</string>
+    <string name="tip_material_item">%s% 8.1f%%%n%.2f sanity each</string>
 </resources>

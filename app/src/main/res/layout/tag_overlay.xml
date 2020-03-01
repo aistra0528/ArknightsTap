@@ -3,6 +3,5 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/control_margin"
-    android:background="@drawable/bg_tag"
     android:padding="@dimen/control_padding"
     android:textColor="@android:color/white" />

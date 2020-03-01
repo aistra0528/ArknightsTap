@@ -296,7 +296,7 @@ public class RecruitViewer {
 
     private TextView getTagView(CheckBox box, ViewGroup container) {
         TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false);
-        view.setPadding(view.getPaddingLeft(), view.getPaddingTop() / 2, view.getPaddingRight(), view.getPaddingBottom() / 2);
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop() >> 1, view.getPaddingRight(), view.getPaddingBottom() >> 1);
         view.setText(box.getText());
         switch (box.getId()) {
             case R.id.tag_qualification_1:
@@ -311,6 +311,8 @@ public class RecruitViewer {
             case R.id.tag_qualification_6:
                 view.setBackgroundResource(R.drawable.bg_tag_star_6);
                 break;
+            default:
+                view.setBackgroundResource(R.drawable.bg_tag);
         }
         return view;
     }
