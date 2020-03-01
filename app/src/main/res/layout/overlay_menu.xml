@@ -33,7 +33,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/control_padding"
+                android:paddingStart="@dimen/control_padding"
+                android:paddingEnd="@dimen/control_padding"
                 android:text="@string/title_recruit"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
@@ -61,8 +62,38 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/control_padding"
+                android:paddingStart="@dimen/control_padding"
+                android:paddingEnd="@dimen/control_padding"
                 android:text="@string/action_counter"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/action_material"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/control_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/control_margin"
+                android:background="@drawable/bg_oval"
+                android:backgroundTint="@color/colorSecondary"
+                android:contentDescription="@null"
+                android:padding="@dimen/control_padding"
+                android:src="@drawable/ic_explore"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/control_padding"
+                android:paddingEnd="@dimen/control_padding"
+                android:text="@string/action_material"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
 
@@ -91,7 +122,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:padding="@dimen/control_padding"
+                android:paddingStart="@dimen/control_padding"
+                android:paddingEnd="@dimen/control_padding"
                 android:text="@string/gesture_label"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -104,59 +136,68 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/action_collapse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/control_padding">
+            android:baselineAligned="true"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/action_collapse"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/control_margin"
-                android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/colorAccent"
-                android:contentDescription="@null"
-                android:padding="@dimen/control_padding"
-                android:src="@drawable/ic_collapse"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+                android:layout_weight="1.0"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/control_padding">
 
-            <TextView
-                android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/control_margin"
+                    android:background="@drawable/bg_oval"
+                    android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/control_padding"
+                    android:src="@drawable/ic_collapse"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/action_overlay_collapse"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/action_disconnect"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/control_padding"
-                android:text="@string/action_overlay_collapse"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-        </LinearLayout>
+                android:layout_weight="1.0"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/control_padding">
 
-        <LinearLayout
-            android:id="@+id/action_disconnect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/control_padding">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/control_margin"
+                    android:background="@drawable/bg_oval"
+                    android:backgroundTint="@color/colorError"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/control_padding"
+                    android:src="@drawable/ic_exit"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/control_margin"
-                android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/colorError"
-                android:contentDescription="@null"
-                android:padding="@dimen/control_padding"
-                android:src="@drawable/ic_exit"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/control_padding"
-                android:text="@string/action_disconnect"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/action_disconnect"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
