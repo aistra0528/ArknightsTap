@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class DataUtil {
+    public static final int INDEX_EN = 0;
+    public static final int INDEX_CN = 1;
+    public static final int INDEX_JP = 2;
+    public static final String FLAG_UNRELEASED = "*";
     private static final String KEY_NAME = "name";
     private static final String KEY_COMPAT = "compat";
     private static final String KEY_VERSION = "version";

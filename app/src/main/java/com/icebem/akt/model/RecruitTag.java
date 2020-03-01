@@ -3,12 +3,9 @@ package com.icebem.akt.model;
 import android.util.SparseArray;
 
 import com.icebem.akt.R;
+import com.icebem.akt.util.DataUtil;
 
-public class RecruitTag {
-    public static final int INDEX_EN = 0;
-    public static final int INDEX_CN = 1;
-    public static final int INDEX_JP = 2;
-    static final String FLAG_UNRELEASED = "*";
+class RecruitTag {
     private static final String[] STAR_1 = {"1★", "1★", "★1"};
     private static final String[] STAR_2 = {"2★", "2★", "★2"};
     private static final String[] STAR_3 = {"3★", "3★", "★3"};
@@ -111,9 +108,9 @@ public class RecruitTag {
     }
 
     static String getTagName(String tagName, int index) {
-        if (index != INDEX_EN) {
+        if (index != DataUtil.INDEX_EN) {
             for (String[] array : TAG_ARRAY) {
-                if (tagName.equals(array[INDEX_EN]))
+                if (tagName.equals(array[DataUtil.INDEX_EN]))
                     return array[index];
             }
         }

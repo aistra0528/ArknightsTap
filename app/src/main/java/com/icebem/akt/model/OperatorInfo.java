@@ -52,9 +52,9 @@ class OperatorInfo {
 
     String getName(int index) {
         switch (index) {
-            case RecruitTag.INDEX_EN:
+            case DataUtil.INDEX_EN:
                 return name;
-            case RecruitTag.INDEX_JP:
+            case DataUtil.INDEX_JP:
                 return nameJP;
             default:
                 return nameCN;

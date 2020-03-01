@@ -126,13 +126,12 @@ public class HomeFragment extends Fragment {
 
     private void checkVersionUpdate() {
         if (!(getActivity() instanceof MainActivity)) return;
-        int id;
+        int id = R.string.version_update;
         String l = null, u = null;
         try {
             if (AppUtil.isLatestVersion()) {
                 id = DataUtil.updateData(manager, true) ? R.string.data_updated : R.string.version_latest;
             } else {
-                id = R.string.version_update;
                 JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));
                 l = AppUtil.getChangelog(json);
                 u = AppUtil.getDownloadUrl(json);
@@ -143,7 +142,7 @@ public class HomeFragment extends Fragment {
         }
         int result = id;
         String log = l, url = u;
-        getActivity().runOnUiThread(() -> {
+        state.post(() -> {
             if (result != R.string.version_checking_failed)
                 ((MainActivity) getActivity()).updateSubtitleTime();
             if (result == R.string.version_update) {

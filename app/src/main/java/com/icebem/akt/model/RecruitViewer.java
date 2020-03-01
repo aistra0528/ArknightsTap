@@ -24,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.R;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.overlay.OverlayToast;
+import com.icebem.akt.util.DataUtil;
 
 import org.json.JSONException;
 
@@ -322,7 +323,7 @@ public class RecruitViewer {
             StringBuilder builder = new StringBuilder();
             builder.append(info.getName(index));
             builder.append(space);
-            builder.append(info.getName(index == RecruitTag.INDEX_CN ? RecruitTag.INDEX_EN : RecruitTag.INDEX_CN));
+            builder.append(info.getName(index == DataUtil.INDEX_CN ? DataUtil.INDEX_EN : DataUtil.INDEX_CN));
             builder.append(context instanceof AppCompatActivity ? space : System.lineSeparator());
             switch (info.getStar()) {
                 case 1:
@@ -372,7 +373,7 @@ public class RecruitViewer {
     }
 
     private boolean hasPossibility(OperatorInfo info) {
-        return (info.getStar() != 6 || combinedTags.contains(top)) && (manager.recruitPreview() || !info.getName(index).endsWith(RecruitTag.FLAG_UNRELEASED));
+        return (info.getStar() != 6 || combinedTags.contains(top)) && (manager.recruitPreview() || !info.getName(index).endsWith(DataUtil.FLAG_UNRELEASED));
     }
 
     private int compareInfo(OperatorInfo o1, OperatorInfo o2) {

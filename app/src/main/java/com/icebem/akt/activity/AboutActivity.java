@@ -116,7 +116,7 @@ public class AboutActivity extends AppCompatActivity {
                     String extra = thanksDesc.getText() + System.lineSeparator() + System.lineSeparator() + getString(R.string.special_thanks_extra);
                     new Thread(() -> {
                         while (thanksDesc.getText().length() < extra.length()) {
-                            runOnUiThread(() -> thanksDesc.setText(extra.substring(0, thanksDesc.getText().length() + 1)));
+                            thanksDesc.post(() -> thanksDesc.setText(extra.substring(0, thanksDesc.getText().length() + 1)));
                             SystemClock.sleep(TEXT_SPEED);
                         }
                     }, AppUtil.THREAD_UPDATE).start();
@@ -128,14 +128,16 @@ public class AboutActivity extends AppCompatActivity {
     private boolean onLongClick(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.action_reset);
-        builder.setMessage(R.string.msg_reset);
+        builder.setMessage(R.string.msg_data_reset);
         builder.setPositiveButton(R.string.action_reset, (dialog, which) -> {
+            int id = R.string.data_reset_done;
             try {
                 DataUtil.updateData(manager, false);
                 manager.setCheckLastTime();
             } catch (Exception e) {
-                Snackbar.make(view, R.string.error_occurred, Snackbar.LENGTH_LONG).show();
+                id = R.string.error_occurred;
             }
+            Snackbar.make(view, id, Snackbar.LENGTH_LONG).show();
         });
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.create().show();
@@ -143,13 +145,12 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void checkVersionUpdate() {
-        int id;
+        int id = R.string.version_update;
         String url = AppUtil.URL_RELEASE_LATEST;
         try {
             if (AppUtil.isLatestVersion()) {
                 id = DataUtil.updateData(manager, true) ? R.string.data_updated : R.string.version_latest;
             } else {
-                id = R.string.version_update;
                 JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));
                 url = AppUtil.getDownloadUrl(json);
             }
@@ -159,7 +160,7 @@ public class AboutActivity extends AppCompatActivity {
         }
         int result = id;
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        runOnUiThread(() -> {
+        typeDesc.post(() -> {
             if (result == R.string.version_update)
                 Snackbar.make(typeDesc, result, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_update, v -> startActivity(intent)).show();
             else

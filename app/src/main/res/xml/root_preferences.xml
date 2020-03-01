@@ -8,12 +8,6 @@
         app:summaryOn="@string/auto_update_summary_on"
         app:title="@string/auto_update_title" />
 
-    <SwitchPreferenceCompat
-        app:icon="@drawable/ic_launch"
-        app:key="launch_game"
-        app:summary="@string/launch_game_summary"
-        app:title="@string/launch_game_title" />
-
     <ListPreference
         app:entries="@array/game_server_entries"
         app:entryValues="@array/game_server_values"
@@ -21,6 +15,17 @@
         app:key="game_server"
         app:title="@string/game_server_title"
         app:useSimpleSummaryProvider="true" />
+
+    <SwitchPreferenceCompat
+        app:icon="@drawable/ic_launch"
+        app:key="launch_game"
+        app:summary="@string/launch_game_summary"
+        app:title="@string/launch_game_title" />
+
+    <SwitchPreferenceCompat
+        app:key="double_speed"
+        app:summary="@string/double_speed_summary"
+        app:title="@string/double_speed_title" />
 
     <PreferenceCategory app:title="@string/title_recruit">
 
@@ -41,6 +46,5 @@
             app:key="scroll_to_result"
             app:summary="@string/scroll_to_result_summary"
             app:title="@string/scroll_to_result_title" />
-
     </PreferenceCategory>
 </PreferenceScreen>

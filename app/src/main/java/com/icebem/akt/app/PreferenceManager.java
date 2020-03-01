@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
-import com.icebem.akt.model.RecruitTag;
 import com.icebem.akt.service.GestureService;
 import com.icebem.akt.util.DataUtil;
 import com.icebem.akt.util.RandomUtil;
@@ -40,6 +39,7 @@ public class PreferenceManager {
     private static final String KEY_LAUNCH_GAME = "launch_game";
     private static final String KEY_GAME_SERVER = "game_server";
     private static final String KEY_HEADHUNT_COUNT = "headhunt_count";
+    private static final String KEY_DOUBLE_SPEED = "double_speed";
     private static final String KEY_ASCENDING_STAR = "ascending_star";
     private static final String KEY_RECRUIT_PREVIEW = "recruit_preview";
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
@@ -106,7 +106,7 @@ public class PreferenceManager {
     }
 
     public int getUpdateTime() {
-        return UPDATE_TIME;
+        return doubleSpeed() ? UPDATE_TIME >> 1 : UPDATE_TIME;
     }
 
     public void setTimerTime(int position) {
@@ -207,10 +207,10 @@ public class PreferenceManager {
         if (packageName == null)
             packageName = getDefaultGamePackage();
         if (packageName == null || packageName.equals(values[PACKAGE_EN]))
-            return RecruitTag.INDEX_EN;
+            return DataUtil.INDEX_EN;
         if (packageName.equals(values[PACKAGE_JP]))
-            return RecruitTag.INDEX_JP;
-        return RecruitTag.INDEX_CN;
+            return DataUtil.INDEX_JP;
+        return DataUtil.INDEX_CN;
     }
 
     public void setHeadhuntCount(int count) {
@@ -219,6 +219,10 @@ public class PreferenceManager {
 
     public int getHeadhuntCount() {
         return preferences.getInt(KEY_HEADHUNT_COUNT, 0);
+    }
+
+    private boolean doubleSpeed() {
+        return preferences.getBoolean(KEY_DOUBLE_SPEED, false);
     }
 
     public boolean ascendingStar() {
