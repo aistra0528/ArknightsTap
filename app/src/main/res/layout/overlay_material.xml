@@ -2,9 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorToast"
-    android:orientation="vertical"
-    android:theme="@style/ThemeOverlay.AppCompat.Light">
+    android:background="@color/colorOverlay"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
