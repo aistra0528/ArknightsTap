@@ -45,7 +45,7 @@
         android:layout_marginBottom="@dimen/control_margin"
         android:paddingStart="@dimen/view_padding"
         android:paddingEnd="@dimen/view_padding"
-        android:text="@string/tip_material_from" />
+        android:text="@string/tip_material_data" />
 
     <LinearLayout
         android:layout_width="match_parent"

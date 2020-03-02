@@ -87,7 +87,7 @@
     <string name="action_material">Material Guide</string>
     <string name="double_speed_title">Double speed</string>
     <string name="double_speed_summary">Operate at 2x speed</string>
-    <string name="tip_material_from">Data from Penguin Statistics, for reference only</string>
+    <string name="tip_material_data">Data from Penguin Statistics, for reference only</string>
     <string name="tip_material_workshop">Workshop</string>
-    <string name="tip_material_item">%s% 8.1f%%%n%.2f sanity each</string>
+    <string name="tip_material_mission">%s% 8.1f%%%n%.2f sanity each</string>
 </resources>
