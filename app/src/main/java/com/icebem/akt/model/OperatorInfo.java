@@ -32,7 +32,7 @@ class OperatorInfo {
             tags[i] = obj.getJSONArray(KEY_TAGS).getString(i);
     }
 
-    static OperatorInfo[] fromAssets(Context context) throws IOException, JSONException {
+    static OperatorInfo[] load(Context context) throws IOException, JSONException {
         JSONArray array = DataUtil.getRecruitData(context);
         OperatorInfo[] infoList = new OperatorInfo[array.length()];
         for (int i = 0; i < infoList.length; i++)

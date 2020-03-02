@@ -70,7 +70,7 @@ public class RecruitViewer {
         affixes = findBoxesById(R.id.tag_affix_survival);
         tagArray = RecruitTag.getTagArray();
         setBoxesText();
-        infoList = OperatorInfo.fromAssets(context);
+        infoList = OperatorInfo.load(context);
         scroll.findViewById(R.id.action_recruit_reset).setOnClickListener(this::resetTags);
         ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
         setOnCheckedChangeListener(stars);
