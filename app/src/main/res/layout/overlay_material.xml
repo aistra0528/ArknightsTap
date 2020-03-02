@@ -39,36 +39,18 @@
             android:src="@drawable/ic_collapse" />
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:paddingStart="@dimen/control_padding"
+        android:paddingEnd="@dimen/control_padding" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/control_margin"
-        android:paddingStart="@dimen/view_padding"
-        android:paddingEnd="@dimen/view_padding"
+        android:layout_margin="@dimen/control_margin"
+        android:gravity="center_horizontal"
         android:text="@string/tip_material_data" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0" />
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"
-            android:scrollbars="vertical">
-
-            <TextView
-                android:id="@+id/txt_material"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-        </androidx.core.widget.NestedScrollView>
-    </LinearLayout>
 </LinearLayout>
