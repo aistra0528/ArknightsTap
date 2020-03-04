@@ -83,6 +83,6 @@
     <string name="double_speed_title">倍速行動</string>
     <string name="double_speed_summary">2倍速でタップ</string>
     <string name="tip_material_data">データはPenguin Statisticsから。ご参考に。</string>
-    <string name="tip_material_workshop">加工所で加工</string>
-    <string name="tip_material_mission">%s | %.1f%% | %.2f理性/個</string>
+    <string name="tip_material_workshop">加工所</string>
+    <string name="tip_material_mission">%s | %.1f%% | %.1f理性</string>
 </resources>

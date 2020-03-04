@@ -16,10 +16,10 @@ public class MaterialInfo {
     private static final String KEY_NAME = "name";
     private static final String KEY_NAME_CN = "nameCN";
     private static final String KEY_NAME_JP = "nameJP";
-    private static final String KEY_FROM = "from";
+    private static final String KEY_STAGES = "stages";
     private int id, star;
     private String name, nameCN, nameJP;
-    private Mission[] missions;
+    private Mission[] stages;
 
     private MaterialInfo(JSONObject obj) throws JSONException {
         id = obj.getInt(KEY_ID);
@@ -27,11 +27,11 @@ public class MaterialInfo {
         name = obj.getString(KEY_NAME);
         nameCN = obj.getString(KEY_NAME_CN);
         nameJP = obj.getString(KEY_NAME_JP);
-        JSONArray from = obj.getJSONArray(KEY_FROM);
-        if (from.length() > 0) {
-            missions = new Mission[from.length()];
-            for (int i = 0; i < from.length(); i++)
-                missions[i] = new Mission(from.getJSONObject(i));
+        JSONArray stages = obj.getJSONArray(KEY_STAGES);
+        if (stages.length() > 0) {
+            this.stages = new Mission[stages.length()];
+            for (int i = 0; i < stages.length(); i++)
+                this.stages[i] = new Mission(stages.getJSONObject(i));
         }
     }
 
@@ -62,26 +62,26 @@ public class MaterialInfo {
         }
     }
 
-    public Mission[] getMissions() {
-        return missions;
+    public Mission[] getStages() {
+        return stages;
     }
 
     public static class Mission {
         private static final String KEY_MISSION = "mission";
         private static final String KEY_SANITY = "sanity";
         private static final String KEY_FREQUENCY = "frequency";
-        private String name;
+        private String mission;
         private int sanity;
         private float frequency;
 
         Mission(JSONObject obj) throws JSONException {
-            name = obj.getString(KEY_MISSION);
+            mission = obj.getString(KEY_MISSION);
             sanity = obj.getInt(KEY_SANITY);
             frequency = (float) obj.getDouble(KEY_FREQUENCY);
         }
 
-        public String getName() {
-            return name;
+        public String getMission() {
+            return mission;
         }
 
         public int getSanity() {

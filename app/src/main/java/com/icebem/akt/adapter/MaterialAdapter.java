@@ -21,10 +21,10 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.ViewHo
     private static final String RES_START_BG = "bg_mtl_t";
     private static final String RES_TYPE = "mipmap";
     private static final int[] mtlId = {
-            30014, 30024, 30034, 30044, 30054, 30064,
-            30013, 30023, 30033, 30043, 30053, 30063,
-            30012, 30022, 30032, 30042, 30052, 30062,
             30011, 30021, 30031, 30041, 30051, 30061,
+            30012, 30022, 30032, 30042, 30052, 30062,
+            30013, 30023, 30033, 30043, 30053, 30063,
+            30014, 30024, 30034, 30044, 30054, 30064,
             30073, 30083, 30093, 30103, 31013, 31023,
             30074, 30084, 30094, 30104, 31014, 31024
     };
@@ -60,15 +60,15 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.ViewHo
         view.setOnClickListener(v -> {
             StringBuilder builder = new StringBuilder();
             builder.append(info.getName(manager.getTranslationIndex()));
-            if (info.getMissions() == null) {
+            if (info.getStages() == null) {
                 builder.append(System.lineSeparator());
                 builder.append(v.getContext().getString(R.string.tip_material_workshop));
             } else {
-                for (MaterialInfo.Mission mission : info.getMissions()) {
+                for (MaterialInfo.Mission mission : info.getStages()) {
                     builder.append(System.lineSeparator());
                     int sanity = mission.getSanity();
                     float frequency = mission.getFrequency();
-                    builder.append(v.getContext().getString(R.string.tip_material_mission, mission.getName(), frequency * 100, sanity / frequency));
+                    builder.append(v.getContext().getString(R.string.tip_material_mission, mission.getMission(), frequency * 100, sanity / frequency));
                 }
             }
             OverlayToast.show(v.getContext(), builder.toString(), OverlayToast.LENGTH_LONG);

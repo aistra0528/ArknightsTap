@@ -77,12 +77,12 @@
     <string name="action_counter">寻访计数器</string>
     <string name="tip_counter_default">已寻访：%d次\n下次获得6★概率：%d%%\n长按“+”十连，“-”清零</string>
     <string name="msg_data_reset">重置已下载的更新数据吗？</string>
-    <string name="data_reset_done">已重置下载数据</string>
+    <string name="data_reset_done">已重置更新数据</string>
     <string name="data_updated">已更新最新数据</string>
     <string name="action_material">材料来源推荐</string>
     <string name="double_speed_title">倍速行动</string>
-    <string name="double_speed_summary">能耗略微增加，行动速度+100%</string>
+    <string name="double_speed_summary">能耗略微增加，行动间隔缩短</string>
     <string name="tip_material_data">数据来自企鹅物流数据统计，仅供参考</string>
-    <string name="tip_material_workshop">加工站加工</string>
-    <string name="tip_material_mission">%s | %.1f%% | %.2f理智/个</string>
+    <string name="tip_material_workshop">加工站</string>
+    <string name="tip_material_mission">%s | %.1f%% | %.1f理智</string>
 </resources>
