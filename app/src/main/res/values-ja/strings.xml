@@ -76,13 +76,13 @@
     <string name="special_thanks_title">特別感謝</string>
     <string name="action_counter">スカウトカウンタ</string>
     <string name="tip_counter_default">スカウト回数：%d回\n次回★6入手確率：%d%%\n＋を長押し→十連スカウト\n−を長押し→リセット</string>
-    <string name="msg_data_reset">重置已下载的更新数据吗？</string>
-    <string name="data_reset_done">已重置下载数据</string>
-    <string name="data_updated">已更新最新数据</string>
-    <string name="action_material">材料来源推荐</string>
-    <string name="double_speed_title">倍速行动</string>
-    <string name="double_speed_summary">行动保持2倍速</string>
-    <string name="tip_material_data">数据来自企鹅物流数据统计，仅供参考</string>
-    <string name="tip_material_workshop">加工站加工</string>
-    <string name="tip_material_mission">%s | %.1f%% | %.2f理智/个</string>
+    <string name="msg_data_reset">ダウンロードしたアップデートデータをリセットしますか?</string>
+    <string name="data_reset_done">アップデートデータをリセットしました</string>
+    <string name="data_updated">既に最新のデータにアップデート</string>
+    <string name="action_material">素材周回オススメ</string>
+    <string name="double_speed_title">倍速行動</string>
+    <string name="double_speed_summary">2倍速でタップ</string>
+    <string name="tip_material_data">データはPenguin Statisticsから。ご参考に。</string>
+    <string name="tip_material_workshop">加工所で加工</string>
+    <string name="tip_material_mission">%s | %.1f%% | %.2f理性/個</string>
 </resources>
