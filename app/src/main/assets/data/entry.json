@@ -9,18 +9,18 @@
     "name": "recruit.json",
     "compat": 29,
     "version": 1,
-    "tag": "2020-03-01"
+    "tag": "2020-03-03"
   },
   {
     "name": "material.json",
     "compat": 29,
     "version": 1,
-    "tag": "2020-03-01"
+    "tag": "2020-03-02"
   },
   {
     "name": "resolution.json",
     "compat": 29,
     "version": 1,
-    "tag": "2020-03-01"
+    "tag": "2020-02-29"
   }
 ]
