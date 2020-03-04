@@ -98,6 +98,7 @@ public class AboutActivity extends AppCompatActivity {
                 break;
             case R.id.container_version_state:
                 view.setClickable(false);
+                view.setLongClickable(false);
                 new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
                 Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
                 break;

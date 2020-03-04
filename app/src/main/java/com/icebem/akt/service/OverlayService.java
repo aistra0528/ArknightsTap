@@ -181,7 +181,7 @@ public class OverlayService extends Service {
                 desc.setTextColor(getColor(R.color.colorError));
                 desc.setText(R.string.action_disconnect);
             } else {
-                desc.setTextAppearance(R.style.TextAppearance_AppCompat_Body1);
+                desc.setTextAppearance(R.style.TextAppearance_AppCompat_Small);
                 desc.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime()));
             }
         }
