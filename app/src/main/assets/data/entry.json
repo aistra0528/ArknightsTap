@@ -8,8 +8,8 @@
   {
     "name": "recruit.json",
     "compat": 29,
-    "version": 1,
-    "tag": "2020-03-03"
+    "version": 2,
+    "tag": "2020-03-07"
   },
   {
     "name": "material.json",

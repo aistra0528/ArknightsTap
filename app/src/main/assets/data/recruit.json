@@ -42,7 +42,7 @@
   {"star":4,"name":"Earthspirit","nameCN":"地灵","nameJP":"アーススピリット","type":"Supporter","tags":["Ranged","Slow"]},
   {"star":4,"name":"Shaw","nameCN":"阿消","nameJP":"ショウ","type":"Specialist","tags":["Melee","Shift"]},
   {"star":4,"name":"Beehunter*","nameCN":"猎蜂","nameJP":"ビーハンター*","type":"Guard","tags":["Melee","DPS"]},
-  {"star":4,"name":"Purestream*","nameCN":"清流*","nameJP":"Purestream*","type":"Medic","tags":["Ranged","Healing","Support"]},
+  {"star":4,"name":"Purestream*","nameCN":"清流*","nameJP":"セイリュウ*","type":"Medic","tags":["Ranged","Healing","Support"]},
   {"star":5,"name":"Indra","nameCN":"因陀罗","nameJP":"インドラ","type":"Guard","tags":["Melee","DPS","Survival"]},
   {"star":5,"name":"Vulcan","nameCN":"火神","nameJP":"ヴァルガン","type":"Defender","tags":["Melee","Survival","Defense","DPS"]},
   {"star":5,"name":"Ptilopsis","nameCN":"白面鸮","nameJP":"フィリオプシス","type":"Medic","tags":["Ranged","Healing","Support"]},
@@ -75,5 +75,5 @@
   {"star":6,"name":"Hoshiguma","nameCN":"星熊","nameJP":"ホシグマ","type":"Defender","tags":["Melee","Defense","DPS"]},
   {"star":6,"name":"Saria","nameCN":"塞雷娅","nameJP":"サリア","type":"Defender","tags":["Melee","Defense","Healing","Support"]},
   {"star":6,"name":"SilverAsh","nameCN":"银灰","nameJP":"シルバーアッシュ","type":"Guard","tags":["Melee","DPS","Support"]},
-  {"star":6,"name":"Skadi*","nameCN":"斯卡蒂","nameJP":"スカディ*","type":"Guard","tags":["Melee","DPS","Survival"]}
+  {"star":6,"name":"Skadi*","nameCN":"斯卡蒂","nameJP":"スカジ*","type":"Guard","tags":["Melee","DPS","Survival"]}
 ]

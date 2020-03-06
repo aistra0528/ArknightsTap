@@ -18,7 +18,7 @@ public class MaterialGuide {
 
     public MaterialGuide(PreferenceManager manager, View root) throws IOException, JSONException {
         RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(manager.getContext(), COUNT_SPAN));
+        recyclerView.setLayoutManager(new GridLayoutManager(root.getContext(), COUNT_SPAN));
         recyclerView.setAdapter(new MaterialAdapter(manager, COUNT_SPAN));
     }
 }

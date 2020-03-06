@@ -53,12 +53,12 @@ public class DataUtil {
     }
 
     private static JSONArray getOfflineData(Context context, String data) throws IOException, JSONException {
-        File file = new File(context.getExternalFilesDir(TYPE_DATA) + File.separator + data);
+        File file = new File(context.getFilesDir() + File.separator + data);
         return fromStream(file.exists() ? IOUtil.fromFile(file) : IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + data));
     }
 
     private static void setOfflineData(Context context, String data, boolean fromWeb) throws IOException {
-        IOUtil.stream2File(fromWeb ? IOUtil.fromWeb(URL_WEB_DATA + data) : IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + data), context.getExternalFilesDir(TYPE_DATA) + File.separator + data);
+        IOUtil.stream2File(fromWeb ? IOUtil.fromWeb(URL_WEB_DATA + data) : IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + data), context.getFilesDir() + File.separator + data);
     }
 
     public static JSONArray getMaterialData(Context context) throws IOException, JSONException {
