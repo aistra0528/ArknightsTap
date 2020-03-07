@@ -100,7 +100,7 @@ public class AboutActivity extends AppCompatActivity {
                 view.setClickable(false);
                 view.setLongClickable(false);
                 new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
-                Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
+                Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_LONG).show();
                 break;
             case R.id.container_version_type:
                 if (i >= 15) {
@@ -147,12 +147,14 @@ public class AboutActivity extends AppCompatActivity {
 
     private void checkVersionUpdate() {
         int id = R.string.version_update;
+        String l = null;
         String url = AppUtil.URL_RELEASE_LATEST;
         try {
             if (AppUtil.isLatestVersion()) {
                 id = DataUtil.updateData(manager, true) ? R.string.data_updated : R.string.version_latest;
             } else {
                 JSONObject json = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)));
+                l = AppUtil.getChangelog(json);
                 url = AppUtil.getDownloadUrl(json);
             }
             manager.setCheckLastTime();
@@ -160,12 +162,17 @@ public class AboutActivity extends AppCompatActivity {
             id = R.string.version_checking_failed;
         }
         int result = id;
+        String log = l;
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         typeDesc.post(() -> {
-            if (result == R.string.version_update)
-                Snackbar.make(typeDesc, result, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_update, v -> startActivity(intent)).show();
-            else
-                Snackbar.make(typeDesc, result, Snackbar.LENGTH_LONG).show();
+            if (result == R.string.version_update) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(result);
+                builder.setMessage(log);
+                builder.setPositiveButton(R.string.action_update, (dialog, which) -> startActivity(intent));
+                builder.setNegativeButton(R.string.no_thanks, null);
+                builder.create().show();
+            } else Snackbar.make(typeDesc, result, Snackbar.LENGTH_LONG).show();
             versionContainer.setOnClickListener(v -> startActivity(intent));
         });
     }

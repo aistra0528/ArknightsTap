@@ -45,6 +45,8 @@ public class OverlayService extends Service {
         initMenuView();
         current = menu;
         initFabView();
+        if (manager.launchGame())
+            launchGame();
         showTargetView(fab);
         if (!((BaseApplication) getApplication()).isGestureServiceRunning())
             OverlayToast.show(this, R.string.info_overlay_connected, OverlayToast.LENGTH_SHORT);
@@ -205,6 +207,13 @@ public class OverlayService extends Service {
         fab.setGravity(Gravity.END | Gravity.TOP);
         fab.setRelativePosition(screenSize - size >> 1, 0);
         fab.setMobilizable(true);
+    }
+
+    private void launchGame() {
+        String packageName = manager.getDefaultPackage();
+        Intent intent = packageName == null ? null : getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent != null)
+            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     private void showTargetView(OverlayView target) {

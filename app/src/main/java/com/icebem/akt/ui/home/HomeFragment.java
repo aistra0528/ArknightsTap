@@ -52,12 +52,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG)
             Snackbar.make(state, R.string.version_type_beta, Snackbar.LENGTH_LONG).show();
-        }
-        if (manager.autoUpdate()) {
+        if (manager.autoUpdate())
             startUpdateThread();
-        }
         if (manager.isPro() && !manager.resolutionSupported()) {
             stateImg.setImageResource(R.drawable.ic_state_running);
             state.setText(R.string.state_resolution_unsupported);
@@ -121,7 +119,7 @@ public class HomeFragment extends Fragment {
 
     private void startUpdateThread() {
         new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
-        Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
+        Snackbar.make(state, R.string.version_checking, Snackbar.LENGTH_LONG).show();
     }
 
     private void checkVersionUpdate() {
@@ -150,7 +148,7 @@ public class HomeFragment extends Fragment {
                 builder.setTitle(result);
                 builder.setMessage(log);
                 builder.setPositiveButton(R.string.action_update, (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));
-                builder.setNegativeButton(R.string.not_now, null);
+                builder.setNegativeButton(R.string.no_thanks, null);
                 builder.create().show();
             } else Snackbar.make(state, result, Snackbar.LENGTH_LONG).show();
         });
