@@ -150,7 +150,7 @@ public class HomeFragment extends Fragment {
                 builder.setTitle(result);
                 builder.setMessage(log);
                 builder.setPositiveButton(R.string.action_update, (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));
-                builder.setNegativeButton(R.string.no_thanks, null);
+                builder.setNegativeButton(R.string.not_now, null);
                 builder.create().show();
             } else Snackbar.make(state, result, Snackbar.LENGTH_LONG).show();
         });

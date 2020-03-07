@@ -24,6 +24,8 @@ import com.icebem.akt.model.RecruitViewer;
 import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.overlay.OverlayView;
 
+import java.util.ArrayList;
+
 public class OverlayService extends Service {
     private int screenSize;
     private MaterialGuide guide;
@@ -61,12 +63,13 @@ public class OverlayService extends Service {
         recruit.getView().findViewById(R.id.txt_title).setOnTouchListener(this::updateRecruitView);
         recruit.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
         recruit.getView().findViewById(R.id.action_server).setOnClickListener(view -> {
-            int index = viewer.getManager().getGamePackagePosition();
-            String[] values = getResources().getStringArray(R.array.game_server_values);
-            if (++index == values.length) index = 0;
-            viewer.getManager().setGamePackage(values[index]);
+            ArrayList<String> packages = viewer.getManager().getAvailablePackages();
+            if (packages.size() > 1) {
+                int index = viewer.getManager().getGamePackagePosition();
+                if (++index == packages.size()) index = 0;
+                viewer.getManager().setGamePackage(packages.get(index));
+            }
             resetRecruitView(view);
-            OverlayToast.show(this, getResources().getStringArray(R.array.game_server_entries)[index], OverlayToast.LENGTH_SHORT);
         });
         ImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));

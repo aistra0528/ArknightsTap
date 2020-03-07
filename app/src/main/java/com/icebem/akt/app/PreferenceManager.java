@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PreferenceManager {
     private static final int PACKAGE_EN = 2;
@@ -33,7 +34,8 @@ public class PreferenceManager {
     private static final String KEY_GREEN_Y = "green_y";
     private static final String KEY_TIMER_TIME = "timer_time";
     private static final String KEY_PRO = "pro";
-    private static final String KEY_VERSION = "version";
+    private static final String KEY_VERSION_CODE = "version_code";
+    private static final String KEY_VERSION_NAME = "version_name";
     private static final String KEY_AUTO_UPDATE = "auto_update";
     private static final String KEY_CHECK_LAST_TIME = "check_last_time";
     private static final String KEY_LAUNCH_GAME = "launch_game";
@@ -53,11 +55,12 @@ public class PreferenceManager {
     public PreferenceManager(Context context) {
         this.context = context;
         preferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
-        if (getVersionCode() < BuildConfig.VERSION_CODE) {
+        if (getVersionCode() < BuildConfig.VERSION_CODE || !getVersionName().equals(BuildConfig.VERSION_NAME)) {
             try {
                 DataUtil.updateData(this, false);
                 setCheckLastTime();
                 setVersionCode();
+                setVersionName();
             } catch (Exception e) {
                 Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
             }
@@ -127,11 +130,19 @@ public class PreferenceManager {
     }
 
     private void setVersionCode() {
-        preferences.edit().putInt(KEY_VERSION, BuildConfig.VERSION_CODE).apply();
+        preferences.edit().putInt(KEY_VERSION_CODE, BuildConfig.VERSION_CODE).apply();
     }
 
     private int getVersionCode() {
-        return preferences.getInt(KEY_VERSION, 0);
+        return preferences.getInt(KEY_VERSION_CODE, 0);
+    }
+
+    private void setVersionName() {
+        preferences.edit().putString(KEY_VERSION_NAME, BuildConfig.VERSION_NAME).apply();
+    }
+
+    private String getVersionName() {
+        return preferences.getString(KEY_VERSION_NAME, BuildConfig.VERSION_NAME);
     }
 
     public boolean resolutionSupported() {
@@ -174,41 +185,45 @@ public class PreferenceManager {
         preferences.edit().putString(KEY_GAME_SERVER, packageName).apply();
     }
 
-    @Nullable
-    public String getGamePackage() {
-        return preferences.getString(KEY_GAME_SERVER, null);
+    public ArrayList<String> getAvailablePackages() {
+        ArrayList<String> availablePackages = new ArrayList<>();
+        String[] packages = context.getResources().getStringArray(R.array.game_server_values);
+        for (String name : packages) {
+            if (context.getPackageManager().getLaunchIntentForPackage(name) != null)
+                availablePackages.add(name);
+        }
+        return availablePackages;
     }
 
     @Nullable
-    public String getDefaultGamePackage() {
-        for (String packageName : context.getResources().getStringArray(R.array.game_server_values)) {
-            if (context.getPackageManager().getLaunchIntentForPackage(packageName) != null)
-                return packageName;
-        }
+    public String getDefaultPackage() {
+        String selected = preferences.getString(KEY_GAME_SERVER, null);
+        if (selected != null && context.getPackageManager().getLaunchIntentForPackage(selected) != null)
+            return selected;
+        for (String installed : getAvailablePackages())
+            return installed;
         return null;
     }
 
     public int getGamePackagePosition() {
-        String packageName = getGamePackage();
-        if (packageName == null)
-            packageName = getDefaultGamePackage();
+        String packageName = getDefaultPackage();
         if (packageName != null) {
-            String[] values = context.getResources().getStringArray(R.array.game_server_values);
-            for (int i = 0; i < values.length; i++)
-                if (packageName.equals(values[i]))
+            ArrayList<String> packages = getAvailablePackages();
+            for (int i = 0; i < packages.size(); i++)
+                if (packageName.equals(packages.get(i)))
                     return i;
         }
-        return PACKAGE_EN;
+        return 0;
     }
 
     public int getTranslationIndex() {
-        String packageName = getGamePackage();
-        String[] values = getContext().getResources().getStringArray(R.array.game_server_values);
+        String packageName = getDefaultPackage();
+        String[] packages = context.getResources().getStringArray(R.array.game_server_values);
         if (packageName == null)
-            packageName = getDefaultGamePackage();
-        if (packageName == null || packageName.equals(values[PACKAGE_EN]))
+            return DataUtil.INDEX_CN;
+        if (packageName.equals(packages[PACKAGE_EN]))
             return DataUtil.INDEX_EN;
-        if (packageName.equals(values[PACKAGE_JP]))
+        if (packageName.equals(packages[PACKAGE_JP]))
             return DataUtil.INDEX_JP;
         return DataUtil.INDEX_CN;
     }

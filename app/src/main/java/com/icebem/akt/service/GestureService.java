@@ -91,12 +91,8 @@ public class GestureService extends AccessibilityService {
     }
 
     private void launchGame() {
-        Intent intent = manager.getGamePackage() == null ? null : getPackageManager().getLaunchIntentForPackage(manager.getGamePackage());
-        if (intent == null) {
-            String packageName = manager.getDefaultGamePackage();
-            if (packageName != null)
-                intent = getPackageManager().getLaunchIntentForPackage(packageName);
-        }
+        String packageName = manager.getDefaultPackage();
+        Intent intent = packageName == null ? null : getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent != null)
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }

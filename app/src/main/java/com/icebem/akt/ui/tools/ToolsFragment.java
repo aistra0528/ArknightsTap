@@ -20,6 +20,8 @@ import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.model.RecruitViewer;
 import com.icebem.akt.util.AppUtil;
 
+import java.util.ArrayList;
+
 public class ToolsFragment extends Fragment {
     private RecruitViewer viewer;
 
@@ -47,15 +49,13 @@ public class ToolsFragment extends Fragment {
                 break;
             case R.id.action_language:
                 if (viewer == null) break;
-                AlertDialog.Builder builder = new AlertDialog.Builder(viewer.getContext());
-                builder.setTitle(R.string.game_server_title);
-                builder.setSingleChoiceItems(viewer.getContext().getResources().getStringArray(R.array.game_server_entries), viewer.getManager().getGamePackagePosition(), (dialog, which) -> {
-                    dialog.cancel();
-                    viewer.getManager().setGamePackage(viewer.getContext().getResources().getStringArray(R.array.game_server_values)[which]);
-                    viewer.resetTags(null);
-                });
-                builder.setNegativeButton(android.R.string.cancel, null);
-                builder.create().show();
+                ArrayList<String> packages = viewer.getManager().getAvailablePackages();
+                if (packages.size() > 1) {
+                    int index = viewer.getManager().getGamePackagePosition();
+                    if (++index == packages.size()) index = 0;
+                    viewer.getManager().setGamePackage(packages.get(index));
+                }
+                viewer.resetTags(null);
                 break;
             case R.id.action_about:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
