@@ -11,7 +11,8 @@
         "sanity": 12,
         "frequency": 3.6
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 2,
@@ -30,7 +31,8 @@
         "sanity": 15,
         "frequency": 2.24
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 3,
@@ -38,7 +40,13 @@
     "name": "Orirock Cluster",
     "nameCN": "固源岩组",
     "nameJP": "中級源岩",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30012,
+        "quantity": 5
+      }
+    ]
   },
   {
     "star": 4,
@@ -46,7 +54,13 @@
     "name": "Orriock Concentration",
     "nameCN": "提纯源岩",
     "nameJP": "上級源岩",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30013,
+        "quantity": 4
+      }
+    ]
   },
   {
     "star": 1,
@@ -60,7 +74,8 @@
         "sanity": 12,
         "frequency": 2.44
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 2,
@@ -74,7 +89,8 @@
         "sanity": 15,
         "frequency": 1.5
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 3,
@@ -88,7 +104,8 @@
         "sanity": 12,
         "frequency": 0.37
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -96,7 +113,21 @@
     "name": "Sugar Lump",
     "nameCN": "糖聚块",
     "nameJP": "上級糖原",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30023,
+        "quantity": 2
+      },
+      {
+        "id": 30043,
+        "quantity": 1
+      },
+      {
+        "id": 30083,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 1,
@@ -110,7 +141,8 @@
         "sanity": 12,
         "frequency": 2.51
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 2,
@@ -124,7 +156,8 @@
         "sanity": 15,
         "frequency": 1.51
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 3,
@@ -138,7 +171,8 @@
         "sanity": 12,
         "frequency": 0.36
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -146,7 +180,21 @@
     "name": "Polyester Lump",
     "nameCN": "聚酸酯块",
     "nameJP": "上級エステル",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30033,
+        "quantity": 2
+      },
+      {
+        "id": 30053,
+        "quantity": 1
+      },
+      {
+        "id": 30073,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 1,
@@ -160,7 +208,8 @@
         "sanity": 12,
         "frequency": 1.91
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 2,
@@ -174,7 +223,8 @@
         "sanity": 15,
         "frequency": 1.21
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 3,
@@ -188,7 +238,8 @@
         "sanity": 12,
         "frequency": 0.22
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -196,7 +247,21 @@
     "name": "Oriron Block",
     "nameCN": "异铁块",
     "nameJP": "上級異鉄",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30043,
+        "quantity": 2
+      },
+      {
+        "id": 30063,
+        "quantity": 1
+      },
+      {
+        "id": 30033,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 1,
@@ -210,7 +275,8 @@
         "sanity": 12,
         "frequency": 1.93
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 2,
@@ -224,7 +290,8 @@
         "sanity": 15,
         "frequency": 1.23
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 3,
@@ -238,7 +305,8 @@
         "sanity": 15,
         "frequency": 0.36
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -246,7 +314,21 @@
     "name": "Keton Colloid",
     "nameCN": "酮阵列",
     "nameJP": "上級アケトン",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30053,
+        "quantity": 2
+      },
+      {
+        "id": 30023,
+        "quantity": 1
+      },
+      {
+        "id": 30083,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 1,
@@ -260,7 +342,8 @@
         "sanity": 12,
         "frequency": 1.4
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 2,
@@ -279,7 +362,8 @@
         "sanity": 9,
         "frequency": 0.5
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 3,
@@ -293,7 +377,8 @@
         "sanity": 15,
         "frequency": 0.27
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -301,7 +386,21 @@
     "name": "Optimized Device",
     "nameCN": "改量装置",
     "nameJP": "上級装置",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30063,
+        "quantity": 1
+      },
+      {
+        "id": 30013,
+        "quantity": 2
+      },
+      {
+        "id": 30093,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 3,
@@ -320,7 +419,8 @@
         "sanity": 12,
         "frequency": 0.26
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -328,7 +428,21 @@
     "name": "White Horse Kohl",
     "nameCN": "白马醇",
     "nameJP": "上級合成コール",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30073,
+        "quantity": 1
+      },
+      {
+        "id": 30023,
+        "quantity": 1
+      },
+      {
+        "id": 30103,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 3,
@@ -342,7 +456,8 @@
         "sanity": 15,
         "frequency": 0.37
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -350,7 +465,21 @@
     "name": "Manganese Trihydrate",
     "nameCN": "三水锰矿",
     "nameJP": "上級マンガン",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30083,
+        "quantity": 2
+      },
+      {
+        "id": 30033,
+        "quantity": 1
+      },
+      {
+        "id": 30073,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 3,
@@ -364,7 +493,8 @@
         "sanity": 15,
         "frequency": 0.31
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -372,7 +502,21 @@
     "name": "Grindstone Pentahydrate",
     "nameCN": "五水研磨石",
     "nameJP": "上級砥石",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30093,
+        "quantity": 1
+      },
+      {
+        "id": 30043,
+        "quantity": 1
+      },
+      {
+        "id": 30063,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 3,
@@ -386,7 +530,8 @@
         "sanity": 15,
         "frequency": 0.28
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -394,7 +539,21 @@
     "name": "RMA70-24",
     "nameCN": "RMA70-24",
     "nameJP": "RMA70-24",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30103,
+        "quantity": 1
+      },
+      {
+        "id": 30013,
+        "quantity": 2
+      },
+      {
+        "id": 30053,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 3,
@@ -408,7 +567,8 @@
         "sanity": 18,
         "frequency": 0.28
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -416,7 +576,21 @@
     "name": "聚合凝胶*",
     "nameCN": "聚合凝胶",
     "nameJP": "聚合凝胶*",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30043,
+        "quantity": 1
+      },
+      {
+        "id": 31013,
+        "quantity": 1
+      },
+      {
+        "id": 31023,
+        "quantity": 1
+      }
+    ]
   },
   {
     "star": 3,
@@ -430,7 +604,8 @@
         "sanity": 15,
         "frequency": 0.38
       }
-    ]
+    ],
+    "workshop": []
   },
   {
     "star": 4,
@@ -438,6 +613,20 @@
     "name": "炽合金块*",
     "nameCN": "炽合金块",
     "nameJP": "炽合金块*",
-    "stages": []
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30063,
+        "quantity": 1
+      },
+      {
+        "id": 30093,
+        "quantity": 1
+      },
+      {
+        "id": 31023,
+        "quantity": 1
+      }
+    ]
   }
 ]

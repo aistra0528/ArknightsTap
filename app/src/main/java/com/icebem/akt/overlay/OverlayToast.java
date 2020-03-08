@@ -26,7 +26,10 @@ public class OverlayToast {
             view.setPadding(padding, padding, padding, padding);
             view.setBackgroundResource(R.drawable.bg_toast);
             view.setTextAppearance(R.style.TextAppearance_AppCompat);
-            view.setOnClickListener(v -> ref.get().remove());
+            view.setOnClickListener(v -> {
+                view.removeCallbacks(runnable);
+                ref.get().remove();
+            });
             ref = new WeakReference<>(new OverlayView(context, view));
             ref.get().setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) >> 2);
         } else {

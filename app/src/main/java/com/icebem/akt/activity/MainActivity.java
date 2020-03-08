@@ -46,34 +46,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, barConfig);
         NavigationUI.setupWithNavController(navigationView, navController);
         navController.addOnDestinationChangedListener((controller, destination, bundle) -> onDestinationChanged(destination));
-        fab.setOnClickListener(this::onClick);
-        fab.setOnLongClickListener(this::onLongClick);
-    }
-
-    private void onClick(View view) {
-        if (view == null || navController.getCurrentDestination() == null) return;
-        if (navController.getCurrentDestination().getId() == R.id.nav_home) {
-            if (manager.isPro()) {
-                if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
-                    ((BaseApplication) getApplication()).getGestureService().disableSelf();
-                } else {
-                    Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-                }
-                return;
-            }
-        }
-        showOverlay();
-    }
-
-    private boolean onLongClick(View view) {
-        if (view != null && manager.isPro() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_home) {
-            showOverlay();
-            if (((BaseApplication) getApplication()).isOverlayServiceRunning() && fab.isOrWillBeShown() && navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() != R.id.nav_home || !manager.isPro())
-                fab.post(fab::hide);
-            return true;
-        }
-        return false;
+        fab.setOnClickListener(v -> showOverlay());
+        if (manager.isPro())
+            fab.setOnLongClickListener(this::showAccessibilitySettings);
     }
 
     public void showOverlay() {
@@ -87,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
             builder.setNegativeButton(R.string.no_thanks, null);
             builder.create().show();
         }
+    }
+
+    private boolean showAccessibilitySettings(View view) {
+        if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
+            ((BaseApplication) getApplication()).getGestureService().disableSelf();
+        } else {
+            Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+        }
+        return true;
     }
 
     public void updateSubtitleTime() {

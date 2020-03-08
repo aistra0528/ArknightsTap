@@ -59,11 +59,18 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.ViewHo
         view.setImageResource(view.getResources().getIdentifier(RES_START_MTL + info.getId(), RES_TYPE, view.getContext().getPackageName()));
         view.setOnClickListener(v -> {
             StringBuilder builder = new StringBuilder();
-            builder.append(info.getName(manager.getTranslationIndex()));
-            if (info.getStages() == null) {
-                builder.append(System.lineSeparator());
-                builder.append(v.getContext().getString(R.string.tip_material_workshop));
+            if (info.getItems() == null) {
+                builder.append(info.getName(manager.getTranslationIndex()));
             } else {
+                builder.append(v.getContext().getString(R.string.tip_material_workshop, info.getName(manager.getTranslationIndex())));
+                for (MaterialInfo.ShopItem item : info.getItems()) {
+                    MaterialInfo mtl = findMaterialById(item.getId());
+                    if (mtl == null) break;
+                    builder.append(System.lineSeparator());
+                    builder.append(v.getContext().getString(R.string.tip_material_item, mtl.getName(manager.getTranslationIndex()), item.getQuantity()));
+                }
+            }
+            if (info.getStages() != null) {
                 for (MaterialInfo.Mission mission : info.getStages()) {
                     builder.append(System.lineSeparator());
                     int sanity = mission.getSanity();

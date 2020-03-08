@@ -17,9 +17,11 @@ public class MaterialInfo {
     private static final String KEY_NAME_CN = "nameCN";
     private static final String KEY_NAME_JP = "nameJP";
     private static final String KEY_STAGES = "stages";
+    private static final String KEY_WORKSHOP = "workshop";
     private int id, star;
     private String name, nameCN, nameJP;
     private Mission[] stages;
+    private ShopItem[] items;
 
     private MaterialInfo(JSONObject obj) throws JSONException {
         id = obj.getInt(KEY_ID);
@@ -32,6 +34,12 @@ public class MaterialInfo {
             this.stages = new Mission[stages.length()];
             for (int i = 0; i < stages.length(); i++)
                 this.stages[i] = new Mission(stages.getJSONObject(i));
+        }
+        JSONArray items = obj.getJSONArray(KEY_WORKSHOP);
+        if (items.length() > 0) {
+            this.items = new ShopItem[items.length()];
+            for (int i = 0; i < items.length(); i++)
+                this.items[i] = new ShopItem(items.getJSONObject(i));
         }
     }
 
@@ -66,6 +74,10 @@ public class MaterialInfo {
         return stages;
     }
 
+    public ShopItem[] getItems() {
+        return items;
+    }
+
     public static class Mission {
         private static final String KEY_MISSION = "mission";
         private static final String KEY_SANITY = "sanity";
@@ -90,6 +102,24 @@ public class MaterialInfo {
 
         public float getFrequency() {
             return frequency;
+        }
+    }
+
+    public static class ShopItem {
+        private static final String KEY_QUANTITY = "quantity";
+        private int id, quantity;
+
+        ShopItem(JSONObject obj) throws JSONException {
+            id = obj.getInt(KEY_ID);
+            quantity = obj.getInt(KEY_QUANTITY);
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public int getQuantity() {
+            return quantity;
         }
     }
 }
