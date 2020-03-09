@@ -64,15 +64,17 @@ public class OverlayService extends Service {
         if (viewer == null) return;
         recruit.getView().findViewById(R.id.txt_title).setOnTouchListener(this::updateRecruitView);
         recruit.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        recruit.getView().findViewById(R.id.action_server).setOnClickListener(view -> {
-            ArrayList<String> packages = viewer.getManager().getAvailablePackages();
-            if (packages.size() > 1) {
+        if (viewer.getManager().multiPackage()) {
+            ImageButton server = recruit.getView().findViewById(R.id.action_server);
+            server.setVisibility(View.VISIBLE);
+            server.setOnClickListener(view -> {
+                ArrayList<String> packages = viewer.getManager().getAvailablePackages();
                 int index = viewer.getManager().getGamePackagePosition();
                 if (++index == packages.size()) index = 0;
                 viewer.getManager().setGamePackage(packages.get(index));
-            }
-            resetRecruitView(view);
-        });
+                resetRecruitView(view);
+            });
+        }
         ImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);

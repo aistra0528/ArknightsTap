@@ -11,6 +11,7 @@
         android:id="@+id/action_language"
         android:icon="@drawable/ic_action_language"
         android:title="@string/game_server_title"
+        android:visible="false"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_about"

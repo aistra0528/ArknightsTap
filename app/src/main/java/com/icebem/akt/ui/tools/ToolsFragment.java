@@ -10,13 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.icebem.akt.R;
 import com.icebem.akt.activity.AboutActivity;
 import com.icebem.akt.activity.MainActivity;
-import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.model.RecruitViewer;
 import com.icebem.akt.util.AppUtil;
 
@@ -41,20 +39,15 @@ public class ToolsFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_overlay:
-                if (getActivity() instanceof MainActivity) {
+                if (getActivity() instanceof MainActivity)
                     ((MainActivity) getActivity()).showOverlay();
-                    if (((BaseApplication) getActivity().getApplication()).isOverlayServiceRunning())
-                        item.setVisible(false);
-                }
                 break;
             case R.id.action_language:
                 if (viewer == null) break;
                 ArrayList<String> packages = viewer.getManager().getAvailablePackages();
-                if (packages.size() > 1) {
-                    int index = viewer.getManager().getGamePackagePosition();
-                    if (++index == packages.size()) index = 0;
-                    viewer.getManager().setGamePackage(packages.get(index));
-                }
+                int index = viewer.getManager().getGamePackagePosition();
+                if (++index == packages.size()) index = 0;
+                viewer.getManager().setGamePackage(packages.get(index));
                 viewer.resetTags(null);
                 break;
             case R.id.action_about:
@@ -68,7 +61,7 @@ public class ToolsFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_tools, menu);
-        if (getActivity() instanceof MainActivity && ((BaseApplication) getActivity().getApplication()).isOverlayServiceRunning())
-            menu.findItem(R.id.action_overlay).setVisible(false);
+        if (viewer != null && viewer.getManager().multiPackage())
+            menu.findItem(R.id.action_language).setVisible(true);
     }
 }

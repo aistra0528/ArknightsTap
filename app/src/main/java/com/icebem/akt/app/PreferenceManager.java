@@ -185,6 +185,10 @@ public class PreferenceManager {
         preferences.edit().putString(KEY_GAME_SERVER, packageName).apply();
     }
 
+    public boolean multiPackage() {
+        return getAvailablePackages().size() > 1;
+    }
+
     public ArrayList<String> getAvailablePackages() {
         ArrayList<String> availablePackages = new ArrayList<>();
         String[] packages = context.getResources().getStringArray(R.array.game_server_values);

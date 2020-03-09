@@ -45,6 +45,8 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         stateImg = root.findViewById(R.id.img_state);
         state = root.findViewById(R.id.txt_state);
+        if (BuildConfig.DEBUG)
+            root.findViewById(R.id.txt_beta).setVisibility(View.VISIBLE);
         manager = new PreferenceManager(getActivity());
         return root;
     }
@@ -52,8 +54,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (BuildConfig.DEBUG)
-            Snackbar.make(state, R.string.version_type_beta, Snackbar.LENGTH_LONG).show();
         if (manager.autoUpdate())
             startUpdateThread();
         if (manager.isPro() && !manager.resolutionSupported()) {

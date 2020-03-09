@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txt_beta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/control_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/version_type_beta"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/img_state"
         android:layout_width="72dp"
         android:layout_height="72dp"
+        android:layout_centerInParent="true"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@null"
         app:srcCompat="@drawable/ic_state_running_anim" />
@@ -18,6 +26,8 @@
         android:id="@+id/txt_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/img_state"
+        android:layout_centerHorizontal="true"
         android:text="@string/state_loading"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-</LinearLayout>
+</RelativeLayout>
