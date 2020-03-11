@@ -7,7 +7,13 @@ ArkTap is a tool app for Arknights.
 ## Features
 
 ### ARSS™
-Show possible operators in recruitment and help you choose the best combination of tags. You can use it in game by a floating window.
+You can use it in game by a floating window.
+#### Recruit Guide
+Show possible operators in recruitment and help you choose the best combination of tags.
+#### Headhunt Counter
+Count the rolls of headhunt and show the possibility of 6★.
+#### Material Guide
+Recommend missions of elite materials.
 
 ### ARGS™
 **Tap Version type 16 times in About to unlock this service**
