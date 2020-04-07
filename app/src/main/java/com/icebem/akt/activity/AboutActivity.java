@@ -134,7 +134,6 @@ public class AboutActivity extends AppCompatActivity {
             int id = R.string.data_reset_done;
             try {
                 DataUtil.updateData(manager, false);
-                manager.setCheckLastTime();
             } catch (Exception e) {
                 id = R.string.error_occurred;
             }

@@ -58,7 +58,6 @@ public class PreferenceManager {
         if (getVersionCode() < BuildConfig.VERSION_CODE || !getVersionName().equals(BuildConfig.VERSION_NAME)) {
             try {
                 DataUtil.updateData(this, false);
-                setCheckLastTime();
                 setVersionCode();
                 setVersionName();
             } catch (Exception e) {

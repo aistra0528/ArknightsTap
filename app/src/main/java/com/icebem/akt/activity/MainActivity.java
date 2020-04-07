@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.state_permission_request);
             builder.setMessage(R.string.msg_permission_overlay);
-            builder.setPositiveButton(R.string.go_to_settings, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)));
+            builder.setPositiveButton(R.string.permission_permit, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)));
             builder.setNegativeButton(R.string.no_thanks, null);
             builder.create().show();
         }
