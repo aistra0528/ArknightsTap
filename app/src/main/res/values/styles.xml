@@ -1,10 +1,12 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="AppTheme" parent="AppBaseTheme" />
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -20,6 +22,10 @@
     <style name="AppTheme.NoActionBar.TransparentStatusBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.DayNight" />
 
     <style name="CheckBoxTagStyle">
         <item name="android:background">@drawable/bg_checkbox</item>
