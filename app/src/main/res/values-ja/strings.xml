@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ArkTap</string>
     <string name="gesture_label">ARGS™</string>
-    <string name="gesture_description">ARGS™を使って、クリアしたステージの周回を自動化にすることができます。\n\n開始する前にステージを選び、代理指揮にチェックを入れてから始めてください。\n\n本サービスの使用によるユーザーのアカウントが異常と判別されることがあります。これによって発生した如何なる損害に本アプリ及び開発者は責任を負いかねます。\n\nARGS™を使用する際に請求するアクセス権限はあくまでも機能実現のためであり、これを通してユーザーの個人情報収集は一切ございません。\n\nトラブルやコメントがあれば、ぜひレポートをお願いします。</string>
+    <string name="gesture_description">ARGS™を使って、ステージの周回を自動化にすることができます。\n\n開始する前にステージを選び、代理指揮にチェックを入れてから始めてください。\n\n本サービスの使用によるユーザーのアカウントが異常と判別されることがあります。これによって発生した如何なる損害に本アプリ及び開発者は責任を負いかねます。\n\nARGS™を使用する際に請求するアクセス権限はあくまでも機能実現のためであり、これを通してユーザーの個人情報収集は一切ございません。\n\nトラブルやコメントがあれば、ぜひレポートをお願いします。</string>
     <string name="overlay_label">ARSS™</string>
     <string name="menu_home">ホーム</string>
     <string name="menu_tools">ツール</string>
