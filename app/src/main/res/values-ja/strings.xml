@@ -10,7 +10,7 @@
     <string name="state_resolution_unsupported">デバイスはサポートされていません</string>
     <string name="state_loading">起動中…</string>
     <string name="state_ready">起動完了,始めましょう</string>
-    <string name="msg_permission_overlay">- 他のアプリの上に重ねて表示する権限\n公開求人シミュレータ等をゲーム内でも使えるようになります</string>
+    <string name="msg_permission_overlay">- 他のアプリの上に重ねて表示する権限\n公開求人シミュレータに必要です</string>
     <string name="info_overlay_connected">ARSS™接続込み</string>
     <string name="info_overlay_disconnected">ARSS™接続解除</string>
     <string name="action_disconnect">解除</string>
