@@ -1,4 +1,4 @@
- <resources>
+<resources>
     <string name="app_name">ArkTap</string>
     <string name="gesture_label">ARGS™</string>
     <string name="gesture_description">ARGS™を使って、ステージの周回を自動化にすることができます。\n\n開始する前にステージを選び、代理指揮にチェックを入れてから始めてください。\n\n本サービスの使用によるユーザーのアカウントが異常と判別されることがあります。これによって発生した如何なる損害に本アプリ及び開発者は責任を負いかねます。\n\nARGS™を使用する際に請求するアクセス権限はあくまでも機能実現のためであり、これを通してユーザーの個人情報収集は一切ございません。\n\nトラブルやコメントがあれば、ぜひレポートをお願いします。</string>
@@ -54,7 +54,7 @@
     <string name="version_type_changed">バージョンタイプを変更しました。デバイスを再起動してください</string>
     <string name="action_update">アップデート</string>
     <string name="got_it">了解</string>
-    <string name="go_to_settings">許可する</string>
+    <string name="permission_permit">許可する</string>
     <string name="no_thanks">拒否する</string>
     <string name="not_now">また今度</string>
     <string name="error_occurred">エラー発生</string>
@@ -79,10 +79,10 @@
     <string name="msg_data_reset">ダウンロードしたアップデートデータをリセットしますか?</string>
     <string name="data_reset_done">アップデートデータをリセットしました</string>
     <string name="data_updated">既に最新のデータにアップデート</string>
-    <string name="action_material">素材周回オススメ/string>
+    <string name="action_material">素材周回オススメ</string>
     <string name="double_speed_title">倍速行動</string>
     <string name="double_speed_summary">2倍速でタップ</string>
     <string name="tip_material_data">データはPenguin Statisticsから。ご参考に。</string>
-    <string name="tip_material_workshop">加工所で加工</string>
-    <string name="tip_material_mission">%s | %.1f%% | %.2f理性/個</string>
+    <string name="tip_material_workshop">%s > 加工所</string>
+    <string name="tip_material_mission">%s | %.1f%% | %.1f理性</string>
 </resources>
