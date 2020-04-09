@@ -56,6 +56,10 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (manager.autoUpdate())
             startUpdateThread();
+        else onStateEnd();
+    }
+
+    private void onStateEnd() {
         if (manager.isPro() && !manager.resolutionSupported()) {
             stateImg.setImageResource(R.drawable.ic_state_running);
             state.setText(R.string.state_resolution_unsupported);
@@ -151,6 +155,7 @@ public class HomeFragment extends Fragment {
                 builder.setNegativeButton(R.string.no_thanks, null);
                 builder.create().show();
             } else Snackbar.make(state, result, Snackbar.LENGTH_LONG).show();
+            onStateEnd();
         });
     }
 

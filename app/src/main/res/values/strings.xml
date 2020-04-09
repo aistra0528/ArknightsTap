@@ -54,7 +54,7 @@
     <string name="version_type_changed">版本类型已更新，重启设备即可生效</string>
     <string name="action_update">更新</string>
     <string name="got_it">知道了</string>
-    <string name="permission_permit">授权</string>
+    <string name="permission_permit">允许</string>
     <string name="no_thanks">不用了</string>
     <string name="not_now">下次一定</string>
     <string name="error_occurred">发生错误</string>
@@ -70,7 +70,7 @@
     <string name="recruit_preview_title">显示未实装干员</string>
     <string name="recruit_preview_summary">显示当前渠道尚未实装的干员</string>
     <string name="scroll_to_result_title">快速导航</string>
-    <string name="scroll_to_result_summary">选择5个标签后直接滑动到规划方案</string>
+    <string name="scroll_to_result_summary">选择5个标签后向下滑动到规划方案</string>
     <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2020 Icebem</string>
     <string name="special_thanks_desc">酷安@Wasurenagusa - 日语翻译</string>
     <string name="special_thanks_title">特别感谢</string>
