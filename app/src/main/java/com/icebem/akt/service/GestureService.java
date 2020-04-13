@@ -11,6 +11,7 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
@@ -107,6 +108,13 @@ public class GestureService extends AccessibilityService {
     public void onInterrupt() {
         if (BuildConfig.DEBUG)
             Log.d(getClass().getSimpleName(), "onInterrupt");
+    }
+
+    @Override
+    protected boolean onKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN)
+            disableSelf();
+        return super.onKeyEvent(event);
     }
 
     @Override
