@@ -40,7 +40,8 @@ public class PreferenceManager {
     private static final String KEY_CHECK_LAST_TIME = "check_last_time";
     private static final String KEY_LAUNCH_GAME = "launch_game";
     private static final String KEY_GAME_SERVER = "game_server";
-    private static final String KEY_HEADHUNT_COUNT = "headhunt_count";
+    private static final String KEY_HEADHUNT_COUNT_NORMAL = "headhunt_count";
+    private static final String KEY_HEADHUNT_COUNT_LIMITED = "headhunt_count_limited";
     private static final String KEY_DOUBLE_SPEED = "double_speed";
     private static final String KEY_ASCENDING_STAR = "ascending_star";
     private static final String KEY_RECRUIT_PREVIEW = "recruit_preview";
@@ -231,12 +232,12 @@ public class PreferenceManager {
         return DataUtil.INDEX_CN;
     }
 
-    public void setHeadhuntCount(int count) {
-        preferences.edit().putInt(KEY_HEADHUNT_COUNT, count).apply();
+    public void setHeadhuntCount(int count, boolean limited) {
+        preferences.edit().putInt(limited ? KEY_HEADHUNT_COUNT_LIMITED : KEY_HEADHUNT_COUNT_NORMAL, count).apply();
     }
 
-    public int getHeadhuntCount() {
-        return preferences.getInt(KEY_HEADHUNT_COUNT, 0);
+    public int getHeadhuntCount(boolean limited) {
+        return preferences.getInt(limited ? KEY_HEADHUNT_COUNT_LIMITED : KEY_HEADHUNT_COUNT_NORMAL, 0);
     }
 
     private boolean doubleSpeed() {

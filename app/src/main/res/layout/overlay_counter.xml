@@ -23,11 +23,21 @@
             android:src="@drawable/ic_menu" />
 
         <TextView
+            android:id="@+id/txt_counter_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:padding="@dimen/view_padding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <ImageButton
+            android:id="@+id/action_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/action_counter"
             android:padding="@dimen/view_padding"
-            android:text="@string/action_counter"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:src="@drawable/ic_headhunt_toggle" />
     </LinearLayout>
 
     <TextView

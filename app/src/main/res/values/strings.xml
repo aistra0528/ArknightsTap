@@ -91,4 +91,6 @@
     <string name="tip_material_workshop">%s > 加工站</string>
     <string name="tip_material_mission">%s | %.1f%% | %.1f理智</string>
     <string name="tip_material_item" translatable="false">- %s x %d</string>
+    <string name="counter_normal">标准寻访</string>
+    <string name="counter_limited">限定寻访</string>
 </resources>

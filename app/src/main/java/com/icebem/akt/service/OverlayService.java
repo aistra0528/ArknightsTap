@@ -19,6 +19,7 @@ import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.app.ResolutionConfig;
+import com.icebem.akt.model.HeadhuntCounter;
 import com.icebem.akt.model.MaterialGuide;
 import com.icebem.akt.model.RecruitViewer;
 import com.icebem.akt.overlay.OverlayToast;
@@ -100,32 +101,11 @@ public class OverlayService extends Service {
     private void initCounterView() {
         counter = new OverlayView(this, R.layout.overlay_counter);
         counter.setMobilizable(true);
-        TextView tip = counter.getView().findViewById(R.id.txt_counter_tips);
+        new HeadhuntCounter(manager, counter.getView());
         counter.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        ImageButton minus = counter.getView().findViewById(R.id.action_minus);
-        minus.setOnClickListener(v -> updateCounterView(tip, manager.getHeadhuntCount(), -1));
-        minus.setOnLongClickListener(v -> updateCounterView(tip, 0, 0));
-        ImageButton plus = counter.getView().findViewById(R.id.action_plus);
-        plus.setOnClickListener(v -> updateCounterView(tip, manager.getHeadhuntCount(), 1));
-        plus.setOnLongClickListener(v -> updateCounterView(tip, manager.getHeadhuntCount(), 10));
         ImageButton collapse = counter.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
-        updateCounterView(tip, manager.getHeadhuntCount(), 0);
-    }
-
-    private boolean updateCounterView(TextView tip, int count, int delta) {
-        count += delta;
-        if (count < 0)
-            count += 99;
-        else if (count >= 99)
-            count -= 99;
-        manager.setHeadhuntCount(count);
-        int possibility = 2;
-        if (count > 49)
-            possibility += count - 49 << 1;
-        tip.setText(getString(R.string.tip_counter_default, count, possibility));
-        return true;
     }
 
     private void initMaterialView() {
