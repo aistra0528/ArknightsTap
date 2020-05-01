@@ -85,6 +85,6 @@
     <string name="tip_material_data">データはPenguin Statisticsから。ご参考に。</string>
     <string name="tip_material_workshop">%s > 加工所</string>
     <string name="tip_material_mission">%s | %.1f%% | %.1f理性</string>
-    <string name="counter_normal">标准寻访</string>
-    <string name="counter_limited">限定寻访</string>
+    <string name="counter_normal">標準ガチャ</string>
+    <string name="counter_limited">限定ガチャ</string>
 </resources>
