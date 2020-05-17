@@ -3,8 +3,8 @@ package com.icebem.akt.service;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Path;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -16,11 +16,13 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.app.GestureActionReceiver;
 import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.util.RandomUtil;
 
@@ -32,8 +34,11 @@ public class GestureService extends AccessibilityService {
     private static final String THREAD_GESTURE = "gesture";
     private static final String THREAD_TIMER = "timer";
     private int time;
-    private boolean timerTimeout;
+    private boolean timerTimeout = true;
     private PreferenceManager manager;
+    private GestureActionReceiver gestureActionReceiver;
+    private LocalBroadcastManager localBroadcastManager;
+    private static WeakReference<GestureService> currentInstance = new WeakReference<>(null);
 
     @Override
     protected void onServiceConnected() {
@@ -46,6 +51,23 @@ public class GestureService extends AccessibilityService {
         ((BaseApplication) getApplication()).setGestureService(this);
         if (manager.launchGame())
             launchGame();
+
+        gestureActionReceiver = new GestureActionReceiver(this::dispatchCurrentAction);
+        localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        localBroadcastManager.registerReceiver(gestureActionReceiver, new IntentFilter(GestureActionReceiver.ACTION));
+    }
+
+    private void dispatchCurrentAction() {
+        currentInstance = new WeakReference<>(this);
+        if (timerTimeout) {
+            timerTimeout = false;
+            startAction();
+        } else {
+            stopAction();
+        }
+    }
+
+    private void startAction() {
         new Thread(this::performGestures, THREAD_GESTURE).start();
         time = manager.getTimerTime();
         if (time > 0) {
@@ -63,6 +85,10 @@ public class GestureService extends AccessibilityService {
         } else {
             Toast.makeText(this, R.string.info_gesture_connected, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void stopAction() {
+        timerTimeout = true;
     }
 
     private void performGestures() {
@@ -88,7 +114,15 @@ public class GestureService extends AccessibilityService {
             dispatchGesture(builder.build(), null, null);
             SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime()));
         }
-        disableSelf();
+
+        new Handler(Looper.getMainLooper()).post(this::showActionFinished);
+    }
+
+    private void showActionFinished() {
+        if (Settings.canDrawOverlays(this))
+            OverlayToast.show(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
+        else
+            Toast.makeText(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
     }
 
     private void launchGame() {
@@ -113,20 +147,24 @@ public class GestureService extends AccessibilityService {
     @Override
     protected boolean onKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN)
-            disableSelf();
+            stopAction();
         return super.onKeyEvent(event);
+    }
+
+    /**
+     * Is gesture action running
+     */
+    public static boolean isGestureRunning() {
+        GestureService service = currentInstance.get();
+        if (service != null) {
+            return !service.timerTimeout;
+        }
+        return false;
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        if (timerTimeout)
-            performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
-        else
-            timerTimeout = true;
-        if (Settings.canDrawOverlays(this))
-            OverlayToast.show(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
-        else
-            Toast.makeText(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
+        localBroadcastManager.unregisterReceiver(gestureActionReceiver);
         return super.onUnbind(intent);
     }
 

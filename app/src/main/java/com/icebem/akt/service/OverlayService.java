@@ -14,11 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.app.ResolutionConfig;
+import com.icebem.akt.app.GestureActionReceiver;
 import com.icebem.akt.model.HeadhuntCounter;
 import com.icebem.akt.model.MaterialGuide;
 import com.icebem.akt.model.RecruitViewer;
@@ -148,22 +150,28 @@ public class OverlayService extends Service {
             gesture.setVisibility(View.VISIBLE);
             gesture.setOnClickListener(v -> {
                 showTargetView(fab);
-                if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
-                    ((BaseApplication) getApplication()).getGestureService().disableSelf();
-                } else {
-                    Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                }
+                startGestureAction();
             });
         }
         root.findViewById(R.id.action_collapse).setOnClickListener(v -> showTargetView(fab));
         root.findViewById(R.id.action_disconnect).setOnClickListener(this::stopSelf);
     }
 
+    private void startGestureAction() {
+        // Turn on gesture service when it is not running.
+        if (!((BaseApplication) getApplication()).isGestureServiceRunning()) {
+            Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            return;
+        }
+        // Send start action broadcast
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
+    }
+
     private void updateMenuView() {
         if (manager.isPro()) {
             TextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
-            if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
+            if (GestureService.isGestureRunning()) {
                 desc.setTextAppearance(R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored);
                 desc.setTextColor(getColor(R.color.colorError));
                 desc.setText(R.string.action_disconnect);
