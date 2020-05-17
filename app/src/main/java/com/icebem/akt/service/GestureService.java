@@ -154,6 +154,7 @@ public class GestureService extends AccessibilityService {
 
     @Override
     public boolean onUnbind(Intent intent) {
+        stopAction();
         if (localBroadcastManager != null)
             localBroadcastManager.unregisterReceiver(gestureActionReceiver);
         else if (!Settings.canDrawOverlays(this))

@@ -1,5 +1,4 @@
 [
-  {"width":1520,"height":720,"blue_x":1300,"blue_y":655,"red_x":1250,"red_y":620},
   {"width":1600,"height":720,"blue_x":1470,"blue_y":655,"red_x":1265,"red_y":465},
   {"width":2242,"height":1080,"blue_x":2030,"blue_y":985,"red_x":1735,"red_y":700},
   {"width":2246,"height":1080,"blue_x":2050,"blue_y":985,"red_x":1750,"red_y":700},
@@ -7,9 +6,11 @@
   {"width":2316,"height":1080,"blue_x":2120,"blue_y":985,"red_x":1810,"red_y":700},
   {"width":2340,"height":1080,"blue_x":2125,"blue_y":985,"red_x":1835,"red_y":700},
   {"width":2400,"height":1080,"blue_x":2195,"blue_y":985,"red_x":1895,"red_y":700},
+  {"width":3168,"height":1440,"blue_x":2910,"blue_y":1315,"red_x":2495,"red_y":930},
   {"width":1440,"height":576,"blue_x":1330,"blue_y":520,"red_x":1130,"red_y":510},
   {"width":1280,"height":720,"blue_x":1100,"blue_y":670,"red_x":1100,"red_y":650},
   {"width":1440,"height":720,"blue_x":1330,"blue_y":670,"red_x":1200,"red_y":650},
+  {"width":1520,"height":720,"blue_x":1300,"blue_y":655,"red_x":1250,"red_y":620,"author":"twiceYuan"},
   {"width":1560,"height":720,"blue_x":1470,"blue_y":670,"red_x":1230,"red_y":650},
   {"width":1920,"height":1080,"blue_x":1650,"blue_y":1000,"red_x":1650,"red_y":960},
   {"width":2160,"height":1080,"blue_x":2000,"blue_y":1000,"red_x":1800,"red_y":960},
