@@ -48,24 +48,24 @@ public class GestureService extends AccessibilityService {
             return;
         }
         ((BaseApplication) getApplication()).setGestureService(this);
-        if (manager.launchGame())
-            launchGame();
         gestureActionReceiver = new GestureActionReceiver(this::dispatchCurrentAction);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
         localBroadcastManager.registerReceiver(gestureActionReceiver, new IntentFilter(GestureActionReceiver.ACTION));
+        localBroadcastManager.sendBroadcast(new Intent(GestureActionReceiver.ACTION));
     }
 
     private void dispatchCurrentAction() {
         currentInstance = new WeakReference<>(this);
-        if (timerTimeout) {
-            timerTimeout = false;
+        if (timerTimeout)
             startAction();
-        } else {
+        else
             stopAction();
-        }
     }
 
     private void startAction() {
+        timerTimeout = false;
+        if (manager.launchGame())
+            launchGame();
         new Thread(this::performGestures, THREAD_GESTURE).start();
         time = manager.getTimerTime();
         if (time > 0) {
@@ -88,25 +88,27 @@ public class GestureService extends AccessibilityService {
 
     private void performGestures() {
         SystemClock.sleep(manager.getUpdateTime());
-        startService(new Intent(this, OverlayService.class));
-        int process = 0;
-        Path path = new Path();
-        while (!timerTimeout) {
-            switch (process) {
-                case 0:
-                    path.moveTo(RandomUtil.randomP(manager.getBlueX()), RandomUtil.randomP(manager.getBlueY()));
-                    break;
-                case 2:
-                    path.moveTo(RandomUtil.randomP(manager.getRedX()), RandomUtil.randomP(manager.getRedY()));
-                    break;
-                default:
-                    path.moveTo(RandomUtil.randomP(manager.getGreenX()), RandomUtil.randomP(manager.getGreenY()));
+        if (!timerTimeout) {
+            startService(new Intent(this, OverlayService.class));
+            int process = 0;
+            Path path = new Path();
+            while (!timerTimeout) {
+                switch (process) {
+                    case 0:
+                        path.moveTo(RandomUtil.randomP(manager.getBlueX()), RandomUtil.randomP(manager.getBlueY()));
+                        break;
+                    case 2:
+                        path.moveTo(RandomUtil.randomP(manager.getRedX()), RandomUtil.randomP(manager.getRedY()));
+                        break;
+                    default:
+                        path.moveTo(RandomUtil.randomP(manager.getGreenX()), RandomUtil.randomP(manager.getGreenY()));
+                }
+                if (++process > 3) process = 0;
+                GestureDescription.Builder builder = new GestureDescription.Builder();
+                builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
+                dispatchGesture(builder.build(), null, null);
+                SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime()));
             }
-            if (++process > 3) process = 0;
-            GestureDescription.Builder builder = new GestureDescription.Builder();
-            builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
-            dispatchGesture(builder.build(), null, null);
-            SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime()));
         }
         new Handler(Looper.getMainLooper()).post(this::showActionFinished);
     }
