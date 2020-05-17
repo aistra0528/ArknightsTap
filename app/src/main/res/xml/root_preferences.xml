@@ -23,6 +23,10 @@
         app:title="@string/launch_game_title" />
 
     <SwitchPreferenceCompat
+        app:key="anti_burn_in"
+        app:title="@string/anti_burn_in" />
+
+    <SwitchPreferenceCompat
         app:key="double_speed"
         app:summary="@string/double_speed_summary"
         app:title="@string/double_speed_title" />

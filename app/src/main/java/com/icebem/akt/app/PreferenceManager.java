@@ -42,13 +42,14 @@ public class PreferenceManager {
     private static final String KEY_GAME_SERVER = "game_server";
     private static final String KEY_HEADHUNT_COUNT_NORMAL = "headhunt_count";
     private static final String KEY_HEADHUNT_COUNT_LIMITED = "headhunt_count_limited";
+    private static final String KEY_ANTI_BURN_IN = "anti_burn_in";
     private static final String KEY_DOUBLE_SPEED = "double_speed";
     private static final String KEY_ASCENDING_STAR = "ascending_star";
     private static final String KEY_RECRUIT_PREVIEW = "recruit_preview";
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
     private static final int[] TIMER_CONFIG = {0, 10, 15, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
-    private static final int UPDATE_TIME = 2000;
+    private static final int UPDATE_TIME = 2300;
     private static final int CHECK_TIME = 28800000;
     private Context context;
     private SharedPreferences preferences;
@@ -238,6 +239,10 @@ public class PreferenceManager {
 
     public int getHeadhuntCount(boolean limited) {
         return preferences.getInt(limited ? KEY_HEADHUNT_COUNT_LIMITED : KEY_HEADHUNT_COUNT_NORMAL, 0);
+    }
+
+    public boolean antiBurnIn() {
+        return preferences.getBoolean(KEY_ANTI_BURN_IN, false);
     }
 
     private boolean doubleSpeed() {

@@ -184,6 +184,8 @@ public class OverlayService extends Service {
 
     private void initFabView() {
         ImageButton btn = new ImageButton(new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_Light));
+        if (manager.antiBurnIn())
+            btn.setAlpha(0.5f);
         btn.setImageResource(R.drawable.ic_akt);
         btn.setBackgroundResource(R.drawable.bg_oval);
         btn.setPadding(0, 0, 0, 0);
