@@ -13,7 +13,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -38,13 +37,13 @@ public class GestureService extends AccessibilityService {
     private PreferenceManager manager;
     private GestureActionReceiver gestureActionReceiver;
     private LocalBroadcastManager localBroadcastManager;
-    private static WeakReference<GestureService> currentInstance = new WeakReference<>(null);
+    private static WeakReference<GestureService> currentInstance;
 
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
         manager = new PreferenceManager(this);
-        if (!manager.resolutionSupported()) {
+        if (!Settings.canDrawOverlays(this) || !manager.resolutionSupported()) {
             disableSelf();
             return;
         }
@@ -79,11 +78,8 @@ public class GestureService extends AccessibilityService {
                 }
                 timerTimeout = true;
             }, THREAD_TIMER).start();
-        } else if (Settings.canDrawOverlays(this)) {
+        } else
             OverlayToast.show(this, R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT);
-        } else {
-            Toast.makeText(this, R.string.info_gesture_connected, Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void stopAction() {
@@ -92,8 +88,7 @@ public class GestureService extends AccessibilityService {
 
     private void performGestures() {
         SystemClock.sleep(manager.getUpdateTime());
-        if (Settings.canDrawOverlays(this))
-            startService(new Intent(this, OverlayService.class));
+        startService(new Intent(this, OverlayService.class));
         int process = 0;
         Path path = new Path();
         while (!timerTimeout) {
@@ -117,10 +112,7 @@ public class GestureService extends AccessibilityService {
     }
 
     private void showActionFinished() {
-        if (Settings.canDrawOverlays(this))
-            OverlayToast.show(this, R.string.info_gesture_disconnected, OverlayToast.LENGTH_SHORT);
-        else
-            Toast.makeText(this, R.string.info_gesture_disconnected, Toast.LENGTH_SHORT).show();
+        OverlayToast.show(this, R.string.info_gesture_disconnected, OverlayToast.LENGTH_SHORT);
     }
 
     private void launchGame() {
@@ -153,21 +145,19 @@ public class GestureService extends AccessibilityService {
      * Is gesture action running
      */
     public static boolean isGestureRunning() {
-        GestureService service = currentInstance.get();
-        if (service != null)
-            return !service.timerTimeout;
+        if (currentInstance != null && currentInstance.get() != null)
+            return !currentInstance.get().timerTimeout;
         return false;
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        if (!manager.resolutionSupported()) {
-            if (Settings.canDrawOverlays(this))
-                OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
-            else
-                Toast.makeText(this, R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
-        } else if (localBroadcastManager != null)
+        if (localBroadcastManager != null)
             localBroadcastManager.unregisterReceiver(gestureActionReceiver);
+        else if (!Settings.canDrawOverlays(this))
+            startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        else if (!manager.resolutionSupported())
+            OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
         return super.onUnbind(intent);
     }
 
@@ -179,12 +169,8 @@ public class GestureService extends AccessibilityService {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            if (currentInstance.get() != null) {
-                if (Settings.canDrawOverlays(currentInstance.get()))
-                    OverlayToast.show(currentInstance.get(), currentInstance.get().getString(R.string.info_gesture_running, msg.what), OverlayToast.LENGTH_SHORT);
-                else
-                    Toast.makeText(currentInstance.get(), currentInstance.get().getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
-            }
+            if (currentInstance != null && currentInstance.get() != null)
+                OverlayToast.show(currentInstance.get(), currentInstance.get().getString(R.string.info_gesture_running, msg.what), OverlayToast.LENGTH_SHORT);
         }
     }
 }
