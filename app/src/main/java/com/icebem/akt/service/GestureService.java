@@ -51,7 +51,6 @@ public class GestureService extends AccessibilityService {
         ((BaseApplication) getApplication()).setGestureService(this);
         if (manager.launchGame())
             launchGame();
-
         gestureActionReceiver = new GestureActionReceiver(this::dispatchCurrentAction);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
         localBroadcastManager.registerReceiver(gestureActionReceiver, new IntentFilter(GestureActionReceiver.ACTION));
@@ -71,7 +70,7 @@ public class GestureService extends AccessibilityService {
         new Thread(this::performGestures, THREAD_GESTURE).start();
         time = manager.getTimerTime();
         if (time > 0) {
-            Handler handler = new UIHandler(this);
+            Handler handler = new TimerHandler();
             new Thread(() -> {
                 while (!timerTimeout && time > 0) {
                     handler.sendEmptyMessage(time);
@@ -114,15 +113,14 @@ public class GestureService extends AccessibilityService {
             dispatchGesture(builder.build(), null, null);
             SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime()));
         }
-
         new Handler(Looper.getMainLooper()).post(this::showActionFinished);
     }
 
     private void showActionFinished() {
         if (Settings.canDrawOverlays(this))
-            OverlayToast.show(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
+            OverlayToast.show(this, R.string.info_gesture_disconnected, OverlayToast.LENGTH_SHORT);
         else
-            Toast.makeText(this, manager.resolutionSupported() ? R.string.info_gesture_disconnected : R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.info_gesture_disconnected, Toast.LENGTH_SHORT).show();
     }
 
     private void launchGame() {
@@ -156,34 +154,36 @@ public class GestureService extends AccessibilityService {
      */
     public static boolean isGestureRunning() {
         GestureService service = currentInstance.get();
-        if (service != null) {
+        if (service != null)
             return !service.timerTimeout;
-        }
         return false;
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        localBroadcastManager.unregisterReceiver(gestureActionReceiver);
+        if (!manager.resolutionSupported()) {
+            if (Settings.canDrawOverlays(this))
+                OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
+            else
+                Toast.makeText(this, R.string.state_resolution_unsupported, Toast.LENGTH_SHORT).show();
+        } else if (localBroadcastManager != null)
+            localBroadcastManager.unregisterReceiver(gestureActionReceiver);
         return super.onUnbind(intent);
     }
 
-    private static final class UIHandler extends Handler {
-        private final WeakReference<GestureService> ref;
-
-        private UIHandler(GestureService service) {
+    private static final class TimerHandler extends Handler {
+        private TimerHandler() {
             super(Looper.getMainLooper());
-            ref = new WeakReference<>(service);
         }
 
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            if (ref.get() != null) {
-                if (Settings.canDrawOverlays(ref.get()))
-                    OverlayToast.show(ref.get(), ref.get().getString(R.string.info_gesture_running, msg.what), OverlayToast.LENGTH_SHORT);
+            if (currentInstance.get() != null) {
+                if (Settings.canDrawOverlays(currentInstance.get()))
+                    OverlayToast.show(currentInstance.get(), currentInstance.get().getString(R.string.info_gesture_running, msg.what), OverlayToast.LENGTH_SHORT);
                 else
-                    Toast.makeText(ref.get(), ref.get().getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(currentInstance.get(), currentInstance.get().getString(R.string.info_gesture_running, msg.what), Toast.LENGTH_SHORT).show();
             }
         }
     }

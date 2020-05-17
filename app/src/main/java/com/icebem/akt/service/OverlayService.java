@@ -158,14 +158,14 @@ public class OverlayService extends Service {
     }
 
     private void startGestureAction() {
-        // Turn on gesture service when it is not running.
-        if (!((BaseApplication) getApplication()).isGestureServiceRunning()) {
+        if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
+            // Send start action broadcast
+            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
+        } else {
+            // Turn on gesture service when it is not running.
             Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            return;
         }
-        // Send start action broadcast
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
     }
 
     private void updateMenuView() {
@@ -246,8 +246,8 @@ public class OverlayService extends Service {
         super.onDestroy();
         fab.remove();
         current.remove();
-        if (((BaseApplication) getApplication()).isGestureServiceRunning())
-            ((BaseApplication) getApplication()).getGestureService().disableSelf();
+        if (GestureService.isGestureRunning())
+            startGestureAction();
         else
             OverlayToast.show(this, R.string.info_overlay_disconnected, OverlayToast.LENGTH_SHORT);
     }
