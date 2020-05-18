@@ -43,7 +43,7 @@ public class GestureService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         manager = new PreferenceManager(this);
-        if (!Settings.canDrawOverlays(this) || !manager.resolutionSupported()) {
+        if (!Settings.canDrawOverlays(this) || manager.unsupportedResolution()) {
             disableSelf();
             return;
         }
@@ -59,7 +59,7 @@ public class GestureService extends AccessibilityService {
         if (timerTimeout)
             startAction();
         else
-            stopAction();
+            pauseAction();
     }
 
     private void startAction() {
@@ -80,6 +80,12 @@ public class GestureService extends AccessibilityService {
             }, THREAD_TIMER).start();
         } else
             OverlayToast.show(this, R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT);
+    }
+
+    private void pauseAction() {
+        if (manager.keepAccessibility())
+            stopAction();
+        else disableSelf();
     }
 
     private void stopAction() {
@@ -138,9 +144,11 @@ public class GestureService extends AccessibilityService {
 
     @Override
     protected boolean onKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN)
-            stopAction();
-        return super.onKeyEvent(event);
+        if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN && !timerTimeout) {
+            pauseAction();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -159,7 +167,7 @@ public class GestureService extends AccessibilityService {
             localBroadcastManager.unregisterReceiver(gestureActionReceiver);
         else if (!Settings.canDrawOverlays(this))
             startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        else if (!manager.resolutionSupported())
+        else if (manager.unsupportedResolution())
             OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
         return super.onUnbind(intent);
     }

@@ -87,5 +87,8 @@
     <string name="tip_material_mission">%s | %.1f%% | %.1f理性</string>
     <string name="counter_normal">標準ガチャ</string>
     <string name="counter_limited">限定ガチャ</string>
-    <string name="anti_burn_in">减轻烧屏</string>
+    <string name="anti_burn_in_title">减轻烧屏</string>
+    <string name="anti_burn_in_summary">半透明悬浮球</string>
+    <string name="keep_accessibility_title">保留无障碍</string>
+    <string name="keep_accessibility_summary">行动结束后保留无障碍服务</string>
 </resources>

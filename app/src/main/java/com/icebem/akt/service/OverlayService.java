@@ -11,16 +11,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
+import com.icebem.akt.app.GestureActionReceiver;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.app.ResolutionConfig;
-import com.icebem.akt.app.GestureActionReceiver;
 import com.icebem.akt.model.HeadhuntCounter;
 import com.icebem.akt.model.MaterialGuide;
 import com.icebem.akt.model.RecruitViewer;
@@ -51,7 +50,7 @@ public class OverlayService extends Service {
         if (manager.launchGame())
             launchGame();
         showTargetView(fab);
-        if (!((BaseApplication) getApplication()).isGestureServiceRunning())
+        if (!GestureService.isGestureRunning())
             OverlayToast.show(this, R.string.info_overlay_connected, OverlayToast.LENGTH_SHORT);
     }
 
@@ -163,7 +162,7 @@ public class OverlayService extends Service {
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
         } else {
             // Turn on gesture service when it is not running.
-            Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
+            OverlayToast.show(this, R.string.info_gesture_request, OverlayToast.LENGTH_SHORT);
             startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }

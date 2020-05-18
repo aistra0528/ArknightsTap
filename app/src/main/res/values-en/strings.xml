@@ -87,5 +87,8 @@
     <string name="tip_material_mission">%s | %.1f%% | %.1f Sanity</string>
     <string name="counter_normal">Standard headhunt</string>
     <string name="counter_limited">Limited headhunt</string>
-    <string name="anti_burn_in">Screen burn-in reduction</string>
+    <string name="anti_burn_in_title">Screen burn-in reduction</string>
+    <string name="anti_burn_in_summary">Make the sprite translucent</string>
+    <string name="keep_accessibility_title">Keep accessibility</string>
+    <string name="keep_accessibility_summary">Keep accessibility service in the background</string>
 </resources>

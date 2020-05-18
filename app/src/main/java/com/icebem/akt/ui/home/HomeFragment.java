@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void onStateEnd() {
-        if (manager.isPro() && !manager.resolutionSupported()) {
+        if (manager.isPro() && manager.unsupportedResolution()) {
             stateImg.setImageResource(R.drawable.ic_state_running);
             state.setText(R.string.state_resolution_unsupported);
             int[] res = ResolutionConfig.getAbsoluteResolution(manager.getContext());

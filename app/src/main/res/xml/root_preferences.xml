@@ -24,12 +24,8 @@
 
     <SwitchPreferenceCompat
         app:key="anti_burn_in"
-        app:title="@string/anti_burn_in" />
-
-    <SwitchPreferenceCompat
-        app:key="double_speed"
-        app:summary="@string/double_speed_summary"
-        app:title="@string/double_speed_title" />
+        app:summary="@string/anti_burn_in_summary"
+        app:title="@string/anti_burn_in_title" />
 
     <PreferenceCategory app:title="@string/title_recruit">
 
@@ -41,14 +37,30 @@
             app:title="@string/ascending_star_title" />
 
         <SwitchPreferenceCompat
-            app:key="recruit_preview"
-            app:summary="@string/recruit_preview_summary"
-            app:title="@string/recruit_preview_title" />
-
-        <SwitchPreferenceCompat
             app:defaultValue="true"
             app:key="scroll_to_result"
             app:summary="@string/scroll_to_result_summary"
             app:title="@string/scroll_to_result_title" />
+
+        <SwitchPreferenceCompat
+            app:key="recruit_preview"
+            app:summary="@string/recruit_preview_summary"
+            app:title="@string/recruit_preview_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="gesture_category"
+        app:title="@string/gesture_label">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="keep_accessibility"
+            app:summary="@string/keep_accessibility_summary"
+            app:title="@string/keep_accessibility_title" />
+
+        <SwitchPreferenceCompat
+            app:key="double_speed"
+            app:summary="@string/double_speed_summary"
+            app:title="@string/double_speed_title" />
     </PreferenceCategory>
 </PreferenceScreen>

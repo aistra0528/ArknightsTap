@@ -43,6 +43,7 @@ public class PreferenceManager {
     private static final String KEY_HEADHUNT_COUNT_NORMAL = "headhunt_count";
     private static final String KEY_HEADHUNT_COUNT_LIMITED = "headhunt_count_limited";
     private static final String KEY_ANTI_BURN_IN = "anti_burn_in";
+    private static final String KEY_KEEP_ACCESSIBILITY = "keep_accessibility";
     private static final String KEY_DOUBLE_SPEED = "double_speed";
     private static final String KEY_ASCENDING_STAR = "ascending_star";
     private static final String KEY_RECRUIT_PREVIEW = "recruit_preview";
@@ -146,8 +147,8 @@ public class PreferenceManager {
         return preferences.getString(KEY_VERSION_NAME, BuildConfig.VERSION_NAME);
     }
 
-    public boolean resolutionSupported() {
-        return getBlueX() > 0 && getBlueY() > 0 && getRedX() > 0 && getRedY() > 0 && getGreenX() > 0 && getGreenY() > 0;
+    public boolean unsupportedResolution() {
+        return getBlueX() <= 0 || getBlueY() <= 0 || getRedX() <= 0 || getRedY() <= 0 || getGreenX() <= 0 || getGreenY() <= 0;
     }
 
     public String[] getTimerStrings(Context context) {
@@ -243,6 +244,10 @@ public class PreferenceManager {
 
     public boolean antiBurnIn() {
         return preferences.getBoolean(KEY_ANTI_BURN_IN, false);
+    }
+
+    public boolean keepAccessibility() {
+        return preferences.getBoolean(KEY_KEEP_ACCESSIBILITY, true);
     }
 
     private boolean doubleSpeed() {
