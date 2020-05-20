@@ -41,12 +41,12 @@ public class OverlayService extends Service {
         setTheme(R.style.AppTheme_Dark);
         screenSize = ResolutionConfig.getAbsoluteHeight(this);
         manager = PreferenceManager.getInstance(this);
-        initRecruitView();
-        initCounterView();
-        initMaterialView();
-        initMenuView();
+        createRecruitView();
+        createCounterView();
+        createMaterialView();
+        createMenuView();
         current = menu;
-        initFabView();
+        createFabView();
         if (manager.launchGame())
             launchGame();
         showTargetView(fab);
@@ -54,7 +54,7 @@ public class OverlayService extends Service {
             OverlayToast.show(this, R.string.info_overlay_connected, OverlayToast.LENGTH_SHORT);
     }
 
-    private void initRecruitView() {
+    private void createRecruitView() {
         recruit = new OverlayView(this, R.layout.overlay_recruit);
         recruit.setGravity(Gravity.END | Gravity.TOP);
         recruit.resize(screenSize, screenSize);
@@ -99,7 +99,7 @@ public class OverlayService extends Service {
         viewer.resetTags(view);
     }
 
-    private void initCounterView() {
+    private void createCounterView() {
         counter = new OverlayView(this, R.layout.overlay_counter);
         counter.setMobilizable(true);
         new HeadhuntCounter(manager, counter.getView());
@@ -109,7 +109,7 @@ public class OverlayService extends Service {
         collapse.setOnLongClickListener(this::stopSelf);
     }
 
-    private void initMaterialView() {
+    private void createMaterialView() {
         material = new OverlayView(this, R.layout.overlay_material);
         material.setGravity(Gravity.START | Gravity.TOP);
         material.setMobilizable(true);
@@ -126,7 +126,7 @@ public class OverlayService extends Service {
         collapse.setOnLongClickListener(this::stopSelf);
     }
 
-    private void initMenuView() {
+    private void createMenuView() {
         menu = new OverlayView(this, R.layout.overlay_menu);
         View root = menu.getView();
         root.setBackgroundResource(R.drawable.bg_radius);
@@ -181,7 +181,7 @@ public class OverlayService extends Service {
         }
     }
 
-    private void initFabView() {
+    private void createFabView() {
         ImageButton btn = new ImageButton(new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_Light));
         if (manager.antiBurnIn())
             btn.setAlpha(0.5f);

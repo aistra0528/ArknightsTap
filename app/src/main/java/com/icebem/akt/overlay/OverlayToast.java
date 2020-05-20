@@ -16,11 +16,11 @@ public class OverlayToast {
     public static final int LENGTH_LONG = 3000;
 
     private static Runnable runnable;
-    private static WeakReference<OverlayView> ref;
+    private static WeakReference<OverlayView> toast;
 
     public static void show(Context context, CharSequence text, int duration) {
         TextView view;
-        if (ref == null || ref.get() == null) {
+        if (toast == null || toast.get() == null) {
             view = new TextView(new ContextThemeWrapper(context, R.style.Theme_AppCompat_Light));
             int padding = context.getResources().getDimensionPixelOffset(R.dimen.view_padding);
             view.setPadding(padding, padding, padding, padding);
@@ -28,21 +28,21 @@ public class OverlayToast {
             view.setTextAppearance(R.style.TextAppearance_AppCompat);
             view.setOnClickListener(v -> {
                 view.removeCallbacks(runnable);
-                ref.get().remove();
+                toast.get().remove();
             });
-            ref = new WeakReference<>(new OverlayView(context, view));
-            ref.get().setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) >> 2);
+            toast = new WeakReference<>(new OverlayView(context, view));
+            toast.get().setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) >> 2);
         } else {
-            view = (TextView) ref.get().getView();
+            view = (TextView) toast.get().getView();
         }
         if (runnable == null) {
-            runnable = ref.get()::remove;
+            runnable = toast.get()::remove;
         } else {
             view.removeCallbacks(runnable);
-            ref.get().remove();
+            toast.get().remove();
         }
         view.setText(text);
-        ref.get().show();
+        toast.get().show();
         if (duration > LENGTH_INDEFINITE)
             view.postDelayed(runnable, duration);
     }

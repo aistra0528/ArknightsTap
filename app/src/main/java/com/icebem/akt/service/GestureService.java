@@ -76,21 +76,14 @@ public class GestureService extends AccessibilityService {
             gestureThread.start();
         time = manager.getTimerTime();
         if (time > 0) {
-            if (timer != null) {
-                timer.cancel();
-            }
             timer = new Timer(THREAD_TIMER);
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    if (time == 0) {
+                    if (time > 0)
+                        handler.post(GestureService.this::showTimeLeft);
+                    else
                         pauseAction();
-                    } else {
-                        handler.post(() -> {
-                            GestureService.this.showTimeLeft();
-                            time--;
-                        });
-                    }
                 }
             }, 0, MINUTE_TIME);
         } else
@@ -105,9 +98,8 @@ public class GestureService extends AccessibilityService {
 
     private void stopAction() {
         running = false;
-        if (timer != null) {
+        if (timer != null)
             timer.cancel();
-        }
     }
 
     private void performGestures() {
@@ -142,7 +134,7 @@ public class GestureService extends AccessibilityService {
     }
 
     private void showTimeLeft() {
-        OverlayToast.show(this, getString(R.string.info_gesture_running, time), OverlayToast.LENGTH_SHORT);
+        OverlayToast.show(this, getString(R.string.info_gesture_running, time--), OverlayToast.LENGTH_SHORT);
     }
 
     private void launchGame() {
