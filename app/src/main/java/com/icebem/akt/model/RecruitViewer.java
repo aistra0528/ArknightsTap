@@ -15,13 +15,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.R;
+import com.icebem.akt.activity.MainActivity;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.util.DataUtil;
@@ -57,7 +57,7 @@ public class RecruitViewer {
 
     public RecruitViewer(Context context, View root) throws IOException, JSONException {
         this.context = context;
-        manager = new PreferenceManager(context);
+        manager = PreferenceManager.getInstance(context);
         scroll = root.findViewById(R.id.scroll_recruit_root);
         tip = scroll.findViewById(R.id.txt_recruit_tips);
         resultContainer = scroll.findViewById(R.id.container_recruit_result);
@@ -168,7 +168,7 @@ public class RecruitViewer {
             onCheckedChange((RadioGroup) timeTag.getParent(), CHECKED_TIME_ID);
         else
             timeTag.setChecked(true);
-        scroll.post(() -> scroll.smoothScrollTo(0, context instanceof AppCompatActivity ? 0 : ((ViewGroup) top.getParent()).getTop()));
+        scroll.post(() -> scroll.smoothScrollTo(0, context instanceof MainActivity ? 0 : ((ViewGroup) top.getParent()).getTop()));
         if (view != null)
             view.setClickable(true);
     }
@@ -326,7 +326,7 @@ public class RecruitViewer {
             builder.append(info.getName(index));
             builder.append(space);
             builder.append(info.getName(index == DataUtil.INDEX_CN ? DataUtil.INDEX_EN : DataUtil.INDEX_CN));
-            builder.append(context instanceof AppCompatActivity ? space : System.lineSeparator());
+            builder.append(context instanceof MainActivity ? space : System.lineSeparator());
             switch (info.getStar()) {
                 case 1:
                     builder.append(RecruitTag.QUALIFICATION_1[index]);
@@ -346,7 +346,7 @@ public class RecruitViewer {
                 builder.append(space);
                 builder.append(RecruitTag.getTagName(tag, index));
             }
-            if (context instanceof AppCompatActivity)
+            if (context instanceof MainActivity)
                 Snackbar.make(container, builder.toString(), Snackbar.LENGTH_LONG).show();
             else
                 OverlayToast.show(context, builder.toString(), OverlayToast.LENGTH_LONG);

@@ -54,8 +54,9 @@ public class PreferenceManager {
     private static final int CHECK_TIME = 28800000;
     private Context context;
     private SharedPreferences preferences;
+    private static PreferenceManager instance;
 
-    public PreferenceManager(Context context) {
+    private PreferenceManager(Context context) {
         this.context = context;
         preferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
         if (getVersionCode() < BuildConfig.VERSION_CODE || !getVersionName().equals(BuildConfig.VERSION_NAME)) {
@@ -67,6 +68,12 @@ public class PreferenceManager {
                 Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
             }
         }
+    }
+
+    public static PreferenceManager getInstance(Context context) {
+        if (instance == null)
+            instance = new PreferenceManager(context.getApplicationContext());
+        return instance;
     }
 
     public int getBlueX() {
@@ -266,7 +273,7 @@ public class PreferenceManager {
         return preferences.getBoolean(KEY_SCROLL_TO_RESULT, true);
     }
 
-    public Context getContext() {
+    public Context getApplicationContext() {
         return context;
     }
 }

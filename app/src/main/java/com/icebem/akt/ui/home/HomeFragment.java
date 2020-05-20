@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         state = root.findViewById(R.id.txt_state);
         if (BuildConfig.DEBUG)
             root.findViewById(R.id.txt_beta).setVisibility(View.VISIBLE);
-        manager = new PreferenceManager(getActivity());
+        manager = PreferenceManager.getInstance(getContext());
         return root;
     }
 
@@ -60,11 +60,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void onStateEnd() {
+        if (getActivity() == null) return;
         if (manager.isPro() && manager.unsupportedResolution()) {
             stateImg.setImageResource(R.drawable.ic_state_running);
             state.setText(R.string.state_resolution_unsupported);
-            int[] res = ResolutionConfig.getAbsoluteResolution(manager.getContext());
-            AlertDialog.Builder builder = new AlertDialog.Builder(manager.getContext());
+            int[] res = ResolutionConfig.getAbsoluteResolution(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.state_resolution_unsupported);
             builder.setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]));
             builder.setPositiveButton(R.string.got_it, null);
@@ -99,9 +100,10 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (getActivity() == null) return false;
         switch (item.getItemId()) {
             case R.id.action_timer:
-                AlertDialog.Builder builder = new AlertDialog.Builder(manager.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.action_timer);
                 builder.setSingleChoiceItems(manager.getTimerStrings(getActivity()), manager.getTimerPosition(), (dialog, which) -> {
                     dialog.cancel();

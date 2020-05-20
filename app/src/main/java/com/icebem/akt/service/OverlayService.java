@@ -40,8 +40,8 @@ public class OverlayService extends Service {
         super.onCreate();
         setTheme(R.style.AppTheme_Dark);
         screenSize = ResolutionConfig.getAbsoluteHeight(this);
+        manager = PreferenceManager.getInstance(this);
         initRecruitView();
-        manager = viewer == null ? new PreferenceManager(this) : viewer.getManager();
         initCounterView();
         initMaterialView();
         initMenuView();
@@ -66,14 +66,14 @@ public class OverlayService extends Service {
         if (viewer == null) return;
         recruit.getView().findViewById(R.id.txt_title).setOnTouchListener(this::updateRecruitView);
         recruit.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        if (viewer.getManager().multiPackage()) {
+        if (manager.multiPackage()) {
             ImageButton server = recruit.getView().findViewById(R.id.action_server);
             server.setVisibility(View.VISIBLE);
             server.setOnClickListener(view -> {
-                ArrayList<String> packages = viewer.getManager().getAvailablePackages();
-                int index = viewer.getManager().getGamePackagePosition();
+                ArrayList<String> packages = manager.getAvailablePackages();
+                int index = manager.getGamePackagePosition();
                 if (++index == packages.size()) index = 0;
-                viewer.getManager().setGamePackage(packages.get(index));
+                manager.setGamePackage(packages.get(index));
                 resetRecruitView(view);
             });
         }

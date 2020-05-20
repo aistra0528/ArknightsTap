@@ -29,8 +29,8 @@ public class DataUtil {
     private static final String URL_WEB_DATA = "https://raw.githubusercontent.com/IcebemAst/ArknightsTap/master/app/src/main/assets/data/";
 
     public static boolean updateData(PreferenceManager manager, boolean fromWeb) throws IOException, JSONException {
-        JSONArray targetEntry = fromStream(fromWeb ? IOUtil.fromWeb(URL_WEB_DATA + DATA_ENTRY) : IOUtil.fromAssets(manager.getContext(), TYPE_DATA + File.separatorChar + DATA_ENTRY));
-        JSONArray entry = getOfflineData(manager.getContext(), DATA_ENTRY);
+        JSONArray targetEntry = fromStream(fromWeb ? IOUtil.fromWeb(URL_WEB_DATA + DATA_ENTRY) : IOUtil.fromAssets(manager.getApplicationContext(), TYPE_DATA + File.separatorChar + DATA_ENTRY));
+        JSONArray entry = getOfflineData(manager.getApplicationContext(), DATA_ENTRY);
         boolean updated = false;
         for (int i = 0; i < targetEntry.length(); i++) {
             JSONObject data = targetEntry.getJSONObject(i);
@@ -43,12 +43,12 @@ public class DataUtil {
                 if (data.getString(KEY_NAME).equals(DATA_RESOLUTION))
                     manager.setResolutionConfig(fromWeb);
                 else
-                    setOfflineData(manager.getContext(), data.getString(KEY_NAME), fromWeb);
+                    setOfflineData(manager.getApplicationContext(), data.getString(KEY_NAME), fromWeb);
                 updated = true;
             }
         }
         if (updated)
-            setOfflineData(manager.getContext(), DATA_ENTRY, fromWeb);
+            setOfflineData(manager.getApplicationContext(), DATA_ENTRY, fromWeb);
         return updated;
     }
 

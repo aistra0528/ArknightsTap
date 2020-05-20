@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
-        manager = new PreferenceManager(this);
+        manager = PreferenceManager.getInstance(this);
         fab = findViewById(R.id.fab);
         barConfig = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_tools, R.id.nav_settings).setDrawerLayout(findViewById(R.id.drawer_layout)).build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);

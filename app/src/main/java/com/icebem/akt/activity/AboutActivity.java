@@ -53,7 +53,7 @@ public class AboutActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.txt_version_state_desc)).setText(BuildConfig.VERSION_NAME);
         typeDesc = findViewById(R.id.txt_version_type_desc);
         thanksDesc = findViewById(R.id.special_thanks_desc);
-        manager = new PreferenceManager(this);
+        manager = PreferenceManager.getInstance(this);
         typeDesc.setText(manager.isPro() ? R.string.version_type_pro : R.string.version_type_lite);
     }
 

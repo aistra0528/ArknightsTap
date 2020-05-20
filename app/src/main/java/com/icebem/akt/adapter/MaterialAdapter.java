@@ -35,7 +35,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.ViewHo
     public MaterialAdapter(PreferenceManager manager, int spanCount) throws IOException, JSONException {
         this.manager = manager;
         this.spanCount = spanCount;
-        infoList = MaterialInfo.load(manager.getContext());
+        infoList = MaterialInfo.load(manager.getApplicationContext());
     }
 
     @NonNull

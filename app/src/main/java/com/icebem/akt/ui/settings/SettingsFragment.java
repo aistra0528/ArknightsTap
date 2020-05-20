@@ -2,13 +2,18 @@ package com.icebem.akt.ui.settings;
 
 import android.os.Bundle;
 
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.icebem.akt.R;
+import com.icebem.akt.app.PreferenceManager;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        Preference preference = findPreference("gesture_category");
+        if (preference != null && !PreferenceManager.getInstance(getContext()).isPro())
+            preference.setVisible(false);
     }
 }

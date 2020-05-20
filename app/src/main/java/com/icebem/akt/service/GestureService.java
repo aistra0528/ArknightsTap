@@ -33,7 +33,7 @@ public class GestureService extends AccessibilityService {
     private static final String THREAD_GESTURE = "gesture";
     private static final String THREAD_TIMER = "timer";
     private int time;
-    private boolean timerTimeout = true;
+    private boolean running;
     private PreferenceManager manager;
     private GestureActionReceiver gestureActionReceiver;
     private LocalBroadcastManager localBroadcastManager;
@@ -42,7 +42,7 @@ public class GestureService extends AccessibilityService {
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
-        manager = new PreferenceManager(this);
+        manager = PreferenceManager.getInstance(this);
         if (!Settings.canDrawOverlays(this) || manager.unsupportedResolution()) {
             disableSelf();
             return;
@@ -56,14 +56,14 @@ public class GestureService extends AccessibilityService {
 
     private void dispatchCurrentAction() {
         currentInstance = new WeakReference<>(this);
-        if (timerTimeout)
-            startAction();
-        else
+        if (running)
             pauseAction();
+        else
+            startAction();
     }
 
     private void startAction() {
-        timerTimeout = false;
+        running = true;
         if (manager.launchGame())
             launchGame();
         new Thread(this::performGestures, THREAD_GESTURE).start();
@@ -71,12 +71,12 @@ public class GestureService extends AccessibilityService {
         if (time > 0) {
             Handler handler = new TimerHandler();
             new Thread(() -> {
-                while (!timerTimeout && time > 0) {
+                while (running && time > 0) {
                     handler.sendEmptyMessage(time);
                     SystemClock.sleep(LONG_MIN);
                     time--;
                 }
-                timerTimeout = true;
+                stopAction();
             }, THREAD_TIMER).start();
         } else
             OverlayToast.show(this, R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT);
@@ -89,16 +89,16 @@ public class GestureService extends AccessibilityService {
     }
 
     private void stopAction() {
-        timerTimeout = true;
+        running = false;
     }
 
     private void performGestures() {
         SystemClock.sleep(manager.getUpdateTime());
-        if (!timerTimeout) {
+        if (running) {
             startService(new Intent(this, OverlayService.class));
             int process = 0;
             Path path = new Path();
-            while (!timerTimeout) {
+            while (running) {
                 switch (process) {
                     case 0:
                         path.moveTo(RandomUtil.randomP(manager.getBlueX()), RandomUtil.randomP(manager.getBlueY()));
@@ -144,7 +144,7 @@ public class GestureService extends AccessibilityService {
 
     @Override
     protected boolean onKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN && !timerTimeout) {
+        if (running && event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
             pauseAction();
             return true;
         }
@@ -156,7 +156,7 @@ public class GestureService extends AccessibilityService {
      */
     public static boolean isGestureRunning() {
         if (currentInstance != null && currentInstance.get() != null)
-            return !currentInstance.get().timerTimeout;
+            return currentInstance.get().running;
         return false;
     }
 
