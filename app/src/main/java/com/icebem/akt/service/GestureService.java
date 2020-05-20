@@ -84,7 +84,7 @@ public class GestureService extends AccessibilityService {
                 @Override
                 public void run() {
                     if (time == 0) {
-                        stopAction();
+                        pauseAction();
                     } else {
                         handler.post(() -> {
                             GestureService.this.showTimeLeft();
