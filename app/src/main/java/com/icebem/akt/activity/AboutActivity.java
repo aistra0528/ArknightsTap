@@ -50,6 +50,7 @@ public class AboutActivity extends AppCompatActivity {
         versionContainer.setOnLongClickListener(this::onLongClick);
         findViewById(R.id.container_version_type).setOnClickListener(this::onClick);
         findViewById(R.id.container_special_thanks).setOnClickListener(this::onClick);
+        findViewById(R.id.green_android).setOnClickListener(this::onClick);
         ((TextView) findViewById(R.id.txt_version_state_desc)).setText(BuildConfig.VERSION_NAME);
         typeDesc = findViewById(R.id.txt_version_type_desc);
         thanksDesc = findViewById(R.id.special_thanks_desc);
@@ -122,6 +123,9 @@ public class AboutActivity extends AppCompatActivity {
                         }
                     }, AppUtil.THREAD_UPDATE).start();
                 } else i++;
+                break;
+            case R.id.green_android:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_GREEN_ANDROID)));
                 break;
         }
     }
