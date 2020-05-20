@@ -24,6 +24,8 @@ import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.util.RandomUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GestureService extends AccessibilityService {
     private static final int GESTURE_DURATION = 120;
@@ -33,7 +35,8 @@ public class GestureService extends AccessibilityService {
     private int time;
     private boolean running;
     private Handler handler;
-    private Thread gestureThread, timerThread;
+    private Thread gestureThread;
+    private Timer timer;
     private PreferenceManager manager;
     private GestureActionReceiver gestureActionReceiver;
     private LocalBroadcastManager localBroadcastManager;
@@ -73,20 +76,23 @@ public class GestureService extends AccessibilityService {
             gestureThread.start();
         time = manager.getTimerTime();
         if (time > 0) {
-            if (timerThread == null || !timerThread.isAlive()) {
-                timerThread = new Thread(() -> {
-                    while (running && time > 0) {
-                        handler.post(this::showTimeLeft);
-                        SystemClock.sleep(MINUTE_TIME);
-                        time--;
-                    }
-                    stopAction();
-                }, THREAD_TIMER);
+            if (timer != null) {
+                timer.cancel();
             }
-            if (timerThread.isAlive())
-                showTimeLeft();
-            else
-                timerThread.start();
+            timer = new Timer(THREAD_TIMER);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (time == 0) {
+                        stopAction();
+                    } else {
+                        handler.post(() -> {
+                            GestureService.this.showTimeLeft();
+                            time--;
+                        });
+                    }
+                }
+            }, 0, MINUTE_TIME);
         } else
             OverlayToast.show(this, R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT);
     }
@@ -99,6 +105,9 @@ public class GestureService extends AccessibilityService {
 
     private void stopAction() {
         running = false;
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 
     private void performGestures() {
