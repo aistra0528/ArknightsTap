@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.R;
@@ -45,7 +46,7 @@ public class OverlayService extends Service {
         createRecruitView();
         createCounterView();
         createMaterialView();
-        setTheme(R.style.ThemeOverlay_AppCompat_DayNight);
+        setTheme(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? R.style.ThemeOverlay_AppCompat_Dark : R.style.ThemeOverlay_AppCompat_DayNight);
         createMenuView();
         current = menu;
         createFabView();
