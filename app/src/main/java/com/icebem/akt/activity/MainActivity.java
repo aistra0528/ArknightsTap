@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +18,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.icebem.akt.R;
-import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.service.OverlayService;
 import com.icebem.akt.util.AppUtil;
@@ -65,12 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean showAccessibilitySettings(View view) {
-        if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
-            ((BaseApplication) getApplication()).getGestureService().disableSelf();
-        } else {
-            Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-        }
+        startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
         return true;
     }
 

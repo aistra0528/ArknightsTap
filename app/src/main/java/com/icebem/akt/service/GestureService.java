@@ -17,7 +17,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
-import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.app.GestureActionReceiver;
 import com.icebem.akt.overlay.OverlayToast;
@@ -50,7 +49,6 @@ public class GestureService extends AccessibilityService {
             disableSelf();
             return;
         }
-        ((BaseApplication) getApplication()).setGestureService(this);
         handler = new Handler(Looper.getMainLooper());
         gestureActionReceiver = new GestureActionReceiver(this::dispatchCurrentAction);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);

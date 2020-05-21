@@ -3,23 +3,19 @@ package com.icebem.akt.app;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.os.Build;
+import android.provider.Settings;
 
 import com.icebem.akt.service.GestureService;
 import com.icebem.akt.service.OverlayService;
 
 public class BaseApplication extends Application {
-    private GestureService service;
-
-    public void setGestureService(GestureService service) {
-        this.service = service;
-    }
-
-    public GestureService getGestureService() {
-        return service;
-    }
-
     public boolean isGestureServiceRunning() {
         return isServiceRunning(GestureService.class.getName());
+    }
+
+    public boolean isGestureServiceEnabled() {
+        String pref = Settings.Secure.getString(getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+        return pref != null && pref.contains(getPackageName() + "/" + GestureService.class.getName());
     }
 
     public boolean isOverlayServiceRunning() {

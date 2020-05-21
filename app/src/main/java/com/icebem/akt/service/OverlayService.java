@@ -3,6 +3,7 @@ package com.icebem.akt.service;
 import android.app.Service;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.icebem.akt.model.MaterialGuide;
 import com.icebem.akt.model.RecruitViewer;
 import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.overlay.OverlayView;
+import com.icebem.akt.util.AppUtil;
 
 import java.util.ArrayList;
 
@@ -160,6 +162,10 @@ public class OverlayService extends Service {
         if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
             // Send start action broadcast
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
+        } else if (((BaseApplication) getApplication()).isGestureServiceEnabled()) {
+            // Force stop app
+            OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
+            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse(AppUtil.URL_PACKAGE)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } else {
             // Turn on gesture service when it is not running.
             OverlayToast.show(this, R.string.info_gesture_request, OverlayToast.LENGTH_SHORT);
