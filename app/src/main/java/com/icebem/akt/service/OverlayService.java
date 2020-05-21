@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.R;
@@ -44,6 +43,7 @@ public class OverlayService extends Service {
         createRecruitView();
         createCounterView();
         createMaterialView();
+        setTheme(R.style.ThemeOverlay_AppCompat_DayNight);
         createMenuView();
         current = menu;
         createFabView();
@@ -182,7 +182,7 @@ public class OverlayService extends Service {
     }
 
     private void createFabView() {
-        ImageButton btn = new ImageButton(new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_Light));
+        ImageButton btn = new ImageButton(this);
         if (manager.antiBurnIn())
             btn.setAlpha(0.5f);
         btn.setImageResource(R.drawable.ic_akt);
