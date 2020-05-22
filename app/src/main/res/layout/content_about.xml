@@ -184,5 +184,20 @@
                     android:text="@string/special_thanks_desc" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_margin">
+
+            <TextView
+                android:id="@+id/green_android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/view_padding"
+                android:text="@string/green_android"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

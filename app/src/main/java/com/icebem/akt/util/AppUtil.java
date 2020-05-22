@@ -25,6 +25,7 @@ public class AppUtil {
     public static final String URL_PACKAGE = "package:" + BuildConfig.APPLICATION_ID;
     public static final String URL_PROJECT = "https://github.com/IcebemAst/ArknightsTap";
     public static final String URL_COOLAPK = "https://www.coolapk.com/apk/" + BuildConfig.APPLICATION_ID;
+    public static final String URL_GREEN_ANDROID = "https://green-android.org/";
     public static final String URL_RELEASE_LATEST = "https://github.com/IcebemAst/ArknightsTap/releases/latest";
     public static final String URL_RELEASE_LATEST_API = "https://api.github.com/repos/IcebemAst/ArknightsTap/releases/latest";
     private static final String URL_RELEASE_DATA = "https://raw.githubusercontent.com/IcebemAst/ArknightsTap/master/app/release/output.json";
