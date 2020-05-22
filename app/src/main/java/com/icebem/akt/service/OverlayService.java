@@ -46,7 +46,8 @@ public class OverlayService extends Service {
         createRecruitView();
         createCounterView();
         createMaterialView();
-        setTheme(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? R.style.ThemeOverlay_AppCompat_Dark : R.style.ThemeOverlay_AppCompat_DayNight);
+        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES)
+            setTheme(R.style.ThemeOverlay_AppCompat_DayNight);
         createMenuView();
         current = menu;
         createFabView();

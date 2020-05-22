@@ -72,7 +72,7 @@
     <string name="scroll_to_result_title">オートスライディング</string>
     <string name="scroll_to_result_summary">5つのタグを選び終えたら下方にスライドする</string>
     <string name="special_thanks_extra">もちろん、あなたにも。\nArkTapを使って頂きありがとうございます(≧▽≦)\n© 2020 Icebem</string>
-    <string name="special_thanks_desc">Twitter@op_satoshi - 日本語訳</string>
+    <string name="special_thanks_desc">Twitter@op_satoshi - 日本語訳\n@twiceYuan</string>
     <string name="special_thanks_title">特別感謝</string>
     <string name="action_counter">ガチャカウンタ</string>
     <string name="tip_counter_default">ガチャ回数：%d回\n次回★6入手確率：%d%%\n＋を長押し→十連ガチャ\n−を長押し→リセット</string>
@@ -87,9 +87,9 @@
     <string name="tip_material_mission">%s | %.1f%% | %.1f理性</string>
     <string name="counter_normal">標準ガチャ</string>
     <string name="counter_limited">限定ガチャ</string>
-    <string name="anti_burn_in_title">减轻烧屏</string>
-    <string name="anti_burn_in_summary">半透明悬浮球</string>
-    <string name="keep_accessibility_title">保留无障碍</string>
-    <string name="keep_accessibility_summary">行动结束后保留无障碍服务</string>
+    <string name="anti_burn_in_title">Screen burn-in reduction</string>
+    <string name="anti_burn_in_summary">Make the sprite translucent</string>
+    <string name="keep_accessibility_title">Keep accessibility</string>
+    <string name="keep_accessibility_summary">Keep accessibility service in the background</string>
     <string name="green_android">Comply to “Convention of Green Apps for Android”</string>
 </resources>
