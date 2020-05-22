@@ -98,4 +98,6 @@
     <string name="keep_accessibility_title">保留无障碍</string>
     <string name="keep_accessibility_summary">行动结束后保留无障碍服务</string>
     <string name="green_android">遵循《Android 绿色应用公约》</string>
+    <string name="enable_root_compatible_mode">启用 Root 兼容模式（重启生效）</string>
+    <string name="enable_root_compatible_mode_title">启用 Root</string>
 </resources>
