@@ -1,6 +1,7 @@
 package com.icebem.akt.activity;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -17,13 +18,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.icebem.akt.R;
-import com.icebem.akt.app.CompatOperations;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.service.OverlayService;
 import com.icebem.akt.util.AppUtil;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private TextView subtitle;
@@ -50,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(v -> showOverlay());
         if (manager.isPro())
             fab.setOnLongClickListener(this::showAccessibilitySettings);
-        if (manager.rootCompatible())
-            CompatOperations.checkRootPermission();
     }
 
     public void showOverlay() {
-        if (CompatOperations.canDrawOverlays(this)) {
+        if (Settings.canDrawOverlays(this)) {
             startService(new Intent(this, OverlayService.class));
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -73,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateSubtitleTime() {
-        subtitle.setText(new SimpleDateFormat(AppUtil.DATE_FORMAT, Locale.getDefault()).format(manager.getCheckLastTime()));
+        subtitle.setText(new SimpleDateFormat(AppUtil.DATE_FORMAT).format(manager.getCheckLastTime()));
     }
 
     private void onDestinationChanged(NavDestination destination) {
