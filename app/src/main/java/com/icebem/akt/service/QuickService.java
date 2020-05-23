@@ -2,17 +2,13 @@ package com.icebem.akt.service;
 
 import android.content.Intent;
 import android.graphics.drawable.Icon;
-import android.os.Build;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
-import androidx.annotation.RequiresApi;
-
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
 public class QuickService extends TileService {
     @Override
     public void onStartListening() {

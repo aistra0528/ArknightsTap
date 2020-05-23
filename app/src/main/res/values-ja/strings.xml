@@ -92,6 +92,4 @@
     <string name="keep_accessibility_title">Keep accessibility</string>
     <string name="keep_accessibility_summary">Keep accessibility service in the background</string>
     <string name="green_android">Comply to “Convention of Green Apps for Android”</string>
-    <string name="enable_root_compatible_mode_title" translatable="false">启用 Root</string>
-    <string name="enable_root_compatible_mode">启用 Root 兼容模式（重启生效）</string>
 </resources>
