@@ -1,7 +1,6 @@
 package com.icebem.akt.ui.home;
 
 import android.content.Intent;
-import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -20,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.BuildConfig;
@@ -27,10 +28,10 @@ import com.icebem.akt.R;
 import com.icebem.akt.activity.AboutActivity;
 import com.icebem.akt.activity.MainActivity;
 import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.app.ResolutionConfig;
 import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.DataUtil;
 import com.icebem.akt.util.IOUtil;
-import com.icebem.akt.app.ResolutionConfig;
 
 import org.json.JSONObject;
 
@@ -72,8 +73,8 @@ public class HomeFragment extends Fragment {
             builder.setNeutralButton(R.string.action_update, (dialog, which) -> startUpdateThread());
             builder.create().show();
         } else {
-            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) stateImg.getDrawable();
-            avd.registerAnimationCallback(new Animatable2.AnimationCallback() {
+            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) stateImg.getDrawable();
+            AnimatedVectorDrawableCompat.registerAnimationCallback(avd, new Animatable2Compat.AnimationCallback() {
                 @Override
                 public void onAnimationEnd(Drawable drawable) {
                     stateImg.setImageResource(R.drawable.ic_state_ready_anim);

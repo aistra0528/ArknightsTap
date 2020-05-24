@@ -4,8 +4,10 @@ import android.content.Context;
 import android.widget.TextView;
 
 import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.core.content.ContextCompat;
 
 import com.icebem.akt.R;
+import com.icebem.akt.app.CompatOperations;
 import com.icebem.akt.app.ResolutionConfig;
 
 import java.lang.ref.WeakReference;
@@ -25,7 +27,8 @@ public class OverlayToast {
             int padding = context.getResources().getDimensionPixelOffset(R.dimen.view_padding);
             view.setPadding(padding, padding, padding, padding);
             view.setBackgroundResource(R.drawable.bg_toast);
-            view.setTextAppearance(R.style.TextAppearance_AppCompat);
+            CompatOperations.setTextAppearance(context, view, R.style.TextAppearance_AppCompat);
+            view.setTextColor(ContextCompat.getColor(context, android.R.color.black));
             view.setOnClickListener(v -> {
                 view.removeCallbacks(runnable);
                 toast.get().remove();

@@ -14,10 +14,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
+import com.icebem.akt.app.CompatOperations;
 import com.icebem.akt.app.GestureActionReceiver;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.app.ResolutionConfig;
@@ -179,11 +181,18 @@ public class OverlayService extends Service {
         if (manager.isPro()) {
             TextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
             if (GestureService.isGestureRunning()) {
-                desc.setTextAppearance(R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored);
-                desc.setTextColor(getColor(R.color.colorError));
+                CompatOperations.setTextAppearance(
+                        desc.getContext(),
+                        desc,
+                        R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored);
+                desc.setTextColor(ContextCompat.getColor(desc.getContext(), R.color.colorError));
                 desc.setText(R.string.action_disconnect);
             } else {
-                desc.setTextAppearance(R.style.TextAppearance_AppCompat_Small);
+                CompatOperations.setTextAppearance(
+                        desc.getContext(),
+                        desc,
+                        R.style.TextAppearance_AppCompat_Small
+                );
                 desc.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime()));
             }
         }
