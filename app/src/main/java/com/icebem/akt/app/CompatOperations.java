@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Path;
 import android.os.Build;
 import android.provider.Settings;
+import android.widget.TextView;
 
 import com.icebem.akt.util.RandomUtil;
 
@@ -75,5 +76,13 @@ public class CompatOperations {
 
     public static void checkRootPermission() {
         executeCommand("su");
+    }
+
+    public static void setTextAppearance(Context context, TextView view, int style) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            view.setTextAppearance(style);
+        } else {
+            view.setTextAppearance(context, style);
+        }
     }
 }

@@ -26,7 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GestureService extends AccessibilityService {
-    private static final int GESTURE_DURATION = 120;
+
     private static final long MINUTE_TIME = 60000;
     private static final String THREAD_GESTURE = "gesture";
     private static final String THREAD_TIMER = "timer";
