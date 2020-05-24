@@ -16,6 +16,6 @@ Count the rolls of headhunt and show the possibility of 6★.
 Recommend missions of elite materials.
 
 ### ARGS™
-**Tap Version type 16 times in About to unlock this service**
+**Tap Version type 15 times in About to unlock this service**
 
 Tap the mission start button automatically. In that way you can put down your phone and do something more meaningful.
