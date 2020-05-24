@@ -92,5 +92,5 @@
     <string name="keep_accessibility_summary">Keep accessibility service in the background</string>
     <string name="green_android">Comply to “Convention of Green Apps for Android”</string>
     <string name="root_mode_title">Root mode</string>
-    <string name="root_mode_summary">Use Shell command</string>
+    <string name="root_mode_summary">Compatible with devices older than Android 7.0</string>
 </resources>

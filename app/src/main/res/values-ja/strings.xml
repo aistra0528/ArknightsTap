@@ -92,5 +92,5 @@
     <string name="keep_accessibility_summary">行动结束后保留无障碍服务</string>
     <string name="green_android">遵循《Android 绿色应用公约》</string>
     <string name="root_mode_title">Root 兼容模式</string>
-    <string name="root_mode_summary">使用 Shell 命令代理行动</string>
+    <string name="root_mode_summary">兼容低于 Android 7.0 的设备</string>
 </resources>

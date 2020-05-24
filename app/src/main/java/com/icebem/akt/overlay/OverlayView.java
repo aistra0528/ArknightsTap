@@ -20,10 +20,10 @@ public class OverlayView {
     private static final int GRAVITY_LEFT = 3;
     private static final int GRAVITY_RIGHT = 5;
 
-    public OverlayView(Context context, View view) {
+    public OverlayView(View view) {
         this.view = view;
-        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-        manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        touchSlop = ViewConfiguration.get(view.getContext()).getScaledTouchSlop();
+        manager = (WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
         params.width = params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
@@ -33,7 +33,7 @@ public class OverlayView {
     }
 
     public OverlayView(Context context, int resId) {
-        this(context, LayoutInflater.from(context).inflate(resId, new FrameLayout(context)));
+        this(LayoutInflater.from(context).inflate(resId, new FrameLayout(context)));
     }
 
     public View getView() {

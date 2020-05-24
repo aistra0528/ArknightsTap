@@ -16,37 +16,34 @@ public class CompatOperations {
     private static final int GESTURE_DURATION = 120;
 
     /**
-     * 根据描述，在不支持该权限的版本上直接返回 true
+     * Overlay permission is only required for Marshmallow (API 23) and above.
+     * In previous APIs this permission is provided by default.
      */
-    public static boolean canDrawOverlays(Context context) {
-        // Overlay permission is only required for Marshmallow (API 23) and above.
-        // In previous APIs this permission is provided by default.
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context);
+    public static boolean requireOverlayPermission(Context context) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context);
     }
 
     /**
-     * 禁止一个服务
+     * 停用无障碍服务
      *
-     * @param service        要禁止的服务
+     * @param service        要停用的服务
      * @param fallbackAction API 不支持时的回退方案
      */
     public static void disableSelf(AccessibilityService service, Runnable fallbackAction) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             service.disableSelf();
-        } else {
-            fallbackAction.run();
-        }
+        else fallbackAction.run();
     }
 
     /**
      * 执行点击操作
      */
     public static void performClick(AccessibilityService service, int x, int y) {
+        x = RandomUtil.randomP(x);
+        y = RandomUtil.randomP(y);
         if (PreferenceManager.getInstance(service).rootMode()) {
             executeCommand(String.format("input tap %s %s", x, y));
-            return;
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Path path = new Path();
             path.moveTo(x, y);
             GestureDescription.Builder builder = new GestureDescription.Builder();
@@ -60,16 +57,14 @@ public class CompatOperations {
      *
      * @param command command 内容
      */
-    private static boolean executeCommand(String command) {
+    private static void executeCommand(String command) {
         try {
             Runtime.getRuntime().exec(new String[]{"su", "-c", command});
-            return true;
-        } catch (Exception e) {
-            return false;
+        } catch (Exception ignored) {
         }
     }
 
-    public static boolean checkRootPermission() {
-        return executeCommand("su");
+    public static void checkRootPermission() {
+        executeCommand("su");
     }
 }

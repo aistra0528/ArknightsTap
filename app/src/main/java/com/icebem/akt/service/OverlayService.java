@@ -161,21 +161,6 @@ public class OverlayService extends Service {
         root.findViewById(R.id.action_disconnect).setOnClickListener(this::stopSelf);
     }
 
-    private void startGestureAction() {
-        if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
-            // Send start action broadcast
-            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
-        } else if (((BaseApplication) getApplication()).isGestureServiceEnabled()) {
-            // Force stop app
-            OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
-            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse(AppUtil.URL_PACKAGE)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } else {
-            // Turn on gesture service when it is not running.
-            OverlayToast.show(this, R.string.info_gesture_request, OverlayToast.LENGTH_SHORT);
-            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
-    }
-
     private void updateMenuView() {
         if (manager.isPro()) {
             AppCompatTextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
@@ -203,7 +188,7 @@ public class OverlayService extends Service {
         btn.setMinimumHeight(size);
         btn.setOnClickListener(v -> showTargetView(current));
         btn.setOnLongClickListener(this::stopSelf);
-        fab = new OverlayView(this, btn);
+        fab = new OverlayView(btn);
         fab.setGravity(Gravity.END | Gravity.TOP);
         fab.setRelativePosition(screenSize - size >> 1, 0);
         fab.setMobilizable(true);
@@ -214,6 +199,21 @@ public class OverlayService extends Service {
         Intent intent = packageName == null ? null : getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent != null)
             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    private void startGestureAction() {
+        if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
+            // Send start action broadcast
+            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
+        } else if (((BaseApplication) getApplication()).isGestureServiceEnabled()) {
+            // Force stop app
+            OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
+            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse(AppUtil.URL_PACKAGE)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        } else {
+            // Turn on gesture service when it is not running.
+            OverlayToast.show(this, R.string.info_gesture_request, OverlayToast.LENGTH_SHORT);
+            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
     }
 
     private void showTargetView(OverlayView target) {
@@ -260,7 +260,7 @@ public class OverlayService extends Service {
             OverlayToast.show(this, R.string.info_overlay_disconnected, OverlayToast.LENGTH_SHORT);
     }
 
-    public Context getThemeWrapper() {
+    private Context getThemeWrapper() {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
             return this;
         return new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_DayNight);

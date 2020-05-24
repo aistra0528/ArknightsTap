@@ -3,7 +3,6 @@ package com.icebem.akt.service;
 import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -44,8 +43,13 @@ public class GestureService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         manager = PreferenceManager.getInstance(this);
-        if (!CompatOperations.canDrawOverlays(this) || manager.unsupportedResolution() || (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) && !manager.rootMode()) {
+        if (CompatOperations.requireOverlayPermission(this) || manager.unsupportedResolution()) {
             disableSelfCompat();
+            if (CompatOperations.requireOverlayPermission(this)) {
+                OverlayToast.show(this, R.string.state_permission_request, OverlayToast.LENGTH_SHORT);
+                startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            } else if (manager.unsupportedResolution())
+                OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
             return;
         }
         handler = new Handler(Looper.getMainLooper());
@@ -64,9 +68,9 @@ public class GestureService extends AccessibilityService {
     }
 
     private void startAction() {
-        if (manager.rootMode() && !CompatOperations.checkRootPermission() && Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
-            disableSelfCompat();
         running = true;
+        if (manager.rootMode())
+            CompatOperations.checkRootPermission();
         if (manager.launchGame())
             launchGame();
         if (gestureThread == null || !gestureThread.isAlive())
@@ -109,13 +113,13 @@ public class GestureService extends AccessibilityService {
             while (running) {
                 switch (process) {
                     case 0:
-                        CompatOperations.performClick(this, RandomUtil.randomP(manager.getBlueX()), RandomUtil.randomP(manager.getBlueY()));
+                        CompatOperations.performClick(this, manager.getBlueX(), manager.getBlueY());
                         break;
                     case 2:
-                        CompatOperations.performClick(this, RandomUtil.randomP(manager.getRedX()), RandomUtil.randomP(manager.getRedY()));
+                        CompatOperations.performClick(this, manager.getRedX(), manager.getRedY());
                         break;
                     default:
-                        CompatOperations.performClick(this, RandomUtil.randomP(manager.getGreenX()), RandomUtil.randomP(manager.getGreenY()));
+                        CompatOperations.performClick(this, manager.getGreenX(), manager.getGreenY());
                 }
                 if (++process > 3) process = 0;
                 SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime()));
@@ -156,12 +160,6 @@ public class GestureService extends AccessibilityService {
         stopAction();
         if (localBroadcastManager != null)
             localBroadcastManager.unregisterReceiver(gestureActionReceiver);
-        else if (!CompatOperations.canDrawOverlays(this))
-            startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        else if (manager.unsupportedResolution())
-            OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
-        else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N && !manager.rootMode())
-            OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
         return super.onUnbind(intent);
     }
 

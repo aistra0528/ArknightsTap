@@ -53,16 +53,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showOverlay() {
-        if (CompatOperations.canDrawOverlays(this)) {
-            startService(new Intent(this, OverlayService.class));
-        } else {
+        if (CompatOperations.requireOverlayPermission(this)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.state_permission_request);
             builder.setMessage(R.string.msg_permission_overlay);
             builder.setPositiveButton(R.string.permission_permit, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)));
             builder.setNegativeButton(R.string.no_thanks, null);
             builder.create().show();
-        }
+        } else
+            startService(new Intent(this, OverlayService.class));
     }
 
     private boolean showAccessibilitySettings(View view) {
