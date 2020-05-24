@@ -24,7 +24,6 @@
 
     <SwitchPreferenceCompat
         app:key="anti_burn_in"
-        app:summary="@string/anti_burn_in_summary"
         app:title="@string/anti_burn_in_title" />
 
     <PreferenceCategory app:title="@string/title_recruit">
@@ -53,16 +52,15 @@
         app:title="@string/gesture_label">
 
         <SwitchPreferenceCompat
+            app:key="root_mode"
+            app:summary="@string/root_mode_summary"
+            app:title="@string/root_mode_title" />
+
+        <SwitchPreferenceCompat
             app:defaultValue="true"
             app:key="keep_accessibility"
             app:summary="@string/keep_accessibility_summary"
             app:title="@string/keep_accessibility_title" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:key="root_compatible_mode"
-            app:summary="@string/enable_root_compatible_mode"
-            app:title="@string/enable_root_compatible_mode_title" />
 
         <SwitchPreferenceCompat
             app:key="double_speed"

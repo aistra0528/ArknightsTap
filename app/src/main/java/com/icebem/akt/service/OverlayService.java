@@ -1,6 +1,7 @@
 package com.icebem.akt.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -10,16 +11,16 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
-import com.icebem.akt.app.CompatOperations;
 import com.icebem.akt.app.GestureActionReceiver;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.app.ResolutionConfig;
@@ -46,10 +47,8 @@ public class OverlayService extends Service {
         screenSize = ResolutionConfig.getAbsoluteHeight(this);
         manager = PreferenceManager.getInstance(this);
         createRecruitView();
-        createCounterView();
         createMaterialView();
-        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES)
-            setTheme(R.style.ThemeOverlay_AppCompat_DayNight);
+        createCounterView();
         createMenuView();
         current = menu;
         createFabView();
@@ -73,7 +72,7 @@ public class OverlayService extends Service {
         recruit.getView().findViewById(R.id.txt_title).setOnTouchListener(this::updateRecruitView);
         recruit.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
         if (manager.multiPackage()) {
-            ImageButton server = recruit.getView().findViewById(R.id.action_server);
+            AppCompatImageButton server = recruit.getView().findViewById(R.id.action_server);
             server.setVisibility(View.VISIBLE);
             server.setOnClickListener(view -> {
                 ArrayList<String> packages = manager.getAvailablePackages();
@@ -83,7 +82,7 @@ public class OverlayService extends Service {
                 resetRecruitView(view);
             });
         }
-        ImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
+        AppCompatImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
     }
@@ -110,7 +109,7 @@ public class OverlayService extends Service {
         counter.setMobilizable(true);
         new HeadhuntCounter(manager, counter.getView());
         counter.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        ImageButton collapse = counter.getView().findViewById(R.id.action_collapse);
+        AppCompatImageButton collapse = counter.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
     }
@@ -127,13 +126,13 @@ public class OverlayService extends Service {
         }
         if (guide == null) return;
         material.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        ImageButton collapse = material.getView().findViewById(R.id.action_collapse);
+        AppCompatImageButton collapse = material.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
     }
 
     private void createMenuView() {
-        menu = new OverlayView(this, R.layout.overlay_menu);
+        menu = new OverlayView(getThemeWrapper(), R.layout.overlay_menu);
         View root = menu.getView();
         root.setBackgroundResource(R.drawable.bg_radius);
         root.setElevation(getResources().getDimensionPixelOffset(R.dimen.overlay_elevation));
@@ -179,27 +178,20 @@ public class OverlayService extends Service {
 
     private void updateMenuView() {
         if (manager.isPro()) {
-            TextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
+            AppCompatTextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
             if (GestureService.isGestureRunning()) {
-                CompatOperations.setTextAppearance(
-                        desc.getContext(),
-                        desc,
-                        R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored);
+                desc.setTextAppearance(desc.getContext(), R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored);
                 desc.setTextColor(ContextCompat.getColor(desc.getContext(), R.color.colorError));
                 desc.setText(R.string.action_disconnect);
             } else {
-                CompatOperations.setTextAppearance(
-                        desc.getContext(),
-                        desc,
-                        R.style.TextAppearance_AppCompat_Small
-                );
+                desc.setTextAppearance(desc.getContext(), R.style.TextAppearance_AppCompat_Small);
                 desc.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime()));
             }
         }
     }
 
     private void createFabView() {
-        ImageButton btn = new ImageButton(this);
+        AppCompatImageButton btn = new AppCompatImageButton(menu.getView().getContext());
         if (manager.antiBurnIn())
             btn.setAlpha(0.5f);
         btn.setImageResource(R.drawable.ic_akt);
@@ -266,5 +258,11 @@ public class OverlayService extends Service {
             startGestureAction();
         else
             OverlayToast.show(this, R.string.info_overlay_disconnected, OverlayToast.LENGTH_SHORT);
+    }
+
+    public Context getThemeWrapper() {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            return this;
+        return new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_DayNight);
     }
 }

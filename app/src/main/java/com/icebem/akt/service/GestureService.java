@@ -3,6 +3,7 @@ package com.icebem.akt.service;
 import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -26,7 +27,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GestureService extends AccessibilityService {
-
     private static final long MINUTE_TIME = 60000;
     private static final String THREAD_GESTURE = "gesture";
     private static final String THREAD_TIMER = "timer";
@@ -44,7 +44,7 @@ public class GestureService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         manager = PreferenceManager.getInstance(this);
-        if (!CompatOperations.canDrawOverlays(this) || manager.unsupportedResolution()) {
+        if (!CompatOperations.canDrawOverlays(this) || manager.unsupportedResolution() || (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) && !manager.rootMode()) {
             disableSelfCompat();
             return;
         }
@@ -64,12 +64,11 @@ public class GestureService extends AccessibilityService {
     }
 
     private void startAction() {
+        if (manager.rootMode() && !CompatOperations.checkRootPermission() && Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+            disableSelfCompat();
         running = true;
         if (manager.launchGame())
             launchGame();
-        if (manager.rootCompatible())
-            CompatOperations.checkRootPermission();
-
         if (gestureThread == null || !gestureThread.isAlive())
             gestureThread = new Thread(this::performGestures, THREAD_GESTURE);
         if (!gestureThread.isAlive())
@@ -161,6 +160,8 @@ public class GestureService extends AccessibilityService {
             startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         else if (manager.unsupportedResolution())
             OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
+        else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N && !manager.rootMode())
+            OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
         return super.onUnbind(intent);
     }
 

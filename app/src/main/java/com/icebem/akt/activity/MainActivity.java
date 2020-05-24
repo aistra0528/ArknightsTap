@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(v -> showOverlay());
         if (manager.isPro())
             fab.setOnLongClickListener(this::showAccessibilitySettings);
-        if (manager.rootCompatible())
-            CompatOperations.checkRootPermission();
     }
 
     public void showOverlay() {

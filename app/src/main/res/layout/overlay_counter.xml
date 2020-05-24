@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_radius"
@@ -7,13 +7,13 @@
     android:minWidth="@dimen/overlay_width"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_menu" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_counter_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:padding="@dimen/view_padding"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,9 +38,9 @@
             android:contentDescription="@string/action_counter"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_headhunt_toggle" />
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_counter_tips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,12 +49,12 @@
         android:paddingEnd="@dimen/view_padding"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_minus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_remove" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_plus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_add" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_collapse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -83,5 +83,5 @@
             android:contentDescription="@string/action_overlay_collapse"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_collapse" />
-    </LinearLayout>
-</LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>
