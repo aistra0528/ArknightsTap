@@ -1,7 +1,6 @@
 package com.icebem.akt.activity;
 
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -18,9 +17,13 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.icebem.akt.R;
+import com.icebem.akt.app.CompatOperations;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.service.OverlayService;
 import com.icebem.akt.util.AppUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private TextView subtitle;
@@ -50,16 +53,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showOverlay() {
-        if (Settings.canDrawOverlays(this)) {
-            startService(new Intent(this, OverlayService.class));
-        } else {
+        if (CompatOperations.requireOverlayPermission(this)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.state_permission_request);
             builder.setMessage(R.string.msg_permission_overlay);
             builder.setPositiveButton(R.string.permission_permit, (dialog, which) -> startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)));
             builder.setNegativeButton(R.string.no_thanks, null);
             builder.create().show();
-        }
+        } else
+            startService(new Intent(this, OverlayService.class));
     }
 
     private boolean showAccessibilitySettings(View view) {
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateSubtitleTime() {
-        subtitle.setText(new SimpleDateFormat(AppUtil.DATE_FORMAT).format(manager.getCheckLastTime()));
+        subtitle.setText(new SimpleDateFormat(AppUtil.DATE_FORMAT, Locale.getDefault()).format(manager.getCheckLastTime()));
     }
 
     private void onDestinationChanged(NavDestination destination) {

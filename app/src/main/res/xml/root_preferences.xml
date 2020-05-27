@@ -24,7 +24,6 @@
 
     <SwitchPreferenceCompat
         app:key="anti_burn_in"
-        app:summary="@string/anti_burn_in_summary"
         app:title="@string/anti_burn_in_title" />
 
     <PreferenceCategory app:title="@string/title_recruit">
@@ -51,6 +50,11 @@
     <PreferenceCategory
         app:key="gesture_category"
         app:title="@string/gesture_label">
+
+        <SwitchPreferenceCompat
+            app:key="root_mode"
+            app:summary="@string/root_mode_summary"
+            app:title="@string/root_mode_title" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"

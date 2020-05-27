@@ -1,6 +1,7 @@
 package com.icebem.akt.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -10,10 +11,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.R;
@@ -44,10 +47,8 @@ public class OverlayService extends Service {
         screenSize = ResolutionConfig.getAbsoluteHeight(this);
         manager = PreferenceManager.getInstance(this);
         createRecruitView();
-        createCounterView();
         createMaterialView();
-        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES)
-            setTheme(R.style.ThemeOverlay_AppCompat_DayNight);
+        createCounterView();
         createMenuView();
         current = menu;
         createFabView();
@@ -71,7 +72,7 @@ public class OverlayService extends Service {
         recruit.getView().findViewById(R.id.txt_title).setOnTouchListener(this::updateRecruitView);
         recruit.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
         if (manager.multiPackage()) {
-            ImageButton server = recruit.getView().findViewById(R.id.action_server);
+            AppCompatImageButton server = recruit.getView().findViewById(R.id.action_server);
             server.setVisibility(View.VISIBLE);
             server.setOnClickListener(view -> {
                 ArrayList<String> packages = manager.getAvailablePackages();
@@ -81,7 +82,7 @@ public class OverlayService extends Service {
                 resetRecruitView(view);
             });
         }
-        ImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
+        AppCompatImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
     }
@@ -108,7 +109,7 @@ public class OverlayService extends Service {
         counter.setMobilizable(true);
         new HeadhuntCounter(manager, counter.getView());
         counter.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        ImageButton collapse = counter.getView().findViewById(R.id.action_collapse);
+        AppCompatImageButton collapse = counter.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
     }
@@ -125,13 +126,13 @@ public class OverlayService extends Service {
         }
         if (guide == null) return;
         material.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        ImageButton collapse = material.getView().findViewById(R.id.action_collapse);
+        AppCompatImageButton collapse = material.getView().findViewById(R.id.action_collapse);
         collapse.setOnClickListener(v -> showTargetView(fab));
         collapse.setOnLongClickListener(this::stopSelf);
     }
 
     private void createMenuView() {
-        menu = new OverlayView(this, R.layout.overlay_menu);
+        menu = new OverlayView(getThemeWrapper(), R.layout.overlay_menu);
         View root = menu.getView();
         root.setBackgroundResource(R.drawable.bg_radius);
         root.setElevation(getResources().getDimensionPixelOffset(R.dimen.overlay_elevation));
@@ -160,6 +161,46 @@ public class OverlayService extends Service {
         root.findViewById(R.id.action_disconnect).setOnClickListener(this::stopSelf);
     }
 
+    private void updateMenuView() {
+        if (manager.isPro()) {
+            AppCompatTextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
+            if (GestureService.isGestureRunning()) {
+                desc.setTextAppearance(desc.getContext(), R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored);
+                desc.setTextColor(ContextCompat.getColor(desc.getContext(), R.color.colorError));
+                desc.setText(R.string.action_disconnect);
+            } else {
+                desc.setTextAppearance(desc.getContext(), R.style.TextAppearance_AppCompat_Small);
+                desc.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime()));
+            }
+        }
+    }
+
+    private void createFabView() {
+        AppCompatImageButton btn = new AppCompatImageButton(menu.getView().getContext());
+        if (manager.antiBurnIn())
+            btn.setAlpha(0.5f);
+        btn.setImageResource(R.drawable.ic_akt);
+        btn.setBackgroundResource(R.drawable.bg_oval);
+        btn.setPadding(0, 0, 0, 0);
+        btn.setElevation(getResources().getDimensionPixelOffset(R.dimen.fab_elevation));
+        int size = getResources().getDimensionPixelOffset(R.dimen.fab_mini_size);
+        btn.setMinimumWidth(size);
+        btn.setMinimumHeight(size);
+        btn.setOnClickListener(v -> showTargetView(current));
+        btn.setOnLongClickListener(this::stopSelf);
+        fab = new OverlayView(btn);
+        fab.setGravity(Gravity.END | Gravity.TOP);
+        fab.setRelativePosition(screenSize - size >> 1, 0);
+        fab.setMobilizable(true);
+    }
+
+    private void launchGame() {
+        String packageName = manager.getDefaultPackage();
+        Intent intent = packageName == null ? null : getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent != null)
+            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
     private void startGestureAction() {
         if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
             // Send start action broadcast
@@ -173,46 +214,6 @@ public class OverlayService extends Service {
             OverlayToast.show(this, R.string.info_gesture_request, OverlayToast.LENGTH_SHORT);
             startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
-    }
-
-    private void updateMenuView() {
-        if (manager.isPro()) {
-            TextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
-            if (GestureService.isGestureRunning()) {
-                desc.setTextAppearance(R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored);
-                desc.setTextColor(getColor(R.color.colorError));
-                desc.setText(R.string.action_disconnect);
-            } else {
-                desc.setTextAppearance(R.style.TextAppearance_AppCompat_Small);
-                desc.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime()));
-            }
-        }
-    }
-
-    private void createFabView() {
-        ImageButton btn = new ImageButton(this);
-        if (manager.antiBurnIn())
-            btn.setAlpha(0.5f);
-        btn.setImageResource(R.drawable.ic_akt);
-        btn.setBackgroundResource(R.drawable.bg_oval);
-        btn.setPadding(0, 0, 0, 0);
-        btn.setElevation(getResources().getDimensionPixelOffset(R.dimen.fab_elevation));
-        int size = getResources().getDimensionPixelOffset(R.dimen.fab_mini_size);
-        btn.setMinimumWidth(size);
-        btn.setMinimumHeight(size);
-        btn.setOnClickListener(v -> showTargetView(current));
-        btn.setOnLongClickListener(this::stopSelf);
-        fab = new OverlayView(this, btn);
-        fab.setGravity(Gravity.END | Gravity.TOP);
-        fab.setRelativePosition(screenSize - size >> 1, 0);
-        fab.setMobilizable(true);
-    }
-
-    private void launchGame() {
-        String packageName = manager.getDefaultPackage();
-        Intent intent = packageName == null ? null : getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent != null)
-            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     private void showTargetView(OverlayView target) {
@@ -257,5 +258,11 @@ public class OverlayService extends Service {
             startGestureAction();
         else
             OverlayToast.show(this, R.string.info_overlay_disconnected, OverlayToast.LENGTH_SHORT);
+    }
+
+    private Context getThemeWrapper() {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            return this;
+        return new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_DayNight);
     }
 }

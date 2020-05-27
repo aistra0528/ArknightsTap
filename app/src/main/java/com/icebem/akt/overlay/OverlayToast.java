@@ -1,9 +1,9 @@
 package com.icebem.akt.overlay;
 
 import android.content.Context;
-import android.widget.TextView;
 
 import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.ResolutionConfig;
@@ -19,21 +19,22 @@ public class OverlayToast {
     private static WeakReference<OverlayView> toast;
 
     public static void show(Context context, CharSequence text, int duration) {
-        TextView view;
+        AppCompatTextView view;
         if (toast == null || toast.get() == null) {
-            view = new TextView(new ContextThemeWrapper(context, R.style.Theme_AppCompat_Light));
+            context = new ContextThemeWrapper(context.getApplicationContext(), R.style.Theme_AppCompat_Light);
+            view = new AppCompatTextView(context);
             int padding = context.getResources().getDimensionPixelOffset(R.dimen.view_padding);
             view.setPadding(padding, padding, padding, padding);
             view.setBackgroundResource(R.drawable.bg_toast);
-            view.setTextAppearance(R.style.TextAppearance_AppCompat);
+            view.setTextAppearance(context, R.style.TextAppearance_AppCompat);
             view.setOnClickListener(v -> {
                 view.removeCallbacks(runnable);
                 toast.get().remove();
             });
-            toast = new WeakReference<>(new OverlayView(context, view));
+            toast = new WeakReference<>(new OverlayView(view));
             toast.get().setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) >> 2);
         } else {
-            view = (TextView) toast.get().getView();
+            view = (AppCompatTextView) toast.get().getView();
         }
         if (runnable == null) {
             runnable = toast.get()::remove;

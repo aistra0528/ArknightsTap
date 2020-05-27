@@ -1,10 +1,8 @@
 package com.icebem.akt.service;
 
 import android.accessibilityservice.AccessibilityService;
-import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Path;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -17,8 +15,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
-import com.icebem.akt.app.PreferenceManager;
+import com.icebem.akt.app.CompatOperations;
 import com.icebem.akt.app.GestureActionReceiver;
+import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.overlay.OverlayToast;
 import com.icebem.akt.util.RandomUtil;
 
@@ -27,7 +26,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GestureService extends AccessibilityService {
-    private static final int GESTURE_DURATION = 120;
     private static final long MINUTE_TIME = 60000;
     private static final String THREAD_GESTURE = "gesture";
     private static final String THREAD_TIMER = "timer";
@@ -45,8 +43,13 @@ public class GestureService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         manager = PreferenceManager.getInstance(this);
-        if (!Settings.canDrawOverlays(this) || manager.unsupportedResolution()) {
-            disableSelf();
+        if (CompatOperations.requireOverlayPermission(this) || manager.unsupportedResolution()) {
+            disableSelfCompat();
+            if (CompatOperations.requireOverlayPermission(this)) {
+                OverlayToast.show(this, R.string.state_permission_request, OverlayToast.LENGTH_SHORT);
+                startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            } else if (manager.unsupportedResolution())
+                OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
             return;
         }
         handler = new Handler(Looper.getMainLooper());
@@ -66,6 +69,8 @@ public class GestureService extends AccessibilityService {
 
     private void startAction() {
         running = true;
+        if (manager.rootMode())
+            CompatOperations.checkRootPermission();
         if (manager.launchGame())
             launchGame();
         if (gestureThread == null || !gestureThread.isAlive())
@@ -91,7 +96,7 @@ public class GestureService extends AccessibilityService {
     private void pauseAction() {
         if (manager.keepAccessibility())
             stopAction();
-        else disableSelf();
+        else disableSelfCompat();
     }
 
     private void stopAction() {
@@ -105,22 +110,18 @@ public class GestureService extends AccessibilityService {
         if (running) {
             startService(new Intent(this, OverlayService.class));
             int process = 0;
-            Path path = new Path();
             while (running) {
                 switch (process) {
                     case 0:
-                        path.moveTo(RandomUtil.randomP(manager.getBlueX()), RandomUtil.randomP(manager.getBlueY()));
+                        CompatOperations.performClick(this, manager.getBlueX(), manager.getBlueY());
                         break;
                     case 2:
-                        path.moveTo(RandomUtil.randomP(manager.getRedX()), RandomUtil.randomP(manager.getRedY()));
+                        CompatOperations.performClick(this, manager.getRedX(), manager.getRedY());
                         break;
                     default:
-                        path.moveTo(RandomUtil.randomP(manager.getGreenX()), RandomUtil.randomP(manager.getGreenY()));
+                        CompatOperations.performClick(this, manager.getGreenX(), manager.getGreenY());
                 }
                 if (++process > 3) process = 0;
-                GestureDescription.Builder builder = new GestureDescription.Builder();
-                builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomP(GESTURE_DURATION)));
-                dispatchGesture(builder.build(), null, null);
                 SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime()));
             }
         }
@@ -159,10 +160,6 @@ public class GestureService extends AccessibilityService {
         stopAction();
         if (localBroadcastManager != null)
             localBroadcastManager.unregisterReceiver(gestureActionReceiver);
-        else if (!Settings.canDrawOverlays(this))
-            startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        else if (manager.unsupportedResolution())
-            OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
         return super.onUnbind(intent);
     }
 
@@ -182,5 +179,9 @@ public class GestureService extends AccessibilityService {
         if (currentInstance != null && currentInstance.get() != null)
             return currentInstance.get().running;
         return false;
+    }
+
+    private void disableSelfCompat() {
+        CompatOperations.disableSelf(this, this::stopAction);
     }
 }

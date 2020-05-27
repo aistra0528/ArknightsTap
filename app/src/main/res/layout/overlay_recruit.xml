@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorOverlay"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_menu" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:text="@string/title_recruit"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_server"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:src="@drawable/ic_action_language"
             android:visibility="gone" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_collapse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,8 +47,8 @@
             android:contentDescription="@string/action_overlay_collapse"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_collapse" />
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <include layout="@layout/fragment_recruit" />
 
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

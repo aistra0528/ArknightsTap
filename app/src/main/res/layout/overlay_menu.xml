@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/overlay_width"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/action_recruit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
             android:orientation="horizontal"
             android:padding="@dimen/control_padding">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
@@ -29,16 +29,16 @@
                 android:src="@drawable/ic_recruit"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/control_padding"
                 android:paddingEnd="@dimen/control_padding"
                 android:text="@string/title_recruit"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/action_counter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:orientation="horizontal"
             android:padding="@dimen/control_padding">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
@@ -58,16 +58,16 @@
                 android:src="@drawable/ic_headhunt"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/control_padding"
                 android:paddingEnd="@dimen/control_padding"
                 android:text="@string/action_counter"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/action_material"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:orientation="horizontal"
             android:padding="@dimen/control_padding">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
@@ -87,16 +87,16 @@
                 android:src="@drawable/ic_explore"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/control_padding"
                 android:paddingEnd="@dimen/control_padding"
                 android:text="@string/action_material"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/action_gesture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
             android:padding="@dimen/control_padding"
             android:visibility="gone">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
@@ -117,7 +117,7 @@
                 android:src="@drawable/ic_akt"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
@@ -126,21 +126,21 @@
                 android:text="@string/gesture_label"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/action_gesture_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/view_padding"
                 android:paddingEnd="@dimen/view_padding" />
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="true"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/action_collapse"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/control_padding">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/control_margin"
@@ -161,15 +161,15 @@
                     android:src="@drawable/ic_collapse"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="@string/action_overlay_collapse"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button" />
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/action_disconnect"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/control_padding">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/control_margin"
@@ -190,13 +190,13 @@
                     android:src="@drawable/ic_exit"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="@string/action_disconnect"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>

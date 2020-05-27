@@ -9,11 +9,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.app.PreferenceManager;
@@ -104,15 +103,15 @@ public class AboutActivity extends AppCompatActivity {
                 Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_LONG).show();
                 break;
             case R.id.container_version_type:
-                if (i >= 15) {
+                if (++i >= 15) {
                     i = 0;
                     manager.setPro(!manager.isPro());
                     typeDesc.setText(manager.isPro() ? R.string.version_type_pro : R.string.version_type_lite);
                     Snackbar.make(view, R.string.version_type_changed, Snackbar.LENGTH_LONG).show();
-                } else i++;
+                }
                 break;
             case R.id.container_special_thanks:
-                if (i >= 5) {
+                if (++i >= 5) {
                     i = 0;
                     view.setClickable(false);
                     String extra = thanksDesc.getText() + System.lineSeparator() + System.lineSeparator() + getString(R.string.special_thanks_extra);
@@ -122,7 +121,7 @@ public class AboutActivity extends AppCompatActivity {
                             SystemClock.sleep(TEXT_SPEED);
                         }
                     }, AppUtil.THREAD_UPDATE).start();
-                } else i++;
+                }
                 break;
             case R.id.green_android:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_GREEN_ANDROID)));
