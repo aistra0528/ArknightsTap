@@ -7,7 +7,6 @@ import androidx.appcompat.app.AlertDialog;
 import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +30,7 @@ public class AppUtil {
     private static final String URL_RELEASE_DATA = "https://raw.githubusercontent.com/IcebemAst/ArknightsTap/master/app/release/output.json";
 
     public static boolean isLatestVersion() throws IOException, JSONException {
-        int version = new JSONArray(IOUtil.stream2String(IOUtil.fromWeb(URL_RELEASE_DATA))).getJSONObject(0).getJSONObject("apkData").getInt("versionCode");
+        int version = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(URL_RELEASE_DATA))).getJSONArray("elements").getJSONObject(0).getInt("versionCode");
         return BuildConfig.VERSION_CODE >= version;
     }
 
