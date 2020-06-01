@@ -1,13 +1,16 @@
 package com.icebem.akt.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -17,7 +20,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.icebem.akt.R;
+import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.CompatOperations;
+import com.icebem.akt.app.GestureActionReceiver;
 import com.icebem.akt.app.PreferenceManager;
 import com.icebem.akt.service.OverlayService;
 import com.icebem.akt.util.AppUtil;
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((controller, destination, bundle) -> onDestinationChanged(destination));
         fab.setOnClickListener(v -> showOverlay());
         if (manager.isPro())
-            fab.setOnLongClickListener(this::showAccessibilitySettings);
+            fab.setOnLongClickListener(this::startGestureAction);
     }
 
     public void showOverlay() {
@@ -64,8 +69,16 @@ public class MainActivity extends AppCompatActivity {
             startService(new Intent(this, OverlayService.class));
     }
 
-    private boolean showAccessibilitySettings(View view) {
-        startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+    private boolean startGestureAction(View view) {
+        if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
+            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
+        } else if (((BaseApplication) getApplication()).isGestureServiceEnabled()) {
+            Toast.makeText(this, R.string.error_occurred, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse(AppUtil.URL_PACKAGE)));
+        } else {
+            Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+        }
         return true;
     }
 
