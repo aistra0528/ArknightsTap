@@ -16,10 +16,8 @@ import com.icebem.akt.util.DataUtil;
 import com.icebem.akt.util.RandomUtil;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class PreferenceManager {
@@ -31,8 +29,6 @@ public class PreferenceManager {
     private static final String KEY_BLUE_Y = "blue_y";
     private static final String KEY_RED_X = "red_x";
     private static final String KEY_RED_Y = "red_y";
-    private static final String KEY_GREEN_X = "green_x";
-    private static final String KEY_GREEN_Y = "green_y";
     private static final String KEY_TIMER_TIME = "timer_time";
     private static final String KEY_PRO = "pro";
     private static final String KEY_VERSION_CODE = "version_code";
@@ -55,7 +51,8 @@ public class PreferenceManager {
     private static final int UPDATE_TIME = 2300;
     private static final int CHECK_TIME = 28800000;
     private Context context;
-    private SharedPreferences preferences;
+    private static int[] points;
+    private static SharedPreferences preferences;
     private static PreferenceManager instance;
 
     private PreferenceManager(Context context) {
@@ -79,44 +76,27 @@ public class PreferenceManager {
     }
 
     public int getBlueX() {
-        return preferences.getInt(KEY_BLUE_X, 0);
+        return points[0];
     }
 
     public int getBlueY() {
-        return preferences.getInt(KEY_BLUE_Y, 0);
+        return points[1];
     }
 
     public int getRedX() {
-        return preferences.getInt(KEY_RED_X, 0);
+        return points[2];
     }
 
     public int getRedY() {
-        return preferences.getInt(KEY_RED_Y, 0);
+        return points[3];
     }
 
     public int getGreenX() {
-        return preferences.getInt(KEY_GREEN_X, 0);
+        return points[4];
     }
 
     public int getGreenY() {
-        return preferences.getInt(KEY_GREEN_Y, 0);
-    }
-
-    public void setResolutionConfig(boolean fromWeb) throws IOException, JSONException {
-        int[] res = ResolutionConfig.getAbsoluteResolution(context);
-        JSONArray array = DataUtil.getResolutionData(context, fromWeb);
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject obj = array.getJSONObject(i);
-            if (obj.getInt(KEY_WIDTH) == res[0] && obj.getInt(KEY_HEIGHT) == res[1]) {
-                preferences.edit().putInt(KEY_BLUE_X, obj.getInt(KEY_BLUE_X)).apply();
-                preferences.edit().putInt(KEY_BLUE_Y, obj.getInt(KEY_BLUE_Y)).apply();
-                preferences.edit().putInt(KEY_RED_X, obj.getInt(KEY_RED_X)).apply();
-                preferences.edit().putInt(KEY_RED_Y, obj.getInt(KEY_RED_Y)).apply();
-                preferences.edit().putInt(KEY_GREEN_X, res[0] - RandomUtil.RANDOM_P).apply();
-                preferences.edit().putInt(KEY_GREEN_Y, res[1] >> 2).apply();
-                break;
-            }
-        }
+        return points[5];
     }
 
     public int getUpdateTime() {
@@ -159,7 +139,26 @@ public class PreferenceManager {
     }
 
     public boolean unsupportedResolution() {
-        return getBlueX() <= 0 || getBlueY() <= 0 || getRedX() <= 0 || getRedY() <= 0 || getGreenX() <= 0 || getGreenY() <= 0;
+        try {
+            int[] res = ResolutionConfig.getAbsoluteResolution(context);
+            JSONArray array = DataUtil.getResolutionData(context);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject obj = array.getJSONObject(i);
+                if (obj.getInt(KEY_WIDTH) == res[0] && obj.getInt(KEY_HEIGHT) == res[1]) {
+                    points = new int[6];
+                    points[0] = obj.getInt(KEY_BLUE_X);
+                    points[1] = obj.getInt(KEY_BLUE_Y);
+                    points[2] = obj.getInt(KEY_RED_X);
+                    points[3] = obj.getInt(KEY_RED_Y);
+                    points[4] = res[0] - RandomUtil.RANDOM_P;
+                    points[5] = res[1] >> 2;
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
+        }
+        return true;
     }
 
     public String[] getTimerStrings(Context context) {

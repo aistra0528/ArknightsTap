@@ -40,10 +40,7 @@ public class DataUtil {
                 if (!fromWeb || canUpdate(data, entry))
                     updated = true;
             } else if (compatible(data) && (!fromWeb || canUpdate(data, entry))) {
-                if (data.getString(KEY_NAME).equals(DATA_RESOLUTION))
-                    manager.setResolutionConfig(fromWeb);
-                else
-                    setOfflineData(manager.getApplicationContext(), data.getString(KEY_NAME), fromWeb);
+                setOfflineData(manager.getApplicationContext(), data.getString(KEY_NAME), fromWeb);
                 updated = true;
             }
         }
@@ -69,8 +66,8 @@ public class DataUtil {
         return getOfflineData(context, DATA_RECRUIT);
     }
 
-    public static JSONArray getResolutionData(Context context, boolean fromWeb) throws IOException, JSONException {
-        return fromStream(fromWeb ? IOUtil.fromWeb(URL_WEB_DATA + DATA_RESOLUTION) : IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + DATA_RESOLUTION));
+    public static JSONArray getResolutionData(Context context) throws IOException, JSONException {
+        return getOfflineData(context, DATA_RESOLUTION);
     }
 
     private static JSONArray fromStream(InputStream in) throws IOException, JSONException {

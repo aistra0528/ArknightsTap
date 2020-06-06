@@ -75,6 +75,8 @@ public class HomeFragment extends Fragment {
             builder.setNeutralButton(R.string.action_update, (dialog, which) -> startUpdateThread());
             builder.create().show();
         } else {
+            stateImg.setImageResource(R.drawable.ic_state_running_anim);
+            state.setText(R.string.state_loading);
             AnimatedVectorDrawableCompat.registerAnimationCallback(stateImg.getDrawable(), new Animatable2Compat.AnimationCallback() {
                 @Override
                 public void onAnimationEnd(Drawable drawable) {
