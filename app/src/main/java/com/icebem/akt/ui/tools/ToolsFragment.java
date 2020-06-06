@@ -30,7 +30,7 @@ public class ToolsFragment extends Fragment {
             viewer = new RecruitViewer(getActivity(), root);
         } catch (Exception e) {
             if (getActivity() instanceof MainActivity)
-                AppUtil.showLogDialog(getActivity(), e);
+                AppUtil.showLogDialog(getActivity(), e.toString());
         }
         return root;
     }

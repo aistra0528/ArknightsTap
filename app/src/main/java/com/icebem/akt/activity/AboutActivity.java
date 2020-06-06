@@ -22,6 +22,8 @@ import com.icebem.akt.util.IOUtil;
 
 import org.json.JSONObject;
 
+import java.net.ConnectException;
+
 public class AboutActivity extends AppCompatActivity {
     private static final int TEXT_SPEED = 100;
     private int i;
@@ -162,6 +164,8 @@ public class AboutActivity extends AppCompatActivity {
             manager.setCheckLastTime();
         } catch (Exception e) {
             id = R.string.version_checking_failed;
+            if (e instanceof ConnectException)
+                l = getString(R.string.msg_network_error);
         }
         int result = id;
         String log = l;
@@ -174,6 +178,8 @@ public class AboutActivity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.action_update, (dialog, which) -> startActivity(intent));
                 builder.setNegativeButton(R.string.no_thanks, null);
                 builder.create().show();
+            } else if (log != null) {
+                Snackbar.make(typeDesc, result, Snackbar.LENGTH_LONG).setAction(R.string.action_details, v -> AppUtil.showLogDialog(this, log)).show();
             } else Snackbar.make(typeDesc, result, Snackbar.LENGTH_LONG).show();
             versionContainer.setOnClickListener(v -> startActivity(intent));
         });

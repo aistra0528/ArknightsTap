@@ -42,10 +42,10 @@ public class AppUtil {
         return json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url");
     }
 
-    public static void showLogDialog(Context context, Throwable t) {
+    public static void showLogDialog(Context context, String msg) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.error_occurred);
-        builder.setMessage(t.toString());
+        builder.setMessage(msg);
         builder.setPositiveButton(android.R.string.ok, null);
         builder.create().show();
     }

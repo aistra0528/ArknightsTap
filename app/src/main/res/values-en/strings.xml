@@ -93,4 +93,6 @@
     <string name="green_android">Comply to “Convention of Green Apps for Android”</string>
     <string name="root_mode_title">Root mode</string>
     <string name="root_mode_summary">Compatible with devices older than Android 7.0</string>
+    <string name="action_details">Details</string>
+    <string name="msg_network_error">Unable to communicate with the server.\nPlease try again later.</string>
 </resources>

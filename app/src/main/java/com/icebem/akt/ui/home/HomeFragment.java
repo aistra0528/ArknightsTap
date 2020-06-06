@@ -35,6 +35,8 @@ import com.icebem.akt.util.IOUtil;
 
 import org.json.JSONObject;
 
+import java.net.ConnectException;
+
 public class HomeFragment extends Fragment {
     private int i;
     private TextView state;
@@ -143,6 +145,8 @@ public class HomeFragment extends Fragment {
             manager.setCheckLastTime();
         } catch (Exception e) {
             id = R.string.version_checking_failed;
+            if (e instanceof ConnectException)
+                l = getString(R.string.msg_network_error);
         }
         int result = id;
         String log = l, url = u;
@@ -156,6 +160,8 @@ public class HomeFragment extends Fragment {
                 builder.setPositiveButton(R.string.action_update, (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));
                 builder.setNegativeButton(R.string.no_thanks, null);
                 builder.create().show();
+            } else if (log != null) {
+                Snackbar.make(state, result, Snackbar.LENGTH_LONG).setAction(R.string.action_details, v -> AppUtil.showLogDialog(getActivity(), log)).show();
             } else Snackbar.make(state, result, Snackbar.LENGTH_LONG).show();
             onStateEnd();
         });
