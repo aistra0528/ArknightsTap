@@ -35,7 +35,7 @@ import com.icebem.akt.util.IOUtil;
 
 import org.json.JSONObject;
 
-import java.net.ConnectException;
+import java.io.IOException;
 
 public class HomeFragment extends Fragment {
     private int i;
@@ -147,12 +147,14 @@ public class HomeFragment extends Fragment {
             manager.setCheckLastTime();
         } catch (Exception e) {
             id = R.string.version_checking_failed;
-            if (e instanceof ConnectException)
-                l = getString(R.string.msg_network_error);
+            if (e instanceof IOException && getActivity() != null)
+                l = getActivity().getString(R.string.msg_network_error);
         }
         int result = id;
         String log = l, url = u;
-        state.post(() -> {
+        if (!(getActivity() instanceof MainActivity)) return;
+        View fab = ((MainActivity) getActivity()).getFab();
+        fab.post(() -> {
             if (result != R.string.version_checking_failed)
                 ((MainActivity) getActivity()).updateSubtitleTime();
             if (result == R.string.version_update) {
@@ -163,8 +165,8 @@ public class HomeFragment extends Fragment {
                 builder.setNegativeButton(R.string.no_thanks, null);
                 builder.create().show();
             } else if (log != null) {
-                Snackbar.make(state, result, Snackbar.LENGTH_LONG).setAction(R.string.action_details, v -> AppUtil.showLogDialog(getActivity(), log)).show();
-            } else Snackbar.make(state, result, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(fab, result, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_details, v -> AppUtil.showLogDialog(getActivity(), log)).show();
+            } else Snackbar.make(fab, result, Snackbar.LENGTH_LONG).show();
             onStateEnd();
         });
     }

@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 public class IOUtil {
     private static final int LENGTH_KB = 1024;
-    private static final int CONNECT_TIMEOUT = 10000;
+    private static final int CONNECT_TIMEOUT = 5000;
     private static final String METHOD_GET = "GET";
 
     static InputStream fromAssets(Context context, String path) throws IOException {

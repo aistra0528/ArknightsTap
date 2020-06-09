@@ -86,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         subtitle.setText(new SimpleDateFormat(AppUtil.DATE_FORMAT, Locale.getDefault()).format(manager.getCheckLastTime()));
     }
 
+    public FloatingActionButton getFab() {
+        return fab;
+    }
+
     private void onDestinationChanged(NavDestination destination) {
         if (destination.getId() == R.id.nav_home) {
             if (fab.isOrWillBeHidden())

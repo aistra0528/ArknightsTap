@@ -22,7 +22,7 @@ import com.icebem.akt.util.IOUtil;
 
 import org.json.JSONObject;
 
-import java.net.ConnectException;
+import java.io.IOException;
 
 public class AboutActivity extends AppCompatActivity {
     private static final int TEXT_SPEED = 100;
@@ -102,7 +102,7 @@ public class AboutActivity extends AppCompatActivity {
                 view.setClickable(false);
                 view.setLongClickable(false);
                 new Thread(this::checkVersionUpdate, AppUtil.THREAD_UPDATE).start();
-                Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_INDEFINITE).show();
                 break;
             case R.id.container_version_type:
                 if (++i >= 15) {
@@ -164,7 +164,7 @@ public class AboutActivity extends AppCompatActivity {
             manager.setCheckLastTime();
         } catch (Exception e) {
             id = R.string.version_checking_failed;
-            if (e instanceof ConnectException)
+            if (e instanceof IOException)
                 l = getString(R.string.msg_network_error);
         }
         int result = id;
@@ -179,7 +179,7 @@ public class AboutActivity extends AppCompatActivity {
                 builder.setNegativeButton(R.string.no_thanks, null);
                 builder.create().show();
             } else if (log != null) {
-                Snackbar.make(typeDesc, result, Snackbar.LENGTH_LONG).setAction(R.string.action_details, v -> AppUtil.showLogDialog(this, log)).show();
+                Snackbar.make(typeDesc, result, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_details, v -> AppUtil.showLogDialog(this, log)).show();
             } else Snackbar.make(typeDesc, result, Snackbar.LENGTH_LONG).show();
             versionContainer.setOnClickListener(v -> startActivity(intent));
         });
