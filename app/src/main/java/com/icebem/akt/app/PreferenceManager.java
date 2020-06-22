@@ -50,7 +50,7 @@ public class PreferenceManager {
     private static final int TIMER_POSITION = 1;
     private static final int UPDATE_TIME = 2300;
     private static final int CHECK_TIME = 28800000;
-    private Context context;
+    private final Context context;
     private static int[] points;
     private static boolean autoUpdated;
     private static SharedPreferences preferences;

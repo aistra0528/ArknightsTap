@@ -422,10 +422,6 @@ public class RecruitViewer {
         return manager;
     }
 
-    public Context getContext() {
-        return context;
-    }
-
     public NestedScrollView getRootView() {
         return scroll;
     }
