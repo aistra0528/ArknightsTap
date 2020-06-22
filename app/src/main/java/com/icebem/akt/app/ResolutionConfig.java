@@ -12,7 +12,7 @@ public class ResolutionConfig {
     public static int[] getAbsoluteResolution(Context context) {
         int[] res = {0, 0};
         DisplayMetrics metric = new DisplayMetrics();
-        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager manager = (WindowManager) context.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         if (manager != null) {
             manager.getDefaultDisplay().getRealMetrics(metric);
             res[0] = Math.max(metric.widthPixels, metric.heightPixels);
