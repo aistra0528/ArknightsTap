@@ -21,7 +21,7 @@ class RecruitTag {
     private static final String[] TYPE_VANGUARD = {"Vanguard", "先锋干员", "先鋒タイプ"};
     private static final String[] TYPE_SNIPER = {"Sniper", "狙击干员", "狙撃タイプ"};
     private static final String[] TYPE_GUARD = {"Guard", "近卫干员", "前衛タイプ"};
-    private static final String[] TYPE_CASTER = {"Caster", "术师干员", "術士タイプ"};
+    private static final String[] TYPE_CASTER = {"Caster", "术师干员", "術師タイプ"};
     private static final String[] TYPE_DEFENDER = {"Defender", "重装干员", "重装タイプ"};
     private static final String[] TYPE_MEDIC = {"Medic", "医疗干员", "医療タイプ"};
     private static final String[] TYPE_SPECIALIST = {"Specialist", "特种干员", "特殊タイプ"};
