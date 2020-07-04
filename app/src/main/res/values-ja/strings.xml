@@ -10,7 +10,7 @@
     <string name="state_resolution_unsupported">デバイスはサポートされていません</string>
     <string name="state_loading">起動中…</string>
     <string name="state_ready">起動完了、始めましょう</string>
-    <string name="msg_permission_overlay">- 他のアプリの上に重ねて表示する権限\n公開求人シミュレータに必要です</string>
+    <string name="msg_permission_overlay">- 他のアプリの上に重ねて表示する権限\n操作ボタンに必要です</string>
     <string name="info_overlay_connected">ARSS™接続込み</string>
     <string name="info_overlay_disconnected">ARSS™接続解除</string>
     <string name="action_disconnect">解除</string>
@@ -39,7 +39,7 @@
     <string name="action_donate_payment">ペイパル</string>
     <string name="info_donate_thanks">寄付をしていただきありがとうございます。これからもどうぞ宜しくお願いします。</string>
     <string name="title_comment">アプリレビュー</string>
-    <string name="desc_comment">ストアでレビューを投稿しよう</string>
+    <string name="desc_comment">好評価をお願いします</string>
     <string name="title_discuss">チャットグループ</string>
     <string name="desc_discuss">最新情報はGithubで確認できます</string>
     <string name="title_project">プロジェクトページ</string>
@@ -87,12 +87,12 @@
     <string name="tip_material_mission">%s | %.1f%% | %.1f理性</string>
     <string name="counter_normal">標準ガチャ</string>
     <string name="counter_limited">限定ガチャ</string>
-    <string name="anti_burn_in_title">半透明悬浮球</string>
-    <string name="keep_accessibility_title">保留无障碍</string>
-    <string name="keep_accessibility_summary">行动结束后保留无障碍服务</string>
-    <string name="green_android">遵循《Android 绿色应用公约》</string>
-    <string name="root_mode_title">Root 兼容模式</string>
-    <string name="root_mode_summary">兼容低于 Android 7.0 的设备</string>
-    <string name="action_details">详情</string>
-    <string name="msg_network_error">无法连接至更新服务器。\n请稍后再试。</string>
+    <string name="anti_burn_in_title">操作ボタンを半透明に</string>
+    <string name="keep_accessibility_title">補助機能を保持</string>
+    <string name="keep_accessibility_summary">ARGS™が終了してもユーザー補助機能ONを保つ</string>
+    <string name="green_android">“Convention of Green Apps for Android”に遵従しております。</string>
+    <string name="root_mode_title">Root モード</string>
+    <string name="root_mode_summary">Android 7.0 以下のデバイスへの下位互換性</string>
+    <string name="action_details">詳細情報</string>
+    <string name="msg_network_error">サーバーへの接続エラー。\n少しく時間が経ってから再度お試しください。</string>
 </resources>
