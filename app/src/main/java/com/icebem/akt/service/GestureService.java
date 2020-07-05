@@ -56,9 +56,7 @@ public class GestureService extends AccessibilityService {
         gestureActionReceiver = new GestureActionReceiver(this::dispatchCurrentAction);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
         localBroadcastManager.registerReceiver(gestureActionReceiver, new IntentFilter(GestureActionReceiver.ACTION));
-        if (manager.keepAccessibility())
-            startService(new Intent(this, OverlayService.class));
-        else
+        if (!manager.keepAccessibility())
             localBroadcastManager.sendBroadcast(new Intent(GestureActionReceiver.ACTION));
     }
 
