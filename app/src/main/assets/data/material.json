@@ -9,7 +9,7 @@
       {
         "mission": "S2-5",
         "sanity": 12,
-        "frequency": 3.610
+        "frequency": 3.631
       }
     ],
     "workshop": []
@@ -67,7 +67,7 @@
       {
         "mission": "S2-6",
         "sanity": 12,
-        "frequency": 2.432
+        "frequency": 2.433
       }
     ],
     "workshop": []
@@ -82,7 +82,7 @@
       {
         "mission": "S3-1",
         "sanity": 15,
-        "frequency": 1.510
+        "frequency": 1.507
       }
     ],
     "workshop": []
@@ -97,7 +97,7 @@
       {
         "mission": "2-5",
         "sanity": 12,
-        "frequency": 0.369
+        "frequency": 0.368
       }
     ],
     "workshop": []
@@ -134,7 +134,7 @@
       {
         "mission": "S2-7",
         "sanity": 12,
-        "frequency": 2.519
+        "frequency": 2.523
       }
     ],
     "workshop": []
@@ -149,12 +149,12 @@
       {
         "mission": "1-8",
         "sanity": 9,
-        "frequency": 1.000
+        "frequency": 0.981
       },
       {
         "mission": "S3-2",
         "sanity": 15,
-        "frequency": 1.525
+        "frequency": 1.522
       }
     ],
     "workshop": []
@@ -169,12 +169,12 @@
       {
         "mission": "7-4",
         "sanity": 18,
-        "frequency": 0.558
+        "frequency": 0.557
       },
       {
         "mission": "2-6",
         "sanity": 12,
-        "frequency": 0.363
+        "frequency": 0.364
       }
     ],
     "workshop": []
@@ -211,12 +211,12 @@
       {
         "mission": "1-3",
         "sanity": 6,
-        "frequency": 1.011
+        "frequency": 1.000
       },
       {
         "mission": "S2-8",
         "sanity": 12,
-        "frequency": 1.910
+        "frequency": 1.913
       }
     ],
     "workshop": []
@@ -231,7 +231,7 @@
       {
         "mission": "S3-3",
         "sanity": 15,
-        "frequency": 1.212
+        "frequency": 1.214
       }
     ],
     "workshop": []
@@ -246,7 +246,7 @@
       {
         "mission": "7-18",
         "sanity": 21,
-        "frequency": 0.453
+        "frequency": 0.434
       },
       {
         "mission": "2-8",
@@ -288,12 +288,12 @@
       {
         "mission": "1-6",
         "sanity": 6,
-        "frequency": 1.087
+        "frequency": 1.054
       },
       {
         "mission": "S2-9",
         "sanity": 12,
-        "frequency": 1.923
+        "frequency": 1.918
       }
     ],
     "workshop": []
@@ -308,7 +308,7 @@
       {
         "mission": "3-7",
         "sanity": 15,
-        "frequency": 1.228
+        "frequency": 1.226
       }
     ],
     "workshop": []
@@ -323,7 +323,7 @@
       {
         "mission": "3-1",
         "sanity": 15,
-        "frequency": 0.364
+        "frequency": 0.363
       }
     ],
     "workshop": []
@@ -360,12 +360,12 @@
       {
         "mission": "1-5",
         "sanity": 6,
-        "frequency": 1.020
+        "frequency": 0.907
       },
       {
         "mission": "2-3",
         "sanity": 12,
-        "frequency": 1.434
+        "frequency": 1.435
       }
     ],
     "workshop": []
@@ -385,7 +385,7 @@
       {
         "mission": "1-12",
         "sanity": 9,
-        "frequency": 0.516
+        "frequency": 0.519
       }
     ],
     "workshop": []
@@ -400,12 +400,12 @@
       {
         "mission": "7-15",
         "sanity": 18,
-        "frequency": 0.330
+        "frequency": 0.333
       },
       {
         "mission": "3-4",
         "sanity": 15,
-        "frequency": 0.272
+        "frequency": 0.274
       }
     ],
     "workshop": []
@@ -442,12 +442,12 @@
       {
         "mission": "6-11",
         "sanity": 21,
-        "frequency": 0.490
+        "frequency": 0.489
       },
       {
         "mission": "2-9",
         "sanity": 12,
-        "frequency": 0.258
+        "frequency": 0.261
       }
     ],
     "workshop": []
@@ -489,7 +489,7 @@
       {
         "mission": "7-16",
         "sanity": 18,
-        "frequency": 0.441
+        "frequency": 0.433
       }
     ],
     "workshop": []
@@ -526,7 +526,7 @@
       {
         "mission": "3-3",
         "sanity": 15,
-        "frequency": 0.318
+        "frequency": 0.314
       }
     ],
     "workshop": []
@@ -563,7 +563,7 @@
       {
         "mission": "7-10",
         "sanity": 18,
-        "frequency": 0.340
+        "frequency": 0.339
       },
       {
         "mission": "2-10",
@@ -605,7 +605,7 @@
       {
         "mission": "S4-10",
         "sanity": 18,
-        "frequency": 0.289
+        "frequency": 0.287
       }
     ],
     "workshop": []
@@ -642,7 +642,7 @@
       {
         "mission": "S3-6",
         "sanity": 15,
-        "frequency": 0.378
+        "frequency": 0.381
       }
     ],
     "workshop": []
