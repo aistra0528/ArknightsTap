@@ -15,11 +15,13 @@ public class MaterialInfo {
     private static final String KEY_STAR = "star";
     private static final String KEY_NAME = "name";
     private static final String KEY_NAME_CN = "nameCN";
+    private static final String KEY_NAME_TW = "nameTW";
     private static final String KEY_NAME_JP = "nameJP";
+    private static final String KEY_NAME_KR = "nameKR";
     private static final String KEY_STAGES = "stages";
     private static final String KEY_WORKSHOP = "workshop";
     private int id, star;
-    private String name, nameCN, nameJP;
+    private String name, nameCN, nameTW, nameJP, nameKR;
     private Mission[] stages;
     private ShopItem[] items;
 
@@ -28,7 +30,9 @@ public class MaterialInfo {
         star = obj.getInt(KEY_STAR);
         name = obj.getString(KEY_NAME);
         nameCN = obj.getString(KEY_NAME_CN);
+        nameTW = obj.getString(KEY_NAME_TW);
         nameJP = obj.getString(KEY_NAME_JP);
+        nameKR = obj.getString(KEY_NAME_KR);
         JSONArray stages = obj.getJSONArray(KEY_STAGES);
         if (stages.length() > 0) {
             this.stages = new Mission[stages.length()];
@@ -63,8 +67,12 @@ public class MaterialInfo {
         switch (index) {
             case DataUtil.INDEX_EN:
                 return name;
+            case DataUtil.INDEX_TW:
+                return nameTW;
             case DataUtil.INDEX_JP:
                 return nameJP;
+            case DataUtil.INDEX_KR:
+                return nameKR;
             default:
                 return nameCN;
         }

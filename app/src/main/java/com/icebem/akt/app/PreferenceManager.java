@@ -21,8 +21,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class PreferenceManager {
-    private static final int PACKAGE_EN = 2;
-    private static final int PACKAGE_JP = 3;
+    private static final int PACKAGE_TW = 2;
+    private static final int PACKAGE_EN = 3;
+    private static final int PACKAGE_JP = 4;
+    private static final int PACKAGE_KR = 5;
     private static final String KEY_WIDTH = "width";
     private static final String KEY_HEIGHT = "height";
     private static final String KEY_BLUE_X = "blue_x";
@@ -242,10 +244,14 @@ public class PreferenceManager {
         String[] packages = context.getResources().getStringArray(R.array.game_server_values);
         if (packageName == null)
             return DataUtil.INDEX_CN;
+        if (packageName.equals(packages[PACKAGE_TW]))
+            return DataUtil.INDEX_TW;
         if (packageName.equals(packages[PACKAGE_EN]))
             return DataUtil.INDEX_EN;
         if (packageName.equals(packages[PACKAGE_JP]))
             return DataUtil.INDEX_JP;
+        if (packageName.equals(packages[PACKAGE_KR]))
+            return DataUtil.INDEX_KR;
         return DataUtil.INDEX_CN;
     }
 

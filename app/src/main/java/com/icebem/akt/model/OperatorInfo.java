@@ -14,18 +14,22 @@ class OperatorInfo {
     private static final String KEY_STAR = "star";
     private static final String KEY_NAME = "name";
     private static final String KEY_NAME_CN = "nameCN";
+    private static final String KEY_NAME_TW = "nameTW";
     private static final String KEY_NAME_JP = "nameJP";
+    private static final String KEY_NAME_KR = "nameKR";
     private static final String KEY_TYPE = "type";
     private static final String KEY_TAGS = "tags";
     private int star;
-    private String name, nameCN, nameJP, type;
+    private String name, nameCN, nameTW, nameJP, nameKR, type;
     private String[] tags;
 
     private OperatorInfo(JSONObject obj) throws JSONException {
         star = obj.getInt(KEY_STAR);
         name = obj.getString(KEY_NAME);
         nameCN = obj.getString(KEY_NAME_CN);
+        nameTW = obj.getString(KEY_NAME_TW);
         nameJP = obj.getString(KEY_NAME_JP);
+        nameKR = obj.getString(KEY_NAME_KR);
         type = obj.getString(KEY_TYPE);
         tags = new String[obj.getJSONArray(KEY_TAGS).length()];
         for (int i = 0; i < tags.length; i++)
@@ -54,8 +58,12 @@ class OperatorInfo {
         switch (index) {
             case DataUtil.INDEX_EN:
                 return name;
+            case DataUtil.INDEX_TW:
+                return nameTW;
             case DataUtil.INDEX_JP:
                 return nameJP;
+            case DataUtil.INDEX_KR:
+                return nameKR;
             default:
                 return nameCN;
         }

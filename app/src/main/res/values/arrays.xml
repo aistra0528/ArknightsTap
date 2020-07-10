@@ -2,14 +2,18 @@
     <string-array name="game_server_entries">
         <item>明日方舟</item>
         <item>明日方舟 - 哔哩哔哩</item>
+        <item>明日方舟 - 龍成網路</item>
         <item>Arknights</item>
         <item>アークナイツ</item>
+        <item>명일방주</item>
     </string-array>
 
     <string-array name="game_server_values">
         <item>com.hypergryph.arknights</item>
         <item>com.hypergryph.arknights.bilibili</item>
+        <item>tw.txwy.and.arknights</item>
         <item>com.YoStarEN.Arknights</item>
         <item>com.YoStarJP.Arknights</item>
+        <item>com.YoStarKR.Arknights</item>
     </string-array>
 </resources>
