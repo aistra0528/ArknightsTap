@@ -4,7 +4,9 @@
     "id": 30011,
     "name": "Orirock",
     "nameCN": "源岩",
+    "nameTW": "源岩",
     "nameJP": "源岩鉱",
+    "nameKR": "원암",
     "stages": [
       {
         "mission": "S2-5",
@@ -19,7 +21,9 @@
     "id": 30012,
     "name": "Orirock Cube",
     "nameCN": "固源岩",
+    "nameTW": "固源岩",
     "nameJP": "初級源岩",
+    "nameKR": "원암 큐브",
     "stages": [
       {
         "mission": "1-7",
@@ -34,7 +38,9 @@
     "id": 30013,
     "name": "Orirock Cluster",
     "nameCN": "固源岩组",
+    "nameTW": "固源岩組",
     "nameJP": "中級源岩",
+    "nameKR": "원암 큐브 번들",
     "stages": [],
     "workshop": [
       {
@@ -48,7 +54,9 @@
     "id": 30014,
     "name": "Orriock Concentration",
     "nameCN": "提纯源岩",
+    "nameTW": "提純源岩",
     "nameJP": "上級源岩",
+    "nameKR": "정제 원암",
     "stages": [],
     "workshop": [
       {
@@ -62,7 +70,9 @@
     "id": 30021,
     "name": "Sugar Substitute",
     "nameCN": "代糖",
+    "nameTW": "代糖",
     "nameJP": "ブドウ糖",
+    "nameKR": "대체당",
     "stages": [
       {
         "mission": "S2-6",
@@ -77,7 +87,9 @@
     "id": 30022,
     "name": "Sugar",
     "nameCN": "糖",
+    "nameTW": "糖",
     "nameJP": "初級糖原",
+    "nameKR": "포도당",
     "stages": [
       {
         "mission": "S3-1",
@@ -92,7 +104,9 @@
     "id": 30023,
     "name": "Sugar Pack",
     "nameCN": "糖组",
+    "nameTW": "糖組",
     "nameJP": "中級糖原",
+    "nameKR": "포도당 번들",
     "stages": [
       {
         "mission": "2-5",
@@ -107,7 +121,9 @@
     "id": 30024,
     "name": "Sugar Lump",
     "nameCN": "糖聚块",
+    "nameTW": "糖聚塊",
     "nameJP": "上級糖原",
+    "nameKR": "포도당 팩",
     "stages": [],
     "workshop": [
       {
@@ -129,7 +145,9 @@
     "id": 30031,
     "name": "Ester",
     "nameCN": "酯原料",
+    "nameTW": "酯原料",
     "nameJP": "エステル原料",
+    "nameKR": "에스테르 원료",
     "stages": [
       {
         "mission": "S2-7",
@@ -144,7 +162,9 @@
     "id": 30032,
     "name": "Polyester",
     "nameCN": "聚酸酯",
+    "nameTW": "聚酸酯",
     "nameJP": "初級エステル",
+    "nameKR": "폴리에스테르",
     "stages": [
       {
         "mission": "1-8",
@@ -164,7 +184,9 @@
     "id": 30033,
     "name": "Polyester Pack",
     "nameCN": "聚酸酯组",
+    "nameTW": "聚酸酯組",
     "nameJP": "中級エステル",
+    "nameKR": "폴리에스테르 번들",
     "stages": [
       {
         "mission": "7-4",
@@ -184,7 +206,9 @@
     "id": 30034,
     "name": "Polyester Lump",
     "nameCN": "聚酸酯块",
+    "nameTW": "聚酸酯塊",
     "nameJP": "上級エステル",
+    "nameKR": "폴리에스테르 팩",
     "stages": [],
     "workshop": [
       {
@@ -206,7 +230,9 @@
     "id": 30041,
     "name": "Oriron Shard",
     "nameCN": "异铁碎片",
+    "nameTW": "異鐵碎片",
     "nameJP": "異鉄の欠片",
+    "nameKR": "이철 조각",
     "stages": [
       {
         "mission": "1-3",
@@ -226,7 +252,9 @@
     "id": 30042,
     "name": "Oriron",
     "nameCN": "异铁",
+    "nameTW": "異鐵",
     "nameJP": "初級異鉄",
+    "nameKR": "이철",
     "stages": [
       {
         "mission": "S3-3",
@@ -241,7 +269,9 @@
     "id": 30043,
     "name": "Oriron Cluster",
     "nameCN": "异铁组",
+    "nameTW": "異鐵組",
     "nameJP": "中級異鉄",
+    "nameKR": "이철 번들",
     "stages": [
       {
         "mission": "7-18",
@@ -261,7 +291,9 @@
     "id": 30044,
     "name": "Oriron Block",
     "nameCN": "异铁块",
+    "nameTW": "異鐵塊",
     "nameJP": "上級異鉄",
+    "nameKR": "이철 팩",
     "stages": [],
     "workshop": [
       {
@@ -283,7 +315,9 @@
     "id": 30051,
     "name": "Diketon",
     "nameCN": "双酮",
+    "nameTW": "雙酮",
     "nameJP": "アケトン試剤",
+    "nameKR": "디케톤",
     "stages": [
       {
         "mission": "1-6",
@@ -303,7 +337,9 @@
     "id": 30052,
     "name": "Polyketon",
     "nameCN": "酮凝集",
+    "nameTW": "酮凝集",
     "nameJP": "初級アケトン",
+    "nameKR": "아케톤 응집체",
     "stages": [
       {
         "mission": "3-7",
@@ -318,7 +354,9 @@
     "id": 30053,
     "name": "Aketon",
     "nameCN": "酮凝集组",
+    "nameTW": "酮凝集組",
     "nameJP": "中級アケトン",
+    "nameKR": "아케톤 응집체 번들",
     "stages": [
       {
         "mission": "3-1",
@@ -333,7 +371,9 @@
     "id": 30054,
     "name": "Keton Colloid",
     "nameCN": "酮阵列",
+    "nameTW": "酮陣列",
     "nameJP": "上級アケトン",
+    "nameKR": "아케톤 팩",
     "stages": [],
     "workshop": [
       {
@@ -355,7 +395,9 @@
     "id": 30061,
     "name": "Damaged Device",
     "nameCN": "破损装置",
+    "nameTW": "破損裝置",
     "nameJP": "破損装置",
+    "nameKR": "파손된 장치",
     "stages": [
       {
         "mission": "1-5",
@@ -375,7 +417,9 @@
     "id": 30062,
     "name": "Device",
     "nameCN": "装置",
+    "nameTW": "裝置",
     "nameJP": "初級装置",
+    "nameKR": "장치",
     "stages": [
       {
         "mission": "S3-4",
@@ -395,7 +439,9 @@
     "id": 30063,
     "name": "Integrated Device",
     "nameCN": "全新装置",
+    "nameTW": "全新裝置",
     "nameJP": "中級装置",
+    "nameKR": "리뉴얼 장치",
     "stages": [
       {
         "mission": "7-15",
@@ -415,7 +461,9 @@
     "id": 30064,
     "name": "Optimized Device",
     "nameCN": "改量装置",
+    "nameTW": "改量裝置",
     "nameJP": "上級装置",
+    "nameKR": "개량 장치",
     "stages": [],
     "workshop": [
       {
@@ -437,7 +485,9 @@
     "id": 30073,
     "name": "Loxic Kohl",
     "nameCN": "扭转醇",
+    "nameTW": "扭轉醇",
     "nameJP": "合成コール",
+    "nameKR": "로식 콜",
     "stages": [
       {
         "mission": "6-11",
@@ -457,7 +507,9 @@
     "id": 30074,
     "name": "White Horse Kohl",
     "nameCN": "白马醇",
+    "nameTW": "白馬醇",
     "nameJP": "上級合成コール",
+    "nameKR": "화이트 호스 콜",
     "stages": [],
     "workshop": [
       {
@@ -479,7 +531,9 @@
     "id": 30083,
     "name": "Manganese Ore",
     "nameCN": "轻锰矿",
+    "nameTW": "輕錳礦",
     "nameJP": "マンガン",
+    "nameKR": "망간 광석",
     "stages": [
       {
         "mission": "3-2",
@@ -499,7 +553,9 @@
     "id": 30084,
     "name": "Manganese Trihydrate",
     "nameCN": "三水锰矿",
+    "nameTW": "三水錳礦",
     "nameJP": "上級マンガン",
+    "nameKR": "망간 중합체",
     "stages": [],
     "workshop": [
       {
@@ -521,7 +577,9 @@
     "id": 30093,
     "name": "Grindstone",
     "nameCN": "研磨石",
+    "nameTW": "研磨石",
     "nameJP": "砥石",
+    "nameKR": "연마석",
     "stages": [
       {
         "mission": "3-3",
@@ -536,7 +594,9 @@
     "id": 30094,
     "name": "Grindstone Pentahydrate",
     "nameCN": "五水研磨石",
+    "nameTW": "五水研磨石",
     "nameJP": "上級砥石",
+    "nameKR": "고급연마석",
     "stages": [],
     "workshop": [
       {
@@ -558,7 +618,9 @@
     "id": 30103,
     "name": "RMA70-12",
     "nameCN": "RMA70-12",
+    "nameTW": "RMA70-12",
     "nameJP": "RMA70-12",
+    "nameKR": "RMA70-12",
     "stages": [
       {
         "mission": "7-10",
@@ -578,7 +640,9 @@
     "id": 30104,
     "name": "RMA70-24",
     "nameCN": "RMA70-24",
+    "nameTW": "RMA70-24",
     "nameJP": "RMA70-24",
+    "nameKR": "RMA70-24",
     "stages": [],
     "workshop": [
       {
@@ -598,9 +662,11 @@
   {
     "star": 3,
     "id": 31013,
-    "name": "凝胶*",
+    "name": "Coagulating Gel",
     "nameCN": "凝胶",
-    "nameJP": "凝胶*",
+    "nameTW": "凝胶*",
+    "nameJP": "人工ゲル",
+    "nameKR": "젤",
     "stages": [
       {
         "mission": "S4-10",
@@ -613,9 +679,11 @@
   {
     "star": 4,
     "id": 31014,
-    "name": "聚合凝胶*",
+    "name": "Polymerized Gel",
     "nameCN": "聚合凝胶",
-    "nameJP": "聚合凝胶*",
+    "nameTW": "聚合凝胶*",
+    "nameJP": "融合ゲル",
+    "nameKR": "중합젤",
     "stages": [],
     "workshop": [
       {
@@ -635,9 +703,11 @@
   {
     "star": 3,
     "id": 31023,
-    "name": "炽合金*",
+    "name": "Incandescent Alloy",
     "nameCN": "炽合金",
-    "nameJP": "炽合金*",
+    "nameTW": "炽合金*",
+    "nameJP": "熾合金",
+    "nameKR": "열합금",
     "stages": [
       {
         "mission": "S3-6",
@@ -650,9 +720,11 @@
   {
     "star": 4,
     "id": 31024,
-    "name": "炽合金块*",
+    "name": "Incandescent Alloy Block",
     "nameCN": "炽合金块",
-    "nameJP": "炽合金块*",
+    "nameTW": "炽合金块*",
+    "nameJP": "上級熾合金",
+    "nameKR": "열합금 팩",
     "stages": [],
     "workshop": [
       {

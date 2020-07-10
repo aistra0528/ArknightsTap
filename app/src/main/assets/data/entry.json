@@ -8,14 +8,14 @@
   {
     "name": "recruit.json",
     "compat": 29,
-    "version": 3,
-    "tag": "2020-05-01"
+    "version": 4,
+    "tag": "2020-07-10"
   },
   {
     "name": "material.json",
     "compat": 30,
-    "version": 5,
-    "tag": "2020-07-05"
+    "version": 6,
+    "tag": "2020-07-10"
   },
   {
     "name": "resolution.json",
