@@ -36,7 +36,6 @@
     <string name="title_about">About</string>
     <string name="action_donate">Donate</string>
     <string name="msg_donate">You can show your gratitude to the developer by making a donation.</string>
-    <string name="action_donate_payment">PayPal</string>
     <string name="info_donate_thanks">Thanks for your trust, Doctor</string>
     <string name="title_comment">Rate this app</string>
     <string name="desc_comment">Rate the app on the store</string>
@@ -71,7 +70,7 @@
     <string name="recruit_preview_summary">Show unreleased operators in current server</string>
     <string name="scroll_to_result_title">Quick nav</string>
     <string name="scroll_to_result_summary">Scroll to the result area after choosing 5 tags</string>
-    <string name="special_thanks_title">Heartfelt thanks</string>
+    <string name="special_thanks_title">Contributors</string>
     <string name="special_thanks_desc">Twitter@op_satoshi - Japanese translation\n@twiceYuan</string>
     <string name="special_thanks_extra">And of course, you.\nThank you so much for using ArkTap!\n© 2020 Icebem</string>
     <string name="action_counter">Headhunt Counter</string>

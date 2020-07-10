@@ -36,7 +36,6 @@
     <string name="title_about">ArkTapについて</string>
     <string name="action_donate">寄付について</string>
     <string name="msg_donate">寄付をして頂ければ幸いです。</string>
-    <string name="action_donate_payment">ペイパル</string>
     <string name="info_donate_thanks">寄付をしていただきありがとうございます。これからもどうぞ宜しくお願いします。</string>
     <string name="title_comment">アプリレビュー</string>
     <string name="desc_comment">好評価をお願いします</string>
