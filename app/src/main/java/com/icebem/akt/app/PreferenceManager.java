@@ -116,8 +116,10 @@ public class PreferenceManager {
 
     public void setPro(boolean pro) {
         preferences.edit().putBoolean(KEY_PRO, pro).apply();
-        if (pro && Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+        if (pro && Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             preferences.edit().putBoolean(KEY_ROOT_MODE, true).apply();
+            CompatOperations.checkRootPermission();
+        }
         context.getPackageManager().setComponentEnabledSetting(new ComponentName(context, GestureService.class.getName()), pro ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
 

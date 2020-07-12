@@ -8,6 +8,7 @@ import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
@@ -32,7 +33,7 @@ public class QuickService extends TileService {
                 stopService(intent);
                 getQsTile().setState(Tile.STATE_INACTIVE);
             } else {
-                startService(intent);
+                ContextCompat.startForegroundService(this, intent);
                 getQsTile().setState(Tile.STATE_ACTIVE);
             }
             getQsTile().updateTile();

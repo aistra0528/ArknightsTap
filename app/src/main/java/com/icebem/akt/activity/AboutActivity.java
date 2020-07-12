@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -65,20 +65,8 @@ public class AboutActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.action_donate);
                 builder.setMessage(R.string.msg_donate);
-                builder.setNeutralButton(R.string.action_donate, (dialog, which) -> {
-                    Intent intent = null;
-                    try {
-                        intent = Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME);
-                    } catch (Exception e) {
-                        Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
-                    }
-                    if (intent == null || intent.resolveActivity(getPackageManager()) == null)
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PAYPAL));
-                    startActivity(intent);
-                    Snackbar.make(view, R.string.info_donate_thanks, Snackbar.LENGTH_INDEFINITE).show();
-                });
-                builder.setPositiveButton(R.string.not_now, null);
-                builder.setNegativeButton(R.string.no_thanks, null);
+                builder.setPositiveButton(R.string.action_donate, (dialog, which) -> onDonate());
+                builder.setNegativeButton(R.string.not_now, null);
                 builder.create().show();
                 break;
             case R.id.container_comment:
@@ -147,6 +135,39 @@ public class AboutActivity extends AppCompatActivity {
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.create().show();
         return true;
+    }
+
+    private void onDonate() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.action_donate);
+        builder.setSingleChoiceItems(getResources().getStringArray(R.array.donate_payment_entries), 0, (dialog, which) -> {
+            dialog.cancel();
+            switch (which) {
+                case 0:
+                    try {
+                        startActivity(Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME));
+                    } catch (Exception ignored) {
+                    }
+                    break;
+                case 1:
+                    AlertDialog.Builder qr = new AlertDialog.Builder(this);
+                    qr.setTitle(R.string.action_donate);
+                    ImageView img = new ImageView(this);
+                    img.setImageResource(R.mipmap.qr_wechat);
+                    int padding = getResources().getDimensionPixelOffset(R.dimen.view_padding);
+                    img.setPadding(padding, 0, padding, 0);
+                    qr.setView(img);
+                    qr.setPositiveButton(R.string.got_it, null);
+                    qr.create().show();
+                    break;
+                case 2:
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PAYPAL)));
+                    break;
+            }
+            Snackbar.make(typeDesc, R.string.info_donate_thanks, Snackbar.LENGTH_INDEFINITE).show();
+        });
+        builder.setNegativeButton(R.string.no_thanks, null);
+        builder.create().show();
     }
 
     private void checkVersionUpdate() {

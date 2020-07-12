@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -46,7 +47,7 @@ public class GestureService extends AccessibilityService {
         if (CompatOperations.requireOverlayPermission(this) || manager.unsupportedResolution()) {
             disableSelfCompat();
             if (CompatOperations.requireOverlayPermission(this)) {
-                OverlayToast.show(this, R.string.state_permission_request, OverlayToast.LENGTH_SHORT);
+                Toast.makeText(this, R.string.state_permission_request, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             } else if (manager.unsupportedResolution())
                 OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
