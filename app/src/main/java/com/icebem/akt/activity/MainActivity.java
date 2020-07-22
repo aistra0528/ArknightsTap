@@ -17,7 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private TextView subtitle;
-    private FloatingActionButton fab;
+    private ExtendedFloatingActionButton fab;
     private AppBarConfiguration barConfig;
     private NavController navController;
     private PreferenceManager manager;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
         manager = PreferenceManager.getInstance(this);
         fab = findViewById(R.id.fab);
-        barConfig = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_tools, R.id.nav_settings).setDrawerLayout(findViewById(R.id.drawer_layout)).build();
+        barConfig = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_tools, R.id.nav_settings).setOpenableLayout(findViewById(R.id.drawer_layout)).build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationView navigationView = findViewById(R.id.nav_view);
         subtitle = navigationView.getHeaderView(0).findViewById(R.id.txt_header_subtitle);
@@ -86,15 +86,15 @@ public class MainActivity extends AppCompatActivity {
         subtitle.setText(new SimpleDateFormat(AppUtil.DATE_FORMAT, Locale.getDefault()).format(manager.getCheckLastTime()));
     }
 
-    public FloatingActionButton getFab() {
+    public ExtendedFloatingActionButton getFab() {
         return fab;
     }
 
     private void onDestinationChanged(NavDestination destination) {
         if (destination.getId() == R.id.nav_home) {
-            if (fab.isOrWillBeHidden())
+            if (!fab.isShown())
                 fab.show();
-        } else if (fab.isOrWillBeShown())
+        } else if (fab.isShown())
             fab.hide();
     }
 

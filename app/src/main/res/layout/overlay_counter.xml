@@ -21,13 +21,13 @@
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_menu" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txt_counter_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:padding="@dimen/view_padding"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_toggle"
@@ -39,14 +39,14 @@
             android:src="@drawable/ic_headhunt_toggle" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txt_counter_tips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:paddingStart="@dimen/view_padding"
         android:paddingEnd="@dimen/view_padding"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

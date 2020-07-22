@@ -3,8 +3,8 @@ package com.icebem.akt.overlay;
 import android.content.Context;
 
 import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.appcompat.widget.AppCompatTextView;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.icebem.akt.R;
 import com.icebem.akt.app.ResolutionConfig;
 
@@ -19,10 +19,10 @@ public class OverlayToast {
     private static WeakReference<OverlayView> toast;
 
     public static void show(Context context, CharSequence text, int duration) {
-        AppCompatTextView view;
+        MaterialTextView view;
         if (toast == null || toast.get() == null) {
-            context = new ContextThemeWrapper(context.getApplicationContext(), R.style.Theme_AppCompat_Light);
-            view = new AppCompatTextView(context);
+            context = new ContextThemeWrapper(context.getApplicationContext(), R.style.Theme_MaterialComponents_Light);
+            view = new MaterialTextView(context);
             int padding = context.getResources().getDimensionPixelOffset(R.dimen.view_padding);
             view.setPadding(padding, padding, padding, padding);
             view.setBackgroundResource(R.drawable.bg_toast);
@@ -34,7 +34,7 @@ public class OverlayToast {
             toast = new WeakReference<>(new OverlayView(view));
             toast.get().setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) >> 2);
         } else {
-            view = (AppCompatTextView) toast.get().getView();
+            view = (MaterialTextView) toast.get().getView();
         }
         if (runnable == null) {
             runnable = toast.get()::remove;

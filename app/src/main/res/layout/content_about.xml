@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin">
@@ -39,7 +39,7 @@
                         android:layout_marginTop="@dimen/activity_margin"
                         android:layout_marginEnd="@dimen/activity_margin"
                         android:text="@string/title_comment"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                         android:layout_marginTop="@dimen/activity_margin"
                         android:layout_marginEnd="@dimen/activity_margin"
                         android:text="@string/title_discuss"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/title_project"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -97,9 +97,9 @@
                         android:text="@string/desc_project" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin">
@@ -125,7 +125,7 @@
                         android:layout_marginTop="@dimen/activity_margin"
                         android:layout_marginEnd="@dimen/activity_margin"
                         android:text="@string/version_current"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                     <TextView
                         android:id="@+id/txt_version_state_desc"
@@ -148,7 +148,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/version_type"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                     <TextView
                         android:id="@+id/txt_version_type_desc"
@@ -156,9 +156,9 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin">
@@ -175,7 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/special_thanks_title"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                 <TextView
                     android:id="@+id/special_thanks_desc"
@@ -183,9 +183,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/special_thanks_desc" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_margin"
@@ -198,7 +198,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:padding="@dimen/view_padding"
                 android:text="@string/green_android"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-        </androidx.cardview.widget.CardView>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

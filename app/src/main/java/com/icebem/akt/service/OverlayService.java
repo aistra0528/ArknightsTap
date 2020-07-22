@@ -18,11 +18,11 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.icebem.akt.R;
 import com.icebem.akt.app.BaseApplication;
 import com.icebem.akt.app.GestureActionReceiver;
@@ -171,9 +171,9 @@ public class OverlayService extends Service {
 
     private void updateMenuView() {
         if (manager.isPro()) {
-            AppCompatTextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
+            MaterialTextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
             if (GestureService.isGestureRunning()) {
-                desc.setTextAppearance(desc.getContext(), R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored);
+                desc.setTextAppearance(desc.getContext(), R.style.TextAppearance_MaterialComponents_Button);
                 desc.setTextColor(ContextCompat.getColor(desc.getContext(), R.color.colorError));
                 desc.setText(R.string.action_disconnect);
             } else {

@@ -20,13 +20,13 @@
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_menu" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:padding="@dimen/view_padding"
             android:text="@string/action_material"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_collapse"
@@ -46,7 +46,7 @@
         android:paddingStart="@dimen/control_padding"
         android:paddingEnd="@dimen/control_padding" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/control_margin"

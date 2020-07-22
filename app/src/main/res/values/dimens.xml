@@ -5,7 +5,8 @@
     <dimen name="container_margin">12dp</dimen>
     <dimen name="control_margin">4dp</dimen>
     <dimen name="control_padding">8dp</dimen>
-    <dimen name="control_radius">2dp</dimen>
+    <dimen name="control_radius">4dp</dimen>
+    <dimen name="control_stroke">2dp</dimen>
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="fab_mini_size">40dp</dimen>
     <dimen name="fab_margin">16dp</dimen>

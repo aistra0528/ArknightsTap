@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatRadioButton
+                <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/tag_time_3"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
                     android:background="@drawable/bg_checkbox_star_5"
                     android:text="@string/tag_time_3" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
+                <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/tag_time_2"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                     android:background="@drawable/bg_checkbox_star_3"
                     android:text="@string/tag_time_2" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
+                <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/tag_time_1"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
@@ -54,42 +54,42 @@
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap">
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_star_6"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_checkbox_star_6" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_star_5"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_checkbox_star_5" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_star_4"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_checkbox_star_4" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_star_3"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_checkbox_star_3" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_star_2"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_checkbox_star_2" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_star_1"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
@@ -102,28 +102,28 @@
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap">
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_qualification_6"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_checkbox_star_6" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_qualification_5"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_checkbox_star_5" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_qualification_2"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_checkbox_star_2" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_qualification_1"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
@@ -136,13 +136,13 @@
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap">
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_position_melee"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_position_ranged"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
@@ -154,49 +154,49 @@
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap">
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_type_vanguard"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_type_sniper"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_type_guard"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_type_caster"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_type_defender"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_type_medic"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_type_specialist"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_type_supporter"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
@@ -209,85 +209,85 @@
                 android:paddingTop="@dimen/control_padding"
                 app:flexWrap="wrap">
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_survival"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_aoe"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_slow"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_healing"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_dps"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_defense"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_recovery"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_redeploy"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_debuff"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_support"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_shift"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_summon"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_nuker"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/tag_affix_control"
                     style="@style/CheckBoxTagStyle"
                     android:layout_width="wrap_content"
@@ -300,7 +300,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_recruit_tips"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -308,11 +308,10 @@
                 android:layout_weight="1.0"
                 android:gravity="center_vertical"
                 android:text="@string/tip_recruit_result_none"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:textAppearance="@style/TextAppearance.AppCompat" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/action_recruit_reset"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorError"
