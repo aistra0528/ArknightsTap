@@ -8,7 +8,7 @@
         android:fillColor="@color/colorPrimary"
         android:pathData="M0,0h72v72h-72z" />
     <path
-        android:fillColor="@color/colorAccent"
+        android:fillColor="@color/colorSecondary"
         android:pathData="M21,51l15,-30 15,30z" />
     <path
         android:pathData="M21,51l15,-30 15,30h-19.2"
