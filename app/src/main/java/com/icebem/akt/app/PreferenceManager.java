@@ -50,7 +50,7 @@ public class PreferenceManager {
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
     private static final int[] TIMER_CONFIG = {0, 10, 15, 20, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
-    private static final int UPDATE_TIME = 2300;
+    private static final int UPDATE_TIME = 2500;
     private static final int CHECK_TIME = 28800000;
     private final Context context;
     private static int[] points;
@@ -156,7 +156,7 @@ public class PreferenceManager {
                     points[2] = obj.getInt(KEY_RED_X);
                     points[3] = obj.getInt(KEY_RED_Y);
                     points[4] = res[0] - RandomUtil.RANDOM_P;
-                    points[5] = res[1] >> 2;
+                    points[5] = res[1] >> 1;
                     return false;
                 }
             }

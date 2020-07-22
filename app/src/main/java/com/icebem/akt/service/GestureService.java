@@ -27,6 +27,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GestureService extends AccessibilityService {
+    private static final long WAIT_TIME = 3500;
     private static final long MINUTE_TIME = 60000;
     private static final String THREAD_GESTURE = "gesture";
     private static final String THREAD_TIMER = "timer";
@@ -108,7 +109,7 @@ public class GestureService extends AccessibilityService {
     }
 
     private void performGestures() {
-        SystemClock.sleep(manager.getUpdateTime());
+        SystemClock.sleep(WAIT_TIME);
         if (running) {
             startService(new Intent(this, OverlayService.class));
             int process = 0;
