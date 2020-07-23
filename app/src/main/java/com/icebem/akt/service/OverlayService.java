@@ -142,7 +142,7 @@ public class OverlayService extends Service {
     private void createMenuView() {
         menu = new OverlayView(getThemeWrapper(), R.layout.overlay_menu);
         View root = menu.getView();
-        root.setBackgroundResource(R.drawable.bg_radius);
+        root.setBackgroundResource(R.drawable.bg_floating);
         root.setElevation(getResources().getDimensionPixelOffset(R.dimen.overlay_elevation));
         root.findViewById(R.id.action_recruit).setOnClickListener(v -> {
             if (viewer == null)

@@ -5,5 +5,5 @@
             <corners android:radius="@dimen/control_radius" />
         </shape>
     </item>
-    <item android:drawable="?attr/selectableItemBackground" />
+    <item android:drawable="@drawable/ripple_tag" />
 </layer-list>

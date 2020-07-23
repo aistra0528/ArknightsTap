@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -152,11 +151,7 @@ public class AboutActivity extends AppCompatActivity {
                 case 1:
                     AlertDialog.Builder qr = new AlertDialog.Builder(this);
                     qr.setTitle(R.string.action_donate);
-                    ImageView img = new ImageView(this);
-                    img.setImageResource(R.mipmap.qr_wechat);
-                    int padding = getResources().getDimensionPixelOffset(R.dimen.view_padding);
-                    img.setPadding(padding, 0, padding, 0);
-                    qr.setView(img);
+                    qr.setView(R.layout.img_qrcode);
                     qr.setPositiveButton(R.string.got_it, null);
                     qr.create().show();
                     break;

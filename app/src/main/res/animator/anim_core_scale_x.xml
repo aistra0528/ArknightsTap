@@ -2,7 +2,7 @@
     <objectAnimator
         android:duration="@android:integer/config_longAnimTime"
         android:interpolator="@android:interpolator/fast_out_slow_in"
-        android:propertyName="fillAlpha"
+        android:propertyName="scaleX"
         android:startOffset="@android:integer/config_longAnimTime"
         android:valueFrom="1.0"
         android:valueTo="0"

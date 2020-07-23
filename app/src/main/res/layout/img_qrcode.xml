@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_margin"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:background="@drawable/bg_floating"
+        android:backgroundTint="@android:color/white"
+        android:contentDescription="@null"
+        android:paddingStart="@dimen/view_padding"
+        android:paddingEnd="@dimen/view_padding"
+        android:tint="@android:color/black"
+        app:srcCompat="@mipmap/qr_wechat" />
+</FrameLayout>

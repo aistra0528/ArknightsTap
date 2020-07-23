@@ -308,7 +308,7 @@
                 android:layout_weight="1.0"
                 android:gravity="center_vertical"
                 android:text="@string/tip_recruit_result_none"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/action_recruit_reset"

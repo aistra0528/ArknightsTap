@@ -28,9 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:divider="@drawable/dr_divider"
-                    android:orientation="vertical"
-                    android:showDividers="end">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -55,9 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:divider="@drawable/dr_divider"
-                    android:orientation="vertical"
-                    android:showDividers="end">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -114,9 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:divider="@drawable/dr_divider"
-                    android:orientation="vertical"
-                    android:showDividers="end">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
