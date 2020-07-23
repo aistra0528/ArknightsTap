@@ -27,7 +27,7 @@ public class AppUtil {
     public static final String URL_GREEN_ANDROID = "https://green-android.org/";
     public static final String URL_RELEASE_LATEST = "https://github.com/IcebemAst/ArknightsTap/releases/latest";
     public static final String URL_RELEASE_LATEST_API = "https://api.github.com/repos/IcebemAst/ArknightsTap/releases/latest";
-    private static final String URL_RELEASE_DATA = "https://raw.githubusercontent.com/IcebemAst/ArknightsTap/master/app/release/output.json";
+    private static final String URL_RELEASE_DATA = "https://raw.githubusercontent.com/IcebemAst/ArknightsTap/master/app/release/output-metadata.json";
 
     public static boolean isLatestVersion() throws IOException, JSONException {
         int version = new JSONObject(IOUtil.stream2String(IOUtil.fromWeb(URL_RELEASE_DATA))).getJSONArray("elements").getJSONObject(0).getInt("versionCode");
