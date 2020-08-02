@@ -192,16 +192,86 @@
     "red_x": 880,
     "red_y": 580
   },
-  {"width":1920,"height":1080,"blue_x":1650,"blue_y":1000,"red_x":1650,"red_y":960},
-  {"width":2160,"height":1080,"blue_x":2000,"blue_y":1000,"red_x":1800,"red_y":960},
-  {"width":2232,"height":1080,"blue_x":2030,"blue_y":1000,"red_x":1810,"red_y":960},
-  {"width":2244,"height":1080,"blue_x":2050,"blue_y":1000,"red_x":1830,"red_y":960},
-  {"width":2248,"height":1080,"blue_x":2050,"blue_y":1000,"red_x":1830,"red_y":960},
-  {"width":2280,"height":1080,"blue_x":2090,"blue_y":1000,"red_x":1840,"red_y":960},
-  {"width":2310,"height":1080,"blue_x":2110,"blue_y":1000,"red_x":1850,"red_y":960},
-  {"width":2560,"height":1096,"blue_x":2350,"blue_y":1030,"red_x":1990,"red_y":970},
-  {"width":2400,"height":1176,"blue_x":2110,"blue_y":1050,"red_x":1990,"red_y":1015},
-  {"width":1920,"height":1200,"blue_x":1730,"blue_y":1110,"red_x":1660,"red_y":930},
+  {
+    "width": 1920,
+    "height": 1080,
+    "blue_x": 1650,
+    "blue_y": 1000,
+    "red_x": 1650,
+    "red_y": 960
+  },
+  {
+    "width": 2160,
+    "height": 1080,
+    "blue_x": 2000,
+    "blue_y": 1000,
+    "red_x": 1800,
+    "red_y": 960
+  },
+  {
+    "width": 2232,
+    "height": 1080,
+    "blue_x": 2030,
+    "blue_y": 1000,
+    "red_x": 1810,
+    "red_y": 960
+  },
+  {
+    "width": 2244,
+    "height": 1080,
+    "blue_x": 2050,
+    "blue_y": 1000,
+    "red_x": 1830,
+    "red_y": 960
+  },
+  {
+    "width": 2248,
+    "height": 1080,
+    "blue_x": 2050,
+    "blue_y": 1000,
+    "red_x": 1830,
+    "red_y": 960
+  },
+  {
+    "width": 2280,
+    "height": 1080,
+    "blue_x": 2090,
+    "blue_y": 1000,
+    "red_x": 1840,
+    "red_y": 960
+  },
+  {
+    "width": 2310,
+    "height": 1080,
+    "blue_x": 2110,
+    "blue_y": 1000,
+    "red_x": 1850,
+    "red_y": 960
+  },
+  {
+    "width": 2560,
+    "height": 1096,
+    "blue_x": 2350,
+    "blue_y": 1030,
+    "red_x": 1990,
+    "red_y": 970
+  },
+  {
+    "width": 2400,
+    "height": 1176,
+    "blue_x": 2110,
+    "blue_y": 1050,
+    "red_x": 1990,
+    "red_y": 1015
+  },
+  {
+    "width": 1920,
+    "height": 1200,
+    "blue_x": 1730,
+    "blue_y": 1110,
+    "red_x": 1660,
+    "red_y": 930
+  },
   {"width":2560,"height":1440,"blue_x":2200,"blue_y":1330,"red_x":2200,"red_y":1280},
   {"width":2880,"height":1440,"blue_x":2660,"blue_y":1330,"red_x":2400,"red_y":1280},
   {"width":2960,"height":1440,"blue_x":2800,"blue_y":1330,"red_x":2430,"red_y":1280},

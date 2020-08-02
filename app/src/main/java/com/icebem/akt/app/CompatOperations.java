@@ -35,6 +35,10 @@ public class CompatOperations {
         else fallbackAction.run();
     }
 
+    public static void disableKeepScreen(AccessibilityService service) {
+        service.performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
+    }
+
     /**
      * 执行点击操作
      */

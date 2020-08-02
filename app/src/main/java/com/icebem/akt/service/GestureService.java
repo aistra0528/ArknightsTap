@@ -86,10 +86,12 @@ public class GestureService extends AccessibilityService {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    if (time > 0)
+                    if (time > 0) {
                         handler.post(GestureService.this::showTimeLeft);
-                    else
+                    } else {
                         pauseAction();
+                        CompatOperations.disableKeepScreen(GestureService.this);
+                    }
                 }
             }, 0, MINUTE_TIME);
         } else
