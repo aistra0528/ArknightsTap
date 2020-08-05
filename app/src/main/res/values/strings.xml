@@ -71,7 +71,7 @@
     <string name="scroll_to_result_title">快速导航</string>
     <string name="scroll_to_result_summary">选择5个标签后向下滑动到规划方案</string>
     <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2020 Icebem</string>
-    <string name="special_thanks_desc">酷安@neko1da - 日语翻译\n@twiceYuan</string>
+    <string name="special_thanks_desc">酷安 @neko1da - 日语翻译\nTelegram @twiceYuan - 贡献者\nTelegram @dwipaa11 和 @AdityaTamamo - 印尼语翻译</string>
     <string name="special_thanks_title">特别感谢</string>
     <string name="version_type_lite" translatable="false">Lily</string>
     <string name="version_type_pro" translatable="false">Originium</string>

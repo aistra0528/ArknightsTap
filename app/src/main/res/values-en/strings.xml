@@ -71,7 +71,7 @@
     <string name="scroll_to_result_title">Quick nav</string>
     <string name="scroll_to_result_summary">Scroll to the result area after choosing 5 tags</string>
     <string name="special_thanks_title">Special thanks</string>
-    <string name="special_thanks_desc">Twitter@op_satoshi - Japanese translation\n@twiceYuan</string>
+    <string name="special_thanks_desc">Twitter @op_satoshi - Japanese translation\nTelegram @twiceYuan - Contributor\nTelegram @dwipaa11 and @AdityaTamamo - Indonesian translation</string>
     <string name="special_thanks_extra">And of course, you.\nThank you so much for using ArkTap!\n© 2020 Icebem</string>
     <string name="action_counter">Headhunt Counter</string>
     <string name="tip_counter_default">Rolls: %d\nPossibility of 6★ in the next roll: %d%%\nLong press + to x10, - to clear</string>

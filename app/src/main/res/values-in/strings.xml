@@ -8,7 +8,7 @@
     <string name="menu_settings">Pengaturan</string>
     <string name="state_permission_request">Aplikasi ini membutuhkan perizinan</string>
     <string name="state_resolution_unsupported">Resolusi perangkatmu tidak didukung</string>
-    <string name="state_loading">Layanan sedang dimuat...</string>
+    <string name="state_loading">Layanan sedang dimuat…</string>
     <string name="state_ready">Siap digunakan</string>
     <string name="msg_permission_overlay">- Tampilkan di aplikasi lain\nBerguna agar aplikasi bisa dijalankan secara floating</string>
     <string name="info_overlay_connected">Terhubung ke ARSS™</string>
@@ -50,7 +50,7 @@
     <string name="version_update">Versi terbaru telah tersedia!</string>
     <string name="version_type">Tipe versi</string>
     <string name="version_type_beta">Ini adalah versi beta, yang diberi nama Luna.</string>
-    <string name="version_type_changed">Tipe versi telah dirubah, tolong restart aplikasi</string>
+    <string name="version_type_changed">Tipe versi telah dirubah, tolong restart sistem</string>
     <string name="action_update">Pembaruan</string>
     <string name="got_it">Mengerti</string>
     <string name="permission_permit">Oke</string>
@@ -71,7 +71,7 @@
     <string name="scroll_to_result_title">Quick nav</string>
     <string name="scroll_to_result_summary">Gulir ke area hasil setelah memilih 5 tag</string>
     <string name="special_thanks_title">Terima kasih khusus</string>
-    <string name="special_thanks_desc">Twitter@op_satoshi - Penerjemah bahasa Jepang\n@twiceYuan\nTelegram @dwipaa11 dan @AdityaTamamo - Penerjemah bahasa Indonesia</string>
+    <string name="special_thanks_desc">Twitter @op_satoshi - Penerjemah bahasa Jepang\nTelegram @twiceYuan - Penyumbang\nTelegram @dwipaa11 dan @AdityaTamamo - Penerjemah bahasa Indonesia</string>
     <string name="special_thanks_extra">Dan tentu saja, Anda.\nTerima kasih banyak telah menggunakan ArkTap!\n© 2020 Icebem</string>
     <string name="action_counter">Penghitung Headhunt</string>
     <string name="tip_counter_default">Roll: %d\nKemungkinan 6 ★ diroll berikutnya: %d%%\nTekan lama + untuk x10, - untuk membersihkan</string>
