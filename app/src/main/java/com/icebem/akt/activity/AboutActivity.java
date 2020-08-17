@@ -146,14 +146,11 @@ public class AboutActivity extends AppCompatActivity {
                     try {
                         startActivity(Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME));
                     } catch (Exception ignored) {
+                        showQRDialog(true);
                     }
                     break;
                 case 1:
-                    AlertDialog.Builder qr = new AlertDialog.Builder(this);
-                    qr.setTitle(R.string.action_donate);
-                    qr.setView(R.layout.img_qrcode);
-                    qr.setPositiveButton(R.string.got_it, null);
-                    qr.create().show();
+                    showQRDialog(false);
                     break;
                 case 2:
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PAYPAL)));
@@ -163,6 +160,14 @@ public class AboutActivity extends AppCompatActivity {
         });
         builder.setNegativeButton(R.string.no_thanks, null);
         builder.create().show();
+    }
+
+    private void showQRDialog(boolean isAlipay) {
+        AlertDialog.Builder qr = new AlertDialog.Builder(this);
+        qr.setTitle(R.string.action_donate);
+        qr.setView(isAlipay ? R.layout.qr_alipay : R.layout.qr_wechat);
+        qr.setPositiveButton(R.string.got_it, null);
+        qr.create().show();
     }
 
     private void checkVersionUpdate() {
