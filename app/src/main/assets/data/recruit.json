@@ -75,11 +75,11 @@
   {"star":4,"name":"Beehunter*","nameCN":"猎蜂","nameTW":"獵蜂*","nameJP":"ビーハンター*","nameKR":"비헌터*","type":"Guard","tags":["Melee","DPS"]},
   {"star":5,"name":"Nightmare*","nameCN":"夜魔","nameTW":"夜魔*","nameJP":"ナイトメア*","nameKR":"나이트메어*","type":"Caster","tags":["Ranged","DPS","Healing","Slow"]},
   {"star":6,"name":"Skadi*","nameCN":"斯卡蒂","nameTW":"斯卡蒂*","nameJP":"スカジ*","nameKR":"스카디*","type":"Guard","tags":["Melee","DPS","Survival"]},
-  {"star":4,"name":"Purestream*","nameCN":"清流*","nameTW":"清流*","nameJP":"セイリュウ*","nameKR":"清流*","type":"Medic","tags":["Ranged","Healing","Support"]},
   {"star":1,"name":"Thermal-EX*","nameCN":"THRM-EX","nameTW":"THRM-EX*","nameJP":"Thermal-EX*","nameKR":"THRM-EX*","type":"Specialist","tags":["Melee","Nuker"]},
   {"star":3,"name":"Popukar*","nameCN":"泡普卡","nameTW":"泡普卡*","nameJP":"ポプカル*","nameKR":"포푸카*","type":"Guard","tags":["Melee","AoE","Survival"]},
-  {"star":3,"name":"Spot*","nameCN":"斑点","nameTW":"斑点*","nameJP":"スポット*","nameKR":"스팟*","type":"Defender","tags":["Melee","Defense","Healing"]},
+  {"star":3,"name":"Spot*","nameCN":"斑点","nameTW":"斑點*","nameJP":"スポット*","nameKR":"스팟*","type":"Defender","tags":["Melee","Defense","Healing"]},
   {"star":4,"name":"Greyy*","nameCN":"格雷伊","nameTW":"格雷伊*","nameJP":"グレイ*","nameKR":"그레이*","type":"Caster","tags":["Ranged","AoE","Slow"]},
-  {"star":5,"name":"Swire*","nameCN":"诗怀雅","nameTW":"诗怀雅*","nameJP":"スワイヤー*","nameKR":"스와이어*","type":"Guard","tags":["Melee","DPS","Support"]},
-  {"star":6,"name":"Ch'en*","nameCN":"陈","nameTW":"陈*","nameJP":"チェン*","nameKR":"첸*","type":"Guard","tags":["Melee","Nuker","DPS"]}
+  {"star":5,"name":"Swire*","nameCN":"诗怀雅","nameTW":"詩懷雅*","nameJP":"スワイヤー*","nameKR":"스와이어*","type":"Guard","tags":["Melee","DPS","Support"]},
+  {"star":6,"name":"Ch'en*","nameCN":"陈","nameTW":"陳*","nameJP":"チェン*","nameKR":"첸*","type":"Guard","tags":["Melee","Nuker","DPS"]},
+  {"star":4,"name":"Purestream*","nameCN":"清流*","nameTW":"清流*","nameJP":"セイリュウ*","nameKR":"清流*","type":"Medic","tags":["Ranged","Healing","Support"]}
 ]
