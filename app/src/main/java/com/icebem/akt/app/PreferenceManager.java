@@ -31,6 +31,8 @@ public class PreferenceManager {
     private static final String KEY_BLUE_Y = "blue_y";
     private static final String KEY_RED_X = "red_x";
     private static final String KEY_RED_Y = "red_y";
+    private static final String KEY_SPRITE_X = "sprite_x";
+    private static final String KEY_SPRITE_Y = "sprite_y";
     private static final String KEY_TIMER_TIME = "timer_time";
     private static final String KEY_PRO = "pro";
     private static final String KEY_VERSION_CODE = "version_code";
@@ -100,6 +102,19 @@ public class PreferenceManager {
 
     public int getGreenY() {
         return points[5];
+    }
+
+    public void setSpritePosition(int x, int y) {
+        preferences.edit().putInt(KEY_SPRITE_X, x).apply();
+        preferences.edit().putInt(KEY_SPRITE_Y, y).apply();
+    }
+
+    public int getSpriteX() {
+        return preferences.getInt(KEY_SPRITE_X, 0);
+    }
+
+    public int getSpriteY() {
+        return preferences.getInt(KEY_SPRITE_Y, 0);
     }
 
     public int getUpdateTime() {

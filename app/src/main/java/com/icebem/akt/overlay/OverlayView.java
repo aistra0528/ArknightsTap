@@ -87,6 +87,14 @@ public class OverlayView {
         update();
     }
 
+    public int getRelativeX() {
+        return params.x;
+    }
+
+    public int getRelativeY() {
+        return params.y;
+    }
+
     private boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:

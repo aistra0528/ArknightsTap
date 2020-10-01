@@ -126,7 +126,7 @@ public class GestureService extends AccessibilityService {
                     default:
                         CompatOperations.performClick(this, manager.getGreenX(), manager.getGreenY());
                 }
-                if (++process > 3) process = 0;
+                if (++process > 4) process = 0;
                 SystemClock.sleep(RandomUtil.randomT(manager.getUpdateTime()));
             }
         }

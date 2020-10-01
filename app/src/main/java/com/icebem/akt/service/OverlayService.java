@@ -197,8 +197,8 @@ public class OverlayService extends Service {
         btn.setOnClickListener(v -> showTargetView(current));
         btn.setOnLongClickListener(this::stopSelf);
         fab = new OverlayView(btn);
-        fab.setGravity(Gravity.END | Gravity.TOP);
-        fab.setRelativePosition(screenSize - size >> 1, 0);
+        fab.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        setFabPosition(isPortrait());
         fab.setMobilizable(true);
     }
 
@@ -244,6 +244,14 @@ public class OverlayService extends Service {
         return view != null;
     }
 
+    private void setFabPosition(boolean isPortrait) {
+        fab.setRelativePosition(isPortrait ? 0 : manager.getSpriteX(), isPortrait ? 0 : manager.getSpriteY());
+    }
+
+    private boolean isPortrait() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    }
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -252,7 +260,10 @@ public class OverlayService extends Service {
     @Override
     public void onConfigurationChanged(Configuration cfg) {
         super.onConfigurationChanged(cfg);
-        fab.setRelativePosition(screenSize - fab.getView().getWidth() >> 1, 0);
+        boolean isPortrait = cfg.orientation == Configuration.ORIENTATION_PORTRAIT;
+        if (isPortrait)
+            manager.setSpritePosition(fab.getRelativeX(), fab.getRelativeY());
+        setFabPosition(isPortrait);
         counter.setRelativePosition(0, 0);
         material.setRelativePosition(0, 0);
     }
@@ -260,6 +271,8 @@ public class OverlayService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (!isPortrait())
+            manager.setSpritePosition(fab.getRelativeX(), fab.getRelativeY());
         fab.remove();
         current.remove();
         if (GestureService.isGestureRunning())
