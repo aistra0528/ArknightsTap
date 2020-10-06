@@ -3,7 +3,7 @@
     "name": "entry.json",
     "compat": 29,
     "version": 1,
-    "tag": "2020-10-04"
+    "tag": "2020-10-06"
   },
   {
     "name": "recruit.json",
@@ -20,7 +20,7 @@
   {
     "name": "resolution.json",
     "compat": 29,
-    "version": 22,
-    "tag": "2020-10-04"
+    "version": 23,
+    "tag": "2020-10-06"
   }
 ]

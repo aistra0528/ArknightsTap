@@ -20,6 +20,7 @@
   {"width":2640,"height":1200,"blue_x":2430,"blue_y":1095,"red_x":2080,"red_y":775},
   {"width":2960,"height":1440,"blue_x":2700,"blue_y":1315,"red_x":2290,"red_y":930},
   {"width":3168,"height":1440,"blue_x":2910,"blue_y":1315,"red_x":2495,"red_y":930},
+  {"width":3840,"height":2160,"blue_x":3315,"blue_y":1910,"red_x":3315,"red_y":1910},
   {"width":1024,"height":576,"blue_x":930,"blue_y":520,"red_x":920,"red_y":510},
   {"width":1440,"height":576,"blue_x":1330,"blue_y":520,"red_x":1130,"red_y":510},
   {"width":1280,"height":720,"blue_x":1100,"blue_y":670,"red_x":1100,"red_y":650},
