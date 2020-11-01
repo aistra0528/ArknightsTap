@@ -81,5 +81,11 @@
   {"star":4,"name":"Greyy*","nameCN":"格雷伊","nameTW":"格雷伊*","nameJP":"グレイ*","nameKR":"그레이*","type":"Caster","tags":["Ranged","AoE","Slow"]},
   {"star":5,"name":"Swire*","nameCN":"诗怀雅","nameTW":"詩懷雅*","nameJP":"スワイヤー*","nameKR":"스와이어*","type":"Guard","tags":["Melee","DPS","Support"]},
   {"star":6,"name":"Ch'en*","nameCN":"陈","nameTW":"陳*","nameJP":"チェン*","nameKR":"첸*","type":"Guard","tags":["Melee","Nuker","DPS"]},
+  {"star":4,"name":"Sussurro*","nameCN":"苏苏洛","nameTW":"苏苏洛*","nameJP":"ススーロ*","nameKR":"苏苏洛*","type":"Medic","tags":["Ranged","Healing"]},
+  {"star":4,"name":"Myrtle*","nameCN":"桃金娘","nameTW":"桃金娘*","nameJP":"テンニンカ*","nameKR":"桃金娘*","type":"Vanguard","tags":["Melee","DP-Recovery","Healing"]},
+  {"star":5,"name":"Glaucus*","nameCN":"格劳克斯","nameTW":"格劳克斯*","nameJP":"グラウコス*","nameKR":"格劳克斯*","type":"Supporter","tags":["Ranged","Slow","Crowd-Control"]},
+  {"star":5,"name":"Astesia*","nameCN":"星极","nameTW":"星极*","nameJP":"アステシア*","nameKR":"星极*","type":"Guard","tags":["Melee","DPS","Defense"]},
+  {"star":6,"name":"Schwarz*","nameCN":"黑","nameTW":"黑*","nameJP":"シュヴァルツ*","nameKR":"黑*","type":"Sniper","tags":["Ranged","DPS"]},
+  {"star":6,"name":"Hellagur*","nameCN":"赫拉格","nameTW":"赫拉格*","nameJP":"ヘラグ*","nameKR":"赫拉格*","type":"Guard","tags":["Melee","DPS","Survival"]},
   {"star":4,"name":"Purestream*","nameCN":"清流*","nameTW":"清流*","nameJP":"セイリュウ*","nameKR":"清流*","type":"Medic","tags":["Ranged","Healing","Support"]}
 ]
