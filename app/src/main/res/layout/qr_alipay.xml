@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:contentDescription="@null"
         android:padding="@dimen/view_padding"
-        android:tint="?android:attr/textColorPrimary"
-        app:srcCompat="@mipmap/qr_alipay" />
+        app:srcCompat="@mipmap/qr_alipay"
+        app:tint="?android:attr/textColorPrimary" />
 </LinearLayout>
