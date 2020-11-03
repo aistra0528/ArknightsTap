@@ -1,19 +1,17 @@
 {
-  "version": 1,
+  "version": 2,
   "artifactType": {
     "type": "APK",
     "kind": "Directory"
   },
   "applicationId": "com.icebem.akt",
-  "variantName": "release",
+  "variantName": "processReleaseResources",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "properties": [],
-      "versionCode": 43,
-      "versionName": "2.3.9",
-      "enabled": true,
+      "versionCode": 44,
+      "versionName": "2.4.0",
       "outputFile": "app-release.apk"
     }
   ]
