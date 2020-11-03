@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class AboutActivity extends AppCompatActivity {
-    private static final int TEXT_SPEED = 100;
+    private static final int TEXT_SPEED = 50;
     private int i;
     private TextView typeDesc, thanksDesc;
     private LinearLayout versionContainer;

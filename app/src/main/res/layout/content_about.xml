@@ -182,8 +182,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_margin"
-            android:visibility="gone">
+            android:layout_margin="@dimen/activity_margin">
 
             <TextView
                 android:id="@+id/green_android"

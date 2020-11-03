@@ -1,3 +1,4 @@
 <resources>
-    <color name="colorSecondary">@color/colorAccent</color>
+    <color name="colorSecondary">#00B0FF</color>
+    <color name="colorAccent">#FFA000</color>
 </resources>
