@@ -70,7 +70,7 @@
     <string name="recruit_preview_summary">显示当前渠道尚未实装的干员</string>
     <string name="scroll_to_result_title">快速导航</string>
     <string name="scroll_to_result_summary">选择5个标签后向下滑动到规划方案</string>
-    <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2020 Icebem</string>
+    <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2021 Icebem</string>
     <string name="special_thanks_desc">酷安 @neko1da - 日语翻译\nTelegram @twiceYuan - 贡献者\nTelegram @dwipaa11 和 @AdityaTamamo - 印尼语翻译</string>
     <string name="special_thanks_title">特别感谢</string>
     <string name="version_type_lite" translatable="false">Lily</string>
@@ -94,10 +94,12 @@
     <string name="counter_limited">限定寻访</string>
     <string name="anti_burn_in_title">半透明悬浮球</string>
     <string name="keep_accessibility_title">保留无障碍</string>
-    <string name="keep_accessibility_summary">行动结束后保留无障碍服务</string>
+    <string name="keep_accessibility_summary_on">行动结束后保留无障碍服务</string>
+    <string name="keep_accessibility_summary_off">打开无障碍后立刻开始行动</string>
     <string name="green_android">遵循《Android 绿色应用公约》</string>
-    <string name="root_mode_title">Root 兼容模式</string>
-    <string name="root_mode_summary">兼容低于 Android 7.0 的设备</string>
+    <string name="root_mode_title">Root 实现模式</string>
+    <string name="root_mode_summary">兼容低于 Android 7.0 的已 Root 设备</string>
     <string name="action_details">详情</string>
-    <string name="msg_network_error">无法连接至更新服务器。\n请检查网络连接，或在开启 VPN 后重试。</string>
+    <string name="msg_network_error">无法连接至更新服务器。\n请检查网络连接，或在打开 VPN 后重试。</string>
+    <string name="error_accessibility_killed">戳戳乐™失联了！\n请强行停止应用后再次打开。</string>
 </resources>

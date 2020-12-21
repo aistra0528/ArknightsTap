@@ -70,7 +70,7 @@
     <string name="recruit_preview_summary">選択したサーバーで未実装キャラを加える</string>
     <string name="scroll_to_result_title">オートスライディング</string>
     <string name="scroll_to_result_summary">5つのタグを選び終えたら下方にスライドする</string>
-    <string name="special_thanks_extra">もちろん、あなたにも。\nArkTapを使って頂きありがとうございます(≧▽≦)\n© 2020 Icebem</string>
+    <string name="special_thanks_extra">もちろん、あなたにも。\nArkTapを使って頂きありがとうございます(≧▽≦)\n© 2021 Icebem</string>
     <string name="special_thanks_desc">Twitter @op_satoshi - 日本語訳\nTelegram @twiceYuan - 寄稿者\nTelegram @dwipaa11 と @AdityaTamamo - インドネシア語訳</string>
     <string name="special_thanks_title">特別感謝</string>
     <string name="action_counter">ガチャカウンタ</string>
@@ -88,10 +88,12 @@
     <string name="counter_limited">限定ガチャ</string>
     <string name="anti_burn_in_title">操作ボタンを半透明に</string>
     <string name="keep_accessibility_title">補助機能を保持</string>
-    <string name="keep_accessibility_summary">ARGS™が終了してもユーザー補助機能ONを保つ</string>
+    <string name="keep_accessibility_summary_on">ARGS™が終了してもユーザー補助機能ONを保つ</string>
+    <string name="keep_accessibility_summary_off">ARGS™が終了してもユーザー補助機能ONを保つ</string>
     <string name="green_android">“Convention of Green Apps for Android”に遵従しております。</string>
     <string name="root_mode_title">Root モード</string>
     <string name="root_mode_summary">Android 7.0 以下のデバイスへの下位互換性</string>
     <string name="action_details">詳細情報</string>
     <string name="msg_network_error">サーバーへの接続エラー。\n少しく時間が経ってから再度お試しください。</string>
+    <string name="error_accessibility_killed">ARGS™ was killed, please force stop app.</string>
 </resources>

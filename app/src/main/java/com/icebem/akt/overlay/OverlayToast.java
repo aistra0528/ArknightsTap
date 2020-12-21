@@ -11,7 +11,7 @@ import com.icebem.akt.app.ResolutionConfig;
 import java.lang.ref.WeakReference;
 
 public class OverlayToast {
-    private static final int LENGTH_INDEFINITE = 0;
+    public static final int LENGTH_INDEFINITE = 0;
     public static final int LENGTH_SHORT = 2000;
     public static final int LENGTH_LONG = 3000;
 

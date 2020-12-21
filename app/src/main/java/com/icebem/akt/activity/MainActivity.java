@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
         } else if (((BaseApplication) getApplication()).isGestureServiceEnabled()) {
-            Toast.makeText(this, R.string.error_occurred, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_accessibility_killed, Toast.LENGTH_LONG).show();
             startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse(AppUtil.URL_PACKAGE)));
         } else {
             Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show();

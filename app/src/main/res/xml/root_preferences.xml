@@ -59,7 +59,8 @@
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:key="keep_accessibility"
-            app:summary="@string/keep_accessibility_summary"
+            app:summaryOff="@string/keep_accessibility_summary_off"
+            app:summaryOn="@string/keep_accessibility_summary_on"
             app:title="@string/keep_accessibility_title" />
 
         <SwitchPreferenceCompat

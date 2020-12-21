@@ -215,7 +215,7 @@ public class OverlayService extends Service {
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
         } else if (((BaseApplication) getApplication()).isGestureServiceEnabled()) {
             // Force stop app
-            OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
+            OverlayToast.show(this, R.string.error_accessibility_killed, OverlayToast.LENGTH_INDEFINITE);
             startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse(AppUtil.URL_PACKAGE)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } else {
             // Turn on gesture service when it is not running.
