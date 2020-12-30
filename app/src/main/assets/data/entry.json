@@ -3,13 +3,13 @@
     "name": "entry.json",
     "compat": 29,
     "version": 1,
-    "tag": "2020-11-20"
+    "tag": "2020-12-30"
   },
   {
     "name": "recruit.json",
     "compat": 29,
-    "version": 6,
-    "tag": "2020-11-01"
+    "version": 7,
+    "tag": "2020-12-30"
   },
   {
     "name": "material.json",
