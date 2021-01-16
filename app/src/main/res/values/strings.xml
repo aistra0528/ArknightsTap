@@ -100,6 +100,6 @@
     <string name="root_mode_title">Root 实现模式</string>
     <string name="root_mode_summary">兼容低于 Android 7.0 的已 Root 设备</string>
     <string name="action_details">详情</string>
-    <string name="msg_network_error">无法连接至更新服务器。\n请检查网络连接，或在打开 VPN 后重试。</string>
+    <string name="msg_network_error">无法连接服务器。\n请稍后再试。</string>
     <string name="error_accessibility_killed">戳戳乐™失联了！\n请强行停止应用后再次打开。</string>
 </resources>

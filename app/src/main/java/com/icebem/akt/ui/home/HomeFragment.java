@@ -144,7 +144,7 @@ public class HomeFragment extends Fragment {
                 l = AppUtil.getChangelog(json);
                 u = AppUtil.getDownloadUrl(json);
             }
-            manager.setCheckLastTime();
+            manager.setCheckLastTime(false);
         } catch (Exception e) {
             id = R.string.version_checking_failed;
             if (e instanceof IOException && getActivity() != null)

@@ -126,6 +126,7 @@ public class AboutActivity extends AppCompatActivity {
             int id = R.string.data_reset_done;
             try {
                 DataUtil.updateData(manager, false);
+                manager.setCheckLastTime(true);
             } catch (Exception e) {
                 id = R.string.error_occurred;
             }
@@ -182,7 +183,7 @@ public class AboutActivity extends AppCompatActivity {
                 l = AppUtil.getChangelog(json);
                 url = AppUtil.getDownloadUrl(json);
             }
-            manager.setCheckLastTime();
+            manager.setCheckLastTime(false);
         } catch (Exception e) {
             id = R.string.version_checking_failed;
             if (e instanceof IOException)

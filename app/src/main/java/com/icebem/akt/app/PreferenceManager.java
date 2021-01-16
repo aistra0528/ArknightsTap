@@ -196,8 +196,8 @@ public class PreferenceManager {
         return TIMER_POSITION;
     }
 
-    public void setCheckLastTime() {
-        preferences.edit().putLong(KEY_CHECK_LAST_TIME, System.currentTimeMillis()).apply();
+    public void setCheckLastTime(boolean isReset) {
+        preferences.edit().putLong(KEY_CHECK_LAST_TIME, isReset ? 0 : System.currentTimeMillis()).apply();
     }
 
     public long getCheckLastTime() {
