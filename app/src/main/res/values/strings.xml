@@ -6,7 +6,7 @@
     <string name="menu_home">首页</string>
     <string name="menu_tools">工具</string>
     <string name="menu_settings">设置</string>
-    <string name="state_permission_request">请求授权</string>
+    <string name="state_permission_request">需要权限</string>
     <string name="state_resolution_unsupported">设备未适配</string>
     <string name="state_loading">正在部署</string>
     <string name="state_ready">部署已完毕</string>
@@ -35,9 +35,9 @@
     <string name="msg_resolution_unsupported">戳戳乐™暂未适配%d×%d分辨率，请在关于向开发者反馈。\n您仍可正常使用公开招募规划等功能。</string>
     <string name="title_about">关于</string>
     <string name="action_donate">捐赠</string>
-    <string name="msg_donate">如果您乐意，可以通过捐赠来支持方舟帮帮忙的开发与维护</string>
+    <string name="msg_donate">如果您乐意，可以通过捐赠的方式来支持方舟帮帮忙的开发与维护</string>
     <string name="info_donate_thanks">感谢你的信任，博士</string>
-    <string name="title_comment">应用评分</string>
+    <string name="title_comment">评论应用</string>
     <string name="desc_comment">在应用评论区吐槽</string>
     <string name="title_discuss">群聊讨论</string>
     <string name="desc_discuss">加入QQ群，抢先体验新版本</string>
@@ -53,7 +53,7 @@
     <string name="version_type_changed">版本类型已更新，重启设备后生效</string>
     <string name="action_update">更新</string>
     <string name="got_it">知道了</string>
-    <string name="permission_permit">允许</string>
+    <string name="permission_permit">授权</string>
     <string name="no_thanks">不用了</string>
     <string name="not_now">下次一定</string>
     <string name="error_occurred">发生错误</string>
@@ -70,7 +70,7 @@
     <string name="recruit_preview_summary">显示当前渠道尚未实装的干员</string>
     <string name="scroll_to_result_title">快速导航</string>
     <string name="scroll_to_result_summary">选择5个标签后向下滑动到规划方案</string>
-    <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2021 Icebem</string>
+    <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2021 艾星Aistra</string>
     <string name="special_thanks_desc">酷安 @neko1da - 日语翻译\nTelegram @twiceYuan - 贡献者\nTelegram @dwipaa11 和 @AdityaTamamo - 印尼语翻译</string>
     <string name="special_thanks_title">特别感谢</string>
     <string name="version_type_lite" translatable="false">Lily</string>

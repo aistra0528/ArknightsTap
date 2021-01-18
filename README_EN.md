@@ -1,8 +1,8 @@
-##### [简体中文](README.md) | [繁体中文](README_TW.md) | English | [日本語](README_JP.md) | [한국어](README_KR.md)
+[简体中文](README.md) | [繁体中文](README_TW.md) | English | [日本語](README_JP.md) | [한국어](README_KR.md)
 # ArkTap
 ArkTap is a tool app for Arknights.
 
-[Latest release](https://github.com/IcebemAst/ArknightsTap/releases/latest)
+[Latest release](https://github.com/aistra0528/ArknightsTap/releases/latest)
 
 ## Features
 

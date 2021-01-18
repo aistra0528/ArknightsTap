@@ -1,8 +1,8 @@
-##### 简体中文 | [繁体中文](README_TW.md) | [English](README_EN.md) | [日本語](README_JP.md) | [한국어](README_KR.md)
+简体中文 | [繁体中文](README_TW.md) | [English](README_EN.md) | [日本語](README_JP.md) | [한국어](README_KR.md)
 # 方舟帮帮忙
 方舟帮帮忙是一款开源的明日方舟第三方辅助 Android 应用。
 
-[下载最新版本](https://github.com/IcebemAst/ArknightsTap/releases/latest)
+[下载最新版本](https://github.com/aistra0528/ArknightsTap/releases/latest)
 
 [下载最新版本（酷安）](https://www.coolapk.com/apk/com.icebem.akt)
 ## 功能

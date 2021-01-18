@@ -42,7 +42,7 @@
         android:contentDescription="@string/action_donate"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_fab_favorite"
+        app:srcCompat="@drawable/ic_fab_thumb_up"
         app:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

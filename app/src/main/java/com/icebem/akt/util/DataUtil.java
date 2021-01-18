@@ -28,7 +28,7 @@ public class DataUtil {
     private static final String DATA_MATERIAL = "material.json";
     private static final String DATA_RECRUIT = "recruit.json";
     private static final String DATA_RESOLUTION = "resolution.json";
-    private static final String URL_WEB_DATA = "https://raw.githubusercontent.com/IcebemAst/ArknightsTap/master/app/src/main/assets/data/";
+    private static final String URL_WEB_DATA = "https://gitee.com/aistra0528/ArknightsTap/raw/master/app/src/main/assets/data/";
 
     public static boolean updateData(PreferenceManager manager, boolean fromWeb) throws IOException, JSONException {
         JSONArray targetEntry = fromStream(fromWeb ? IOUtil.fromWeb(URL_WEB_DATA + DATA_ENTRY) : IOUtil.fromAssets(manager.getApplicationContext(), TYPE_DATA + File.separatorChar + DATA_ENTRY));
