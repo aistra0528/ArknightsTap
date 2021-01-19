@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion '30.0.2'
+    buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId 'com.icebem.akt'
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 46
-        versionName '2.4.2'
+        versionCode 47
+        versionName '2.5.0'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
