@@ -87,5 +87,8 @@
   {"star":5,"name":"Astesia*","nameCN":"星极","nameTW":"星极*","nameJP":"アステシア*","nameKR":"星极*","type":"Guard","tags":["Melee","DPS","Defense"]},
   {"star":6,"name":"Schwarz*","nameCN":"黑","nameTW":"黑*","nameJP":"シュヴァルツ*","nameKR":"黑*","type":"Sniper","tags":["Ranged","DPS"]},
   {"star":6,"name":"Hellagur*","nameCN":"赫拉格","nameTW":"赫拉格*","nameJP":"ヘラグ*","nameKR":"赫拉格*","type":"Guard","tags":["Melee","DPS","Survival"]},
+  {"star":4,"name":"Vermeil*","nameCN":"红云","nameTW":"红云*","nameJP":"ヴァーミル*","nameKR":"红云*","type":"Sniper","tags":["Ranged","DPS"]},
+  {"star":5,"name":"Executor*","nameCN":"送葬人","nameTW":"送葬人*","nameJP":"イグゼキュター*","nameKR":"送葬人*","type":"Sniper","tags":["Ranged","AoE"]},
+  {"star":6,"name":"Magallan*","nameCN":"麦哲伦","nameTW":"麦哲伦*","nameJP":"マゼラン*","nameKR":"麦哲伦*","type":"Supporter","tags":["Ranged","Support","Slow","DPS"]},
   {"star":4,"name":"Purestream*","nameCN":"清流*","nameTW":"清流*","nameJP":"セイリュウ*","nameKR":"清流*","type":"Medic","tags":["Ranged","Healing","Support"]}
 ]
