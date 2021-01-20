@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.icebem.akt">
 
+    <queries>
+        <package android:name="com.hypergryph.arknights" />
+        <package android:name="com.hypergryph.arknights.bilibili" />
+        <package android:name="tw.txwy.and.arknights" />
+        <package android:name="com.YoStarEN.Arknights" />
+        <package android:name="com.YoStarJP.Arknights" />
+        <package android:name="com.YoStarKR.Arknights" />
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
