@@ -9,6 +9,13 @@
         <package android:name="com.YoStarEN.Arknights" />
         <package android:name="com.YoStarJP.Arknights" />
         <package android:name="com.YoStarKR.Arknights" />
+        <package android:name="com.coolapk.market" />
+        <package android:name="com.eg.android.AlipayGphone" />
+
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="mqqopensdkapi" />
+        </intent>
     </queries>
 
     <uses-permission android:name="android.permission.INTERNET" />
