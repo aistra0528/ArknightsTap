@@ -5,13 +5,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txt_beta"
+        android:id="@+id/txt_tips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/control_margin"
         android:gravity="center_horizontal"
-        android:text="@string/version_type_beta"
-        android:visibility="invisible" />
+        android:text="@string/coming_soon" />
 
     <ImageView
         android:id="@+id/img_state"

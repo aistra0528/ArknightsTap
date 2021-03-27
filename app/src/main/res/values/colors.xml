@@ -2,10 +2,12 @@
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorSecondary">#FFA000</color>
-    <color name="colorAccent">#00B0FF</color>
     <color name="colorOverlay">#99000000</color>
     <color name="colorToast">#E6EEEEEE</color>
     <color name="colorError">#FF1744</color>
+    <color name="colorRecruit">#8BC34A</color>
+    <color name="colorHeadhunt">#FBC02D</color>
+    <color name="colorMaterial">#00B0FF</color>
     <color name="colorControlActivated">#8D6E63</color>
     <color name="colorStar6">#B71C1C</color>
     <color name="colorStar5">#E65100</color>

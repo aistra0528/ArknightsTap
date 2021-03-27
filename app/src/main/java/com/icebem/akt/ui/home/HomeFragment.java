@@ -46,11 +46,21 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        TextView tip = root.findViewById(R.id.txt_tips);
         stateImg = root.findViewById(R.id.img_state);
         state = root.findViewById(R.id.txt_state);
-        if (BuildConfig.DEBUG)
-            root.findViewById(R.id.txt_beta).setVisibility(View.VISIBLE);
         manager = PreferenceManager.getInstance(getContext());
+        if (manager.isPro() && !manager.isActivated()) {
+            tip.setText(R.string.tip_not_found);
+            tip.setOnClickListener(v -> {
+                manager.setPro(true);
+                AppUtil.showAlertDialog(getActivity(), getString(R.string.reboot_device), getString(R.string.version_type_changed));
+            });
+        } else if (BuildConfig.DEBUG) {
+            tip.setText(R.string.version_type_beta);
+        } else {
+            tip.setVisibility(View.INVISIBLE);
+        }
         return root;
     }
 

@@ -96,4 +96,6 @@
     <string name="action_details">Details</string>
     <string name="msg_network_error">Unable to communicate with the server.\nPlease try again later.</string>
     <string name="error_accessibility_killed">ARGS™ was killed, please force stop app.</string>
+    <string name="tip_not_found">ARGS™ not found in Accessibility? Click here</string>
+    <string name="reboot_device">Reboot</string>
 </resources>

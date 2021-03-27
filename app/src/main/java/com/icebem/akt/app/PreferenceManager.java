@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -50,10 +51,11 @@ public class PreferenceManager {
     private static final String KEY_ASCENDING_STAR = "ascending_star";
     private static final String KEY_RECRUIT_PREVIEW = "recruit_preview";
     private static final String KEY_SCROLL_TO_RESULT = "scroll_to_result";
+    private static final String KEY_ACTIVATED_ID = "activated_id";
     private static final int[] TIMER_CONFIG = {0, 10, 15, 20, 30, 45, 60, 90, 120};
     private static final int TIMER_POSITION = 1;
     private static final int UPDATE_TIME = 2500;
-    private static final int CHECK_TIME = 28800000;
+    private static final int CHECK_TIME = 86400000;
     private final Context context;
     private static int[] points;
     private static boolean autoUpdated;
@@ -158,6 +160,23 @@ public class PreferenceManager {
         return preferences.getString(KEY_VERSION_NAME, BuildConfig.VERSION_NAME);
     }
 
+    public boolean isActivated() {
+        String id = getActivatedId();
+        return id != null && id.equals(getAndroidId());
+    }
+
+    public void setActivatedId() {
+        preferences.edit().putString(KEY_ACTIVATED_ID, getAndroidId()).apply();
+    }
+
+    private String getActivatedId() {
+        return preferences.getString(KEY_ACTIVATED_ID, null);
+    }
+
+    private String getAndroidId() {
+        return Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
     public boolean unsupportedResolution() {
         try {
             int[] res = ResolutionConfig.getAbsoluteResolution(context);
@@ -207,7 +226,7 @@ public class PreferenceManager {
     public boolean autoUpdate() {
         if (!autoUpdated) {
             autoUpdated = true;
-            // 每隔8小时自动获取更新
+            // 每隔24小时自动获取更新
             return preferences.getBoolean(KEY_AUTO_UPDATE, true) && System.currentTimeMillis() - getCheckLastTime() > CHECK_TIME;
         }
         return false;
@@ -285,7 +304,7 @@ public class PreferenceManager {
     }
 
     public boolean keepAccessibility() {
-        return preferences.getBoolean(KEY_KEEP_ACCESSIBILITY, true);
+        return preferences.getBoolean(KEY_KEEP_ACCESSIBILITY, false);
     }
 
     public boolean rootMode() {

@@ -45,6 +45,8 @@ public class GestureService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         manager = PreferenceManager.getInstance(this);
+        if (!manager.isActivated())
+            manager.setActivatedId();
         if (CompatOperations.requireOverlayPermission(this) || manager.unsupportedResolution()) {
             disableSelfCompat();
             if (CompatOperations.requireOverlayPermission(this)) {

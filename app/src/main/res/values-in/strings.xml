@@ -96,4 +96,6 @@
     <string name="action_details">Detail</string>
     <string name="msg_network_error">Tidak dapat tersambung ke server.\nUlangi lagi nanti.</string>
     <string name="error_accessibility_killed">ARGS™ was killed, please force stop app.</string>
+    <string name="tip_not_found">ARGS™ not found in Accessibity? Click here</string>
+    <string name="reboot_device">Reboot</string>
 </resources>

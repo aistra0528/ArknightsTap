@@ -52,20 +52,19 @@
         app:title="@string/gesture_label">
 
         <SwitchPreferenceCompat
-            app:key="root_mode"
-            app:summary="@string/root_mode_summary"
-            app:title="@string/root_mode_title" />
+            app:key="double_speed"
+            app:summary="@string/double_speed_summary"
+            app:title="@string/double_speed_title" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="true"
             app:key="keep_accessibility"
             app:summaryOff="@string/keep_accessibility_summary_off"
             app:summaryOn="@string/keep_accessibility_summary_on"
             app:title="@string/keep_accessibility_title" />
 
         <SwitchPreferenceCompat
-            app:key="double_speed"
-            app:summary="@string/double_speed_summary"
-            app:title="@string/double_speed_title" />
+            app:key="root_mode"
+            app:summary="@string/root_mode_summary"
+            app:title="@string/root_mode_title" />
     </PreferenceCategory>
 </PreferenceScreen>
