@@ -32,13 +32,13 @@
     <string name="info_gesture_connected">戳戳乐™开始一直戳</string>
     <string name="info_gesture_disconnected">戳戳乐™行动结束</string>
     <string name="info_gesture_running">戳戳乐™正在行动,还有%d分钟</string>
-    <string name="msg_resolution_unsupported">戳戳乐™暂未适配%d×%d分辨率，请在关于向开发者反馈。\n您仍可正常使用公开招募规划等功能。</string>
+    <string name="msg_resolution_unsupported">戳戳乐™暂未适配%d×%d分辨率，请在关于向开发者反馈。其他功能不受影响。\n\n点击“更新”获取最新数据。已是最新版本时，请向开发者提供以下截图原图进行适配。游戏截图需在游戏设置中将“异形屏UI适配”调至0。\n\n1. 本“设备未适配”界面截图，需带有设备分辨率信息。\n2. 游戏“关卡选择”界面截图，需带有蓝色“开始行动”按钮。\n3. 游戏“战前编队”界面截图，需带有红色“开始行动”按钮。\n\n* 可能无法适配部分设备。</string>
     <string name="title_about">关于</string>
     <string name="action_donate">捐赠</string>
     <string name="msg_donate">如果您乐意，可以通过捐赠的方式来支持方舟帮帮忙的开发与维护</string>
     <string name="info_donate_thanks">感谢你的信任，博士</string>
     <string name="title_comment">评论应用</string>
-    <string name="desc_comment">在应用评论区吐槽</string>
+    <string name="desc_comment">在应用评论区反馈</string>
     <string name="title_discuss">群聊讨论</string>
     <string name="desc_discuss">加入QQ群940135139，抢先体验新版本</string>
     <string name="title_project">项目主页</string>
@@ -50,7 +50,7 @@
     <string name="version_update">发现新版本</string>
     <string name="version_type">版本类型</string>
     <string name="version_type_beta">Luna版本仅供测试，实际情况请以正式版本为准</string>
-    <string name="version_type_changed">版本类型已更新，重启设备后生效</string>
+    <string name="version_type_changed">版本类型已更新，请手动重启设备</string>
     <string name="action_update">更新</string>
     <string name="got_it">知道了</string>
     <string name="permission_permit">授权</string>
@@ -71,7 +71,7 @@
     <string name="scroll_to_result_title">快速导航</string>
     <string name="scroll_to_result_summary">选择5个标签后向下滑动到规划方案</string>
     <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2021 艾星Aistra</string>
-    <string name="special_thanks_desc">酷安 @neko1da - 日语翻译\nTelegram @twiceYuan - 贡献者\nTelegram @dwipaa11 和 @AdityaTamamo - 印尼语翻译</string>
+    <string name="special_thanks_desc">酷安 @neko1da - 日语翻译\nTelegram @twiceYuan - 贡献者\nTelegram @dwipaa11 和 @AdityaTamamo - 印尼语翻译\nGitHub @FhrShadow - 贡献者</string>
     <string name="special_thanks_title">特别感谢</string>
     <string name="version_type_lite" translatable="false">Lis</string>
     <string name="version_type_pro" translatable="false">Originium</string>
@@ -104,4 +104,5 @@
     <string name="error_accessibility_killed">戳戳乐™失联了！\n请强行停止应用后再次打开。\n反复发生此问题时，请在设置关闭“保留无障碍”。</string>
     <string name="tip_not_found">无障碍找不到戳戳乐™？点击这里</string>
     <string name="reboot_device">需要重启设备</string>
+    <string name="operator_slogan" translatable="false">%s by %s</string>
 </resources>

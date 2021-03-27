@@ -32,7 +32,7 @@
     <string name="info_gesture_connected">ARGS™ start taping</string>
     <string name="info_gesture_disconnected">ARGS™ finished</string>
     <string name="info_gesture_running">ARGS™ is running, %d min left</string>
-    <string name="msg_resolution_unsupported">Your device (%d×%d resolution) does not support ARGS™ yet, please contact us on GitHub. ARSS™ is available without being affected.</string>
+    <string name="msg_resolution_unsupported">Your device (%d×%d resolution) does not support ARGS™ yet, please contact us on GitHub. \nARSS™ is available without being affected.</string>
     <string name="title_about">About</string>
     <string name="action_donate">Donate</string>
     <string name="msg_donate">You can show your gratitude to the developer by making a donation.</string>
@@ -71,7 +71,7 @@
     <string name="scroll_to_result_title">Quick nav</string>
     <string name="scroll_to_result_summary">Scroll to the result area after choosing 5 tags</string>
     <string name="special_thanks_title">Special thanks</string>
-    <string name="special_thanks_desc">Twitter @op_satoshi - Japanese translation\nTelegram @twiceYuan - Contributor\nTelegram @dwipaa11 and @AdityaTamamo - Indonesian translation</string>
+    <string name="special_thanks_desc">Twitter @op_satoshi - Japanese translation\nTelegram @twiceYuan - Contributor\nTelegram @dwipaa11 and @AdityaTamamo - Indonesian translation\nGitHub @FhrShadow - Contributor</string>
     <string name="special_thanks_extra">And of course, you.\nThank you so much for using ArkTap!\n© 2021 艾星Aistra</string>
     <string name="action_counter">Headhunt Counter</string>
     <string name="tip_counter_default">Rolls: %d\nPossibility of 6★ in the next roll: %d%%\nLong press + to x10, - to clear</string>
