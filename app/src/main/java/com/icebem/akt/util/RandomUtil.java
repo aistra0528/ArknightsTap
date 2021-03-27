@@ -8,6 +8,10 @@ public class RandomUtil {
         return i + (int) (Math.random() * r * 2) - r;
     }
 
+    public static int randomIndex(int length) {
+        return (int) (Math.random() * length);
+    }
+
     public static int randomP(int p) {
         return random(p, RANDOM_P);
     }

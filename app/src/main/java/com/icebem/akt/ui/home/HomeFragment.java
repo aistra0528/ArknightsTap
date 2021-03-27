@@ -5,6 +5,7 @@ import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +33,9 @@ import com.icebem.akt.app.ResolutionConfig;
 import com.icebem.akt.util.AppUtil;
 import com.icebem.akt.util.DataUtil;
 import com.icebem.akt.util.IOUtil;
+import com.icebem.akt.util.RandomUtil;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -59,7 +62,21 @@ public class HomeFragment extends Fragment {
         } else if (BuildConfig.DEBUG) {
             tip.setText(R.string.version_type_beta);
         } else {
-            tip.setVisibility(View.INVISIBLE);
+            try {
+                JSONArray array = DataUtil.getSloganData(getActivity());
+                JSONObject obj = array.getJSONObject(RandomUtil.randomIndex(array.length()));
+                tip.setSingleLine(true);
+                tip.setText(getString(R.string.operator_slogan, obj.getString("slogan"), obj.getString("name")));
+                tip.postDelayed(() -> {
+                    tip.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                    tip.setMarqueeRepeatLimit(-1);
+                    tip.setSelected(true);
+                    tip.setFocusable(true);
+                    tip.setFocusableInTouchMode(true);
+                }, 2000);
+            } catch (Exception ignored) {
+                tip.setText(R.string.error_occurred);
+            }
         }
         return root;
     }

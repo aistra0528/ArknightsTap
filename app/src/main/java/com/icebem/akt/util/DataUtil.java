@@ -28,6 +28,7 @@ public class DataUtil {
     private static final String DATA_MATERIAL = "material.json";
     private static final String DATA_RECRUIT = "recruit.json";
     private static final String DATA_RESOLUTION = "resolution.json";
+    private static final String DATA_SLOGAN = "slogan.json";
     private static final String URL_WEB_DATA = "https://gitee.com/aistra0528/ArknightsTap/raw/master/app/src/main/assets/data/";
 
     public static boolean updateData(PreferenceManager manager, boolean fromWeb) throws IOException, JSONException {
@@ -70,6 +71,10 @@ public class DataUtil {
 
     public static JSONArray getResolutionData(Context context) throws IOException, JSONException {
         return getOfflineData(context, DATA_RESOLUTION);
+    }
+
+    public static JSONArray getSloganData(Context context) throws IOException, JSONException {
+        return getOfflineData(context, DATA_SLOGAN);
     }
 
     private static JSONArray fromStream(InputStream in) throws IOException, JSONException {
