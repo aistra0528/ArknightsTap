@@ -57,10 +57,9 @@
             app:title="@string/double_speed_title" />
 
         <SwitchPreferenceCompat
-            app:key="keep_accessibility"
-            app:summaryOff="@string/keep_accessibility_summary_off"
-            app:summaryOn="@string/keep_accessibility_summary_on"
-            app:title="@string/keep_accessibility_title" />
+            app:key="no_background"
+            app:summary="@string/no_background_summary"
+            app:title="@string/no_background_title" />
 
         <SwitchPreferenceCompat
             app:key="root_mode"

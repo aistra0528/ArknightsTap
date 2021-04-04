@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">方舟帮帮忙</string>
     <string name="gesture_label">戳戳乐™</string>
-    <string name="gesture_description">打开戳戳乐™后，可在选择的非剿灭作战关卡持续进行代理作战。\n\n使用前请先选择好要代理的关卡，并使用代理指挥作战。如设备为异形屏，还需在游戏设置中将“异形屏UI适配”调至0以避免误触。\n\n使用本服务可能会导致账号异常，请以游戏开发商最新的判断方法为准，开发者不承担相关责任。\n\n戳戳乐™所需权限仅用于代理博士行动，方舟帮帮忙不会通过本服务收集个人信息。\n\n如有问题与建议可在关于向开发者反馈。\n\n使用技巧：\n1. 在首页可设置行动时长\n2. 行动时可按下音量键-结束行动\n3. 高版本 Android 可使用音量键快捷方式打开无障碍服务（需在设置关闭“保留无障碍”以获取最佳体验）</string>
+    <string name="gesture_description">打开戳戳乐™后，可在选择的非剿灭作战关卡持续进行代理作战。\n\n使用前请先选择好要代理的关卡，并使用代理指挥作战。如设备为异形屏，还需在游戏设置中将“异形屏UI适配”调至0以避免误触。\n\n使用本服务可能会导致账号异常，请以游戏开发商最新的判断方法为准，开发者不承担相关责任。\n\n戳戳乐™所需权限仅用于代理博士行动，方舟帮帮忙不会通过本服务收集个人信息。\n\n如有问题与建议可在关于向开发者反馈。\n\n使用技巧：\n1. 在首页可设置行动时长\n2. 行动时可按下音量键-结束行动\n3. 高版本 Android 可使用音量键快捷方式打开无障碍服务（需在设置打开“减少内存占用”以获取最佳体验）</string>
     <string name="overlay_label">帮帮忙™</string>
     <string name="menu_home">首页</string>
     <string name="menu_tools">工具</string>
@@ -93,15 +93,14 @@
     <string name="counter_normal">标准寻访</string>
     <string name="counter_limited">限定寻访</string>
     <string name="anti_burn_in_title">半透明悬浮球</string>
-    <string name="keep_accessibility_title">保留无障碍（实验性功能）</string>
-    <string name="keep_accessibility_summary_on">打开无障碍后不会立刻行动</string>
-    <string name="keep_accessibility_summary_off">行动结束后保留无障碍服务</string>
+    <string name="no_background_title">减少内存占用</string>
+    <string name="no_background_summary">打开无障碍后开始，结束后关闭无障碍</string>
     <string name="green_android">遵循《Android 绿色应用公约》</string>
     <string name="root_mode_title">Root 实现模式（实验性功能）</string>
     <string name="root_mode_summary">兼容低于 Android 7.0 的已 Root 设备</string>
     <string name="action_details">详情</string>
     <string name="msg_network_error">无法连接服务器。\n请稍后再试。</string>
-    <string name="error_accessibility_killed">戳戳乐™失联了！\n请强行停止应用后再次打开。\n反复发生此问题时，请在设置关闭“保留无障碍”。</string>
+    <string name="error_accessibility_killed">戳戳乐™失联了！\n请关闭无障碍后重启设备。\n反复发生此问题时，请在设置打开“减少内存占用”。</string>
     <string name="tip_not_found">无障碍找不到戳戳乐™？点击这里</string>
     <string name="reboot_device">需要重启设备</string>
     <string name="operator_slogan" translatable="false">%s by %s</string>

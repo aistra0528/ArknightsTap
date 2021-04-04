@@ -45,7 +45,7 @@ public class PreferenceManager {
     private static final String KEY_HEADHUNT_COUNT_NORMAL = "headhunt_count";
     private static final String KEY_HEADHUNT_COUNT_LIMITED = "headhunt_count_limited";
     private static final String KEY_ANTI_BURN_IN = "anti_burn_in";
-    private static final String KEY_KEEP_ACCESSIBILITY = "keep_accessibility";
+    private static final String KEY_NO_BACKGROUND = "no_background";
     private static final String KEY_ROOT_MODE = "root_mode";
     private static final String KEY_DOUBLE_SPEED = "double_speed";
     private static final String KEY_ASCENDING_STAR = "ascending_star";
@@ -303,8 +303,8 @@ public class PreferenceManager {
         return preferences.getBoolean(KEY_ANTI_BURN_IN, false);
     }
 
-    public boolean keepAccessibility() {
-        return preferences.getBoolean(KEY_KEEP_ACCESSIBILITY, false);
+    public boolean noBackground() {
+        return preferences.getBoolean(KEY_NO_BACKGROUND, false);
     }
 
     public boolean rootMode() {

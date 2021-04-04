@@ -17,7 +17,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (preference != null && !PreferenceManager.getInstance(getContext()).isPro())
             preference.setVisible(false);
         else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            preference = findPreference("keep_accessibility");
+            preference = findPreference("no_background");
             if (preference != null)
                 preference.setVisible(false);
         }

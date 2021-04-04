@@ -60,7 +60,7 @@ public class GestureService extends AccessibilityService {
         gestureActionReceiver = new GestureActionReceiver(this::dispatchCurrentAction);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
         localBroadcastManager.registerReceiver(gestureActionReceiver, new IntentFilter(GestureActionReceiver.ACTION));
-        if (!manager.keepAccessibility())
+        if (manager.noBackground())
             localBroadcastManager.sendBroadcast(new Intent(GestureActionReceiver.ACTION));
     }
 
@@ -101,9 +101,9 @@ public class GestureService extends AccessibilityService {
     }
 
     private void pauseAction() {
-        if (manager.keepAccessibility())
-            stopAction();
-        else disableSelfCompat();
+        if (manager.noBackground())
+            disableSelfCompat();
+        else stopAction();
     }
 
     private void stopAction() {

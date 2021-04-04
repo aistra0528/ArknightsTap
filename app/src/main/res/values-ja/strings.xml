@@ -87,15 +87,14 @@
     <string name="counter_normal">標準ガチャ</string>
     <string name="counter_limited">限定ガチャ</string>
     <string name="anti_burn_in_title">操作ボタンを半透明に</string>
-    <string name="keep_accessibility_title">補助機能を保持</string>
-    <string name="keep_accessibility_summary_on">ARGS™が終了してもユーザー補助機能ONを保つ</string>
-    <string name="keep_accessibility_summary_off">ARGS™が終了してもユーザー補助機能ONを保つ</string>
+    <string name="no_background_title">减少内存占用</string>
+    <string name="no_background_summary">打开无障碍后开始，结束后关闭无障碍</string>
     <string name="green_android">“Convention of Green Apps for Android”に遵従しております。</string>
     <string name="root_mode_title">Root モード</string>
     <string name="root_mode_summary">Android 7.0 以下のデバイスへの下位互換性</string>
     <string name="action_details">詳細情報</string>
     <string name="msg_network_error">サーバーへの接続エラー。\n少しく時間が経ってから再度お試しください。</string>
-    <string name="error_accessibility_killed">ARGS™ was killed, please force stop app.</string>
+    <string name="error_accessibility_killed">Accessibility was killed.</string>
     <string name="tip_not_found">ARGS™ not found in Accessibity? Click here</string>
     <string name="reboot_device">Reboot</string>
 </resources>

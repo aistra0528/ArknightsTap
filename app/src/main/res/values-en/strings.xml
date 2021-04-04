@@ -87,15 +87,14 @@
     <string name="counter_normal">Standard headhunt</string>
     <string name="counter_limited">Limited headhunt</string>
     <string name="anti_burn_in_title">Translucent sprite</string>
-    <string name="keep_accessibility_title">Keep accessibility</string>
-    <string name="keep_accessibility_summary_on">Keep accessibility service in the background</string>
-    <string name="keep_accessibility_summary_off">Keep accessibility service in the background</string>
+    <string name="no_background_title">减少内存占用</string>
+    <string name="no_background_summary">打开无障碍后开始，结束后关闭无障碍</string>
     <string name="green_android">Comply to “Convention of Green Apps for Android”</string>
     <string name="root_mode_title">Root mode</string>
     <string name="root_mode_summary">Compatible with rooted devices older than Android 7.0</string>
     <string name="action_details">Details</string>
     <string name="msg_network_error">Unable to communicate with the server.\nPlease try again later.</string>
-    <string name="error_accessibility_killed">ARGS™ was killed, please force stop app.</string>
+    <string name="error_accessibility_killed">Accessibility was killed.</string>
     <string name="tip_not_found">ARGS™ not found in Accessibility? Click here</string>
     <string name="reboot_device">Reboot</string>
 </resources>
