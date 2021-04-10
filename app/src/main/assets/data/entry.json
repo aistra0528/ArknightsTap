@@ -2,14 +2,14 @@
   {
     "name": "entry.json",
     "compat": 29,
-    "version": 3,
-    "tag": "2021-04-04"
+    "version": 4,
+    "tag": "2021-04-10"
   },
   {
     "name": "recruit.json",
     "compat": 29,
-    "version": 8,
-    "tag": "2021-01-19"
+    "version": 9,
+    "tag": "2021-04-10"
   },
   {
     "name": "material.json",
