@@ -90,8 +90,8 @@
   {"star":4,"name":"Vermeil*","nameCN":"红云","nameTW":"红云*","nameJP":"ヴァーミル*","nameKR":"红云*","type":"Sniper","tags":["Ranged","DPS"]},
   {"star":5,"name":"Executor*","nameCN":"送葬人","nameTW":"送葬人*","nameJP":"イグゼキュター*","nameKR":"送葬人*","type":"Sniper","tags":["Ranged","AoE"]},
   {"star":6,"name":"Magallan*","nameCN":"麦哲伦","nameTW":"麦哲伦*","nameJP":"マゼラン*","nameKR":"麦哲伦*","type":"Supporter","tags":["Ranged","Support","Slow","DPS"]},
-  {"star":4,"name":"Purestream*","nameCN":"清流*","nameTW":"清流*","nameJP":"セイリュウ*","nameKR":"清流*","type":"Medic","tags":["Ranged","Healing","Support"]},
-  {"star":4,"name":"May*","nameCN":"梅*","nameTW":"梅*","nameJP":"メイ*","nameKR":"梅*","type":"Sniper","tags":["Ranged","DPS","Slow"]},
-  {"star":5,"name":"Waai Fu*","nameCN":"槐琥*","nameTW":"槐琥*","nameJP":"ワイフー*","nameKR":"槐琥*","type":"Specialist","tags":["Melee","Fast-Redeploy","Debuff"]},
-  {"star":6,"name":"Mostima*","nameCN":"莫斯提马*","nameTW":"莫斯提马*","nameJP":"モスティマ*","nameKR":"莫斯提马*","type":"Caster","tags":["Ranged","AoE","Support","Crowd-Control"]}
+  {"star":4,"name":"Purestream*","nameCN":"清流","nameTW":"清流*","nameJP":"セイリュウ*","nameKR":"清流*","type":"Medic","tags":["Ranged","Healing","Support"]},
+  {"star":4,"name":"May*","nameCN":"梅","nameTW":"梅*","nameJP":"メイ*","nameKR":"梅*","type":"Sniper","tags":["Ranged","DPS","Slow"]},
+  {"star":5,"name":"Waai Fu*","nameCN":"槐琥","nameTW":"槐琥*","nameJP":"ワイフー*","nameKR":"槐琥*","type":"Specialist","tags":["Melee","Fast-Redeploy","Debuff"]},
+  {"star":6,"name":"Mostima*","nameCN":"莫斯提马","nameTW":"莫斯提马*","nameJP":"モスティマ*","nameKR":"莫斯提马*","type":"Caster","tags":["Ranged","AoE","Support","Crowd-Control"]}
 ]
