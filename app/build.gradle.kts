@@ -44,7 +44,7 @@ android {
     }
     applicationVariants.all {
         outputs.all {
-            if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) outputFileName = "ArkTap v$versionName.apk"
+            (this as com.android.build.gradle.internal.api.ApkVariantOutputImpl).outputFileName = "ArkTap-v$versionName.apk"
         }
     }
 }
