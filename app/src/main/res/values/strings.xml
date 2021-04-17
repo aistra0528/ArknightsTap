@@ -49,7 +49,6 @@
     <string name="version_latest">已是最新版本</string>
     <string name="version_update">发现新版本</string>
     <string name="version_type">版本类型</string>
-    <string name="version_type_beta">Luna版本仅供测试，实际情况请以正式版本为准</string>
     <string name="version_type_changed">版本类型已更新，请手动重启设备</string>
     <string name="action_update">更新</string>
     <string name="got_it">知道了</string>

@@ -49,7 +49,6 @@
     <string name="version_latest">既に最新バージョンにアップデート込み</string>
     <string name="version_update">新しいアップデートを発見</string>
     <string name="version_type">バージョンタイプ</string>
-    <string name="version_type_beta">Luna Ver.はテスト版であり、正式版に一部の機能が添削される場合があります</string>
     <string name="version_type_changed">バージョンタイプを変更しました。デバイスを再起動してください</string>
     <string name="action_update">アップデート</string>
     <string name="got_it">了解</string>

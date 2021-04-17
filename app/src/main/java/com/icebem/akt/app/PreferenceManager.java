@@ -189,7 +189,7 @@ public class PreferenceManager {
                     points[1] = obj.getInt(KEY_BLUE_Y);
                     points[2] = obj.getInt(KEY_RED_X);
                     points[3] = obj.getInt(KEY_RED_Y);
-                    points[4] = res[0] - RandomUtil.RANDOM_P;
+                    points[4] = res[0] - RandomUtil.DELTA_POINT;
                     points[5] = res[1] >> 1;
                     return false;
                 }
