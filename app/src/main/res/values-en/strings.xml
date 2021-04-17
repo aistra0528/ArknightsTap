@@ -49,7 +49,6 @@
     <string name="version_latest">This is the latest version</string>
     <string name="version_update">New version available</string>
     <string name="version_type">Version type</string>
-    <string name="version_type_beta">This is a beta version named Luna</string>
     <string name="version_type_changed">Version type changed, please reboot your device</string>
     <string name="action_update">Update</string>
     <string name="got_it">Got it</string>

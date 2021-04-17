@@ -24,7 +24,6 @@ import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.icebem.akt.BuildConfig;
 import com.icebem.akt.R;
 import com.icebem.akt.activity.AboutActivity;
 import com.icebem.akt.activity.MainActivity;
@@ -59,8 +58,6 @@ public class HomeFragment extends Fragment {
                 manager.setPro(true);
                 AppUtil.showAlertDialog(getActivity(), getString(R.string.reboot_device), getString(R.string.version_type_changed));
             });
-        } else if (BuildConfig.DEBUG) {
-            tip.setText(R.string.version_type_beta);
         } else {
             try {
                 JSONArray array = DataUtil.getSloganData(getActivity());
