@@ -1,5 +1,6 @@
 [
   {"width":480,"height":360,"blue_x":430,"blue_y":335,"red_x":415,"red_y":275},
+  {"width":1152,"height":720,"blue_x":1030,"blue_y":665,"red_x":1005,"red_y":555},
   {"width":1520,"height":720,"blue_x":1380,"blue_y":655,"red_x":1190,"red_y":465},
   {"width":1600,"height":720,"blue_x":1470,"blue_y":655,"red_x":1265,"red_y":465},
   {"width":1600,"height":900,"blue_x":1425,"blue_y":820,"red_x":1380,"red_y":630,"author":"Konecos"},
