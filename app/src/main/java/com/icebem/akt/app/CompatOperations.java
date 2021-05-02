@@ -45,14 +45,14 @@ public class CompatOperations {
     public static void performClick(AccessibilityService service, int x, int y) {
         x = RandomUtil.randomPoint(x);
         y = RandomUtil.randomPoint(y);
-        if (PreferenceManager.getInstance(service).rootMode()) {
-            executeCommand(String.format("input tap %s %s", x, y));
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Path path = new Path();
             path.moveTo(x, y);
             GestureDescription.Builder builder = new GestureDescription.Builder();
             builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomTime(GESTURE_DURATION)));
             service.dispatchGesture(builder.build(), null, null);
+        } else if (PreferenceManager.getInstance(service).rootMode()) {
+            executeCommand(String.format("input tap %s %s", x, y));
         }
     }
 

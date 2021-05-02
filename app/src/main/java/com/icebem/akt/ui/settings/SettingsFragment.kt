@@ -1,25 +1,18 @@
-package com.icebem.akt.ui.settings;
+package com.icebem.akt.ui.settings
 
-import android.os.Build;
-import android.os.Bundle;
+import android.os.Build
+import android.os.Bundle
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import com.icebem.akt.R
+import com.icebem.akt.app.PreferenceManager
 
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-
-import com.icebem.akt.R;
-import com.icebem.akt.app.PreferenceManager;
-
-public class SettingsFragment extends PreferenceFragmentCompat {
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        Preference preference = findPreference("gesture_category");
-        if (preference != null && !PreferenceManager.getInstance(getContext()).isPro())
-            preference.setVisible(false);
-        else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            preference = findPreference("no_background");
-            if (preference != null)
-                preference.setVisible(false);
-        }
+class SettingsFragment : PreferenceFragmentCompat() {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.root_preferences, rootKey)
+        var preference = findPreference<Preference>("gesture_category")
+        if (PreferenceManager.getInstance(context).isPro)
+            preference = findPreference(if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) "no_background" else "root_mode")
+        preference?.isVisible = false
     }
 }
