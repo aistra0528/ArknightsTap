@@ -10,9 +10,11 @@ import com.icebem.akt.app.PreferenceManager
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
-        var preference = findPreference<Preference>("gesture_category")
-        if (PreferenceManager.getInstance(context).isPro)
-            preference = findPreference(if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) "no_background" else "root_mode")
+        val preference = findPreference<Preference>(when {
+            PreferenceManager.getInstance(context).isPro -> "gesture_category"
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.N -> "no_background"
+            else -> "root_mode"
+        })
         preference?.isVisible = false
     }
 }
