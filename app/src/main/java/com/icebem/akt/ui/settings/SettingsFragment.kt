@@ -11,7 +11,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
         val preference = findPreference<Preference>(when {
-            !PreferenceManager.getInstance(context).isPro -> "gesture_category"
+            !PreferenceManager.getInstance(requireContext()).isPro -> "gesture_category"
             Build.VERSION.SDK_INT < Build.VERSION_CODES.N -> "no_background"
             else -> "root_mode"
         })
