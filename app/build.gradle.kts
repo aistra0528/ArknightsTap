@@ -4,20 +4,21 @@ plugins {
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId = "com.icebem.akt"
-        minSdkVersion(21)
-        targetSdkVersion(30)
-        versionCode = 50
-        versionName = "2.6.1"
+        minSdk = 21
+        targetSdk = 30
+        versionCode = 51
+        versionName = "2.7.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resConfigs("zh-rCN", "en", "ja", "in")
     }
     buildFeatures {
-        viewBinding = false // TODO
+        viewBinding = false
+        dataBinding = false
     }
     buildTypes {
         getByName("debug") {

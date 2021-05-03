@@ -96,4 +96,7 @@
     <string name="error_accessibility_killed">Accessibility was killed.</string>
     <string name="tip_not_found">ARGS™ not found in Accessibity? Click here</string>
     <string name="reboot_device">Reboot</string>
+    <string name="action_share">Share</string>
+    <string name="info_share">Url copied</string>
+    <string name="action_support">Support</string>
 </resources>

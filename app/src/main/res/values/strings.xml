@@ -35,7 +35,7 @@
     <string name="msg_resolution_unsupported">戳戳乐™暂未适配%d×%d分辨率，请在关于向开发者反馈。其他功能不受影响。\n\n点击“更新”获取最新数据。已是最新版本时，请向开发者提供以下截图原图进行适配。游戏截图需在游戏设置中将“异形屏UI适配”调至0。\n\n1. 本“设备未适配”界面截图，需带有设备分辨率信息。\n2. 游戏“关卡选择”界面截图，需带有蓝色“开始行动”按钮。\n3. 游戏“战前编队”界面截图，需带有红色“开始行动”按钮。\n\n* 可能无法适配部分设备。</string>
     <string name="title_about">关于</string>
     <string name="action_donate">捐赠</string>
-    <string name="msg_donate">如果您乐意，可以通过捐赠的方式来支持方舟帮帮忙的开发与维护</string>
+    <string name="msg_donate">方舟帮帮忙是一款自由开源的应用，所有的开发和维护工作都是由一位主要开发者和来自世界各地的志愿者们共同完成，可在GitHub查看。\n\n请将方舟帮帮忙分享给更多的博士，这会成为开发者最大的动力！您还可以通过成为志愿者或提供捐赠的方式来进一步支持方舟帮帮忙项目的开发和维护。</string>
     <string name="info_donate_thanks">感谢你的信任，博士</string>
     <string name="title_comment">评论应用</string>
     <string name="desc_comment">在应用评论区反馈</string>
@@ -103,4 +103,7 @@
     <string name="tip_not_found">无障碍找不到戳戳乐™？点击这里</string>
     <string name="reboot_device">需要重启设备</string>
     <string name="operator_slogan" translatable="false">%s by %s</string>
+    <string name="action_share">分享</string>
+    <string name="info_share">下载链接已复制</string>
+    <string name="action_support">支持</string>
 </resources>
