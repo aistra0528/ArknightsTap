@@ -1,54 +1,69 @@
-package com.icebem.akt.overlay;
+/*
+ * This file is part of ArkTap.
+ * Copyright (C) 2019-2021 艾星Aistra
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+package com.icebem.akt.overlay
 
-import android.content.Context;
+import android.content.Context
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.widget.TextViewCompat
+import com.google.android.material.textview.MaterialTextView
+import com.icebem.akt.R
+import com.icebem.akt.app.ResolutionConfig
+import java.lang.ref.WeakReference
 
-import androidx.appcompat.view.ContextThemeWrapper;
+/**
+ * 悬浮吐司，有点问题 TODO
+ */
+object OverlayToast {
+    const val LENGTH_INDEFINITE = 0L
+    const val LENGTH_SHORT = 2000L
+    const val LENGTH_LONG = 3000L
+    private var runnable: Runnable? = null
+    private var toast: WeakReference<OverlayView?>? = null
 
-import com.google.android.material.textview.MaterialTextView;
-import com.icebem.akt.R;
-import com.icebem.akt.app.ResolutionConfig;
-
-import java.lang.ref.WeakReference;
-
-public class OverlayToast {
-    public static final int LENGTH_INDEFINITE = 0;
-    public static final int LENGTH_SHORT = 2000;
-    public static final int LENGTH_LONG = 3000;
-
-    private static Runnable runnable;
-    private static WeakReference<OverlayView> toast;
-
-    public static void show(Context context, CharSequence text, int duration) {
-        MaterialTextView view;
-        if (toast == null || toast.get() == null) {
-            context = new ContextThemeWrapper(context.getApplicationContext(), R.style.Theme_MaterialComponents_Light);
-            view = new MaterialTextView(context);
-            int padding = context.getResources().getDimensionPixelOffset(R.dimen.view_padding);
-            view.setPadding(padding, padding, padding, padding);
-            view.setBackgroundResource(R.drawable.bg_toast);
-            view.setTextAppearance(context, R.style.TextAppearance_AppCompat);
-            view.setOnClickListener(v -> {
-                view.removeCallbacks(runnable);
-                toast.get().remove();
-            });
-            toast = new WeakReference<>(new OverlayView(view));
-            toast.get().setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) >> 2);
+    @JvmStatic
+    fun show(context: Context, text: String, duration: Long) {
+        val view: MaterialTextView
+        if (toast == null || toast!!.get() == null) {
+            view = MaterialTextView(ContextThemeWrapper(context.applicationContext, R.style.Theme_MaterialComponents_Light))
+            val padding = context.resources.getDimensionPixelOffset(R.dimen.view_padding)
+            view.setPadding(padding, padding, padding, padding)
+            view.setBackgroundResource(R.drawable.bg_toast)
+            TextViewCompat.setTextAppearance(view, R.style.TextAppearance_AppCompat)
+            view.setOnClickListener {
+                it.removeCallbacks(runnable)
+                toast!!.get()!!.remove()
+            }
+            toast = WeakReference(OverlayView(view))
+            toast!!.get()!!.setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) shr 2)
         } else {
-            view = (MaterialTextView) toast.get().getView();
+            view = toast!!.get()!!.view as MaterialTextView
         }
         if (runnable == null) {
-            runnable = toast.get()::remove;
+            runnable = Runnable { toast!!.get()!!.remove() }
         } else {
-            view.removeCallbacks(runnable);
-            toast.get().remove();
+            view.removeCallbacks(runnable)
+            toast!!.get()!!.remove()
         }
-        view.setText(text);
-        toast.get().show();
-        if (duration > LENGTH_INDEFINITE)
-            view.postDelayed(runnable, duration);
+        view.text = text
+        toast!!.get()!!.show()
+        if (duration > LENGTH_INDEFINITE) view.postDelayed(runnable, duration)
     }
 
-    public static void show(Context context, int resId, int duration) {
-        show(context, context.getString(resId), duration);
-    }
+    @JvmStatic
+    fun show(context: Context, resId: Int, duration: Long) = show(context, context.getString(resId), duration)
 }

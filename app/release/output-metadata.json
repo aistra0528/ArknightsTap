@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 51,
-      "versionName": "2.7.0",
-      "outputFile": "ArkTap-v2.7.0.apk"
+      "versionCode": 52,
+      "versionName": "2.7.1",
+      "outputFile": "ArkTap-v2.7.1.apk"
     }
   ]
 }

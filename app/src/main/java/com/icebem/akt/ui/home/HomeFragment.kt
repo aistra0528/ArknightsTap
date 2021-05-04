@@ -136,6 +136,7 @@ class HomeFragment : Fragment() {
         var id = R.string.version_update
         var log: String? = null
         var url: String? = null
+        val fab = (requireContext() as MainActivity).fab
         try {
             if (AppUtil.isLatestVersion) {
                 id = if (DataUtil.updateData(manager, true)) R.string.data_updated else R.string.version_latest
@@ -149,19 +150,18 @@ class HomeFragment : Fragment() {
             id = R.string.version_checking_failed
             if (e is IOException) log = getString(R.string.msg_network_error)
         }
-        val fab = (requireContext() as MainActivity).fab
         fab.post {
-            if (id != R.string.version_checking_failed) (requireContext() as MainActivity).updateSubtitleTime()
+            if (id != R.string.version_checking_failed) (fab.context as MainActivity).updateSubtitleTime()
             when {
                 id == R.string.version_update -> {
-                    val builder = AlertDialog.Builder(requireContext())
+                    val builder = AlertDialog.Builder(fab.context)
                     builder.setTitle(id)
                     builder.setMessage(log)
                     builder.setPositiveButton(R.string.action_update) { _, _ -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
                     builder.setNegativeButton(R.string.no_thanks, null)
                     builder.create().show()
                 }
-                log != null -> Snackbar.make(fab, id, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_details) { AppUtil.showLogDialog(requireContext(), log) }.show()
+                log != null -> Snackbar.make(fab, id, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_details) { AppUtil.showLogDialog(fab.context, log) }.show()
                 else -> Snackbar.make(fab, id, Snackbar.LENGTH_LONG).show()
             }
             onStateEnd()
