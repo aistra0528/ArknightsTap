@@ -1,6 +1,6 @@
 简体中文 | [English](README_EN.md) | [日本語](README_JP.md)
 # 方舟帮帮忙
-方舟帮帮忙是一款自由开源的明日方舟辅助应用。
+方舟帮帮忙是一款辅助博士们游玩明日方舟的自由软件。
 
 [在酷安上获取](https://www.coolapk.com/apk/com.icebem.akt)
 ## 功能

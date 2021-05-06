@@ -1,6 +1,6 @@
 [简体中文](README.md) | English | [日本語](README_JP.md)
 # ArkTap
-ArkTap is a free and open source app for Arknights.
+ArkTap is a free software for Arknights.
 
 [Latest release](https://github.com/aistra0528/ArknightsTap/releases/latest)
 

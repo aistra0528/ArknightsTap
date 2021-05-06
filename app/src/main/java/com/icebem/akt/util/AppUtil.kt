@@ -18,7 +18,7 @@ object AppUtil {
     const val URL_MARKET = "market://details?id=" + BuildConfig.APPLICATION_ID
     const val URL_PROJECT = "https://github.com/aistra0528/ArknightsTap"
     const val URL_COOLAPK = "https://www.coolapk.com/apk/" + BuildConfig.APPLICATION_ID
-    const val URL_GREEN_ANDROID = "https://green-android.org/"
+    const val URL_FREE_ANDROID = "https://www.gnu.org/philosophy/free-software-even-more-important.html"
     const val URL_RELEASE_LATEST = "https://github.com/aistra0528/ArknightsTap/releases/latest"
     const val URL_RELEASE_LATEST_API = "https://api.github.com/repos/aistra0528/ArknightsTap/releases/latest"
     private const val URL_RELEASE_DATA = "https://gitee.com/aistra0528/ArknightsTap/raw/master/app/release/output-metadata.json"

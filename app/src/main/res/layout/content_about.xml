@@ -201,12 +201,12 @@
             android:layout_margin="@dimen/activity_margin">
 
             <TextView
-                android:id="@+id/green_android"
+                android:id="@+id/free_android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:padding="@dimen/view_padding"
-                android:text="@string/green_android"
+                android:text="@string/free_android"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

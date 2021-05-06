@@ -71,7 +71,7 @@
     <string name="scroll_to_result_summary">Gulir ke area hasil setelah memilih 5 tag</string>
     <string name="special_thanks_title">Terima kasih khusus</string>
     <string name="special_thanks_desc">Twitter @op_satoshi - Penerjemah bahasa Jepang\nTelegram @twiceYuan - Penyumbang\nTelegram @dwipaa11 dan @AdityaTamamo - Penerjemah bahasa Indonesia\nGitHub @FhrShadow - Penyumbang</string>
-    <string name="special_thanks_extra">Dan tentu saja, Anda.\nTerima kasih banyak telah menggunakan ArkTap!\n© 2021 艾星Aistra</string>
+    <string name="special_thanks_extra">Dan tentu saja, Anda.\nTerima kasih banyak telah menggunakan ArkTap!\n© 2019–2021 艾星Aistra</string>
     <string name="action_counter">Penghitung Headhunt</string>
     <string name="tip_counter_default">Roll: %d\nKemungkinan 6 ★ diroll berikutnya: %d%%\nTekan lama + untuk x10, - untuk membersihkan</string>
     <string name="msg_data_reset">Reset data yang diunduh?</string>
@@ -88,7 +88,7 @@
     <string name="anti_burn_in_title">Translucent sprite</string>
     <string name="no_background_title">减少内存占用</string>
     <string name="no_background_summary">打开无障碍后开始，结束后关闭无障碍</string>
-    <string name="green_android">Memenuhi "Konvensi Aplikasi Hijau untuk Android"</string>
+    <string name="free_android">ArkTap is a free software.</string>
     <string name="root_mode_title">mode Root</string>
     <string name="root_mode_summary">Kompatibel dengan perangkat Android 7.0 keatas</string>
     <string name="action_details">Detail</string>

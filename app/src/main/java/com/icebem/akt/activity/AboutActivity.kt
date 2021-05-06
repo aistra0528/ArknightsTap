@@ -49,7 +49,7 @@ class AboutActivity : AppCompatActivity() {
         versionContainer.setOnLongClickListener { onLongClick() }
         findViewById<View>(R.id.container_version_type).setOnClickListener { view -> onClick(view) }
         findViewById<View>(R.id.container_special_thanks).setOnClickListener { view -> onClick(view) }
-        findViewById<View>(R.id.green_android).setOnClickListener { view -> onClick(view) }
+        findViewById<View>(R.id.free_android).setOnClickListener { view -> onClick(view) }
         findViewById<TextView>(R.id.txt_version_state_desc).text = BuildConfig.VERSION_NAME
         typeDesc = findViewById(R.id.txt_version_type_desc)
         thanksDesc = findViewById(R.id.special_thanks_desc)
@@ -105,7 +105,7 @@ class AboutActivity : AppCompatActivity() {
                     }
                 }, AppUtil.THREAD_UPDATE).start()
             }
-            R.id.green_android -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_GREEN_ANDROID)))
+            R.id.free_android -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_FREE_ANDROID)))
         }
     }
 
