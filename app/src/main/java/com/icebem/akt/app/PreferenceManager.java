@@ -62,12 +62,12 @@ public class PreferenceManager {
     private static SharedPreferences preferences;
     private static PreferenceManager instance;
 
-    private PreferenceManager(Context context) {
-        this.context = context;
+    private PreferenceManager(Context applicationContext) {
+        context = applicationContext;
         preferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
         if (getVersionCode() < BuildConfig.VERSION_CODE || !getVersionName().equals(BuildConfig.VERSION_NAME)) {
             try {
-                DataUtil.updateData(this, false);
+                DataUtil.updateData(context, null);
                 setVersionCode();
                 setVersionName();
             } catch (Exception e) {

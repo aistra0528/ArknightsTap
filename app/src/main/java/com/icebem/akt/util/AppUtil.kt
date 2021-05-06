@@ -4,9 +4,6 @@ import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.icebem.akt.BuildConfig
 import com.icebem.akt.R
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.IOException
 
 object AppUtil {
     const val THREAD_UPDATE = "update"
@@ -21,20 +18,6 @@ object AppUtil {
     const val URL_FREE_ANDROID = "https://www.gnu.org/philosophy/free-software-even-more-important.html"
     const val URL_RELEASE_LATEST = "https://github.com/aistra0528/ArknightsTap/releases/latest"
     const val URL_RELEASE_LATEST_API = "https://api.github.com/repos/aistra0528/ArknightsTap/releases/latest"
-    private const val URL_RELEASE_DATA = "https://gitee.com/aistra0528/ArknightsTap/raw/master/app/release/output-metadata.json"
-
-    @JvmStatic
-    @get:Throws(IOException::class, JSONException::class)
-    val isLatestVersion: Boolean
-        get() = BuildConfig.VERSION_CODE >= JSONObject(IOUtil.stream2String(IOUtil.fromWeb(URL_RELEASE_DATA))).getJSONArray("elements").getJSONObject(0).getInt("versionCode")
-
-    @JvmStatic
-    @Throws(JSONException::class)
-    fun getChangelog(json: JSONObject): String = json.getString("name") + System.lineSeparator() + json.getString("body")
-
-    @JvmStatic
-    @Throws(JSONException::class)
-    fun getDownloadUrl(json: JSONObject): String = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
 
     @JvmStatic
     fun showAlertDialog(context: Context, title: String, msg: String) {

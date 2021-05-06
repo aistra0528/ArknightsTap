@@ -1,95 +1,137 @@
-package com.icebem.akt.util;
+/*
+ * This file is part of ArkTap.
+ * Copyright (C) 2019-2021 艾星Aistra
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+package com.icebem.akt.util
 
-import android.content.Context;
+import android.content.Context
+import com.icebem.akt.BuildConfig
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.ByteArrayInputStream
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
 
-import com.icebem.akt.BuildConfig;
-import com.icebem.akt.app.PreferenceManager;
+/**
+ * 数据更新相关
+ */
+object DataUtil {
+    const val INDEX_EN = 0
+    const val INDEX_CN = 1
+    const val INDEX_TW = 2
+    const val INDEX_JP = 3
+    const val INDEX_KR = 4
+    const val FLAG_UNRELEASED = "*"
+    private const val KEY_NAME = "name"
+    private const val KEY_COMPAT = "compat"
+    private const val KEY_VERSION = "version"
+    private const val TYPE_DATA = "data"
+    private const val DATA_ENTRY = "entry.json"
+    private const val DATA_MATERIAL = "material.json"
+    private const val DATA_RECRUIT = "recruit.json"
+    private const val DATA_RESOLUTION = "resolution.json"
+    private const val DATA_SLOGAN = "slogan.json"
+    private const val URL_WEB_DATA = "https://gitee.com/aistra0528/ArknightsTap/raw/master/app/src/main/assets/data/"
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
-public class DataUtil {
-    public static final int INDEX_EN = 0;
-    public static final int INDEX_CN = 1;
-    public static final int INDEX_TW = 2;
-    public static final int INDEX_JP = 3;
-    public static final int INDEX_KR = 4;
-    public static final String FLAG_UNRELEASED = "*";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_COMPAT = "compat";
-    private static final String KEY_VERSION = "version";
-    private static final String TYPE_DATA = "data";
-    private static final String DATA_ENTRY = "entry.json";
-    private static final String DATA_MATERIAL = "material.json";
-    private static final String DATA_RECRUIT = "recruit.json";
-    private static final String DATA_RESOLUTION = "resolution.json";
-    private static final String DATA_SLOGAN = "slogan.json";
-    private static final String URL_WEB_DATA = "https://gitee.com/aistra0528/ArknightsTap/raw/master/app/src/main/assets/data/";
-
-    public static boolean updateData(PreferenceManager manager, boolean fromWeb) throws IOException, JSONException {
-        JSONArray targetEntry = fromStream(fromWeb ? IOUtil.fromWeb(URL_WEB_DATA + DATA_ENTRY) : IOUtil.fromAssets(manager.getApplicationContext(), TYPE_DATA + File.separatorChar + DATA_ENTRY));
-        JSONArray entry = getOfflineData(manager.getApplicationContext(), DATA_ENTRY);
-        boolean updated = false;
-        for (int i = 0; i < targetEntry.length(); i++) {
-            JSONObject data = targetEntry.getJSONObject(i);
-            if (data.getString(KEY_NAME).equals(DATA_ENTRY)) {
-                if (!compatible(data))
-                    return updated;
-                if (!fromWeb || canUpdate(data, entry))
-                    updated = true;
-            } else if (compatible(data) && (!fromWeb || canUpdate(data, entry))) {
-                setOfflineData(manager.getApplicationContext(), data.getString(KEY_NAME), fromWeb);
-                updated = true;
+    /**
+     * 更新/重置本地数据
+     *
+     * @param context 上下文
+     * @param onlineEntry 传入 null 时重置本地数据
+     * @return 是否更新/重置了数据
+     */
+    @JvmStatic
+    @Throws(IOException::class, JSONException::class)
+    fun updateData(context: Context, onlineEntry: JSONArray?): Boolean {
+        val newEntry = onlineEntry ?: fromStream(IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + DATA_ENTRY))
+        val entry = getOfflineData(context, DATA_ENTRY)
+        var updated = false
+        for (i in 0 until newEntry.length()) {
+            val data = newEntry.getJSONObject(i)
+            if (data.getString(KEY_NAME) == DATA_ENTRY) {
+                if (!compatible(data)) return updated
+                if (onlineEntry == null || updatable(data, entry)) updated = true
+            } else if (compatible(data) && (onlineEntry == null || updatable(data, entry))) {
+                setOfflineData(context, data.getString(KEY_NAME), onlineEntry)
+                updated = true
             }
         }
-        if (updated)
-            setOfflineData(manager.getApplicationContext(), DATA_ENTRY, fromWeb);
-        return updated;
+        if (updated) setOfflineData(context, DATA_ENTRY, onlineEntry)
+        return updated
     }
 
-    private static JSONArray getOfflineData(Context context, String data) throws IOException, JSONException {
-        File file = new File(context.getFilesDir() + File.separator + data);
-        return fromStream(file.exists() ? IOUtil.fromFile(file) : IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + data));
+    @Throws(IOException::class)
+    private fun setOfflineData(context: Context, data: String, onlineEntry: JSONArray?) {
+        IOUtil.stream2File(when {
+            onlineEntry == null -> IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + data)
+            data == DATA_ENTRY -> ByteArrayInputStream(onlineEntry.toString().toByteArray())
+            else -> IOUtil.fromWeb(URL_WEB_DATA + data)
+        }, context.filesDir.toString() + File.separator + data)
     }
 
-    private static void setOfflineData(Context context, String data, boolean fromWeb) throws IOException {
-        IOUtil.stream2File(fromWeb ? IOUtil.fromWeb(URL_WEB_DATA + data) : IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + data), context.getFilesDir() + File.separator + data);
+    @JvmStatic
+    @Throws(IOException::class, JSONException::class)
+    fun getOnlineEntry(): JSONArray = fromStream(IOUtil.fromWeb(URL_WEB_DATA + DATA_ENTRY))
+
+    @Throws(IOException::class, JSONException::class)
+    private fun fromStream(stream: InputStream): JSONArray = JSONArray(IOUtil.stream2String(stream))
+
+    @Throws(IOException::class, JSONException::class)
+    private fun getOfflineData(context: Context, data: String): JSONArray {
+        val file = File(context.filesDir.toString() + File.separator + data)
+        return fromStream(if (file.exists()) IOUtil.fromFile(file) else IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + data))
     }
 
-    public static JSONArray getMaterialData(Context context) throws IOException, JSONException {
-        return getOfflineData(context, DATA_MATERIAL);
+    @JvmStatic
+    @Throws(IOException::class, JSONException::class)
+    fun getMaterialData(context: Context): JSONArray = getOfflineData(context, DATA_MATERIAL)
+
+    @JvmStatic
+    @Throws(IOException::class, JSONException::class)
+    fun getRecruitData(context: Context): JSONArray = getOfflineData(context, DATA_RECRUIT)
+
+    @JvmStatic
+    @Throws(IOException::class, JSONException::class)
+    fun getResolutionData(context: Context): JSONArray = getOfflineData(context, DATA_RESOLUTION)
+
+    @Throws(IOException::class, JSONException::class)
+    fun getSloganData(context: Context): JSONArray = getOfflineData(context, DATA_SLOGAN)
+
+    @Throws(JSONException::class)
+    private fun updatable(data: JSONObject, entry: JSONArray): Boolean {
+        for (i in 0 until entry.length())
+            if (entry.getJSONObject(i).getString(KEY_NAME) == data.getString(KEY_NAME))
+                return data.getInt(KEY_VERSION) > entry.getJSONObject(i).getInt(KEY_VERSION)
+        return false
     }
 
-    public static JSONArray getRecruitData(Context context) throws IOException, JSONException {
-        return getOfflineData(context, DATA_RECRUIT);
-    }
+    @Throws(JSONException::class)
+    private fun compatible(data: JSONObject): Boolean = BuildConfig.VERSION_CODE >= data.getInt(KEY_COMPAT)
 
-    public static JSONArray getResolutionData(Context context) throws IOException, JSONException {
-        return getOfflineData(context, DATA_RESOLUTION);
-    }
+    @JvmStatic
+    @Throws(JSONException::class)
+    fun latestApp(onlineEntry: JSONArray): Boolean = BuildConfig.VERSION_CODE >= onlineEntry.getJSONObject(0).getInt(KEY_VERSION)
 
-    public static JSONArray getSloganData(Context context) throws IOException, JSONException {
-        return getOfflineData(context, DATA_SLOGAN);
-    }
+    @JvmStatic
+    @Throws(JSONException::class)
+    fun getChangelog(json: JSONObject): String = json.getString("name") + System.lineSeparator() + json.getString("body")
 
-    private static JSONArray fromStream(InputStream in) throws IOException, JSONException {
-        return new JSONArray(IOUtil.stream2String(in));
-    }
-
-    private static boolean canUpdate(JSONObject data, JSONArray entry) throws JSONException {
-        for (int i = 0; i < entry.length(); i++) {
-            if (entry.getJSONObject(i).getString(KEY_NAME).equals(data.getString(KEY_NAME)))
-                return data.getInt(KEY_VERSION) > entry.getJSONObject(i).getInt(KEY_VERSION);
-        }
-        return false;
-    }
-
-    private static boolean compatible(JSONObject data) throws JSONException {
-        return BuildConfig.VERSION_CODE >= data.getInt(KEY_COMPAT);
-    }
+    @JvmStatic
+    @Throws(JSONException::class)
+    fun getDownloadUrl(json: JSONObject): String = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
 }

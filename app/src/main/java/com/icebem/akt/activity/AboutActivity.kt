@@ -116,7 +116,7 @@ class AboutActivity : AppCompatActivity() {
         builder.setPositiveButton(R.string.action_reset) { _, _ ->
             var id = R.string.data_reset_done
             try {
-                DataUtil.updateData(manager, false)
+                DataUtil.updateData(this, null)
                 manager.setCheckLastTime(true)
             } catch (e: Exception) {
                 id = R.string.error_occurred
@@ -161,12 +161,13 @@ class AboutActivity : AppCompatActivity() {
         var log: String? = null
         var url = AppUtil.URL_RELEASE_LATEST
         try {
-            if (AppUtil.isLatestVersion) {
-                id = if (DataUtil.updateData(manager, true)) R.string.data_updated else R.string.version_latest
+            val entry = DataUtil.getOnlineEntry()
+            if (DataUtil.latestApp(entry)) {
+                id = if (DataUtil.updateData(this, entry)) R.string.data_updated else R.string.version_latest
             } else {
                 val json = JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)))
-                log = AppUtil.getChangelog(json)
-                url = AppUtil.getDownloadUrl(json)
+                log = DataUtil.getChangelog(json)
+                url = DataUtil.getDownloadUrl(json)
             }
             manager.setCheckLastTime(false)
         } catch (e: Exception) {

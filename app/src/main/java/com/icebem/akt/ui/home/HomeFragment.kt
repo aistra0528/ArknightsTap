@@ -138,12 +138,13 @@ class HomeFragment : Fragment() {
         var url: String? = null
         val fab = (requireContext() as MainActivity).fab
         try {
-            if (AppUtil.isLatestVersion) {
-                id = if (DataUtil.updateData(manager, true)) R.string.data_updated else R.string.version_latest
+            val entry = DataUtil.getOnlineEntry()
+            if (DataUtil.latestApp(entry)) {
+                id = if (DataUtil.updateData(manager.applicationContext, entry)) R.string.data_updated else R.string.version_latest
             } else {
                 val json = JSONObject(IOUtil.stream2String(IOUtil.fromWeb(AppUtil.URL_RELEASE_LATEST_API)))
-                log = AppUtil.getChangelog(json)
-                url = AppUtil.getDownloadUrl(json)
+                log = DataUtil.getChangelog(json)
+                url = DataUtil.getDownloadUrl(json)
             }
             manager.setCheckLastTime(false)
         } catch (e: Exception) {
