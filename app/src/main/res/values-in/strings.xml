@@ -32,7 +32,7 @@
     <string name="info_gesture_connected">ARGS™ mulai menekan</string>
     <string name="info_gesture_disconnected">ARGS™ selesai</string>
     <string name="info_gesture_running">ARGS™ sedang berjalan, %d min keluar</string>
-    <string name="msg_resolution_unsupported">Perangkatmu (%d×%d resolusi) belum mendukung ARGS™, tolong hubungi kami di GitHub. \nARSS™ tersedia tanpa terpengaruh.</string>
+    <string name="msg_resolution_unsupported">Perangkatmu (%1$d×%2$d resolusi) belum mendukung ARGS™, tolong hubungi kami di GitHub. \nARSS™ tersedia tanpa terpengaruh.</string>
     <string name="title_about">Tentang</string>
     <string name="action_donate">Donasi</string>
     <string name="msg_donate">Anda dapat menunjukkan rasa terima kasih ke developer dengan cara donasi loh!</string>
@@ -73,7 +73,7 @@
     <string name="special_thanks_desc">Twitter @op_satoshi - Penerjemah bahasa Jepang\nTelegram @twiceYuan - Penyumbang\nTelegram @dwipaa11 dan @AdityaTamamo - Penerjemah bahasa Indonesia\nGitHub @FhrShadow - Penyumbang</string>
     <string name="special_thanks_extra">Dan tentu saja, Anda.\nTerima kasih banyak telah menggunakan ArkTap!\n© 2019–2021 艾星Aistra</string>
     <string name="action_counter">Penghitung Headhunt</string>
-    <string name="tip_counter_default">Roll: %d\nKemungkinan 6 ★ diroll berikutnya: %d%%\nTekan lama + untuk x10, - untuk membersihkan</string>
+    <string name="tip_counter_default">Roll: %1$d\nKemungkinan 6 ★ diroll berikutnya: %2$d%%\nTekan lama + untuk x10, - untuk membersihkan</string>
     <string name="msg_data_reset">Reset data yang diunduh?</string>
     <string name="data_reset_done">Reset berhasil</string>
     <string name="data_updated">Data terbaru diperbarui</string>
@@ -82,7 +82,7 @@
     <string name="double_speed_summary">Beroperasi dengan Double Speed</string>
     <string name="tip_material_data">Data dari Penguin Statistics, hanya untuk referensi</string>
     <string name="tip_material_workshop">%s > Workshop</string>
-    <string name="tip_material_mission">%s | %.1f%% | %.1f Sanity</string>
+    <string name="tip_material_mission">%1$s | %2$.1f%% | %3$.1f Sanity</string>
     <string name="counter_normal">Standard headhunt</string>
     <string name="counter_limited">Limited headhunt</string>
     <string name="anti_burn_in_title">Translucent sprite</string>

@@ -16,19 +16,38 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resConfigs("zh-rCN", "en", "ja", "in")
     }
-    buildFeatures {
-        viewBinding = false
-        dataBinding = false
+    signingConfigs {
+        create("release") {
+            val props = `java.util`.Properties().apply {
+                load(file("../signing.properties").reader())
+            }
+            storeFile = file(props.getProperty("storeFile"))
+            storePassword = props.getProperty("storePassword")
+            keyAlias = props.getProperty("keyAlias")
+            keyPassword = props.getProperty("keyPassword")
+        }
     }
     buildTypes {
         getByName("debug") {
             versionNameSuffix = "-Lune-${`java.text`.SimpleDateFormat("yyyyMMdd").format(System.currentTimeMillis())}"
+            signingConfig = signingConfigs.getByName("release")
         }
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+    }
+    applicationVariants.all {
+        outputs.all {
+            if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl)
+                outputFileName = "ArkTap-v$versionName.apk"
+        }
+    }
+    buildFeatures {
+        viewBinding = false
+        dataBinding = false
     }
     dependenciesInfo {
         // Disables dependency metadata when building APKs.
@@ -42,11 +61,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-    applicationVariants.all {
-        outputs.all {
-            (this as com.android.build.gradle.internal.api.ApkVariantOutputImpl).outputFileName = "ArkTap-v$versionName.apk"
-        }
     }
 }
 

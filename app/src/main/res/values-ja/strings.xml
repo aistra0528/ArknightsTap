@@ -32,7 +32,7 @@
     <string name="info_gesture_connected">ARGS™開始</string>
     <string name="info_gesture_disconnected">ARGS™終了</string>
     <string name="info_gesture_running">ARGS™作動中,残り%d分</string>
-    <string name="msg_resolution_unsupported">ARGS™はまだ解像度%d×%dに対応していません。レポートをしてください。\n公開求人の企画等の機能には影響しません。</string>
+    <string name="msg_resolution_unsupported">ARGS™はまだ解像度%1$d×%2$dに対応していません。レポートをしてください。\n公開求人の企画等の機能には影響しません。</string>
     <string name="title_about">ArkTapについて</string>
     <string name="action_donate">寄付について</string>
     <string name="msg_donate">寄付をして頂ければ幸いです。</string>
@@ -73,7 +73,7 @@
     <string name="special_thanks_desc">Twitter @op_satoshi - 日本語訳\nTelegram @twiceYuan - 寄稿者\nTelegram @dwipaa11 と @AdityaTamamo - インドネシア語訳\nGitHub @FhrShadow - 寄稿者</string>
     <string name="special_thanks_title">特別感謝</string>
     <string name="action_counter">ガチャカウンタ</string>
-    <string name="tip_counter_default">ガチャ回数：%d回\n次回★6入手確率：%d%%\n＋を長押し→十連ガチャ\n−を長押し→リセット</string>
+    <string name="tip_counter_default">ガチャ回数：%1$d回\n次回★6入手確率：%2$d%%\n＋を長押し→十連ガチャ\n−を長押し→リセット</string>
     <string name="msg_data_reset">ダウンロードしたアップデートデータをリセットしますか?</string>
     <string name="data_reset_done">アップデートデータをリセットしました</string>
     <string name="data_updated">既に最新のデータにアップデート</string>
@@ -82,7 +82,7 @@
     <string name="double_speed_summary">2倍速でタップ</string>
     <string name="tip_material_data">データはPenguin Statisticsから。ご参考に。</string>
     <string name="tip_material_workshop">%s > 加工所</string>
-    <string name="tip_material_mission">%s | %.1f%% | %.1f理性</string>
+    <string name="tip_material_mission">%1$s | %2$.1f%% | %3$.1f理性</string>
     <string name="counter_normal">標準ガチャ</string>
     <string name="counter_limited">限定ガチャ</string>
     <string name="anti_burn_in_title">操作ボタンを半透明に</string>

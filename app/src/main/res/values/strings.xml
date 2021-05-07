@@ -32,7 +32,7 @@
     <string name="info_gesture_connected">戳戳乐™开始一直戳</string>
     <string name="info_gesture_disconnected">戳戳乐™行动结束</string>
     <string name="info_gesture_running">戳戳乐™正在行动,还有%d分钟</string>
-    <string name="msg_resolution_unsupported">戳戳乐™暂未适配%d×%d分辨率，请在关于向开发者反馈。其他功能不受影响。\n\n点击“更新”获取最新数据。已是最新版本时，请向开发者提供以下截图原图进行适配。游戏截图需在游戏设置中将“异形屏UI适配”调至0。\n\n1. 本“设备未适配”界面截图，需带有设备分辨率信息。\n2. 游戏“关卡选择”界面截图，需带有蓝色“开始行动”按钮。\n3. 游戏“战前编队”界面截图，需带有红色“开始行动”按钮。\n\n* 可能无法适配部分设备。</string>
+    <string name="msg_resolution_unsupported">戳戳乐™暂未适配%1$d×%2$d分辨率，请在关于向开发者反馈。其他功能不受影响。\n\n点击“更新”获取最新数据。已是最新版本时，请向开发者提供以下截图原图进行适配。游戏截图需在游戏设置中将“异形屏UI适配”调至0。\n\n1. 本“设备未适配”界面截图，需带有设备分辨率信息。\n2. 游戏“关卡选择”界面截图，需带有蓝色“开始行动”按钮。\n3. 游戏“战前编队”界面截图，需带有红色“开始行动”按钮。\n\n* 可能无法适配部分设备。</string>
     <string name="title_about">关于</string>
     <string name="action_donate">捐赠</string>
     <string name="msg_donate">方舟帮帮忙是一款自由软件，所有的开发和维护工作都是由一位主要开发者和来自世界各地的热心志愿者们共同完成，可在GitHub查看。\n\n请多多分享方舟帮帮忙，我们非常欢迎新博士的加入！我们同样欢迎您成为志愿者或提供捐赠来支持方舟帮帮忙项目的开发和维护。</string>
@@ -78,7 +78,7 @@
     <string name="tag_time_2" translatable="false">4:00～7:30</string>
     <string name="tag_time_1" translatable="false">1:00～3:50</string>
     <string name="action_counter">寻访计数器</string>
-    <string name="tip_counter_default">已寻访：%d次\n下次获得6★概率：%d%%\n长按“+”十连，“-”清零</string>
+    <string name="tip_counter_default">已寻访：%1$d次\n下次获得6★概率：%2$d%%\n长按“+”十连，“-”清零</string>
     <string name="msg_data_reset">重置已下载的更新数据吗？</string>
     <string name="data_reset_done">已重置更新数据</string>
     <string name="data_updated">已更新最新数据</string>
@@ -87,7 +87,7 @@
     <string name="double_speed_summary">能耗略微增加，行动间隔缩短</string>
     <string name="tip_material_data">数据来自企鹅物流数据统计，仅供参考</string>
     <string name="tip_material_workshop">%s > 加工站</string>
-    <string name="tip_material_mission">%s | %.1f%% | %.1f理智</string>
+    <string name="tip_material_mission">%1$s | %2$.1f%% | %3$.1f理智</string>
     <string name="tip_material_item" translatable="false">- %s x %d</string>
     <string name="counter_normal">标准寻访</string>
     <string name="counter_limited">限定寻访</string>
