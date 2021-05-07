@@ -11,16 +11,14 @@ android {
         applicationId = "com.icebem.akt"
         minSdk = 21
         targetSdk = 30
-        versionCode = 52
-        versionName = "2.7.1"
+        versionCode = 53
+        versionName = "2.7.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resConfigs("zh-rCN", "en", "ja", "in")
     }
     signingConfigs {
         create("release") {
-            val props = `java.util`.Properties().apply {
-                load(file("../signing.properties").reader())
-            }
+            val props = `java.util`.Properties().apply { load(file("../signing.properties").reader()) }
             storeFile = file(props.getProperty("storeFile"))
             storePassword = props.getProperty("storePassword")
             keyAlias = props.getProperty("keyAlias")
@@ -50,9 +48,7 @@ android {
         dataBinding = false
     }
     dependenciesInfo {
-        // Disables dependency metadata when building APKs.
         includeInApk = false
-        // Disables dependency metadata when building Android App Bundles.
         includeInBundle = false
     }
     compileOptions {
@@ -66,7 +62,6 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0")
-
     implementation("androidx.annotation:annotation:1.2.0")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")

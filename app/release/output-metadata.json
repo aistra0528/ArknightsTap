@@ -5,14 +5,14 @@
     "kind": "Directory"
   },
   "applicationId": "com.icebem.akt",
-  "variantName": "processReleaseResources",
+  "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 52,
-      "versionName": "2.7.1",
-      "outputFile": "ArkTap-v2.7.1.apk"
+      "versionCode": 53,
+      "versionName": "2.7.2",
+      "outputFile": "ArkTap-v2.7.2.apk"
     }
   ]
 }
