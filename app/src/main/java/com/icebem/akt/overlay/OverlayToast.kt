@@ -23,47 +23,44 @@ import androidx.core.widget.TextViewCompat
 import com.google.android.material.textview.MaterialTextView
 import com.icebem.akt.R
 import com.icebem.akt.app.ResolutionConfig
-import java.lang.ref.WeakReference
 
 /**
- * 悬浮吐司，有点问题 TODO
+ * 悬浮吐司
  */
 object OverlayToast {
     const val LENGTH_INDEFINITE = 0L
     const val LENGTH_SHORT = 2000L
     const val LENGTH_LONG = 3000L
-    private var runnable: Runnable? = null
-    private var toast: WeakReference<OverlayView?>? = null
+    private val runnable = Runnable { toast!!.remove() }
+    private var toast: OverlayView? = null
 
     @JvmStatic
     fun show(context: Context, text: String, duration: Long) {
-        val view: MaterialTextView
-        if (toast == null || toast!!.get() == null) {
-            view = MaterialTextView(ContextThemeWrapper(context.applicationContext, R.style.Theme_MaterialComponents_Light))
-            val padding = context.resources.getDimensionPixelOffset(R.dimen.view_padding)
-            view.setPadding(padding, padding, padding, padding)
-            view.setBackgroundResource(R.drawable.bg_toast)
-            TextViewCompat.setTextAppearance(view, R.style.TextAppearance_AppCompat)
-            view.setOnClickListener {
-                it.removeCallbacks(runnable)
-                toast!!.get()!!.remove()
-            }
-            toast = WeakReference(OverlayView(view))
-            toast!!.get()!!.setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) shr 2)
-        } else {
-            view = toast!!.get()!!.view as MaterialTextView
-        }
-        if (runnable == null) {
-            runnable = Runnable { toast!!.get()!!.remove() }
-        } else {
-            view.removeCallbacks(runnable)
-            toast!!.get()!!.remove()
-        }
+        val view = getView(context)
+        view.removeCallbacks(runnable)
+        runnable.run()
         view.text = text
-        toast!!.get()!!.show()
+        toast!!.show()
         if (duration > LENGTH_INDEFINITE) view.postDelayed(runnable, duration)
     }
 
     @JvmStatic
     fun show(context: Context, resId: Int, duration: Long) = show(context, context.getString(resId), duration)
+
+    private fun getView(context: Context): MaterialTextView {
+        if (toast == null) {
+            val view = MaterialTextView(ContextThemeWrapper(context.applicationContext, R.style.Theme_MaterialComponents_Light)).apply {
+                TextViewCompat.setTextAppearance(this, R.style.TextAppearance_AppCompat)
+                val padding = context.resources.getDimensionPixelOffset(R.dimen.view_padding)
+                setPadding(padding, padding, padding, padding)
+                setBackgroundResource(R.drawable.bg_toast)
+                setOnClickListener {
+                    it.removeCallbacks(runnable)
+                    runnable.run()
+                }
+            }
+            toast = OverlayView(view).apply { setRelativePosition(0, ResolutionConfig.getAbsoluteHeight(context) shr 2) }
+        }
+        return toast!!.view as MaterialTextView
+    }
 }
