@@ -106,4 +106,5 @@
     <string name="action_share">分享</string>
     <string name="info_share">下载链接已复制</string>
     <string name="action_support">支持</string>
+    <string name="volume_control">音量键-结束</string>
 </resources>

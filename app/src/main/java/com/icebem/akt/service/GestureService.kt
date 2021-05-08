@@ -1,194 +1,150 @@
-package com.icebem.akt.service;
+package com.icebem.akt.service
 
-import android.accessibilityservice.AccessibilityService;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.SystemClock;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.accessibility.AccessibilityEvent;
-import android.widget.Toast;
+import android.accessibilityservice.AccessibilityService
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
+import android.provider.Settings
+import android.util.Log
+import android.view.KeyEvent
+import android.view.accessibility.AccessibilityEvent
+import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.icebem.akt.BuildConfig
+import com.icebem.akt.R
+import com.icebem.akt.app.CompatOperations
+import com.icebem.akt.app.GestureActionReceiver
+import com.icebem.akt.app.PreferenceManager
+import com.icebem.akt.overlay.OverlayToast
+import java.lang.ref.WeakReference
+import java.util.*
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+class GestureService : AccessibilityService() {
+    companion object {
+        private const val WAIT_TIME: Long = 3500
+        private const val MINUTE_TIME: Long = 60000
+        private const val THREAD_GESTURE = "gesture"
+        private const val THREAD_TIMER = "timer"
+        private var instance: WeakReference<GestureService?>? = null
 
-import com.icebem.akt.BuildConfig;
-import com.icebem.akt.R;
-import com.icebem.akt.app.CompatOperations;
-import com.icebem.akt.app.GestureActionReceiver;
-import com.icebem.akt.app.PreferenceManager;
-import com.icebem.akt.overlay.OverlayToast;
-import com.icebem.akt.util.RandomUtil;
+        @JvmStatic
+        val isGestureRunning: Boolean
+            get() = if (instance != null && instance!!.get() != null) instance!!.get()!!.running else false
+    }
 
-import java.lang.ref.WeakReference;
-import java.util.Timer;
-import java.util.TimerTask;
+    private lateinit var handler: Handler
+    private lateinit var manager: PreferenceManager
+    private lateinit var gestureActionReceiver: GestureActionReceiver
+    private var time = 0
+    private var running = false
+    private var thread: Thread? = null
+    private var timer: Timer? = null
+    private var localBroadcastManager: LocalBroadcastManager? = null
 
-public class GestureService extends AccessibilityService {
-    private static final long WAIT_TIME = 3500;
-    private static final long MINUTE_TIME = 60000;
-    private static final String THREAD_GESTURE = "gesture";
-    private static final String THREAD_TIMER = "timer";
-    private int time;
-    private boolean running;
-    private Handler handler;
-    private Thread gestureThread;
-    private Timer timer;
-    private PreferenceManager manager;
-    private GestureActionReceiver gestureActionReceiver;
-    private LocalBroadcastManager localBroadcastManager;
-    private static WeakReference<GestureService> currentInstance;
-
-    @Override
-    protected void onServiceConnected() {
-        super.onServiceConnected();
-        manager = PreferenceManager.getInstance(this);
-        if (!manager.isActivated())
-            manager.setActivatedId();
+    override fun onServiceConnected() {
+        super.onServiceConnected()
+        manager = PreferenceManager.getInstance(this)
+        if (!manager.isActivated) manager.setActivatedId()
         if (CompatOperations.requireOverlayPermission(this) || manager.unsupportedResolution()) {
-            disableSelfCompat();
+            disableSelfCompat()
             if (CompatOperations.requireOverlayPermission(this)) {
-                Toast.makeText(this, R.string.state_permission_request, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            } else if (manager.unsupportedResolution())
-                OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT);
-            return;
+                Toast.makeText(this, R.string.state_permission_request, Toast.LENGTH_SHORT).show()
+                startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            } else if (manager.unsupportedResolution()) OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT)
+            return
         }
-        handler = new Handler(Looper.getMainLooper());
-        gestureActionReceiver = new GestureActionReceiver(this::dispatchCurrentAction);
-        localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        localBroadcastManager.registerReceiver(gestureActionReceiver, new IntentFilter(GestureActionReceiver.ACTION));
-        if (manager.noBackground())
-            localBroadcastManager.sendBroadcast(new Intent(GestureActionReceiver.ACTION));
+        handler = Handler(Looper.getMainLooper())
+        gestureActionReceiver = GestureActionReceiver { dispatchCurrentAction() }
+        localBroadcastManager = LocalBroadcastManager.getInstance(this)
+        localBroadcastManager!!.registerReceiver(gestureActionReceiver, IntentFilter(GestureActionReceiver.ACTION))
+        if (manager.noBackground()) localBroadcastManager!!.sendBroadcast(Intent(GestureActionReceiver.ACTION))
     }
 
-    private void dispatchCurrentAction() {
-        currentInstance = new WeakReference<>(this);
-        if (running)
-            pauseAction();
-        else
-            startAction();
+    private fun dispatchCurrentAction() {
+        instance = WeakReference(this)
+        if (running) pauseAction() else startAction()
     }
 
-    private void startAction() {
-        running = true;
-        if (manager.rootMode())
-            CompatOperations.checkRootPermission();
-        if (manager.launchGame())
-            launchGame();
-        if (gestureThread == null || !gestureThread.isAlive())
-            gestureThread = new Thread(this::performGestures, THREAD_GESTURE);
-        if (!gestureThread.isAlive())
-            gestureThread.start();
-        time = manager.getTimerTime();
+    private fun startAction() {
+        running = true
+        if (manager.rootMode()) CompatOperations.checkRootPermission()
+        if (manager.launchGame()) launchGame()
+        if (thread == null || !thread!!.isAlive) thread = Thread({ performGestures() }, THREAD_GESTURE)
+        if (!thread!!.isAlive) thread!!.start()
+        time = manager.timerTime
         if (time > 0) {
-            timer = new Timer(THREAD_TIMER);
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
+            timer = Timer(THREAD_TIMER)
+            timer!!.schedule(object : TimerTask() {
+                override fun run() {
                     if (time > 0) {
-                        handler.post(GestureService.this::showTimeLeft);
+                        handler.post { showTimeLeft() }
                     } else {
-                        pauseAction();
-                        CompatOperations.disableKeepScreen(GestureService.this);
+                        pauseAction()
+                        CompatOperations.disableKeepScreen(this@GestureService)
                     }
                 }
-            }, 0, MINUTE_TIME);
-        } else
-            OverlayToast.show(this, R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT);
+            }, 0, MINUTE_TIME)
+        } else OverlayToast.show(this, R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT)
     }
 
-    private void pauseAction() {
-        if (manager.noBackground())
-            disableSelfCompat();
-        else stopAction();
+    private fun pauseAction() = if (manager.noBackground()) disableSelfCompat() else stopAction()
+
+    private fun stopAction() {
+        running = false
+        if (timer != null) timer!!.cancel()
     }
 
-    private void stopAction() {
-        running = false;
-        if (timer != null)
-            timer.cancel();
-    }
-
-    private void performGestures() {
-        SystemClock.sleep(WAIT_TIME);
+    private fun performGestures() {
+        SystemClock.sleep(WAIT_TIME)
         if (running) {
-            startService(new Intent(this, OverlayService.class));
-            int process = 0;
+            startService(Intent(this, OverlayService::class.java))
+            var process = 0
             while (running) {
-                switch (process) {
-                    case 0:
-                        CompatOperations.performClick(this, manager.getBlueX(), manager.getBlueY());
-                        break;
-                    case 2:
-                        CompatOperations.performClick(this, manager.getRedX(), manager.getRedY());
-                        break;
-                    default:
-                        CompatOperations.performClick(this, manager.getGreenX(), manager.getGreenY());
+                when (process) {
+                    0 -> CompatOperations.performClick(this, manager.blueX, manager.blueY)
+                    2 -> CompatOperations.performClick(this, manager.redX, manager.redY)
+                    else -> CompatOperations.performClick(this, manager.greenX, manager.greenY)
                 }
-                if (++process > 4) process = 0;
-                SystemClock.sleep(RandomUtil.randomTime(manager.getUpdateTime()));
+                if (++process > 4) process = 0
+                SystemClock.sleep(manager.updateTime)
             }
         }
-        handler.post(this::showActionFinished);
+        handler.post { showActionFinished() }
     }
 
-    private void showActionFinished() {
-        OverlayToast.show(this, R.string.info_gesture_disconnected, OverlayToast.LENGTH_SHORT);
+    private fun showActionFinished() = OverlayToast.show(this, R.string.info_gesture_disconnected, OverlayToast.LENGTH_SHORT)
+
+    private fun showTimeLeft() = OverlayToast.show(this, getString(R.string.info_gesture_running, time--), OverlayToast.LENGTH_SHORT)
+
+    private fun disableSelfCompat() = CompatOperations.disableSelf(this) { stopAction() }
+
+    private fun launchGame() {
+        val packageName = manager.defaultPackage
+        val intent = if (packageName == null) null else packageManager.getLaunchIntentForPackage(packageName)
+        if (intent != null) startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 
-    private void showTimeLeft() {
-        OverlayToast.show(this, getString(R.string.info_gesture_running, time--), OverlayToast.LENGTH_SHORT);
+    override fun onAccessibilityEvent(event: AccessibilityEvent) {
+        if (BuildConfig.DEBUG) Log.d(javaClass.simpleName, "onAccessibilityEvent: $event")
     }
 
-    private void launchGame() {
-        String packageName = manager.getDefaultPackage();
-        Intent intent = packageName == null ? null : getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent != null)
-            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    override fun onInterrupt() {
+        if (BuildConfig.DEBUG) Log.d(javaClass.simpleName, "onInterrupt")
     }
 
-    @Override
-    public void onAccessibilityEvent(AccessibilityEvent event) {
-        if (BuildConfig.DEBUG)
-            Log.d(getClass().getSimpleName(), "onAccessibilityEvent: " + event.toString());
+    override fun onUnbind(intent: Intent): Boolean {
+        stopAction()
+        if (localBroadcastManager != null) localBroadcastManager!!.unregisterReceiver(gestureActionReceiver)
+        return super.onUnbind(intent)
     }
 
-    @Override
-    public void onInterrupt() {
-        if (BuildConfig.DEBUG)
-            Log.d(getClass().getSimpleName(), "onInterrupt");
-    }
-
-    @Override
-    public boolean onUnbind(Intent intent) {
-        stopAction();
-        if (localBroadcastManager != null)
-            localBroadcastManager.unregisterReceiver(gestureActionReceiver);
-        return super.onUnbind(intent);
-    }
-
-    @Override
-    protected boolean onKeyEvent(KeyEvent event) {
-        if (running && event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            pauseAction();
-            return true;
+    override fun onKeyEvent(event: KeyEvent): Boolean {
+        if (running && event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN && manager.volumeControl()) {
+            pauseAction()
+            return true
         }
-        return false;
-    }
-
-    /**
-     * Is gesture action running
-     */
-    public static boolean isGestureRunning() {
-        if (currentInstance != null && currentInstance.get() != null)
-            return currentInstance.get().running;
-        return false;
-    }
-
-    private void disableSelfCompat() {
-        CompatOperations.disableSelf(this, this::stopAction);
+        return false
     }
 }

@@ -57,6 +57,11 @@
             app:title="@string/double_speed_title" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="volume_control"
+            app:title="@string/volume_control" />
+
+        <SwitchPreferenceCompat
             app:key="no_background"
             app:summary="@string/no_background_summary"
             app:title="@string/no_background_title" />
