@@ -48,10 +48,10 @@ class RecruitViewer(private val context: Context, root: View) {
 
     val manager: PreferenceManager = PreferenceManager.getInstance(context)
     val rootView: NestedScrollView = root.findViewById(R.id.scroll_recruit_root)
-    private val top: CheckBox = findBoxById(R.id.tag_qualification_6)
     private val tip: TextView = rootView.findViewById(R.id.txt_recruit_tips)
     private val tagsContainer: ViewGroup = rootView.findViewById(R.id.container_recruit_tags)
     private val resultContainer: ViewGroup = rootView.findViewById(R.id.container_recruit_result)
+    private val top: CheckBox = findBoxById(R.id.tag_qualification_6)
     private val infoList: Array<OperatorInfo?> = OperatorInfo.load(context)
     private val tagArray: SparseArray<Array<String>> = RecruitTag.tagArray
     private val stars: ArrayList<CheckBox> = findBoxesById(R.id.tag_star_1)

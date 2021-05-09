@@ -27,7 +27,7 @@ class MaterialAdapter(private val manager: PreferenceManager, private val spanCo
 
     class ViewHolder(itemView: ImageView) : RecyclerView.ViewHolder(itemView)
 
-    private val infoList: Array<MaterialInfo> = MaterialInfo.load(manager.applicationContext)
+    private val infoList: Array<MaterialInfo?> = MaterialInfo.load(manager.applicationContext)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ImageView(parent.context)
@@ -46,20 +46,20 @@ class MaterialAdapter(private val manager: PreferenceManager, private val spanCo
         view.setImageResource(view.resources.getIdentifier(RES_START_MTL + info.id, RES_TYPE, view.context.packageName))
         view.setOnClickListener {
             val builder = StringBuilder()
-            if (info.items == null) {
+            if (info.items.isEmpty()) {
                 builder.append(info.getName(manager.translationIndex))
             } else {
                 builder.append(it.context.getString(R.string.tip_material_workshop, info.getName(manager.translationIndex)))
                 for (item in info.items) {
-                    val mtl = findMaterialById(item.id) ?: break
+                    val mtl = findMaterialById(item!!.id) ?: break
                     builder.append(System.lineSeparator())
                     builder.append(it.context.getString(R.string.tip_material_item, mtl.getName(manager.translationIndex), item.quantity))
                 }
             }
-            if (info.stages != null) {
+            if (info.stages.isNotEmpty()) {
                 for (mission in info.stages) {
                     builder.append(System.lineSeparator())
-                    val sanity = mission.sanity
+                    val sanity = mission!!.sanity
                     val frequency = mission.frequency
                     builder.append(it.context.getString(R.string.tip_material_mission, mission.mission, frequency * 100, sanity / frequency))
                 }
@@ -70,7 +70,7 @@ class MaterialAdapter(private val manager: PreferenceManager, private val spanCo
 
     private fun findMaterialById(id: Int): MaterialInfo? {
         for (info in infoList)
-            if (info.id == id) return info
+            if (info!!.id == id) return info
         return null
     }
 

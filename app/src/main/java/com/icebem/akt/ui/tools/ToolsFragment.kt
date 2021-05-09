@@ -11,7 +11,7 @@ import com.icebem.akt.model.RecruitViewer
 import com.icebem.akt.util.AppUtil
 
 class ToolsFragment : Fragment() {
-    private lateinit var viewer: RecruitViewer
+    private var viewer: RecruitViewer? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -28,11 +28,11 @@ class ToolsFragment : Fragment() {
         when (item.itemId) {
             R.id.action_overlay -> (requireContext() as MainActivity).showOverlay()
             R.id.action_language -> {
-                val packages = viewer.manager.availablePackages
-                var index = viewer.manager.gamePackagePosition
+                val packages = viewer!!.manager.availablePackages
+                var index = viewer!!.manager.gamePackagePosition
                 if (++index == packages.size) index = 0
-                viewer.manager.setGamePackage(packages[index])
-                viewer.resetTags(null)
+                viewer!!.manager.setGamePackage(packages[index])
+                viewer!!.resetTags(null)
             }
             R.id.action_about -> startActivity(Intent(requireContext(), AboutActivity::class.java))
         }
@@ -42,6 +42,6 @@ class ToolsFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_tools, menu)
-        if (viewer.manager.multiPackage) menu.findItem(R.id.action_language).isVisible = true
+        if (viewer != null && viewer!!.manager.multiPackage) menu.findItem(R.id.action_language).isVisible = true
     }
 }
