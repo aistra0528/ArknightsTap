@@ -55,7 +55,6 @@ object DataUtil {
      * @param onlineEntry 传入 null 时重置本地数据
      * @return 是否更新/重置了数据
      */
-    @JvmStatic
     @Throws(IOException::class, JSONException::class)
     fun updateData(context: Context, onlineEntry: JSONArray?): Boolean {
         val newEntry = onlineEntry ?: fromStream(IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + DATA_ENTRY))
@@ -84,7 +83,6 @@ object DataUtil {
         }, context.filesDir.toString() + File.separator + data)
     }
 
-    @JvmStatic
     @Throws(IOException::class, JSONException::class)
     fun getOnlineEntry(): JSONArray = fromStream(IOUtil.fromWeb(URL_WEB_DATA + DATA_ENTRY))
 
@@ -97,15 +95,12 @@ object DataUtil {
         return fromStream(if (file.exists()) IOUtil.fromFile(file) else IOUtil.fromAssets(context, TYPE_DATA + File.separatorChar + data))
     }
 
-    @JvmStatic
     @Throws(IOException::class, JSONException::class)
     fun getMaterialData(context: Context): JSONArray = getOfflineData(context, DATA_MATERIAL)
 
-    @JvmStatic
     @Throws(IOException::class, JSONException::class)
     fun getRecruitData(context: Context): JSONArray = getOfflineData(context, DATA_RECRUIT)
 
-    @JvmStatic
     @Throws(IOException::class, JSONException::class)
     fun getResolutionData(context: Context): JSONArray = getOfflineData(context, DATA_RESOLUTION)
 
@@ -123,15 +118,12 @@ object DataUtil {
     @Throws(JSONException::class)
     private fun compatible(data: JSONObject): Boolean = BuildConfig.VERSION_CODE >= data.getInt(KEY_COMPAT)
 
-    @JvmStatic
     @Throws(JSONException::class)
     fun latestApp(onlineEntry: JSONArray): Boolean = BuildConfig.VERSION_CODE >= onlineEntry.getJSONObject(0).getInt(KEY_VERSION)
 
-    @JvmStatic
     @Throws(JSONException::class)
     fun getChangelog(json: JSONObject): String = json.getString("name") + System.lineSeparator() + json.getString("body")
 
-    @JvmStatic
     @Throws(JSONException::class)
     fun getDownloadUrl(json: JSONObject): String = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
 }

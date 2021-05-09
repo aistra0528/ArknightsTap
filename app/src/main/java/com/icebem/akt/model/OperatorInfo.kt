@@ -17,7 +17,6 @@ internal class OperatorInfo private constructor(obj: JSONObject) {
         private const val KEY_TYPE = "type"
         private const val KEY_TAGS = "tags"
 
-        @JvmStatic
         @Throws(IOException::class, JSONException::class)
         fun load(context: Context): Array<OperatorInfo?> {
             val array = DataUtil.getRecruitData(context)

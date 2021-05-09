@@ -11,18 +11,10 @@ internal object RecruitTag {
     private val STAR_4 = arrayOf("4★", "4★", "4★", "★4", "4★")
     private val STAR_5 = arrayOf("5★", "5★", "5★", "★5", "5★")
     private val STAR_6 = arrayOf("6★", "6★", "6★", "★6", "6★")
-
-    @JvmField
     val QUALIFICATION_1 = arrayOf("Robot", "支援机械", "支援機械", "ロボット", "로봇")
-
     private val QUALIFICATION_2 = arrayOf("Starter", "新手", "新手", "初期", "신입")
-
-    @JvmField
     val QUALIFICATION_5 = arrayOf("Senior Operator", "资深干员", "資深幹員", "エリート", "특별 채용")
-
-    @JvmField
     val QUALIFICATION_6 = arrayOf("Top Operator", "高级资深干员", "高級資深幹員", "上級エリート", "고급 특별 채용")
-
     private val POSITION_MELEE = arrayOf("Melee", "近战位", "近戰位", "近距離", "근거리")
     private val POSITION_RANGED = arrayOf("Ranged", "远程位", "遠程位", "遠距離", "원거리")
     private val TYPE_VANGUARD = arrayOf("Vanguard", "先锋干员", "先鋒幹員", "先鋒タイプ", "뱅가드")
@@ -75,7 +67,6 @@ internal object RecruitTag {
             AFFIX_CONTROL
     )
 
-    @JvmStatic
     val tagArray: SparseArray<Array<String>>
         get() {
             val array = SparseArray<Array<String>>()
@@ -116,7 +107,6 @@ internal object RecruitTag {
             return array
         }
 
-    @JvmStatic
     fun getTagName(tagName: String, index: Int): String {
         if (index != DataUtil.INDEX_EN) {
             for (array in TAG_ARRAY) {

@@ -46,7 +46,6 @@ class GestureService : AccessibilityService() {
         private const val THREAD_TIMER = "timer"
         private var instance: WeakReference<GestureService?>? = null
 
-        @JvmStatic
         val isGestureRunning: Boolean
             get() = if (instance != null && instance!!.get() != null) instance!!.get()!!.running else false
     }

@@ -1,428 +1,347 @@
-package com.icebem.akt.model;
+/*
+ * This file is part of ArkTap.
+ * Copyright (C) 2019-2021 艾星Aistra
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+package com.icebem.akt.model
 
-import android.content.Context;
-import android.text.TextUtils;
-import android.util.SparseArray;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.content.Context
+import android.text.TextUtils
+import android.util.SparseArray
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
+import androidx.core.widget.NestedScrollView
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayout
+import com.google.android.material.snackbar.Snackbar
+import com.icebem.akt.R
+import com.icebem.akt.activity.MainActivity
+import com.icebem.akt.app.PreferenceManager
+import com.icebem.akt.overlay.OverlayToast
+import com.icebem.akt.util.DataUtil
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
-
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayout;
-import com.google.android.material.snackbar.Snackbar;
-import com.icebem.akt.R;
-import com.icebem.akt.activity.MainActivity;
-import com.icebem.akt.app.PreferenceManager;
-import com.icebem.akt.overlay.OverlayToast;
-import com.icebem.akt.util.DataUtil;
-
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-
-public class RecruitViewer {
-    private static final int TAG_CHECKED_MAX = 5;
-    private static final int TAG_COMBINED_MAX = 3;
-    private static final int CHECKED_TIME_ID = R.id.tag_time_3;
-    private static final int[][] CHECKED_STARS_ID = {
-            {R.id.tag_time_3, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5},
-            {R.id.tag_time_2, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5},
-            {R.id.tag_time_1, R.id.tag_star_1, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4}
-    };
-    private int index;
-    private boolean autoAction;
-    private final Context context;
-    private final CheckBox top;
-    private final TextView tip;
-    private final NestedScrollView scroll;
-    private final ViewGroup tagsContainer, resultContainer;
-    private final PreferenceManager manager;
-    private final OperatorInfo[] infoList;
-    private final SparseArray<String[]> tagArray;
-    private final ArrayList<CheckBox> stars, qualifications, positions, types, affixes, checkedStars, checkedTags, combinedTags;
-    private final ArrayList<OperatorInfo> checkedInfoList;
-    private ArrayList<ItemContainer> resultList;
-
-    public RecruitViewer(Context context, View root) throws IOException, JSONException {
-        this.context = context;
-        manager = PreferenceManager.getInstance(context);
-        scroll = root.findViewById(R.id.scroll_recruit_root);
-        tip = scroll.findViewById(R.id.txt_recruit_tips);
-        resultContainer = scroll.findViewById(R.id.container_recruit_result);
-        tagsContainer = scroll.findViewById(R.id.container_recruit_tags);
-        top = findBoxById(R.id.tag_qualification_6);
-        stars = findBoxesById(R.id.tag_star_1);
-        qualifications = findBoxesById(R.id.tag_qualification_1);
-        positions = findBoxesById(R.id.tag_position_melee);
-        types = findBoxesById(R.id.tag_type_vanguard);
-        affixes = findBoxesById(R.id.tag_affix_survival);
-        tagArray = RecruitTag.getTagArray();
-        setBoxesText();
-        infoList = OperatorInfo.load(context);
-        scroll.findViewById(R.id.action_recruit_reset).setOnClickListener(this::resetTags);
-        ((RadioGroup) tagsContainer.findViewById(R.id.group_recruit_time)).setOnCheckedChangeListener(this::onCheckedChange);
-        setOnCheckedChangeListener(stars);
-        setOnCheckedChangeListener(qualifications);
-        setOnCheckedChangeListener(positions);
-        setOnCheckedChangeListener(types);
-        setOnCheckedChangeListener(affixes);
-        checkedStars = new ArrayList<>();
-        checkedTags = new ArrayList<>();
-        checkedInfoList = new ArrayList<>();
-        combinedTags = new ArrayList<>();
-        resetTags(null);
+class RecruitViewer(private val context: Context, root: View) {
+    companion object {
+        private const val TAG_CHECKED_MAX = 5
+        private const val TAG_COMBINED_MAX = 3
+        private const val CHECKED_TIME_ID = R.id.tag_time_3
+        private val CHECKED_STARS_ID = arrayOf(
+                intArrayOf(R.id.tag_time_3, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5),
+                intArrayOf(R.id.tag_time_2, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4, R.id.tag_star_5),
+                intArrayOf(R.id.tag_time_1, R.id.tag_star_1, R.id.tag_star_2, R.id.tag_star_3, R.id.tag_star_4))
     }
 
-    private CheckBox findBoxById(int id) {
-        return tagsContainer.findViewById(id);
+    val manager: PreferenceManager = PreferenceManager.getInstance(context)
+    val rootView: NestedScrollView = root.findViewById(R.id.scroll_recruit_root)
+    private val top: CheckBox = findBoxById(R.id.tag_qualification_6)
+    private val tip: TextView = rootView.findViewById(R.id.txt_recruit_tips)
+    private val tagsContainer: ViewGroup = rootView.findViewById(R.id.container_recruit_tags)
+    private val resultContainer: ViewGroup = rootView.findViewById(R.id.container_recruit_result)
+    private val infoList: Array<OperatorInfo?> = OperatorInfo.load(context)
+    private val tagArray: SparseArray<Array<String>> = RecruitTag.tagArray
+    private val stars: ArrayList<CheckBox> = findBoxesById(R.id.tag_star_1)
+    private val qualifications: ArrayList<CheckBox> = findBoxesById(R.id.tag_qualification_1)
+    private val positions: ArrayList<CheckBox> = findBoxesById(R.id.tag_position_melee)
+    private val types: ArrayList<CheckBox> = findBoxesById(R.id.tag_type_vanguard)
+    private val affixes: ArrayList<CheckBox> = findBoxesById(R.id.tag_affix_survival)
+    private val checkedStars: ArrayList<CheckBox> = ArrayList()
+    private val checkedTags: ArrayList<CheckBox> = ArrayList()
+    private val combinedTags: ArrayList<CheckBox> = ArrayList()
+    private val checkedInfoList: ArrayList<OperatorInfo?> = ArrayList()
+    private var index = 0
+    private var autoAction = false
+    private var resultList: ArrayList<ItemContainer>? = null
+
+    init {
+        setBoxesText()
+        rootView.findViewById<View>(R.id.action_recruit_reset).setOnClickListener { resetTags(it) }
+        tagsContainer.findViewById<RadioGroup>(R.id.group_recruit_time).setOnCheckedChangeListener { group, checkedId -> onCheckedChange(group, checkedId) }
+        setOnCheckedChangeListener(stars)
+        setOnCheckedChangeListener(qualifications)
+        setOnCheckedChangeListener(positions)
+        setOnCheckedChangeListener(types)
+        setOnCheckedChangeListener(affixes)
+        resetTags(null)
     }
 
-    private ArrayList<CheckBox> findBoxesById(int id) {
-        ArrayList<CheckBox> boxes = new ArrayList<>();
-        ViewGroup group = (ViewGroup) tagsContainer.findViewById(id).getParent();
-        for (int i = 0; i < group.getChildCount(); i++)
-            if (group.getChildAt(i) instanceof CheckBox) {
-                CheckBox box = (CheckBox) group.getChildAt(i);
-                boxes.add(box);
+    private fun findBoxById(id: Int): CheckBox = tagsContainer.findViewById(id)
+
+    private fun findBoxesById(id: Int): ArrayList<CheckBox> {
+        val boxes = ArrayList<CheckBox>()
+        val group = tagsContainer.findViewById<View>(id).parent as ViewGroup
+        for (i in 0 until group.childCount)
+            if (group.getChildAt(i) is CheckBox) boxes.add(group.getChildAt(i) as CheckBox)
+        return boxes
+    }
+
+    private fun setBoxesText() {
+        index = manager.translationIndex
+        for (box in stars) box.text = tagArray[box.id][index]
+        for (box in qualifications) box.text = tagArray[box.id][index]
+        for (box in positions) box.text = tagArray[box.id][index]
+        for (box in types) box.text = tagArray[box.id][index]
+        for (box in affixes) box.text = tagArray[box.id][index]
+    }
+
+    private fun setOnCheckedChangeListener(boxes: ArrayList<CheckBox>) {
+        for (box in boxes) box.setOnCheckedChangeListener { tag, isChecked -> onCheckedChange(tag, isChecked) }
+    }
+
+    private fun onCheckedChange(group: RadioGroup, checkedId: Int) {
+        if (group.id == R.id.group_recruit_time) {
+            autoAction = true
+            while (checkedStars.isNotEmpty()) checkedStars[0].isChecked = false
+            for (stars in CHECKED_STARS_ID) {
+                if (stars[0] == checkedId) {
+                    for (i in 1 until stars.size) findBoxById(stars[i]).isChecked = true
+                }
             }
-        return boxes;
-    }
-
-    private void setBoxesText() {
-        index = manager.getTranslationIndex();
-        for (CheckBox box : stars)
-            box.setText(tagArray.get(box.getId())[index]);
-        for (CheckBox box : qualifications)
-            box.setText(tagArray.get(box.getId())[index]);
-        for (CheckBox box : positions)
-            box.setText(tagArray.get(box.getId())[index]);
-        for (CheckBox box : types)
-            box.setText(tagArray.get(box.getId())[index]);
-        for (CheckBox box : affixes)
-            box.setText(tagArray.get(box.getId())[index]);
-    }
-
-    private void setOnCheckedChangeListener(ArrayList<CheckBox> boxes) {
-        for (CheckBox box : boxes)
-            box.setOnCheckedChangeListener(this::onCheckedChange);
-    }
-
-    private void onCheckedChange(RadioGroup group, int checkedId) {
-        if (group.getId() == R.id.group_recruit_time) {
-            autoAction = true;
-            while (!checkedStars.isEmpty())
-                checkedStars.get(0).setChecked(false);
-            for (int[] stars : CHECKED_STARS_ID) {
-                if (stars[0] == checkedId)
-                    for (int i = 1; i < stars.length; i++)
-                        findBoxById(stars[i]).setChecked(true);
-            }
-            if (top.isChecked())
-                findBoxById(R.id.tag_star_6).setChecked(true);
-            if (findBoxById(R.id.tag_qualification_5).isChecked() && !findBoxById(R.id.tag_star_5).isChecked())
-                findBoxById(R.id.tag_star_5).setChecked(true);
-            autoAction = false;
-            updateRecruitResult();
+            if (top.isChecked) findBoxById(R.id.tag_star_6).isChecked = true
+            if (findBoxById(R.id.tag_qualification_5).isChecked && !findBoxById(R.id.tag_star_5).isChecked) findBoxById(R.id.tag_star_5).isChecked = true
+            autoAction = false
+            updateRecruitResult()
         }
     }
 
-    private void onCheckedChange(CompoundButton tag, boolean isChecked) {
-        if (tag instanceof CheckBox) {
-            if (!stars.contains(tag) && isChecked && checkedTags.size() >= TAG_CHECKED_MAX) {
-                tag.setChecked(false);
+    private fun onCheckedChange(tag: CompoundButton, isChecked: Boolean) {
+        if (tag is CheckBox) {
+            if (!stars.contains(tag) && isChecked && checkedTags.size >= TAG_CHECKED_MAX) {
+                tag.setChecked(false)
             } else {
-                boolean state = autoAction;
-                autoAction = true;
-                if (tag == top && findBoxById(R.id.tag_star_6).isChecked() != isChecked)
-                    findBoxById(R.id.tag_star_6).setChecked(isChecked);
-                else if (tag.getId() == R.id.tag_qualification_5 && findBoxById(R.id.tag_star_5).isChecked() != isChecked && (isChecked || ((RadioButton) tagsContainer.findViewById(R.id.tag_time_1)).isChecked()))
-                    findBoxById(R.id.tag_star_5).setChecked(isChecked);
-                autoAction = state;
-                updateCheckedTags((CheckBox) tag, isChecked);
+                val state = autoAction
+                autoAction = true
+                if (tag === top && findBoxById(R.id.tag_star_6).isChecked != isChecked)
+                    findBoxById(R.id.tag_star_6).isChecked = isChecked
+                else if (tag.getId() == R.id.tag_qualification_5 && findBoxById(R.id.tag_star_5).isChecked != isChecked
+                        && (isChecked || tagsContainer.findViewById<RadioButton>(R.id.tag_time_1).isChecked))
+                    findBoxById(R.id.tag_star_5).isChecked = isChecked
+                autoAction = state
+                updateCheckedTags(tag, isChecked)
             }
         }
     }
 
-    public void resetTags(@Nullable View view) {
-        if (view != null)
-            view.setClickable(false);
-        autoAction = true;
-        while (!checkedTags.isEmpty())
-            checkedTags.get(0).setChecked(false);
-        if (index != manager.getTranslationIndex())
-            setBoxesText();
-        RadioButton timeTag = tagsContainer.findViewById(CHECKED_TIME_ID);
-        if (timeTag.isChecked())
-            onCheckedChange((RadioGroup) timeTag.getParent(), CHECKED_TIME_ID);
+    fun resetTags(view: View?) {
+        if (view != null) view.isClickable = false
+        autoAction = true
+        while (checkedTags.isNotEmpty()) checkedTags[0].isChecked = false
+        if (index != manager.translationIndex) setBoxesText()
+        val timeTag = tagsContainer.findViewById<RadioButton>(CHECKED_TIME_ID)
+        if (timeTag.isChecked)
+            onCheckedChange(timeTag.parent as RadioGroup, CHECKED_TIME_ID)
         else
-            timeTag.setChecked(true);
-        scroll.post(() -> scroll.smoothScrollTo(0, context instanceof MainActivity ? 0 : ((ViewGroup) top.getParent()).getTop()));
-        if (view != null)
-            view.setClickable(true);
+            timeTag.isChecked = true
+        rootView.post { rootView.smoothScrollTo(0, if (context is MainActivity) 0 else (top.parent as ViewGroup).top) }
+        if (view != null) view.isClickable = true
     }
 
-    private void updateCheckedTags(CheckBox tag, boolean isChecked) {
+    private fun updateCheckedTags(tag: CheckBox, isChecked: Boolean) {
         if (stars.contains(tag)) {
-            if (isChecked)
-                checkedStars.add(tag);
-            else
-                checkedStars.remove(tag);
-            for (OperatorInfo info : infoList) {
-                if (tag.getText().toString().contains(String.valueOf(info.getStar()))) {
-                    if (isChecked)
-                        checkedInfoList.add(info);
-                    else
-                        checkedInfoList.remove(info);
+            if (isChecked) checkedStars.add(tag) else checkedStars.remove(tag)
+            for (info in infoList) {
+                if (tag.text.toString().contains(info!!.star.toString())) {
+                    if (isChecked) checkedInfoList.add(info) else checkedInfoList.remove(info)
                 }
             }
-            Collections.sort(checkedInfoList, this::compareInfo);
+            checkedInfoList.sortWith { i1, i2 -> compareInfo(i1!!, i2!!) }
         } else {
-            if (isChecked)
-                checkedTags.add(tag);
-            else
-                checkedTags.remove(tag);
+            if (isChecked) checkedTags.add(tag) else checkedTags.remove(tag)
         }
-        if (!autoAction)
-            updateRecruitResult();
+        if (!autoAction) updateRecruitResult()
     }
 
-    private void updateRecruitResult() {
-        resultContainer.removeAllViews();
+    private fun updateRecruitResult() {
+        resultContainer.removeAllViews()
         if (checkedTags.isEmpty()) {
-            FlexboxLayout flex = new FlexboxLayout(context);
-            flex.setFlexWrap(FlexWrap.WRAP);
-            for (OperatorInfo info : checkedInfoList)
-                if (hasPossibility(info))
-                    flex.addView(getInfoView(info, flex));
-            resultContainer.addView(flex);
-            tip.setText(checkedInfoList.isEmpty() ? R.string.tip_recruit_result_none : R.string.tip_recruit_result_default);
+            val flex = FlexboxLayout(context)
+            flex.flexWrap = FlexWrap.WRAP
+            for (info in checkedInfoList) if (hasPossibility(info)) flex.addView(getInfoView(info, flex))
+            resultContainer.addView(flex)
+            tip.setText(if (checkedInfoList.isEmpty()) R.string.tip_recruit_result_none else R.string.tip_recruit_result_default)
         } else {
-            resultList = new ArrayList<>();
-            Collections.sort(checkedTags, this::compareTags);
-            for (int i = Math.min(checkedTags.size(), TAG_COMBINED_MAX); i > 0; i--)
-                combineTags(0, combinedTags.size(), i);
-            Collections.sort(resultList);
-            for (ItemContainer container : resultList)
-                resultContainer.addView(container);
-            if (checkedTags.size() == TAG_CHECKED_MAX && manager.getScrollToResult())
-                scroll.post(() -> scroll.smoothScrollTo(0, tagsContainer.getHeight()));
-            switch (resultList.isEmpty() ? 0 : resultList.get(0).getMinStar()) {
-                case 6:
-                    tip.setText(R.string.tip_recruit_result_6);
-                    tip.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-                    tip.setMarqueeRepeatLimit(-1);
-                    tip.setSingleLine(true);
-                    tip.setSelected(true);
-                    tip.setFocusable(true);
-                    tip.setFocusableInTouchMode(true);
-                    break;
-                case 5:
-                    tip.setText(R.string.tip_recruit_result_5);
-                    break;
-                case 4:
-                    tip.setText(R.string.tip_recruit_result_4);
-                    break;
-                case 0:
-                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_recruit_result_1 : R.string.tip_recruit_result_none);
-                    break;
-                default:
-                    tip.setText(checkedTags.contains(findBoxById(R.id.tag_qualification_1)) ? R.string.tip_recruit_result_1 : R.string.tip_recruit_result_default);
-            }
-        }
-    }
-
-    private void combineTags(int index, int size, int targetSize) {
-        if (size == targetSize) {
-            matchInfoList();
-        } else {
-            for (int i = index; i < checkedTags.size(); i++) {
-                if (!combinedTags.contains(checkedTags.get(i))) {
-                    combinedTags.add(checkedTags.get(i));
-                    combineTags(i, combinedTags.size(), targetSize);
-                    combinedTags.remove(checkedTags.get(i));
+            resultList = ArrayList()
+            checkedTags.sortWith { t1, t2 -> compareTags(t1, t2) }
+            for (i in checkedTags.size.coerceAtMost(TAG_COMBINED_MAX) downTo 1) combineTags(0, combinedTags.size, i)
+            resultList!!.sort()
+            for (container in resultList!!) resultContainer.addView(container)
+            if (checkedTags.size == TAG_CHECKED_MAX && manager.scrollToResult) rootView.post { rootView.smoothScrollTo(0, tagsContainer.height) }
+            tip.apply {
+                when (if (resultList!!.isEmpty()) 0 else resultList!![0].minStar) {
+                    6 -> {
+                        setText(R.string.tip_recruit_result_6)
+                        ellipsize = TextUtils.TruncateAt.MARQUEE
+                        marqueeRepeatLimit = -1
+                        isSingleLine = true
+                        isSelected = true
+                        isFocusable = true
+                        isFocusableInTouchMode = true
+                    }
+                    5 -> setText(R.string.tip_recruit_result_5)
+                    4 -> setText(R.string.tip_recruit_result_4)
+                    0 -> setText(if (checkedTags.contains(findBoxById(R.id.tag_qualification_1))) R.string.tip_recruit_result_1 else R.string.tip_recruit_result_none)
+                    else -> setText(if (checkedTags.contains(findBoxById(R.id.tag_qualification_1))) R.string.tip_recruit_result_1 else R.string.tip_recruit_result_default)
                 }
             }
         }
     }
 
-    private void matchInfoList() {
-        ArrayList<OperatorInfo> matchedInfoList = new ArrayList<>();
-        for (OperatorInfo info : checkedInfoList) {
-            boolean matched = hasPossibility(info);
-            for (CheckBox tag : combinedTags) {
-                if (matched) {
-                    if (qualifications.contains(tag)) {
-                        matched = (tag.getId() == R.id.tag_qualification_1 && info.getStar() == 1) || (tag.getId() == R.id.tag_qualification_2 && info.getStar() == 2) || (tag.getId() == R.id.tag_qualification_5 && info.getStar() == 5) || (tag == top && info.getStar() == 6);
-                    } else if (types.contains(tag)) {
-                        matched = info.getType().equals(tagArray.get(tag.getId())[0]);
-                    } else {
-                        matched = info.containsTag(tagArray.get(tag.getId())[0]);
+    private fun combineTags(index: Int, size: Int, targetSize: Int) {
+        if (size == targetSize) {
+            matchInfoList()
+        } else {
+            for (i in index until checkedTags.size) {
+                if (!combinedTags.contains(checkedTags[i])) {
+                    combinedTags.add(checkedTags[i])
+                    combineTags(i, combinedTags.size, targetSize)
+                    combinedTags.remove(checkedTags[i])
+                }
+            }
+        }
+    }
+
+    private fun matchInfoList() {
+        val matchedInfoList = ArrayList<OperatorInfo?>()
+        for (info in checkedInfoList) {
+            var matched = hasPossibility(info)
+            for (tag in combinedTags) {
+                matched = if (matched) {
+                    when {
+                        qualifications.contains(tag) -> {
+                            tag.id == R.id.tag_qualification_1 && info!!.star == 1
+                                    || tag.id == R.id.tag_qualification_2 && info!!.star == 2
+                                    || tag.id == R.id.tag_qualification_5 && info!!.star == 5
+                                    || tag === top && info!!.star == 6
+                        }
+                        types.contains(tag) -> info!!.type == tagArray[tag.id][0]
+                        else -> info!!.containsTag(tagArray[tag.id][0])
                     }
-                } else break;
+                } else break
             }
-            if (matched) matchedInfoList.add(info);
+            if (matched) matchedInfoList.add(info)
         }
-        if (!matchedInfoList.isEmpty()) addResultToList(matchedInfoList);
+        if (matchedInfoList.isNotEmpty()) addResultToList(matchedInfoList)
     }
 
-    private void addResultToList(ArrayList<OperatorInfo> matchedInfoList) {
-        LinearLayout tagContainer = new LinearLayout(context);
-        for (CheckBox box : combinedTags)
-            tagContainer.addView(getTagView(box, tagContainer));
-        FlexboxLayout flex = new FlexboxLayout(context);
-        flex.setFlexWrap(FlexWrap.WRAP);
-        for (OperatorInfo info : matchedInfoList)
-            flex.addView(getInfoView(info, flex));
-        ItemContainer itemContainer = new ItemContainer();
-        int startStar = matchedInfoList.get(0).getStar();
-        int endStar = matchedInfoList.get(matchedInfoList.size() - 1).getStar();
-        itemContainer.setStar(Math.min(startStar, endStar), Math.max(startStar, endStar));
-        itemContainer.addView(tagContainer);
-        itemContainer.addView(flex);
-        resultList.add(itemContainer);
+    private fun addResultToList(matchedInfoList: ArrayList<OperatorInfo?>) {
+        val tagContainer = LinearLayout(context)
+        for (box in combinedTags) tagContainer.addView(getTagView(box, tagContainer))
+        val flex = FlexboxLayout(context)
+        flex.flexWrap = FlexWrap.WRAP
+        for (info in matchedInfoList) flex.addView(getInfoView(info, flex))
+        val startStar = matchedInfoList[0]!!.star
+        val endStar = matchedInfoList[matchedInfoList.size - 1]!!.star
+        resultList!!.add(ItemContainer().apply {
+            setStar(startStar.coerceAtMost(endStar), startStar.coerceAtLeast(endStar))
+            addView(tagContainer)
+            addView(flex)
+        })
     }
 
-    private TextView getTagView(CheckBox box, ViewGroup container) {
-        TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false);
-        view.setPadding(view.getPaddingLeft(), view.getPaddingTop() >> 1, view.getPaddingRight(), view.getPaddingBottom() >> 1);
-        view.setText(box.getText());
-        switch (box.getId()) {
-            case R.id.tag_qualification_1:
-                view.setBackgroundResource(R.drawable.bg_tag_star_1);
-                break;
-            case R.id.tag_qualification_2:
-                view.setBackgroundResource(R.drawable.bg_tag_star_2);
-                break;
-            case R.id.tag_qualification_5:
-                view.setBackgroundResource(R.drawable.bg_tag_star_5);
-                break;
-            case R.id.tag_qualification_6:
-                view.setBackgroundResource(R.drawable.bg_tag_star_6);
-                break;
-            default:
-                view.setBackgroundResource(R.drawable.bg_tag);
+    private fun getTagView(box: CheckBox, container: ViewGroup): TextView {
+        return (LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false) as TextView).apply {
+            setPadding(paddingLeft, paddingTop shr 1, paddingRight, paddingBottom shr 1)
+            setBackgroundResource(when (box.id) {
+                R.id.tag_qualification_1 -> R.drawable.bg_tag_star_1
+                R.id.tag_qualification_2 -> R.drawable.bg_tag_star_2
+                R.id.tag_qualification_5 -> R.drawable.bg_tag_star_5
+                R.id.tag_qualification_6 -> R.drawable.bg_tag_star_6
+                else -> R.drawable.bg_tag
+            })
+            text = box.text
         }
-        return view;
     }
 
-    private TextView getInfoView(OperatorInfo info, ViewGroup container) {
-        TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false);
-        view.setText(info.getName(index));
-        view.setOnClickListener(v -> {
-            char space = ' ';
-            StringBuilder builder = new StringBuilder();
-            builder.append(info.getName(index));
-            builder.append(space);
-            builder.append(info.getName(index == DataUtil.INDEX_CN ? DataUtil.INDEX_EN : DataUtil.INDEX_CN));
-            builder.append(context instanceof MainActivity ? space : System.lineSeparator());
-            switch (info.getStar()) {
-                case 1:
-                    builder.append(RecruitTag.QUALIFICATION_1[index]);
-                    builder.append(space);
-                    break;
-                case 5:
-                    builder.append(RecruitTag.QUALIFICATION_5[index]);
-                    builder.append(space);
-                    break;
-                case 6:
-                    builder.append(RecruitTag.QUALIFICATION_6[index]);
-                    builder.append(space);
-                    break;
+    private fun getInfoView(info: OperatorInfo?, container: ViewGroup): TextView {
+        return (LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false) as TextView).apply {
+            text = info!!.getName(index)
+            setOnClickListener {
+                val str = StringBuilder().apply {
+                    val space = ' '
+                    append(info.getName(index))
+                    append(space)
+                    append(info.getName(if (index == DataUtil.INDEX_CN) DataUtil.INDEX_EN else DataUtil.INDEX_CN))
+                    append(if (context is MainActivity) space else System.lineSeparator())
+                    when (info.star) {
+                        1 -> {
+                            append(RecruitTag.QUALIFICATION_1[index])
+                            append(space)
+                        }
+                        5 -> {
+                            append(RecruitTag.QUALIFICATION_5[index])
+                            append(space)
+                        }
+                        6 -> {
+                            append(RecruitTag.QUALIFICATION_6[index])
+                            append(space)
+                        }
+                    }
+                    append(RecruitTag.getTagName(info.type, index))
+                    for (tag in info.tags) {
+                        append(space)
+                        append(RecruitTag.getTagName(tag!!, index))
+                    }
+                }.toString()
+                if (context is MainActivity) Snackbar.make(container, str, Snackbar.LENGTH_LONG).show() else OverlayToast.show(context, str, OverlayToast.LENGTH_LONG)
             }
-            builder.append(RecruitTag.getTagName(info.getType(), index));
-            for (String tag : info.getTags()) {
-                builder.append(space);
-                builder.append(RecruitTag.getTagName(tag, index));
-            }
-            if (context instanceof MainActivity)
-                Snackbar.make(container, builder.toString(), Snackbar.LENGTH_LONG).show();
-            else
-                OverlayToast.show(context, builder.toString(), OverlayToast.LENGTH_LONG);
-        });
-        switch (info.getStar()) {
-            case 1:
-                view.setBackgroundResource(R.drawable.bg_tag_star_1);
-                break;
-            case 2:
-                view.setBackgroundResource(R.drawable.bg_tag_star_2);
-                break;
-            case 3:
-                view.setBackgroundResource(R.drawable.bg_tag_star_3);
-                break;
-            case 4:
-                view.setBackgroundResource(R.drawable.bg_tag_star_4);
-                break;
-            case 5:
-                view.setBackgroundResource(R.drawable.bg_tag_star_5);
-                break;
-            case 6:
-                view.setBackgroundResource(R.drawable.bg_tag_star_6);
-                break;
-        }
-        return view;
-    }
-
-    private boolean hasPossibility(OperatorInfo info) {
-        return (info.getStar() != 6 || combinedTags.contains(top)) && (manager.getRecruitPreview() || !info.getName(index).endsWith(DataUtil.FLAG_UNRELEASED));
-    }
-
-    private int compareInfo(OperatorInfo o1, OperatorInfo o2) {
-        return manager.getAscendingStar() ? o1.getStar() - o2.getStar() : o2.getStar() - o1.getStar();
-    }
-
-    private int compareTags(CheckBox t1, CheckBox t2) {
-        if (t1.getParent() == t2.getParent())
-            return ((ViewGroup) t1.getParent()).indexOfChild(t1) - ((ViewGroup) t1.getParent()).indexOfChild(t2);
-        return ((ViewGroup) t1.getParent().getParent()).indexOfChild((View) t1.getParent()) - ((ViewGroup) t2.getParent().getParent()).indexOfChild((View) t2.getParent());
-    }
-
-    private class ItemContainer extends LinearLayout implements Comparable<ItemContainer> {
-        private int minStar, maxStar;
-
-        private ItemContainer() {
-            super(context);
-            setOrientation(VERTICAL);
-            setPadding(0, 0, 0, context.getResources().getDimensionPixelOffset(R.dimen.control_padding));
-        }
-
-        private void setStar(int min, int max) {
-            minStar = min;
-            maxStar = max;
-        }
-
-        private int getMaxStar() {
-            return maxStar;
-        }
-
-        private int getMinStar() {
-            return minStar;
-        }
-
-        @Override
-        public int compareTo(@NonNull ItemContainer container) {
-            int i = container.getMinStar() - minStar;
-            if (i == 0) i = container.getMaxStar() - maxStar;
-            return i;
+            setBackgroundResource(when (info.star) {
+                1 -> R.drawable.bg_tag_star_1
+                2 -> R.drawable.bg_tag_star_2
+                3 -> R.drawable.bg_tag_star_3
+                4 -> R.drawable.bg_tag_star_4
+                5 -> R.drawable.bg_tag_star_5
+                else -> R.drawable.bg_tag_star_6
+            })
         }
     }
 
-    public PreferenceManager getManager() {
-        return manager;
+    private fun hasPossibility(info: OperatorInfo?): Boolean {
+        return (info!!.star != 6 || combinedTags.contains(top)) && (manager.recruitPreview || !info.getName(index).endsWith(DataUtil.FLAG_UNRELEASED))
     }
 
-    public NestedScrollView getRootView() {
-        return scroll;
+    private fun compareInfo(i1: OperatorInfo, i2: OperatorInfo): Int {
+        return if (manager.ascendingStar) i1.star - i2.star else i2.star - i1.star
+    }
+
+    private fun compareTags(t1: CheckBox, t2: CheckBox): Int {
+        return if (t1.parent === t2.parent)
+            (t1.parent as ViewGroup).indexOfChild(t1) - (t1.parent as ViewGroup).indexOfChild(t2)
+        else
+            (t1.parent.parent as ViewGroup).indexOfChild(t1.parent as View) - (t2.parent.parent as ViewGroup).indexOfChild(t2.parent as View)
+    }
+
+    private inner class ItemContainer : LinearLayout(context), Comparable<ItemContainer> {
+        var minStar = 0
+        private var maxStar = 0
+
+        init {
+            orientation = VERTICAL
+            setPadding(0, 0, 0, context.resources.getDimensionPixelOffset(R.dimen.control_padding))
+        }
+
+        fun setStar(min: Int, max: Int) {
+            minStar = min
+            maxStar = max
+        }
+
+        override fun compareTo(other: ItemContainer): Int {
+            var i = other.minStar - minStar
+            if (i == 0) i = other.maxStar - maxStar
+            return i
+        }
     }
 }

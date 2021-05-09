@@ -34,7 +34,6 @@ object OverlayToast {
     private val runnable = Runnable { toast!!.remove() }
     private var toast: OverlayView? = null
 
-    @JvmStatic
     fun show(context: Context, text: String, duration: Long) {
         val view = getView(context)
         view.removeCallbacks(runnable)
@@ -44,7 +43,6 @@ object OverlayToast {
         if (duration > LENGTH_INDEFINITE) view.postDelayed(runnable, duration)
     }
 
-    @JvmStatic
     fun show(context: Context, resId: Int, duration: Long) = show(context, context.getString(resId), duration)
 
     private fun getView(context: Context): MaterialTextView {

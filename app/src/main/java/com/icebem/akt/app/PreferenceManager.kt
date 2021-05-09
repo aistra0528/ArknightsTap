@@ -57,7 +57,6 @@ class PreferenceManager private constructor(context: Context) {
         private var autoUpdated = false
         private var instance: PreferenceManager? = null
 
-        @JvmStatic
         fun getInstance(context: Context): PreferenceManager {
             if (instance == null) instance = PreferenceManager(context)
             return instance as PreferenceManager
