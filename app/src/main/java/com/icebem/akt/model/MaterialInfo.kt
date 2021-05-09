@@ -1,133 +1,75 @@
-package com.icebem.akt.model;
+package com.icebem.akt.model
 
-import android.content.Context;
+import android.content.Context
+import com.icebem.akt.util.DataUtil
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 
-import com.icebem.akt.util.DataUtil;
+class MaterialInfo private constructor(obj: JSONObject) {
+    companion object {
+        private const val KEY_ID = "id"
+        private const val KEY_STAR = "star"
+        private const val KEY_NAME = "name"
+        private const val KEY_NAME_CN = "nameCN"
+        private const val KEY_NAME_TW = "nameTW"
+        private const val KEY_NAME_JP = "nameJP"
+        private const val KEY_NAME_KR = "nameKR"
+        private const val KEY_STAGES = "stages"
+        private const val KEY_WORKSHOP = "workshop"
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-public class MaterialInfo {
-    private static final String KEY_ID = "id";
-    private static final String KEY_STAR = "star";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_NAME_CN = "nameCN";
-    private static final String KEY_NAME_TW = "nameTW";
-    private static final String KEY_NAME_JP = "nameJP";
-    private static final String KEY_NAME_KR = "nameKR";
-    private static final String KEY_STAGES = "stages";
-    private static final String KEY_WORKSHOP = "workshop";
-    private int id, star;
-    private String name, nameCN, nameTW, nameJP, nameKR;
-    private Mission[] stages;
-    private ShopItem[] items;
-
-    private MaterialInfo(JSONObject obj) throws JSONException {
-        id = obj.getInt(KEY_ID);
-        star = obj.getInt(KEY_STAR);
-        name = obj.getString(KEY_NAME);
-        nameCN = obj.getString(KEY_NAME_CN);
-        nameTW = obj.getString(KEY_NAME_TW);
-        nameJP = obj.getString(KEY_NAME_JP);
-        nameKR = obj.getString(KEY_NAME_KR);
-        JSONArray stages = obj.getJSONArray(KEY_STAGES);
-        if (stages.length() > 0) {
-            this.stages = new Mission[stages.length()];
-            for (int i = 0; i < stages.length(); i++)
-                this.stages[i] = new Mission(stages.getJSONObject(i));
-        }
-        JSONArray items = obj.getJSONArray(KEY_WORKSHOP);
-        if (items.length() > 0) {
-            this.items = new ShopItem[items.length()];
-            for (int i = 0; i < items.length(); i++)
-                this.items[i] = new ShopItem(items.getJSONObject(i));
+        @Throws(IOException::class, JSONException::class)
+        fun load(context: Context): Array<MaterialInfo?> {
+            val array = DataUtil.getMaterialData(context)
+            val infoList = arrayOfNulls<MaterialInfo>(array.length())
+            for (i in infoList.indices) infoList[i] = MaterialInfo(array.getJSONObject(i))
+            return infoList
         }
     }
 
-    public static MaterialInfo[] load(Context context) throws IOException, JSONException {
-        JSONArray array = DataUtil.getMaterialData(context);
-        MaterialInfo[] infoList = new MaterialInfo[array.length()];
-        for (int i = 0; i < infoList.length; i++)
-            infoList[i] = new MaterialInfo(array.getJSONObject(i));
-        return infoList;
+    val id: Int = obj.getInt(KEY_ID)
+    val star: Int = obj.getInt(KEY_STAR)
+    private val name: String = obj.getString(KEY_NAME)
+    private val nameCN: String = obj.getString(KEY_NAME_CN)
+    private val nameTW: String = obj.getString(KEY_NAME_TW)
+    private val nameJP: String = obj.getString(KEY_NAME_JP)
+    private val nameKR: String = obj.getString(KEY_NAME_KR)
+    val stages: Array<Mission?> = arrayOfNulls(obj.getJSONArray(KEY_STAGES).length())
+    val items: Array<ShopItem?> = arrayOfNulls(obj.getJSONArray(KEY_WORKSHOP).length())
+
+    init {
+        for (i in stages.indices) stages[i] = Mission(obj.getJSONArray(KEY_STAGES).getJSONObject(i))
+        for (i in items.indices) items[i] = ShopItem(obj.getJSONArray(KEY_WORKSHOP).getJSONObject(i))
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int getStar() {
-        return star;
-    }
-
-    public String getName(int index) {
-        switch (index) {
-            case DataUtil.INDEX_EN:
-                return name;
-            case DataUtil.INDEX_TW:
-                return nameTW;
-            case DataUtil.INDEX_JP:
-                return nameJP;
-            case DataUtil.INDEX_KR:
-                return nameKR;
-            default:
-                return nameCN;
+    fun getName(index: Int): String {
+        return when (index) {
+            DataUtil.INDEX_EN -> name
+            DataUtil.INDEX_TW -> nameTW
+            DataUtil.INDEX_JP -> nameJP
+            DataUtil.INDEX_KR -> nameKR
+            else -> nameCN
         }
     }
 
-    public Mission[] getStages() {
-        return stages;
+    class Mission internal constructor(obj: JSONObject) {
+        companion object {
+            private const val KEY_MISSION = "mission"
+            private const val KEY_SANITY = "sanity"
+            private const val KEY_FREQUENCY = "frequency"
+        }
+
+        val mission: String = obj.getString(KEY_MISSION)
+        val sanity: Int = obj.getInt(KEY_SANITY)
+        val frequency: Float = obj.getDouble(KEY_FREQUENCY).toFloat()
     }
 
-    public ShopItem[] getItems() {
-        return items;
-    }
-
-    public static class Mission {
-        private static final String KEY_MISSION = "mission";
-        private static final String KEY_SANITY = "sanity";
-        private static final String KEY_FREQUENCY = "frequency";
-        private String mission;
-        private int sanity;
-        private float frequency;
-
-        Mission(JSONObject obj) throws JSONException {
-            mission = obj.getString(KEY_MISSION);
-            sanity = obj.getInt(KEY_SANITY);
-            frequency = (float) obj.getDouble(KEY_FREQUENCY);
+    class ShopItem internal constructor(obj: JSONObject) {
+        companion object {
+            private const val KEY_QUANTITY = "quantity"
         }
 
-        public String getMission() {
-            return mission;
-        }
-
-        public int getSanity() {
-            return sanity;
-        }
-
-        public float getFrequency() {
-            return frequency;
-        }
-    }
-
-    public static class ShopItem {
-        private static final String KEY_QUANTITY = "quantity";
-        private int id, quantity;
-
-        ShopItem(JSONObject obj) throws JSONException {
-            id = obj.getInt(KEY_ID);
-            quantity = obj.getInt(KEY_QUANTITY);
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public int getQuantity() {
-            return quantity;
-        }
+        val id: Int = obj.getInt(KEY_ID)
+        val quantity: Int = obj.getInt(KEY_QUANTITY)
     }
 }
