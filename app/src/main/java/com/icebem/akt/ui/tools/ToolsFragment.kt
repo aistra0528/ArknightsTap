@@ -42,6 +42,6 @@ class ToolsFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_tools, menu)
-        if (viewer.manager.multiPackage()) menu.findItem(R.id.action_language).isVisible = true
+        if (viewer.manager.multiPackage) menu.findItem(R.id.action_language).isVisible = true
     }
 }

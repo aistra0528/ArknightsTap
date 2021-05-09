@@ -68,11 +68,11 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (manager.autoUpdate()) startUpdateThread() else onStateEnd()
+        if (manager.autoUpdate) startUpdateThread() else onStateEnd()
     }
 
     private fun onStateEnd() {
-        if (manager.isPro && manager.unsupportedResolution()) {
+        if (manager.isPro && manager.unsupportedResolution) {
             stateImg.setImageResource(R.drawable.ic_state_running)
             state.setText(R.string.state_resolution_unsupported)
             val res = ResolutionConfig.getAbsoluteResolution(requireContext())

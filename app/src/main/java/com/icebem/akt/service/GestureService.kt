@@ -1,3 +1,20 @@
+/*
+ * This file is part of ArkTap.
+ * Copyright (C) 2019-2021 艾星Aistra
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 package com.icebem.akt.service
 
 import android.accessibilityservice.AccessibilityService
@@ -47,19 +64,19 @@ class GestureService : AccessibilityService() {
         super.onServiceConnected()
         manager = PreferenceManager.getInstance(this)
         if (!manager.isActivated) manager.setActivatedId()
-        if (CompatOperations.requireOverlayPermission(this) || manager.unsupportedResolution()) {
+        if (CompatOperations.requireOverlayPermission(this) || manager.unsupportedResolution) {
             disableSelfCompat()
             if (CompatOperations.requireOverlayPermission(this)) {
                 Toast.makeText(this, R.string.state_permission_request, Toast.LENGTH_SHORT).show()
                 startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-            } else if (manager.unsupportedResolution()) OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT)
+            } else if (manager.unsupportedResolution) OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT)
             return
         }
         handler = Handler(Looper.getMainLooper())
         gestureActionReceiver = GestureActionReceiver { dispatchCurrentAction() }
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         localBroadcastManager!!.registerReceiver(gestureActionReceiver, IntentFilter(GestureActionReceiver.ACTION))
-        if (manager.noBackground()) localBroadcastManager!!.sendBroadcast(Intent(GestureActionReceiver.ACTION))
+        if (manager.noBackground) localBroadcastManager!!.sendBroadcast(Intent(GestureActionReceiver.ACTION))
     }
 
     private fun dispatchCurrentAction() {
@@ -69,8 +86,8 @@ class GestureService : AccessibilityService() {
 
     private fun startAction() {
         running = true
-        if (manager.rootMode()) CompatOperations.checkRootPermission()
-        if (manager.launchGame()) launchGame()
+        if (manager.rootMode) CompatOperations.checkRootPermission()
+        if (manager.launchGame) launchGame()
         if (thread == null || !thread!!.isAlive) thread = Thread({ performGestures() }, THREAD_GESTURE)
         if (!thread!!.isAlive) thread!!.start()
         time = manager.timerTime
@@ -89,7 +106,7 @@ class GestureService : AccessibilityService() {
         } else OverlayToast.show(this, R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT)
     }
 
-    private fun pauseAction() = if (manager.noBackground()) disableSelfCompat() else stopAction()
+    private fun pauseAction() = if (manager.noBackground) disableSelfCompat() else stopAction()
 
     private fun stopAction() {
         running = false
@@ -141,7 +158,7 @@ class GestureService : AccessibilityService() {
     }
 
     override fun onKeyEvent(event: KeyEvent): Boolean {
-        if (running && event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN && manager.volumeControl()) {
+        if (running && event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN && manager.volumeControl) {
             pauseAction()
             return true
         }

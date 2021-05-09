@@ -11,6 +11,5 @@ object ResolutionConfig {
         return res
     }
 
-    @JvmStatic
     fun getAbsoluteHeight(context: Context): Int = getAbsoluteResolution(context)[1]
 }

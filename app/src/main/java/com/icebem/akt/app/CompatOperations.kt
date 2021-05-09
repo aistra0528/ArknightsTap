@@ -2,12 +2,17 @@ package com.icebem.akt.app
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.GestureDescription
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.Service
 import android.content.Context
 import android.graphics.Path
 import android.os.Build
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.WindowManager
+import com.icebem.akt.R
+import com.icebem.akt.service.OverlayService
 import com.icebem.akt.util.RandomUtil
 
 /**
@@ -17,6 +22,13 @@ object CompatOperations {
     private const val GESTURE_DURATION = 120
 
     fun requireOverlayPermission(context: Context): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context)
+
+    fun createOverlayChannel(service: OverlayService) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val nm = (service.getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager)
+            nm.createNotificationChannel(NotificationChannel(service.javaClass.simpleName, service.getString(R.string.overlay_label), NotificationManager.IMPORTANCE_LOW))
+        }
+    }
 
     fun getDisplayMetrics(context: Context): DisplayMetrics {
         val metric = DisplayMetrics()
@@ -51,7 +63,7 @@ object CompatOperations {
             val builder = GestureDescription.Builder()
             builder.addStroke(GestureDescription.StrokeDescription(path, 0, RandomUtil.randomTime(GESTURE_DURATION)))
             service.dispatchGesture(builder.build(), null, null)
-        } else if (PreferenceManager.getInstance(service).rootMode()) {
+        } else if (PreferenceManager.getInstance(service).rootMode) {
             executeCommand(String.format("input tap %s %s", rX, rY))
         }
     }

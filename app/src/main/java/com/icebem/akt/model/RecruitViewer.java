@@ -43,16 +43,16 @@ public class RecruitViewer {
     };
     private int index;
     private boolean autoAction;
-    private Context context;
-    private CheckBox top;
-    private TextView tip;
-    private NestedScrollView scroll;
-    private ViewGroup tagsContainer, resultContainer;
-    private PreferenceManager manager;
-    private OperatorInfo[] infoList;
-    private SparseArray<String[]> tagArray;
-    private ArrayList<CheckBox> stars, qualifications, positions, types, affixes, checkedStars, checkedTags, combinedTags;
-    private ArrayList<OperatorInfo> checkedInfoList;
+    private final Context context;
+    private final CheckBox top;
+    private final TextView tip;
+    private final NestedScrollView scroll;
+    private final ViewGroup tagsContainer, resultContainer;
+    private final PreferenceManager manager;
+    private final OperatorInfo[] infoList;
+    private final SparseArray<String[]> tagArray;
+    private final ArrayList<CheckBox> stars, qualifications, positions, types, affixes, checkedStars, checkedTags, combinedTags;
+    private final ArrayList<OperatorInfo> checkedInfoList;
     private ArrayList<ItemContainer> resultList;
 
     public RecruitViewer(Context context, View root) throws IOException, JSONException {
@@ -216,7 +216,7 @@ public class RecruitViewer {
             Collections.sort(resultList);
             for (ItemContainer container : resultList)
                 resultContainer.addView(container);
-            if (checkedTags.size() == TAG_CHECKED_MAX && manager.scrollToResult())
+            if (checkedTags.size() == TAG_CHECKED_MAX && manager.getScrollToResult())
                 scroll.post(() -> scroll.smoothScrollTo(0, tagsContainer.getHeight()));
             switch (resultList.isEmpty() ? 0 : resultList.get(0).getMinStar()) {
                 case 6:
@@ -375,11 +375,11 @@ public class RecruitViewer {
     }
 
     private boolean hasPossibility(OperatorInfo info) {
-        return (info.getStar() != 6 || combinedTags.contains(top)) && (manager.recruitPreview() || !info.getName(index).endsWith(DataUtil.FLAG_UNRELEASED));
+        return (info.getStar() != 6 || combinedTags.contains(top)) && (manager.getRecruitPreview() || !info.getName(index).endsWith(DataUtil.FLAG_UNRELEASED));
     }
 
     private int compareInfo(OperatorInfo o1, OperatorInfo o2) {
-        return manager.ascendingStar() ? o1.getStar() - o2.getStar() : o2.getStar() - o1.getStar();
+        return manager.getAscendingStar() ? o1.getStar() - o2.getStar() : o2.getStar() - o1.getStar();
     }
 
     private int compareTags(CheckBox t1, CheckBox t2) {

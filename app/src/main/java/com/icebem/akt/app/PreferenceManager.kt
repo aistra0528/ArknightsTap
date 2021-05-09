@@ -140,20 +140,21 @@ class PreferenceManager private constructor(context: Context) {
             return TIMER_POSITION
         }
 
-    fun autoUpdate(): Boolean {
-        if (!autoUpdated) {
-            autoUpdated = true
-            // 每隔24小时自动获取更新
-            return preferences.getBoolean(KEY_AUTO_UPDATE, true) && System.currentTimeMillis() - checkLastTime > CHECK_TIME
+    val autoUpdate: Boolean
+        get() {
+            if (!autoUpdated) {
+                autoUpdated = true
+                // 每隔24小时自动获取更新
+                return preferences.getBoolean(KEY_AUTO_UPDATE, true) && System.currentTimeMillis() - checkLastTime > CHECK_TIME
+            }
+            return false
         }
-        return false
-    }
 
     fun setCheckLastTime(isReset: Boolean) = preferences.edit().putLong(KEY_CHECK_LAST_TIME, if (isReset) 0 else System.currentTimeMillis()).apply()
     val checkLastTime: Long get() = preferences.getLong(KEY_CHECK_LAST_TIME, 0)
 
-    fun setGamePackage(packageName: String?) = preferences.edit().putString(KEY_GAME_SERVER, packageName).apply()
-    fun multiPackage(): Boolean = availablePackages.size > 1
+    fun setGamePackage(packageName: String) = preferences.edit().putString(KEY_GAME_SERVER, packageName).apply()
+    val multiPackage: Boolean get() = availablePackages.size > 1
     val availablePackages: ArrayList<String>
         get() {
             val availablePackages = ArrayList<String>()
@@ -190,39 +191,40 @@ class PreferenceManager private constructor(context: Context) {
             return if (packageName == packages[PACKAGE_KR]) DataUtil.INDEX_KR else DataUtil.INDEX_CN
         }
 
-    fun launchGame(): Boolean = preferences.getBoolean(KEY_LAUNCH_GAME, false)
-    fun antiBurnIn(): Boolean = preferences.getBoolean(KEY_ANTI_BURN_IN, false)
-    fun ascendingStar(): Boolean = preferences.getBoolean(KEY_ASCENDING_STAR, true)
-    fun scrollToResult(): Boolean = preferences.getBoolean(KEY_SCROLL_TO_RESULT, true)
-    fun recruitPreview(): Boolean = preferences.getBoolean(KEY_RECRUIT_PREVIEW, false)
+    val launchGame: Boolean get() = preferences.getBoolean(KEY_LAUNCH_GAME, false)
+    val antiBurnIn: Boolean get() = preferences.getBoolean(KEY_ANTI_BURN_IN, false)
+    val ascendingStar: Boolean get() = preferences.getBoolean(KEY_ASCENDING_STAR, true)
+    val scrollToResult: Boolean get() = preferences.getBoolean(KEY_SCROLL_TO_RESULT, true)
+    val recruitPreview: Boolean get() = preferences.getBoolean(KEY_RECRUIT_PREVIEW, false)
 
-    fun unsupportedResolution(): Boolean {
-        try {
-            val res = ResolutionConfig.getAbsoluteResolution(applicationContext)
-            val array = DataUtil.getResolutionData(applicationContext)
-            for (i in 0 until array.length()) {
-                val obj = array.getJSONObject(i)
-                if (obj.getInt(KEY_WIDTH) == res[0] && obj.getInt(KEY_HEIGHT) == res[1]) {
-                    points = IntArray(6)
-                    points[0] = obj.getInt(KEY_BLUE_X)
-                    points[1] = obj.getInt(KEY_BLUE_Y)
-                    points[2] = obj.getInt(KEY_RED_X)
-                    points[3] = obj.getInt(KEY_RED_Y)
-                    points[4] = res[0] - RandomUtil.DELTA_POINT
-                    points[5] = res[1] shr 1
-                    return false
+    val unsupportedResolution: Boolean
+        get() {
+            try {
+                val res = ResolutionConfig.getAbsoluteResolution(applicationContext)
+                val array = DataUtil.getResolutionData(applicationContext)
+                for (i in 0 until array.length()) {
+                    val obj = array.getJSONObject(i)
+                    if (obj.getInt(KEY_WIDTH) == res[0] && obj.getInt(KEY_HEIGHT) == res[1]) {
+                        points = IntArray(6)
+                        points[0] = obj.getInt(KEY_BLUE_X)
+                        points[1] = obj.getInt(KEY_BLUE_Y)
+                        points[2] = obj.getInt(KEY_RED_X)
+                        points[3] = obj.getInt(KEY_RED_Y)
+                        points[4] = res[0] - RandomUtil.DELTA_POINT
+                        points[5] = res[1] shr 1
+                        return false
+                    }
                 }
+            } catch (e: Exception) {
             }
-        } catch (e: Exception) {
+            return true
         }
-        return true
-    }
 
-    private fun doubleSpeed(): Boolean = preferences.getBoolean(KEY_DOUBLE_SPEED, false)
-    val updateTime: Long get() = RandomUtil.randomTime(if (doubleSpeed()) UPDATE_TIME shr 1 else UPDATE_TIME)
-    fun volumeControl(): Boolean = preferences.getBoolean(KEY_VOLUME_CONTROL, true)
-    fun noBackground(): Boolean = preferences.getBoolean(KEY_NO_BACKGROUND, false)
-    fun rootMode(): Boolean = preferences.getBoolean(KEY_ROOT_MODE, false)
+    private val doubleSpeed: Boolean get() = preferences.getBoolean(KEY_DOUBLE_SPEED, false)
+    val updateTime: Long get() = RandomUtil.randomTime(if (doubleSpeed) UPDATE_TIME shr 1 else UPDATE_TIME)
+    val volumeControl: Boolean get() = preferences.getBoolean(KEY_VOLUME_CONTROL, true)
+    val noBackground: Boolean get() = preferences.getBoolean(KEY_NO_BACKGROUND, false)
+    val rootMode: Boolean get() = preferences.getBoolean(KEY_ROOT_MODE, false)
 
     fun setHeadhuntCount(count: Int, limited: Boolean) = preferences.edit().putInt(if (limited) KEY_HEADHUNT_COUNT_LIMITED else KEY_HEADHUNT_COUNT_NORMAL, count).apply()
     fun getHeadhuntCount(limited: Boolean): Int = preferences.getInt(if (limited) KEY_HEADHUNT_COUNT_LIMITED else KEY_HEADHUNT_COUNT_NORMAL, 0)

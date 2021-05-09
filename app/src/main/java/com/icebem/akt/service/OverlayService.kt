@@ -1,287 +1,274 @@
-package com.icebem.akt.service;
+/*
+ * This file is part of ArkTap.
+ * Copyright (C) 2019-2021 艾星Aistra
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+package com.icebem.akt.service
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Build;
-import android.os.IBinder;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
+import android.app.Service
+import android.content.Context
+import android.content.Intent
+import android.content.res.Configuration
+import android.os.IBinder
+import android.provider.Settings
+import android.util.Log
+import android.view.Gravity
+import android.view.MotionEvent
+import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textview.MaterialTextView
+import com.icebem.akt.R
+import com.icebem.akt.adapter.MaterialAdapter
+import com.icebem.akt.app.*
+import com.icebem.akt.model.HeadhuntCounter
+import com.icebem.akt.model.RecruitViewer
+import com.icebem.akt.overlay.OverlayToast
+import com.icebem.akt.overlay.OverlayView
 
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import com.google.android.material.textview.MaterialTextView;
-import com.icebem.akt.R;
-import com.icebem.akt.app.BaseApplication;
-import com.icebem.akt.app.GestureActionReceiver;
-import com.icebem.akt.app.PreferenceManager;
-import com.icebem.akt.app.ResolutionConfig;
-import com.icebem.akt.model.HeadhuntCounter;
-import com.icebem.akt.model.MaterialGuide;
-import com.icebem.akt.model.RecruitViewer;
-import com.icebem.akt.overlay.OverlayToast;
-import com.icebem.akt.overlay.OverlayView;
-
-import java.util.ArrayList;
-
-public class OverlayService extends Service {
-    private int screenSize;
-    private MaterialGuide guide;
-    private RecruitViewer viewer;
-    private PreferenceManager manager;
-    private OverlayView current, fab, menu, recruit, counter, material;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        setTheme(R.style.AppTheme_Dark);
-        screenSize = ResolutionConfig.getAbsoluteHeight(this);
-        manager = PreferenceManager.getInstance(this);
-        createRecruitView();
-        createMaterialView();
-        createCounterView();
-        createMenuView();
-        current = menu;
-        createFabView();
-        if (manager.launchGame())
-            launchGame();
-        showTargetView(fab);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            assert nm != null;
-            nm.createNotificationChannel(new NotificationChannel(getClass().getSimpleName(), getString(R.string.overlay_label), NotificationManager.IMPORTANCE_LOW));
-        }
-        startForeground(1, new NotificationCompat.Builder(this, getClass().getSimpleName()).setSmallIcon(R.drawable.ic_akt).setContentTitle(getString(R.string.info_overlay_connected)).build());
+class OverlayService : Service() {
+    companion object {
+        private const val COUNT_SPAN = 6
     }
 
-    private void createRecruitView() {
-        recruit = new OverlayView(this, R.layout.overlay_recruit);
-        recruit.setGravity(Gravity.END | Gravity.TOP);
-        recruit.resize(screenSize, screenSize);
+    private var screenSize = 0
+    private var mtlEnabled = false
+    private var viewer: RecruitViewer? = null
+    private lateinit var manager: PreferenceManager
+    private lateinit var current: OverlayView
+    private lateinit var fab: OverlayView
+    private lateinit var menu: OverlayView
+    private lateinit var recruit: OverlayView
+    private lateinit var counter: OverlayView
+    private lateinit var material: OverlayView
+
+    override fun onCreate() {
+        super.onCreate()
+        setTheme(R.style.AppTheme_Dark)
+        screenSize = ResolutionConfig.getAbsoluteHeight(this)
+        manager = PreferenceManager.getInstance(this)
+        createRecruitView()
+        createMaterialView()
+        createCounterView()
+        createMenuView()
+        current = menu
+        createFabView()
+        if (manager.launchGame) launchGame()
+        showTargetView(fab)
+        CompatOperations.createOverlayChannel(this)
+        startForeground(1, NotificationCompat.Builder(this, javaClass.simpleName).setSmallIcon(R.drawable.ic_akt).setContentTitle(getString(R.string.info_overlay_connected)).build())
+    }
+
+    private fun createRecruitView() {
+        recruit = OverlayView(this, R.layout.overlay_recruit)
+        recruit.setGravity(Gravity.END or Gravity.TOP)
+        recruit.resize(screenSize, screenSize)
         try {
-            viewer = new RecruitViewer(this, recruit.getView());
-        } catch (Exception e) {
-            Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
+            viewer = RecruitViewer(this, recruit.view)
+        } catch (e: Exception) {
+            Log.e(javaClass.simpleName, Log.getStackTraceString(e))
         }
-        if (viewer == null) return;
-        recruit.getView().findViewById(R.id.txt_title).setOnTouchListener(this::updateRecruitView);
-        recruit.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        if (manager.multiPackage()) {
-            AppCompatImageButton server = recruit.getView().findViewById(R.id.action_server);
-            server.setVisibility(View.VISIBLE);
-            server.setOnClickListener(view -> {
-                ArrayList<String> packages = manager.getAvailablePackages();
-                int index = manager.getGamePackagePosition();
-                if (++index == packages.size()) index = 0;
-                manager.setGamePackage(packages.get(index));
-                resetRecruitView(view);
-            });
+        if (viewer == null) return
+        recruit.view.findViewById<View>(R.id.txt_title).setOnTouchListener { view, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> viewer!!.rootView.visibility = View.INVISIBLE
+                MotionEvent.ACTION_UP -> {
+                    resetRecruitView(view)
+                    viewer!!.rootView.visibility = View.VISIBLE
+                }
+                else -> view.performClick()
+            }
+            true
         }
-        AppCompatImageButton collapse = recruit.getView().findViewById(R.id.action_collapse);
-        collapse.setOnClickListener(v -> showTargetView(fab));
-        collapse.setOnLongClickListener(this::stopSelf);
-    }
-
-    private boolean updateRecruitView(View view, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                viewer.getRootView().setVisibility(View.INVISIBLE);
-                break;
-            case MotionEvent.ACTION_UP:
-                resetRecruitView(view);
-                viewer.getRootView().setVisibility(View.VISIBLE);
-                break;
+        recruit.view.findViewById<View>(R.id.action_menu).setOnClickListener { showTargetView(menu) }
+        if (manager.multiPackage) {
+            recruit.view.findViewById<View>(R.id.action_server).apply {
+                visibility = View.VISIBLE
+                setOnClickListener {
+                    val packages = manager.availablePackages
+                    var index = manager.gamePackagePosition
+                    if (++index == packages.size) index = 0
+                    manager.setGamePackage(packages[index])
+                    resetRecruitView(it)
+                }
+            }
         }
-        return view != null;
-    }
-
-    private void resetRecruitView(View view) {
-        viewer.resetTags(view);
-    }
-
-    private void createCounterView() {
-        counter = new OverlayView(this, R.layout.overlay_counter);
-        counter.setMobilizable(true);
-        new HeadhuntCounter(manager, counter.getView());
-        counter.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        AppCompatImageButton collapse = counter.getView().findViewById(R.id.action_collapse);
-        collapse.setOnClickListener(v -> showTargetView(fab));
-        collapse.setOnLongClickListener(this::stopSelf);
-    }
-
-    private void createMaterialView() {
-        material = new OverlayView(this, R.layout.overlay_material);
-        material.setGravity(Gravity.START | Gravity.TOP);
-        material.setMobilizable(true);
-        material.resize(screenSize, screenSize);
-        try {
-            guide = new MaterialGuide(manager, material.getView());
-        } catch (Exception e) {
-            Log.e(getClass().getSimpleName(), Log.getStackTraceString(e));
+        recruit.view.findViewById<View>(R.id.action_collapse).apply {
+            setOnClickListener { showTargetView(fab) }
+            setOnLongClickListener { disableSelf() }
         }
-        if (guide == null) return;
-        material.getView().findViewById(R.id.action_menu).setOnClickListener(v -> showTargetView(menu));
-        AppCompatImageButton collapse = material.getView().findViewById(R.id.action_collapse);
-        collapse.setOnClickListener(v -> showTargetView(fab));
-        collapse.setOnLongClickListener(this::stopSelf);
     }
 
-    private void createMenuView() {
-        menu = new OverlayView(getThemeWrapper(), R.layout.overlay_menu);
-        View root = menu.getView();
-        root.setBackgroundResource(R.drawable.bg_floating);
-        root.setElevation(getResources().getDimensionPixelOffset(R.dimen.overlay_elevation));
-        root.findViewById(R.id.action_recruit).setOnClickListener(v -> {
-            if (viewer == null)
-                OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
-            else
-                showTargetView(recruit);
-        });
-        root.findViewById(R.id.action_counter).setOnClickListener(v -> showTargetView(counter));
-        root.findViewById(R.id.action_material).setOnClickListener(v -> {
-            if (guide == null)
-                OverlayToast.show(this, R.string.error_occurred, OverlayToast.LENGTH_SHORT);
-            else
-                showTargetView(material);
-        });
-        if (manager.isPro()) {
-            View gesture = root.findViewById(R.id.action_gesture);
-            gesture.setVisibility(View.VISIBLE);
-            gesture.setOnClickListener(v -> {
-                showTargetView(fab);
-                startGestureAction();
-            });
+    private fun resetRecruitView(view: View) = viewer!!.resetTags(view)
+
+    private fun createCounterView() {
+        counter = OverlayView(this, R.layout.overlay_counter)
+        counter.setMobilizable(true)
+        HeadhuntCounter(manager, counter.view)
+        counter.view.findViewById<View>(R.id.action_menu).setOnClickListener { showTargetView(menu) }
+        counter.view.findViewById<View>(R.id.action_collapse).apply {
+            setOnClickListener { showTargetView(fab) }
+            setOnLongClickListener { disableSelf() }
         }
-        root.findViewById(R.id.action_collapse).setOnClickListener(v -> showTargetView(fab));
-        root.findViewById(R.id.action_disconnect).setOnClickListener(this::stopSelf);
     }
 
-    private void updateMenuView() {
-        if (manager.isPro()) {
-            MaterialTextView desc = menu.getView().findViewById(R.id.action_gesture_desc);
-            if (GestureService.isGestureRunning()) {
-                desc.setTextAppearance(desc.getContext(), R.style.TextAppearance_MaterialComponents_Button);
-                desc.setTextColor(ContextCompat.getColor(desc.getContext(), R.color.colorError));
-                desc.setText(R.string.action_disconnect);
-            } else {
-                desc.setTextAppearance(desc.getContext(), R.style.TextAppearance_AppCompat_Small);
-                desc.setText(manager.getTimerTime() == 0 ? getString(R.string.info_timer_none) : getString(R.string.info_timer_min, manager.getTimerTime()));
+    private fun createMaterialView() {
+        material = OverlayView(this, R.layout.overlay_material)
+        material.setGravity(Gravity.START or Gravity.TOP)
+        material.setMobilizable(true)
+        material.resize(screenSize, screenSize)
+        material.view.findViewById<RecyclerView>(R.id.recycler_view).apply {
+            layoutManager = GridLayoutManager(context, COUNT_SPAN)
+            try {
+                adapter = MaterialAdapter(manager, COUNT_SPAN)
+                mtlEnabled = true
+            } catch (e: Exception) {
+                Log.e(javaClass.simpleName, Log.getStackTraceString(e))
+            }
+        }
+        if (!mtlEnabled) return
+        material.view.findViewById<View>(R.id.action_menu).setOnClickListener { showTargetView(menu) }
+        material.view.findViewById<View>(R.id.action_collapse).apply {
+            setOnClickListener { showTargetView(fab) }
+            setOnLongClickListener { disableSelf() }
+        }
+    }
+
+    private fun createMenuView() {
+        menu = OverlayView(themeWrapper, R.layout.overlay_menu)
+        menu.view.apply {
+            setBackgroundResource(R.drawable.bg_floating)
+            elevation = resources.getDimensionPixelOffset(R.dimen.overlay_elevation).toFloat()
+            findViewById<View>(R.id.action_recruit).setOnClickListener { if (viewer == null) OverlayToast.show(context, R.string.error_occurred, OverlayToast.LENGTH_SHORT) else showTargetView(recruit) }
+            findViewById<View>(R.id.action_counter).setOnClickListener { showTargetView(counter) }
+            findViewById<View>(R.id.action_material).setOnClickListener { if (mtlEnabled) showTargetView(material) else OverlayToast.show(context, R.string.error_occurred, OverlayToast.LENGTH_SHORT) }
+            if (manager.isPro) {
+                findViewById<View>(R.id.action_gesture).apply {
+                    visibility = View.VISIBLE
+                    setOnClickListener {
+                        showTargetView(fab)
+                        startGestureAction()
+                    }
+                }
+            }
+            findViewById<View>(R.id.action_collapse).setOnClickListener { showTargetView(fab) }
+            findViewById<View>(R.id.action_disconnect).setOnClickListener { stopSelf() }
+        }
+    }
+
+    private fun updateMenuView() {
+        if (manager.isPro) {
+            menu.view.findViewById<MaterialTextView>(R.id.action_gesture_desc).apply {
+                if (GestureService.isGestureRunning) {
+                    TextViewCompat.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Button)
+                    setTextColor(ContextCompat.getColor(context, R.color.colorError))
+                    setText(R.string.action_disconnect)
+                } else {
+                    TextViewCompat.setTextAppearance(this, R.style.TextAppearance_AppCompat_Small)
+                    text = if (manager.timerTime == 0) getString(R.string.info_timer_none) else getString(R.string.info_timer_min, manager.timerTime)
+                }
             }
         }
     }
 
-    private void createFabView() {
-        AppCompatImageButton btn = new AppCompatImageButton(menu.getView().getContext());
-        if (manager.antiBurnIn())
-            btn.setAlpha(0.5f);
-        btn.setImageResource(R.drawable.ic_akt);
-        btn.setBackgroundResource(R.drawable.bg_oval);
-        btn.setPadding(0, 0, 0, 0);
-        btn.setElevation(getResources().getDimensionPixelOffset(R.dimen.fab_elevation));
-        int size = getResources().getDimensionPixelOffset(R.dimen.fab_mini_size);
-        btn.setMinimumWidth(size);
-        btn.setMinimumHeight(size);
-        btn.setOnClickListener(v -> showTargetView(current));
-        btn.setOnLongClickListener(this::stopSelf);
-        fab = new OverlayView(btn);
-        fab.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
-        setFabPosition(isPortrait());
-        fab.setMobilizable(true);
+    private fun createFabView() {
+        fab = OverlayView(AppCompatImageButton(themeWrapper).apply {
+            if (manager.antiBurnIn) alpha = 0.5f
+            setImageResource(R.drawable.ic_akt)
+            setBackgroundResource(R.drawable.bg_oval)
+            setPadding(0, 0, 0, 0)
+            elevation = resources.getDimensionPixelOffset(R.dimen.fab_elevation).toFloat()
+            val size = resources.getDimensionPixelOffset(R.dimen.fab_mini_size)
+            minimumWidth = size
+            minimumHeight = size
+            setOnClickListener { showTargetView(current) }
+            setOnLongClickListener { disableSelf() }
+        })
+        fab.setGravity(Gravity.CENTER_HORIZONTAL or Gravity.TOP)
+        setFabPosition(isPortrait)
+        fab.setMobilizable(true)
     }
 
-    private void launchGame() {
-        String packageName = manager.getDefaultPackage();
-        Intent intent = packageName == null ? null : getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent != null)
-            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    private fun launchGame() {
+        val packageName = manager.defaultPackage
+        val intent = if (packageName == null) null else packageManager.getLaunchIntentForPackage(packageName)
+        if (intent != null) startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 
-    private void startGestureAction() {
-        if (((BaseApplication) getApplication()).isGestureServiceRunning()) {
-            // Send start action broadcast
-            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(GestureActionReceiver.ACTION));
-        } else if (((BaseApplication) getApplication()).isGestureServiceEnabled()) {
-            // Stop accessibility and reboot
-            OverlayToast.show(this, R.string.error_accessibility_killed, OverlayToast.LENGTH_INDEFINITE);
-            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } else {
-            // Turn on gesture service when it is not running.
-            OverlayToast.show(this, R.string.info_gesture_request, OverlayToast.LENGTH_SHORT);
-            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    private fun startGestureAction() {
+        when {
+            (application as BaseApplication).isGestureServiceRunning -> {
+                LocalBroadcastManager.getInstance(this).sendBroadcast(Intent(GestureActionReceiver.ACTION))
+            }
+            (application as BaseApplication).isGestureServiceEnabled -> {
+                OverlayToast.show(this, R.string.error_accessibility_killed, OverlayToast.LENGTH_INDEFINITE)
+                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            }
+            else -> {
+                OverlayToast.show(this, R.string.info_gesture_request, OverlayToast.LENGTH_SHORT)
+                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            }
         }
     }
 
-    private void showTargetView(OverlayView target) {
-        if (target == fab)
-            target.show(current);
+    private fun showTargetView(target: OverlayView) {
+        if (target === fab) target.show(current)
         else {
-            if (target == current) {
-                fab.remove();
-                if (target == recruit)
-                    resetRecruitView(fab.getView());
+            if (target === current) {
+                fab.remove()
+                if (target === recruit) resetRecruitView(fab.view)
             }
-            if (target == menu)
-                updateMenuView();
-            current = target.show(current);
+            if (target === menu) updateMenuView()
+            current = target.show(current)
         }
     }
 
-    private boolean stopSelf(View view) {
-        stopSelf();
-        return view != null;
+    private fun disableSelf(): Boolean {
+        stopSelf()
+        return true
     }
 
-    private void setFabPosition(boolean isPortrait) {
-        fab.setRelativePosition(isPortrait ? 0 : manager.getSpriteX(), isPortrait ? 0 : manager.getSpriteY());
+    private fun setFabPosition(isPortrait: Boolean) = fab.setRelativePosition(if (isPortrait) 0 else manager.spriteX, if (isPortrait) 0 else manager.spriteY)
+
+    private val isPortrait: Boolean get() = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+
+    override fun onBind(intent: Intent): IBinder? = null
+
+    override fun onConfigurationChanged(cfg: Configuration) {
+        super.onConfigurationChanged(cfg)
+        if (isPortrait) manager.setSpritePosition(fab.relativeX, fab.relativeY)
+        setFabPosition(isPortrait)
+        counter.setRelativePosition(0, 0)
+        material.setRelativePosition(0, 0)
     }
 
-    private boolean isPortrait() {
-        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!isPortrait) manager.setSpritePosition(fab.relativeX, fab.relativeY)
+        fab.remove()
+        current.remove()
+        if (GestureService.isGestureRunning) startGestureAction() else OverlayToast.show(this, R.string.info_overlay_disconnected, OverlayToast.LENGTH_SHORT)
     }
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration cfg) {
-        super.onConfigurationChanged(cfg);
-        boolean isPortrait = cfg.orientation == Configuration.ORIENTATION_PORTRAIT;
-        if (isPortrait)
-            manager.setSpritePosition(fab.getRelativeX(), fab.getRelativeY());
-        setFabPosition(isPortrait);
-        counter.setRelativePosition(0, 0);
-        material.setRelativePosition(0, 0);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (!isPortrait())
-            manager.setSpritePosition(fab.getRelativeX(), fab.getRelativeY());
-        fab.remove();
-        current.remove();
-        if (GestureService.isGestureRunning())
-            startGestureAction();
-        else
-            OverlayToast.show(this, R.string.info_overlay_disconnected, OverlayToast.LENGTH_SHORT);
-    }
-
-    private Context getThemeWrapper() {
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-            return this;
-        return new ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_DayNight);
-    }
+    private val themeWrapper: Context
+        get() = if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) this else ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat_DayNight)
 }
