@@ -219,7 +219,7 @@ class PreferenceManager private constructor(context: Context) {
     }
 
     private fun doubleSpeed(): Boolean = preferences.getBoolean(KEY_DOUBLE_SPEED, false)
-    val updateTime: Long get() = RandomUtil.randomTime(if (doubleSpeed()) UPDATE_TIME shr 1 else UPDATE_TIME).toLong()
+    val updateTime: Long get() = RandomUtil.randomTime(if (doubleSpeed()) UPDATE_TIME shr 1 else UPDATE_TIME)
     fun volumeControl(): Boolean = preferences.getBoolean(KEY_VOLUME_CONTROL, true)
     fun noBackground(): Boolean = preferences.getBoolean(KEY_NO_BACKGROUND, false)
     fun rootMode(): Boolean = preferences.getBoolean(KEY_ROOT_MODE, false)

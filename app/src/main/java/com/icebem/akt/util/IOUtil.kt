@@ -1,59 +1,50 @@
-package com.icebem.akt.util;
+package com.icebem.akt.util
 
-import android.content.Context;
+import android.content.Context
+import java.io.*
+import java.net.HttpURLConnection
+import java.net.URL
+import java.nio.charset.StandardCharsets
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+object IOUtil {
+    private const val LENGTH_KB = 1024
+    private const val CONNECT_TIMEOUT = 5000
+    private const val METHOD_GET = "GET"
 
-public class IOUtil {
-    private static final int LENGTH_KB = 1024;
-    private static final int CONNECT_TIMEOUT = 5000;
-    private static final String METHOD_GET = "GET";
+    @Throws(IOException::class)
+    fun fromAssets(context: Context, path: String): InputStream = context.assets.open(path)
 
-    static InputStream fromAssets(Context context, String path) throws IOException {
-        return context.getAssets().open(path);
-    }
+    @Throws(IOException::class)
+    fun fromFile(file: File): InputStream = FileInputStream(file)
 
-    static InputStream fromFile(File file) throws IOException {
-        return new FileInputStream(file);
-    }
-
-    public static InputStream fromWeb(String url) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod(METHOD_GET);
-        connection.setConnectTimeout(CONNECT_TIMEOUT);
-        connection.setReadTimeout(CONNECT_TIMEOUT);
-        return connection.getInputStream();
-    }
-
-    private static ByteArrayOutputStream stream2Bytes(InputStream in) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] buffer = new byte[LENGTH_KB];
-        int len;
-        try {
-            while ((len = in.read(buffer)) != -1)
-                out.write(buffer, 0, len);
-        } finally {
-            in.close();
+    @Throws(IOException::class)
+    fun fromWeb(url: String): InputStream {
+        (URL(url).openConnection() as HttpURLConnection).apply {
+            requestMethod = METHOD_GET
+            connectTimeout = CONNECT_TIMEOUT
+            readTimeout = CONNECT_TIMEOUT
+            return inputStream
         }
-        return out;
     }
 
-    public static String stream2String(InputStream in) throws IOException {
-        return stream2Bytes(in).toString(StandardCharsets.UTF_8.name());
+    @Throws(IOException::class)
+    private fun stream2Bytes(stream: InputStream): ByteArrayOutputStream {
+        val out = ByteArrayOutputStream()
+        val buffer = ByteArray(LENGTH_KB)
+        var len: Int
+        stream.use { while (stream.read(buffer).also { len = it } != -1) out.write(buffer, 0, len) }
+        return out
     }
 
-    static void stream2File(InputStream in, String path) throws IOException {
-        File file = new File(path);
-        FileOutputStream out = new FileOutputStream(file);
-        stream2Bytes(in).writeTo(out);
-        out.close();
+    @Throws(IOException::class)
+    fun stream2String(stream: InputStream): String = stream2Bytes(stream).toString(StandardCharsets.UTF_8.name())
+
+    @Throws(IOException::class)
+    fun stream2File(stream: InputStream, path: String): File {
+        val file = File(path)
+        val out = FileOutputStream(file)
+        stream2Bytes(stream).writeTo(out)
+        out.close()
+        return file
     }
 }

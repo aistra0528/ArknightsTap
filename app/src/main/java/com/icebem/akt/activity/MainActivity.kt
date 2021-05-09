@@ -52,12 +52,13 @@ class MainActivity : AppCompatActivity() {
 
     fun showOverlay() {
         if (CompatOperations.requireOverlayPermission(this)) {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle(R.string.state_permission_request)
-            builder.setMessage(R.string.msg_permission_overlay)
-            builder.setPositiveButton(R.string.permission_permit) { _, _ -> startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)) }
-            builder.setNegativeButton(R.string.no_thanks, null)
-            builder.create().show()
+            AlertDialog.Builder(this).apply {
+                setTitle(R.string.state_permission_request)
+                setMessage(R.string.msg_permission_overlay)
+                setPositiveButton(R.string.permission_permit) { _, _ -> startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)) }
+                setNegativeButton(R.string.no_thanks, null)
+                create().show()
+            }
         } else startService(Intent(this, OverlayService::class.java))
     }
 

@@ -1,26 +1,30 @@
-package com.icebem.akt.app;
+package com.icebem.akt.app
 
-import android.accessibilityservice.AccessibilityService;
-import android.accessibilityservice.GestureDescription;
-import android.content.Context;
-import android.graphics.Path;
-import android.os.Build;
-import android.provider.Settings;
-
-import com.icebem.akt.util.RandomUtil;
+import android.accessibilityservice.AccessibilityService
+import android.accessibilityservice.GestureDescription
+import android.content.Context
+import android.graphics.Path
+import android.os.Build
+import android.provider.Settings
+import android.util.DisplayMetrics
+import android.view.WindowManager
+import com.icebem.akt.util.RandomUtil
 
 /**
  * 兼容性 API 管理
  */
-public class CompatOperations {
-    private static final int GESTURE_DURATION = 120;
+object CompatOperations {
+    private const val GESTURE_DURATION = 120
 
-    /**
-     * Overlay permission is only required for Marshmallow (API 23) and above.
-     * In previous APIs this permission is provided by default.
-     */
-    public static boolean requireOverlayPermission(Context context) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context);
+    fun requireOverlayPermission(context: Context): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context)
+
+    fun getDisplayMetrics(context: Context): DisplayMetrics {
+        val metric = DisplayMetrics()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && context.display != null)
+            context.display!!.getRealMetrics(metric)
+        else
+            (context.applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getRealMetrics(metric)
+        return metric
     }
 
     /**
@@ -29,46 +33,40 @@ public class CompatOperations {
      * @param service        要停用的服务
      * @param fallbackAction API 不支持时的回退方案
      */
-    public static void disableSelf(AccessibilityService service, Runnable fallbackAction) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            service.disableSelf();
-        else fallbackAction.run();
-    }
+    fun disableSelf(service: AccessibilityService, fallbackAction: Runnable) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) service.disableSelf() else fallbackAction.run()
 
-    public static void disableKeepScreen(AccessibilityService service) {
-        service.performGlobalAction(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN : AccessibilityService.GLOBAL_ACTION_HOME);
+    fun disableKeepScreen(service: AccessibilityService) {
+        service.performGlobalAction(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN else AccessibilityService.GLOBAL_ACTION_HOME)
     }
 
     /**
      * 执行点击操作
      */
-    public static void performClick(AccessibilityService service, int x, int y) {
-        x = RandomUtil.randomPoint(x);
-        y = RandomUtil.randomPoint(y);
+    fun performClick(service: AccessibilityService, x: Int, y: Int) {
+        val rX = RandomUtil.randomPoint(x)
+        val rY = RandomUtil.randomPoint(y)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Path path = new Path();
-            path.moveTo(x, y);
-            GestureDescription.Builder builder = new GestureDescription.Builder();
-            builder.addStroke(new GestureDescription.StrokeDescription(path, 0, RandomUtil.randomTime(GESTURE_DURATION)));
-            service.dispatchGesture(builder.build(), null, null);
+            val path = Path()
+            path.moveTo(rX.toFloat(), rY.toFloat())
+            val builder = GestureDescription.Builder()
+            builder.addStroke(GestureDescription.StrokeDescription(path, 0, RandomUtil.randomTime(GESTURE_DURATION)))
+            service.dispatchGesture(builder.build(), null, null)
         } else if (PreferenceManager.getInstance(service).rootMode()) {
-            executeCommand(String.format("input tap %s %s", x, y));
+            executeCommand(String.format("input tap %s %s", rX, rY))
         }
     }
 
     /**
-     * 执行一个 shell command
+     * 执行 shell 命令
      *
-     * @param command command 内容
+     * @param command 命令内容
      */
-    private static void executeCommand(String command) {
+    private fun executeCommand(command: String) {
         try {
-            Runtime.getRuntime().exec(new String[]{"su", "-c", command});
-        } catch (Exception ignored) {
+            Runtime.getRuntime().exec(arrayOf("su", "-c", command))
+        } catch (e: Exception) {
         }
     }
 
-    public static void checkRootPermission() {
-        executeCommand("su");
-    }
+    fun checkRootPermission() = executeCommand("su")
 }

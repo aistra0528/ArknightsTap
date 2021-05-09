@@ -76,12 +76,13 @@ class HomeFragment : Fragment() {
             stateImg.setImageResource(R.drawable.ic_state_running)
             state.setText(R.string.state_resolution_unsupported)
             val res = ResolutionConfig.getAbsoluteResolution(requireContext())
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle(R.string.state_resolution_unsupported)
-            builder.setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]))
-            builder.setPositiveButton(R.string.got_it, null)
-            builder.setNeutralButton(R.string.action_update) { _, _ -> startUpdateThread() }
-            builder.create().show()
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(R.string.state_resolution_unsupported)
+                setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]))
+                setPositiveButton(R.string.got_it, null)
+                setNeutralButton(R.string.action_update) { _, _ -> startUpdateThread() }
+                create().show()
+            }
         } else {
             stateImg.setImageResource(R.drawable.ic_state_running_anim)
             state.setText(R.string.state_loading)
@@ -111,15 +112,16 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_timer -> {
-                val builder = AlertDialog.Builder(requireContext())
-                builder.setTitle(R.string.action_timer)
-                builder.setSingleChoiceItems(manager.getTimerStrings(requireContext()), manager.timerPosition) { dialog, which ->
-                    dialog.cancel()
-                    manager.timerTime = which
-                    Snackbar.make(state, getString(R.string.info_timer_set, if (manager.timerTime == 0) getString(R.string.info_timer_none) else getString(R.string.info_timer_min, manager.timerTime)), Snackbar.LENGTH_LONG).show()
+                AlertDialog.Builder(requireContext()).apply {
+                    setTitle(R.string.action_timer)
+                    setSingleChoiceItems(manager.getTimerStrings(requireContext()), manager.timerPosition) { dialog, which ->
+                        dialog.cancel()
+                        manager.timerTime = which
+                        Snackbar.make(state, getString(R.string.info_timer_set, if (manager.timerTime == 0) getString(R.string.info_timer_none) else getString(R.string.info_timer_min, manager.timerTime)), Snackbar.LENGTH_LONG).show()
+                    }
+                    setNegativeButton(android.R.string.cancel, null)
+                    create().show()
                 }
-                builder.setNegativeButton(android.R.string.cancel, null)
-                builder.create().show()
             }
             R.id.action_night -> AppCompatDelegate.setDefaultNightMode(if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM else AppCompatDelegate.MODE_NIGHT_YES)
             R.id.action_about -> startActivity(Intent(requireContext(), AboutActivity::class.java))
@@ -155,12 +157,13 @@ class HomeFragment : Fragment() {
             if (id != R.string.version_checking_failed) (fab.context as MainActivity).updateSubtitleTime()
             when {
                 id == R.string.version_update -> {
-                    val builder = AlertDialog.Builder(fab.context)
-                    builder.setTitle(id)
-                    builder.setMessage(log)
-                    builder.setPositiveButton(R.string.action_update) { _, _ -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
-                    builder.setNegativeButton(R.string.no_thanks, null)
-                    builder.create().show()
+                    AlertDialog.Builder(fab.context).apply {
+                        setTitle(id)
+                        setMessage(log)
+                        setPositiveButton(R.string.action_update) { _, _ -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+                        setNegativeButton(R.string.no_thanks, null)
+                        create().show()
+                    }
                 }
                 log != null -> Snackbar.make(fab, id, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_details) { AppUtil.showLogDialog(fab.context, log) }.show()
                 else -> Snackbar.make(fab, id, Snackbar.LENGTH_LONG).show()

@@ -13,7 +13,5 @@ class GestureActionReceiver(private val runnable: Runnable) : BroadcastReceiver(
         const val ACTION = "${BuildConfig.APPLICATION_ID}.START_ACTION"
     }
 
-    override fun onReceive(context: Context, intent: Intent) {
-        runnable.run()
-    }
+    override fun onReceive(context: Context, intent: Intent) = runnable.run()
 }

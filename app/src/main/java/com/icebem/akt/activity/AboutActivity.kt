@@ -40,16 +40,16 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        findViewById<View>(R.id.fab).setOnClickListener { view -> onClick(view) }
-        findViewById<View>(R.id.container_comment).setOnClickListener { view -> onClick(view) }
-        findViewById<View>(R.id.container_discuss).setOnClickListener { view -> onClick(view) }
-        findViewById<View>(R.id.container_project).setOnClickListener { view -> onClick(view) }
+        findViewById<View>(R.id.fab).setOnClickListener { onClick(it) }
+        findViewById<View>(R.id.container_comment).setOnClickListener { onClick(it) }
+        findViewById<View>(R.id.container_discuss).setOnClickListener { onClick(it) }
+        findViewById<View>(R.id.container_project).setOnClickListener { onClick(it) }
         versionContainer = findViewById(R.id.container_version_state)
-        versionContainer.setOnClickListener { view -> onClick(view) }
+        versionContainer.setOnClickListener { onClick(it) }
         versionContainer.setOnLongClickListener { onLongClick() }
-        findViewById<View>(R.id.container_version_type).setOnClickListener { view -> onClick(view) }
-        findViewById<View>(R.id.container_special_thanks).setOnClickListener { view -> onClick(view) }
-        findViewById<View>(R.id.free_android).setOnClickListener { view -> onClick(view) }
+        findViewById<View>(R.id.container_version_type).setOnClickListener { onClick(it) }
+        findViewById<View>(R.id.container_special_thanks).setOnClickListener { onClick(it) }
+        findViewById<View>(R.id.free_android).setOnClickListener { onClick(it) }
         findViewById<TextView>(R.id.txt_version_state_desc).text = BuildConfig.VERSION_NAME
         typeDesc = findViewById(R.id.txt_version_type_desc)
         thanksDesc = findViewById(R.id.special_thanks_desc)
@@ -60,16 +60,17 @@ class AboutActivity : AppCompatActivity() {
     private fun onClick(view: View) {
         when (view.id) {
             R.id.fab -> {
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle(R.string.action_support)
-                builder.setMessage(R.string.msg_donate)
-                builder.setPositiveButton(R.string.action_donate) { _, _ -> onDonate() }
-                builder.setNeutralButton(R.string.action_share) { _, _ ->
-                    (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(getString(R.string.app_name), AppUtil.URL_COOLAPK))
-                    Snackbar.make(view, R.string.info_share, Snackbar.LENGTH_LONG).show()
+                AlertDialog.Builder(this).apply {
+                    setTitle(R.string.action_support)
+                    setMessage(R.string.msg_donate)
+                    setPositiveButton(R.string.action_donate) { _, _ -> onDonate() }
+                    setNeutralButton(R.string.action_share) { _, _ ->
+                        (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(getString(R.string.app_name), AppUtil.URL_COOLAPK))
+                        Snackbar.make(view, R.string.info_share, Snackbar.LENGTH_LONG).show()
+                    }
+                    setNegativeButton(R.string.not_now, null)
+                    create().show()
                 }
-                builder.setNegativeButton(R.string.not_now, null)
-                builder.create().show()
             }
             R.id.container_comment -> {
                 var intent = Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_MARKET)).setPackage(AppUtil.MARKET_COOLAPK)
@@ -110,50 +111,53 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun onLongClick(): Boolean {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.action_reset)
-        builder.setMessage(R.string.msg_data_reset)
-        builder.setPositiveButton(R.string.action_reset) { _, _ ->
-            var id = R.string.data_reset_done
-            try {
-                DataUtil.updateData(this, null)
-                manager.setCheckLastTime(true)
-            } catch (e: Exception) {
-                id = R.string.error_occurred
+        AlertDialog.Builder(this).apply {
+            setTitle(R.string.action_reset)
+            setMessage(R.string.msg_data_reset)
+            setPositiveButton(R.string.action_reset) { _, _ ->
+                var id = R.string.data_reset_done
+                try {
+                    DataUtil.updateData(context, null)
+                    manager.setCheckLastTime(true)
+                } catch (e: Exception) {
+                    id = R.string.error_occurred
+                }
+                Snackbar.make(versionContainer, id, Snackbar.LENGTH_LONG).show()
             }
-            Snackbar.make(versionContainer, id, Snackbar.LENGTH_LONG).show()
+            setNegativeButton(android.R.string.cancel, null)
+            create().show()
         }
-        builder.setNegativeButton(android.R.string.cancel, null)
-        builder.create().show()
         return true
     }
 
     private fun onDonate() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.action_donate)
-        builder.setSingleChoiceItems(resources.getStringArray(R.array.donate_payment_entries), 0) { dialog, which ->
-            dialog.cancel()
-            when (which) {
-                0 -> try {
-                    startActivity(Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME))
-                } catch (e: Exception) {
-                    showQRDialog(true)
+        AlertDialog.Builder(this).apply {
+            setTitle(R.string.action_donate)
+            setSingleChoiceItems(resources.getStringArray(R.array.donate_payment_entries), 0) { dialog, which ->
+                dialog.cancel()
+                when (which) {
+                    0 -> try {
+                        startActivity(Intent.parseUri(AppUtil.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME))
+                    } catch (e: Exception) {
+                        showQRDialog(true)
+                    }
+                    1 -> showQRDialog(false)
+                    2 -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PAYPAL)))
                 }
-                1 -> showQRDialog(false)
-                2 -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PAYPAL)))
+                Snackbar.make(typeDesc, R.string.info_donate_thanks, Snackbar.LENGTH_INDEFINITE).show()
             }
-            Snackbar.make(typeDesc, R.string.info_donate_thanks, Snackbar.LENGTH_INDEFINITE).show()
+            setNegativeButton(R.string.no_thanks, null)
+            create().show()
         }
-        builder.setNegativeButton(R.string.no_thanks, null)
-        builder.create().show()
     }
 
     private fun showQRDialog(isAlipay: Boolean) {
-        val qr = AlertDialog.Builder(this)
-        qr.setTitle(R.string.action_donate)
-        qr.setView(if (isAlipay) R.layout.qr_alipay else R.layout.qr_wechat)
-        qr.setPositiveButton(R.string.got_it, null)
-        qr.create().show()
+        AlertDialog.Builder(this).apply {
+            setTitle(R.string.action_donate)
+            setView(if (isAlipay) R.layout.qr_alipay else R.layout.qr_wechat)
+            setPositiveButton(R.string.got_it, null)
+            create().show()
+        }
     }
 
     private fun checkVersionUpdate() {
@@ -178,12 +182,13 @@ class AboutActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             when {
                 id == R.string.version_update -> {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle(id)
-                    builder.setMessage(log)
-                    builder.setPositiveButton(R.string.action_update) { _, _ -> startActivity(intent) }
-                    builder.setNegativeButton(R.string.no_thanks, null)
-                    builder.create().show()
+                    AlertDialog.Builder(this).apply {
+                        setTitle(id)
+                        setMessage(log)
+                        setPositiveButton(R.string.action_update) { _, _ -> startActivity(intent) }
+                        setNegativeButton(R.string.no_thanks, null)
+                        create().show()
+                    }
                     Snackbar.make(typeDesc, id, Snackbar.LENGTH_LONG).show()
                 }
                 log != null -> Snackbar.make(typeDesc, id, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_details) { AppUtil.showLogDialog(this, log) }.show()
