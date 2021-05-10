@@ -49,7 +49,7 @@
     <string name="version_latest">Versi yang terinstal adalah versi terbaru</string>
     <string name="version_update">Versi terbaru telah tersedia!</string>
     <string name="version_type">Tipe versi</string>
-    <string name="version_type_changed">Tipe versi telah dirubah, tolong restart sistem</string>
+    <string name="version_type_changed">Version type changed, please reinstall app</string>
     <string name="action_update">Pembaruan</string>
     <string name="got_it">Mengerti</string>
     <string name="permission_permit">Oke</string>
@@ -93,9 +93,9 @@
     <string name="root_mode_summary">Kompatibel dengan perangkat Android 7.0 keatas</string>
     <string name="action_details">Detail</string>
     <string name="msg_network_error">Tidak dapat tersambung ke server.\nUlangi lagi nanti.</string>
-    <string name="error_accessibility_killed">Accessibility was killed.</string>
+    <string name="error_accessibility_killed">Accessibility was killed, please reinstall app</string>
     <string name="tip_not_found">ARGS™ not found in Accessibity? Click here</string>
-    <string name="reboot_device">Reboot</string>
+    <string name="action_reinstall">Reinstall</string>
     <string name="action_share">Share</string>
     <string name="info_share">Url copied</string>
     <string name="action_support">Support</string>

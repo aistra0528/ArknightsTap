@@ -223,7 +223,7 @@ class OverlayService : Service() {
             }
             (application as BaseApplication).isGestureServiceEnabled -> {
                 OverlayToast.show(this, R.string.error_accessibility_killed, OverlayToast.LENGTH_INDEFINITE)
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                CompatOperations.reinstallSelf(this)
             }
             else -> {
                 OverlayToast.show(this, R.string.info_gesture_request, OverlayToast.LENGTH_SHORT)

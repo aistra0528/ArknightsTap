@@ -49,7 +49,7 @@
     <string name="version_latest">既に最新バージョンにアップデート込み</string>
     <string name="version_update">新しいアップデートを発見</string>
     <string name="version_type">バージョンタイプ</string>
-    <string name="version_type_changed">バージョンタイプを変更しました。デバイスを再起動してください</string>
+    <string name="version_type_changed">Version type changed, please reinstall app</string>
     <string name="action_update">アップデート</string>
     <string name="got_it">了解</string>
     <string name="permission_permit">許可する</string>
@@ -93,9 +93,9 @@
     <string name="root_mode_summary">Android 7.0 以下のデバイスへの下位互換性</string>
     <string name="action_details">詳細情報</string>
     <string name="msg_network_error">サーバーへの接続エラー。\n少しく時間が経ってから再度お試しください。</string>
-    <string name="error_accessibility_killed">Accessibility was killed.</string>
+    <string name="error_accessibility_killed">Accessibility was killed, please reinstall app</string>
     <string name="tip_not_found">ARGS™ not found in Accessibity? Click here</string>
-    <string name="reboot_device">Reboot</string>
+    <string name="action_reinstall">Reinstall</string>
     <string name="action_share">Share</string>
     <string name="info_share">Url copied</string>
     <string name="action_support">Support</string>

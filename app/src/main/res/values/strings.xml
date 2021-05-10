@@ -49,7 +49,7 @@
     <string name="version_latest">已是最新版本</string>
     <string name="version_update">发现新版本</string>
     <string name="version_type">版本类型</string>
-    <string name="version_type_changed">版本类型已更新，请手动重启设备</string>
+    <string name="version_type_changed">版本类型已更新，覆盖安装后生效</string>
     <string name="action_update">更新</string>
     <string name="got_it">知道了</string>
     <string name="permission_permit">授权</string>
@@ -99,9 +99,9 @@
     <string name="root_mode_summary">兼容低于 Android 7.0 的已 Root 设备</string>
     <string name="action_details">详情</string>
     <string name="msg_network_error">无法连接服务器。\n请稍后再试。</string>
-    <string name="error_accessibility_killed">戳戳乐™失联了！\n请关闭无障碍，然后强行停止应用或重启设备。\n反复发生此问题时，请在设置打开“减少内存占用”。</string>
+    <string name="error_accessibility_killed">戳戳乐™失联了！\n请覆盖安装应用。\n反复发生此问题时，请在设置打开“减少内存占用”。</string>
     <string name="tip_not_found">无障碍找不到戳戳乐™？戳我一下！</string>
-    <string name="reboot_device">需要重启设备</string>
+    <string name="action_reinstall">重装</string>
     <string name="operator_slogan" translatable="false">%s by %s</string>
     <string name="action_share">分享</string>
     <string name="info_share">下载链接已复制</string>

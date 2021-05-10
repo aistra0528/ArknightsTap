@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.icebem.akt.R
 import com.icebem.akt.activity.AboutActivity
 import com.icebem.akt.activity.MainActivity
+import com.icebem.akt.app.CompatOperations
 import com.icebem.akt.app.PreferenceManager
 import com.icebem.akt.app.ResolutionConfig
 import com.icebem.akt.util.AppUtil
@@ -44,7 +45,7 @@ class HomeFragment : Fragment() {
             tip.setText(R.string.tip_not_found)
             tip.setOnClickListener {
                 manager.isPro = true
-                AppUtil.showAlertDialog(requireContext(), getString(R.string.reboot_device), getString(R.string.version_type_changed))
+                Snackbar.make(it, R.string.version_type_changed, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_reinstall) { CompatOperations.reinstallSelf(manager.applicationContext) }.show()
             }
         } else {
             try {

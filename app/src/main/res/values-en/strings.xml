@@ -49,7 +49,7 @@
     <string name="version_latest">This is the latest version</string>
     <string name="version_update">New version available</string>
     <string name="version_type">Version type</string>
-    <string name="version_type_changed">Version type changed, please reboot your device</string>
+    <string name="version_type_changed">Version type changed, please reinstall app</string>
     <string name="action_update">Update</string>
     <string name="got_it">Got it</string>
     <string name="permission_permit">Allow</string>
@@ -93,9 +93,9 @@
     <string name="root_mode_summary">Compatible with rooted devices older than Android 7.0</string>
     <string name="action_details">Details</string>
     <string name="msg_network_error">Unable to communicate with the server.\nPlease try again later.</string>
-    <string name="error_accessibility_killed">Accessibility was killed.</string>
+    <string name="error_accessibility_killed">Accessibility was killed, please reinstall app</string>
     <string name="tip_not_found">ARGS™ not found in Accessibility? Click here</string>
-    <string name="reboot_device">Reboot</string>
+    <string name="action_reinstall">Reinstall</string>
     <string name="action_share">Share</string>
     <string name="info_share">Url copied</string>
     <string name="action_support">Support</string>

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -66,13 +65,15 @@ class MainActivity : AppCompatActivity() {
         when {
             (application as BaseApplication).isGestureServiceRunning -> LocalBroadcastManager.getInstance(this).sendBroadcast(Intent(GestureActionReceiver.ACTION))
             (application as BaseApplication).isGestureServiceEnabled -> {
-                Toast.makeText(this, R.string.error_accessibility_killed, Toast.LENGTH_LONG).show()
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                AlertDialog.Builder(this).run {
+                    setTitle(R.string.error_occurred)
+                    setMessage(R.string.error_accessibility_killed)
+                    setPositiveButton(R.string.action_reinstall) { _, _ -> CompatOperations.reinstallSelf(context) }
+                    setNegativeButton(android.R.string.cancel, null)
+                    create().show()
+                }
             }
-            else -> {
-                Toast.makeText(this, R.string.info_gesture_request, Toast.LENGTH_SHORT).show()
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-            }
+            else -> startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         }
         return true
     }
