@@ -101,7 +101,7 @@ class OverlayService : Service() {
         }
         recruit.view.findViewById<View>(R.id.action_menu).setOnClickListener { showTargetView(menu) }
         if (manager.multiPackage) {
-            recruit.view.findViewById<View>(R.id.action_server).apply {
+            recruit.view.findViewById<View>(R.id.action_server).run {
                 visibility = View.VISIBLE
                 setOnClickListener {
                     val packages = manager.availablePackages
@@ -112,7 +112,7 @@ class OverlayService : Service() {
                 }
             }
         }
-        recruit.view.findViewById<View>(R.id.action_collapse).apply {
+        recruit.view.findViewById<View>(R.id.action_collapse).run {
             setOnClickListener { showTargetView(fab) }
             setOnLongClickListener { disableSelf() }
         }
@@ -125,7 +125,7 @@ class OverlayService : Service() {
         counter.setMobilizable(true)
         HeadhuntCounter(manager, counter.view)
         counter.view.findViewById<View>(R.id.action_menu).setOnClickListener { showTargetView(menu) }
-        counter.view.findViewById<View>(R.id.action_collapse).apply {
+        counter.view.findViewById<View>(R.id.action_collapse).run {
             setOnClickListener { showTargetView(fab) }
             setOnLongClickListener { disableSelf() }
         }
@@ -136,7 +136,7 @@ class OverlayService : Service() {
         material.setGravity(Gravity.START or Gravity.TOP)
         material.setMobilizable(true)
         material.resize(screenSize, screenSize)
-        material.view.findViewById<RecyclerView>(R.id.recycler_view).apply {
+        material.view.findViewById<RecyclerView>(R.id.recycler_view).run {
             layoutManager = GridLayoutManager(context, COUNT_SPAN)
             try {
                 adapter = MaterialAdapter(manager, COUNT_SPAN)
@@ -147,7 +147,7 @@ class OverlayService : Service() {
         }
         if (!mtlEnabled) return
         material.view.findViewById<View>(R.id.action_menu).setOnClickListener { showTargetView(menu) }
-        material.view.findViewById<View>(R.id.action_collapse).apply {
+        material.view.findViewById<View>(R.id.action_collapse).run {
             setOnClickListener { showTargetView(fab) }
             setOnLongClickListener { disableSelf() }
         }
@@ -155,14 +155,14 @@ class OverlayService : Service() {
 
     private fun createMenuView() {
         menu = OverlayView(themeWrapper, R.layout.overlay_menu)
-        menu.view.apply {
+        menu.view.run {
             setBackgroundResource(R.drawable.bg_floating)
             elevation = resources.getDimensionPixelOffset(R.dimen.overlay_elevation).toFloat()
             findViewById<View>(R.id.action_recruit).setOnClickListener { if (viewer == null) OverlayToast.show(context, R.string.error_occurred, OverlayToast.LENGTH_SHORT) else showTargetView(recruit) }
             findViewById<View>(R.id.action_counter).setOnClickListener { showTargetView(counter) }
             findViewById<View>(R.id.action_material).setOnClickListener { if (mtlEnabled) showTargetView(material) else OverlayToast.show(context, R.string.error_occurred, OverlayToast.LENGTH_SHORT) }
             if (manager.isPro) {
-                findViewById<View>(R.id.action_gesture).apply {
+                findViewById<View>(R.id.action_gesture).run {
                     visibility = View.VISIBLE
                     setOnClickListener {
                         showTargetView(fab)
@@ -177,7 +177,7 @@ class OverlayService : Service() {
 
     private fun updateMenuView() {
         if (manager.isPro) {
-            menu.view.findViewById<MaterialTextView>(R.id.action_gesture_desc).apply {
+            menu.view.findViewById<MaterialTextView>(R.id.action_gesture_desc).run {
                 if (GestureService.isGestureRunning) {
                     TextViewCompat.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Button)
                     setTextColor(ContextCompat.getColor(context, R.color.colorError))
@@ -209,9 +209,11 @@ class OverlayService : Service() {
     }
 
     private fun launchGame() {
-        val packageName = manager.defaultPackage
-        val intent = if (packageName == null) null else packageManager.getLaunchIntentForPackage(packageName)
-        if (intent != null) startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        manager.defaultPackage?.let {
+            packageManager.getLaunchIntentForPackage(it)?.run {
+                startActivity(setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            }
+        }
     }
 
     private fun startGestureAction() {

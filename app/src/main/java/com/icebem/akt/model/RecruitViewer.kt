@@ -180,7 +180,7 @@ class RecruitViewer(private val context: Context, root: View) {
             resultList!!.sort()
             for (container in resultList!!) resultContainer.addView(container)
             if (checkedTags.size == TAG_CHECKED_MAX && manager.scrollToResult) rootView.post { rootView.smoothScrollTo(0, tagsContainer.height) }
-            tip.apply {
+            tip.run {
                 when (if (resultList!!.isEmpty()) 0 else resultList!![0].minStar) {
                     6 -> {
                         setText(R.string.tip_recruit_result_6)
@@ -270,7 +270,7 @@ class RecruitViewer(private val context: Context, root: View) {
         return (LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false) as TextView).apply {
             text = info!!.getName(index)
             setOnClickListener {
-                val str = StringBuilder().apply {
+                val str = StringBuilder().run {
                     val space = ' '
                     append(info.getName(index))
                     append(space)

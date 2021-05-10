@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.icebem.akt.BuildConfig
 import com.icebem.akt.R
+import com.icebem.akt.app.CompatOperations
 import com.icebem.akt.app.PreferenceManager
 import com.icebem.akt.util.AppUtil
 import com.icebem.akt.util.DataUtil
@@ -40,6 +41,7 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        manager = PreferenceManager.getInstance(this)
         findViewById<View>(R.id.fab).setOnClickListener { onClick(it) }
         findViewById<View>(R.id.container_comment).setOnClickListener { onClick(it) }
         findViewById<View>(R.id.container_discuss).setOnClickListener { onClick(it) }
@@ -47,20 +49,22 @@ class AboutActivity : AppCompatActivity() {
         versionContainer = findViewById(R.id.container_version_state)
         versionContainer.setOnClickListener { onClick(it) }
         versionContainer.setOnLongClickListener { onLongClick() }
-        findViewById<View>(R.id.container_version_type).setOnClickListener { onClick(it) }
+        findViewById<View>(R.id.container_version_type).run {
+            setOnClickListener { onClick(it) }
+            setOnLongClickListener { CompatOperations.reinstallSelf(context) }
+        }
         findViewById<View>(R.id.container_special_thanks).setOnClickListener { onClick(it) }
         findViewById<View>(R.id.free_android).setOnClickListener { onClick(it) }
         findViewById<TextView>(R.id.txt_version_state_desc).text = BuildConfig.VERSION_NAME
         typeDesc = findViewById(R.id.txt_version_type_desc)
         thanksDesc = findViewById(R.id.special_thanks_desc)
-        manager = PreferenceManager.getInstance(this)
         typeDesc.setText(if (manager.isPro) R.string.version_type_pro else R.string.version_type_lite)
     }
 
     private fun onClick(view: View) {
         when (view.id) {
             R.id.fab -> {
-                AlertDialog.Builder(this).apply {
+                AlertDialog.Builder(this).run {
                     setTitle(R.string.action_support)
                     setMessage(R.string.msg_donate)
                     setPositiveButton(R.string.action_donate) { _, _ -> onDonate() }
@@ -111,7 +115,7 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun onLongClick(): Boolean {
-        AlertDialog.Builder(this).apply {
+        AlertDialog.Builder(this).run {
             setTitle(R.string.action_reset)
             setMessage(R.string.msg_data_reset)
             setPositiveButton(R.string.action_reset) { _, _ ->
@@ -131,7 +135,7 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun onDonate() {
-        AlertDialog.Builder(this).apply {
+        AlertDialog.Builder(this).run {
             setTitle(R.string.action_donate)
             setSingleChoiceItems(resources.getStringArray(R.array.donate_payment_entries), 0) { dialog, which ->
                 dialog.cancel()
@@ -152,7 +156,7 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun showQRDialog(isAlipay: Boolean) {
-        AlertDialog.Builder(this).apply {
+        AlertDialog.Builder(this).run {
             setTitle(R.string.action_donate)
             setView(if (isAlipay) R.layout.qr_alipay else R.layout.qr_wechat)
             setPositiveButton(R.string.got_it, null)
@@ -182,7 +186,7 @@ class AboutActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             when {
                 id == R.string.version_update -> {
-                    AlertDialog.Builder(this).apply {
+                    AlertDialog.Builder(this).run {
                         setTitle(id)
                         setMessage(log)
                         setPositiveButton(R.string.action_update) { _, _ -> startActivity(intent) }

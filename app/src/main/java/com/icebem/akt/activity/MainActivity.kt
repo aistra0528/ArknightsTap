@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     fun showOverlay() {
         if (CompatOperations.requireOverlayPermission(this)) {
-            AlertDialog.Builder(this).apply {
+            AlertDialog.Builder(this).run {
                 setTitle(R.string.state_permission_request)
                 setMessage(R.string.msg_permission_overlay)
                 setPositiveButton(R.string.permission_permit) { _, _ -> startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)) }

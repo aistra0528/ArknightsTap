@@ -19,7 +19,7 @@ object IOUtil {
 
     @Throws(IOException::class)
     fun fromWeb(url: String): InputStream {
-        (URL(url).openConnection() as HttpURLConnection).apply {
+        (URL(url).openConnection() as HttpURLConnection).run {
             requestMethod = METHOD_GET
             connectTimeout = CONNECT_TIMEOUT
             readTimeout = CONNECT_TIMEOUT

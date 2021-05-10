@@ -13,11 +13,11 @@ class HeadhuntCounter(private val manager: PreferenceManager, root: View) {
         title.setText(if (limited) R.string.counter_limited else R.string.counter_normal)
         val tip = root.findViewById<TextView>(R.id.txt_counter_tips)
         root.findViewById<View>(R.id.action_toggle).setOnClickListener { toggle(title, tip) }
-        root.findViewById<View>(R.id.action_minus).apply {
+        root.findViewById<View>(R.id.action_minus).run {
             setOnClickListener { update(tip, manager.getHeadhuntCount(limited), -1) }
             setOnLongClickListener { update(tip, 0, 0) }
         }
-        root.findViewById<View>(R.id.action_plus).apply {
+        root.findViewById<View>(R.id.action_plus).run {
             setOnClickListener { update(tip, manager.getHeadhuntCount(limited), 1) }
             setOnLongClickListener { update(tip, manager.getHeadhuntCount(limited), 10) }
         }

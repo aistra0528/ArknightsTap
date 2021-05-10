@@ -20,7 +20,7 @@ object AppUtil {
     const val URL_RELEASE_LATEST_API = "https://api.github.com/repos/aistra0528/ArknightsTap/releases/latest"
 
     fun showAlertDialog(context: Context, title: String, msg: String) {
-        AlertDialog.Builder(context).apply {
+        AlertDialog.Builder(context).run {
             setTitle(title)
             setMessage(msg)
             setPositiveButton(android.R.string.ok, null)

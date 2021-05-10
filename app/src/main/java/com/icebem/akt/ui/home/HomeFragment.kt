@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
             stateImg.setImageResource(R.drawable.ic_state_running)
             state.setText(R.string.state_resolution_unsupported)
             val res = ResolutionConfig.getAbsoluteResolution(requireContext())
-            AlertDialog.Builder(requireContext()).apply {
+            AlertDialog.Builder(requireContext()).run {
                 setTitle(R.string.state_resolution_unsupported)
                 setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]))
                 setPositiveButton(R.string.got_it, null)
@@ -112,7 +112,7 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_timer -> {
-                AlertDialog.Builder(requireContext()).apply {
+                AlertDialog.Builder(requireContext()).run {
                     setTitle(R.string.action_timer)
                     setSingleChoiceItems(manager.getTimerStrings(requireContext()), manager.timerPosition) { dialog, which ->
                         dialog.cancel()
@@ -157,7 +157,7 @@ class HomeFragment : Fragment() {
             if (id != R.string.version_checking_failed) (fab.context as MainActivity).updateSubtitleTime()
             when {
                 id == R.string.version_update -> {
-                    AlertDialog.Builder(fab.context).apply {
+                    AlertDialog.Builder(fab.context).run {
                         setTitle(id)
                         setMessage(log)
                         setPositiveButton(R.string.action_update) { _, _ -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }

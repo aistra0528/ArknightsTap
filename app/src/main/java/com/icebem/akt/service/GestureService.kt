@@ -137,9 +137,11 @@ class GestureService : AccessibilityService() {
     private fun disableSelfCompat() = CompatOperations.disableSelf(this) { stopAction() }
 
     private fun launchGame() {
-        val packageName = manager.defaultPackage
-        val intent = if (packageName == null) null else packageManager.getLaunchIntentForPackage(packageName)
-        if (intent != null) startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        manager.defaultPackage?.let {
+            packageManager.getLaunchIntentForPackage(it)?.run {
+                startActivity(setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            }
+        }
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
