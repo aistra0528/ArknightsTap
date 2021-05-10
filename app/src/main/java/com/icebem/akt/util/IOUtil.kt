@@ -42,6 +42,7 @@ object IOUtil {
     @Throws(IOException::class)
     fun stream2File(stream: InputStream, path: String): File {
         val file = File(path)
+        file.parentFile?.mkdirs()
         val out = FileOutputStream(file)
         stream2Bytes(stream).writeTo(out)
         out.close()
