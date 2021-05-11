@@ -101,11 +101,7 @@ class PreferenceManager private constructor(context: Context) {
             applicationContext.packageManager.setComponentEnabledSetting(ComponentName(applicationContext, GestureService::class.java.name), if (pro) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP)
         }
 
-    val isActivated: Boolean
-        get() {
-            val id = activatedId
-            return id != null && id == androidId
-        }
+    val isActivated: Boolean get() = activatedId.let { it != null && it == androidId }
 
     fun setActivatedId() {
         preferences.edit().putString(KEY_ACTIVATED_ID, androidId).apply()

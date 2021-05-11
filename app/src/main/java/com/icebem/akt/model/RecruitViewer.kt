@@ -137,7 +137,7 @@ class RecruitViewer(private val context: Context, root: View) {
     }
 
     fun resetTags(view: View?) {
-        if (view != null) view.isClickable = false
+        view?.isClickable = false
         autoAction = true
         while (checkedTags.isNotEmpty()) checkedTags[0].isChecked = false
         if (index != manager.translationIndex) setBoxesText()
@@ -147,7 +147,7 @@ class RecruitViewer(private val context: Context, root: View) {
         else
             timeTag.isChecked = true
         rootView.post { rootView.smoothScrollTo(0, if (context is MainActivity) 0 else (top.parent as ViewGroup).top) }
-        if (view != null) view.isClickable = true
+        view?.isClickable = true
     }
 
     private fun updateCheckedTags(tag: CheckBox, isChecked: Boolean) {

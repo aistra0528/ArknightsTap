@@ -109,7 +109,7 @@ class GestureService : AccessibilityService() {
 
     private fun stopAction() {
         running = false
-        if (timer != null) timer!!.cancel()
+        timer?.run { cancel() }
     }
 
     private fun performGestures() {
@@ -154,7 +154,7 @@ class GestureService : AccessibilityService() {
 
     override fun onUnbind(intent: Intent): Boolean {
         stopAction()
-        if (localBroadcastManager != null) localBroadcastManager!!.unregisterReceiver(gestureActionReceiver)
+        localBroadcastManager?.run { unregisterReceiver(gestureActionReceiver) }
         return super.onUnbind(intent)
     }
 
