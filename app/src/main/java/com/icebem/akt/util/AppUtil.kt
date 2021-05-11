@@ -19,7 +19,7 @@ object AppUtil {
     const val URL_RELEASE_LATEST = "https://github.com/aistra0528/ArknightsTap/releases/latest"
     const val URL_RELEASE_LATEST_API = "https://api.github.com/repos/aistra0528/ArknightsTap/releases/latest"
 
-    fun showAlertDialog(context: Context, title: String, msg: String) {
+    private fun showAlertDialog(context: Context, title: String, msg: String) {
         AlertDialog.Builder(context).run {
             setTitle(title)
             setMessage(msg)

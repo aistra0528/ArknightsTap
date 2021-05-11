@@ -63,7 +63,7 @@ class OverlayService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        setTheme(R.style.AppTheme_Dark)
+        setTheme(R.style.Theme_MaterialComponents)
         screenSize = ResolutionConfig.getAbsoluteHeight(this)
         manager = PreferenceManager.getInstance(this)
         createRecruitView()
@@ -171,6 +171,8 @@ class OverlayService : Service() {
                 }
             }
             findViewById<View>(R.id.action_collapse).setOnClickListener { showTargetView(fab) }
+            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+                findViewById<View>(R.id.img_collapse).backgroundTintList = ContextCompat.getColorStateList(context, R.color.colorSecondaryNight)
             findViewById<View>(R.id.action_disconnect).setOnClickListener { stopSelf() }
         }
     }

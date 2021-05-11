@@ -295,7 +295,8 @@ class RecruitViewer(private val context: Context, root: View) {
                         append(space)
                         append(RecruitTag.getTagName(tag!!, index))
                     }
-                }.toString()
+                    toString()
+                }
                 if (context is MainActivity) Snackbar.make(container, str, Snackbar.LENGTH_LONG).show() else OverlayToast.show(context, str, OverlayToast.LENGTH_LONG)
             }
             setBackgroundResource(when (info.star) {

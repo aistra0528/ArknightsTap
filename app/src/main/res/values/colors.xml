@@ -2,6 +2,7 @@
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorSecondary">#FFA000</color>
+    <color name="colorSecondaryNight">#4DD0E1</color>
     <color name="colorOverlay">#99000000</color>
     <color name="colorToast">#E6EEEEEE</color>
     <color name="colorError">#FF1744</color>

@@ -9,8 +9,6 @@
         <item name="alertDialogTheme">@style/AlertDialogStyle</item>
     </style>
 
-    <style name="AppTheme.Dark" parent="Theme.MaterialComponents" />
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
