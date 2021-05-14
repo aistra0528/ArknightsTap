@@ -5,8 +5,14 @@ import android.app.Application
 import android.provider.Settings
 import com.icebem.akt.service.GestureService
 import com.icebem.akt.service.OverlayService
+import java.io.File
 
 class BaseApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        File("$cacheDir/apk/base.apk").run { if (exists()) delete() }
+    }
+
     val isOverlayServiceRunning: Boolean get() = isServiceRunning(OverlayService::class.java.name)
     val isGestureServiceRunning: Boolean get() = isServiceRunning(GestureService::class.java.name)
     val isGestureServiceEnabled: Boolean
