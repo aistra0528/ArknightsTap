@@ -1,4 +1,6 @@
-/build
-/debug
-/src/androidTest
-/src/test
+/build/
+/debug/
+#/release/
+*.apk
+*.aab
+*.bat
