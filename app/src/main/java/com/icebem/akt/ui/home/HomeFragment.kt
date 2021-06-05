@@ -24,7 +24,6 @@ import com.icebem.akt.app.ResolutionConfig
 import com.icebem.akt.util.AppUtil
 import com.icebem.akt.util.DataUtil
 import com.icebem.akt.util.IOUtil
-import com.icebem.akt.util.RandomUtil
 import org.json.JSONObject
 import java.io.IOException
 
@@ -49,10 +48,8 @@ class HomeFragment : Fragment() {
             }
         } else {
             try {
-                val array = DataUtil.getSloganData(requireContext())
-                val obj = array.getJSONObject(RandomUtil.randomIndex(array.length()))
                 tip.isSingleLine = true
-                tip.text = getString(R.string.operator_slogan, obj.getString("slogan"), obj.getString("name"))
+                tip.text = (requireContext() as MainActivity).slogan
                 tip.postDelayed({
                     tip.ellipsize = TextUtils.TruncateAt.MARQUEE
                     tip.marqueeRepeatLimit = -1

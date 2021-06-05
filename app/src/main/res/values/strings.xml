@@ -8,8 +8,8 @@
     <string name="menu_settings">设置</string>
     <string name="state_permission_request">需要权限</string>
     <string name="state_resolution_unsupported">设备未适配</string>
-    <string name="state_loading">正在部署</string>
-    <string name="state_ready">部署已完毕</string>
+    <string name="state_loading">程序启动</string>
+    <string name="state_ready">初始化完成</string>
     <string name="msg_permission_overlay">- 显示在其他应用的上层\n可通过悬浮球在游戏内使用公开招募规划等功能</string>
     <string name="info_overlay_connected">帮帮忙™已连接</string>
     <string name="info_overlay_disconnected">帮帮忙™连接解除</string>
@@ -103,6 +103,7 @@
     <string name="tip_not_found">无障碍找不到戳戳乐™？戳我一下！</string>
     <string name="action_reinstall">重装</string>
     <string name="operator_slogan" translatable="false">%s by %s</string>
+    <string name="error_slogan" translatable="false">发生错误。 by 白面鸮</string>
     <string name="action_share">分享</string>
     <string name="info_share">下载链接已复制</string>
     <string name="action_support">支持</string>

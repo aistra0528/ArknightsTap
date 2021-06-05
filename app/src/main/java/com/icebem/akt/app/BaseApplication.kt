@@ -10,7 +10,11 @@ import java.io.File
 class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        File("$cacheDir/apk/base.apk").run { if (exists()) delete() }
+        clearCache()
+    }
+
+    private fun clearCache() {
+        File("$cacheDir/apk/base.apk").delete()
     }
 
     val isOverlayServiceRunning: Boolean get() = isServiceRunning(OverlayService::class.java.name)

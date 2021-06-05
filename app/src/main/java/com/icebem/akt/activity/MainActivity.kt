@@ -21,10 +21,21 @@ import com.icebem.akt.app.GestureActionReceiver
 import com.icebem.akt.app.PreferenceManager
 import com.icebem.akt.service.OverlayService
 import com.icebem.akt.util.AppUtil
+import com.icebem.akt.util.DataUtil
+import com.icebem.akt.util.RandomUtil
+import org.json.JSONArray
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    val list by lazy { arrayListOf<Int>() }
+    val array by lazy {
+        try {
+            DataUtil.getSloganData(this)
+        } catch (e: Exception) {
+            JSONArray()
+        }
+    }
     lateinit var fab: ExtendedFloatingActionButton private set
     private lateinit var subtitle: TextView
     private lateinit var barConfig: AppBarConfiguration
@@ -42,12 +53,30 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ -> onDestinationChanged(destination) }
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         subtitle = navigationView.getHeaderView(0).findViewById(R.id.txt_header_subtitle)
-        updateSubtitleTime()
         NavigationUI.setupActionBarWithNavController(this, navController, barConfig)
         NavigationUI.setupWithNavController(navigationView, navController)
         fab.setOnClickListener { showOverlay() }
         if (manager.isPro) fab.setOnLongClickListener { startGestureAction() }
     }
+
+    override fun onStart() {
+        super.onStart()
+        updateSubtitleTime()
+    }
+
+    val slogan: String
+        get() {
+            return if (array.length() > 0) {
+                if (list.isEmpty()) {
+                    for (i in 0 until array.length())
+                        list.add(i)
+                }
+                val i = RandomUtil.randomIndex(list.size)
+                val obj = array.getJSONObject(list[i])
+                list.removeAt(i)
+                getString(R.string.operator_slogan, obj.getString("slogan"), obj.getString("name"))
+            } else getString(R.string.error_slogan)
+        }
 
     fun showOverlay() {
         if (CompatOperations.requireOverlayPermission(this)) {
