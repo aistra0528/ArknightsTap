@@ -97,6 +97,7 @@
     <string name="free_android">方舟帮帮忙尊重用户自由。</string>
     <string name="root_mode_title">Root 实现模式（实验性功能）</string>
     <string name="root_mode_summary">兼容低于 Android 7.0 的已 Root 设备</string>
+    <string name="root_mode_msg">低于 Android 7.0 需要 Root 权限。\n虚拟设备推荐使用480×360分辨率。</string>
     <string name="action_details">详情</string>
     <string name="msg_network_error">无法连接服务器。\n请稍后再试。</string>
     <string name="error_accessibility_killed">戳戳乐™失联了！\n请覆盖安装应用。\n反复发生此问题时，请在设置打开“减少内存占用”。</string>

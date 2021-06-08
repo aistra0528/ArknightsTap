@@ -13,6 +13,7 @@ import android.os.Build
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import com.icebem.akt.R
 import com.icebem.akt.service.OverlayService
@@ -110,4 +111,16 @@ object CompatOperations {
     }
 
     fun checkRootPermission() = executeCommand("su")
+
+    fun showRootModeDialog(context: Context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            AlertDialog.Builder(context).run {
+                setCancelable(false)
+                setTitle(R.string.root_mode_title)
+                setMessage(R.string.root_mode_msg)
+                setPositiveButton(R.string.got_it, null)
+                create().show()
+            }
+        }
+    }
 }

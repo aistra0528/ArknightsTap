@@ -98,6 +98,7 @@ class AboutActivity : AppCompatActivity() {
                 manager.isPro = !manager.isPro
                 typeDesc.setText(if (manager.isPro) R.string.version_type_pro else R.string.version_type_lite)
                 Snackbar.make(view, R.string.version_type_changed, Snackbar.LENGTH_INDEFINITE).setAction(R.string.action_reinstall) { CompatOperations.reinstallSelf(this) }.show()
+                if (manager.isPro) CompatOperations.showRootModeDialog(this)
             }
             R.id.container_special_thanks -> if (++i >= 5) {
                 i = 0

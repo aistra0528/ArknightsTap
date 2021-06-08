@@ -91,6 +91,7 @@
     <string name="free_android">ArkTap is a free software.</string>
     <string name="root_mode_title">Root mode</string>
     <string name="root_mode_summary">Compatible with rooted devices older than Android 7.0</string>
+    <string name="root_mode_msg">Root is required.</string>
     <string name="action_details">Details</string>
     <string name="msg_network_error">Unable to communicate with the server.\nPlease try again later.</string>
     <string name="error_accessibility_killed">Accessibility was killed, please reinstall app</string>
