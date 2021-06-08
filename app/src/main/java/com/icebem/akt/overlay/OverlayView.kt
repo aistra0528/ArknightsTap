@@ -48,6 +48,10 @@ class OverlayView(val view: View) {
 
     constructor(context: Context, resId: Int) : this(LayoutInflater.from(context).inflate(resId, FrameLayout(context)))
 
+    init {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) view.isForceDarkAllowed = false
+    }
+
     fun show(): OverlayView {
         if (!showing) {
             manager.addView(view, params)

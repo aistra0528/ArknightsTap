@@ -1,3 +1,4 @@
 <resources>
     <color name="colorSecondary">@color/colorSecondaryNight</color>
+    <color name="colorToast">#E6616161</color>
 </resources>

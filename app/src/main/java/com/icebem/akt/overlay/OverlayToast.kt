@@ -17,6 +17,7 @@
  */
 package com.icebem.akt.overlay
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.widget.TextViewCompat
@@ -32,6 +33,7 @@ object OverlayToast {
     const val LENGTH_SHORT = 2000L
     const val LENGTH_LONG = 3000L
     private val runnable = Runnable { toast!!.remove() }
+    @SuppressLint("StaticFieldLeak")
     private var toast: OverlayView? = null
 
     fun show(context: Context, text: String, duration: Long) {
