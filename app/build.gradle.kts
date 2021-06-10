@@ -70,6 +70,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.1")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("com.google.android:flexbox:2.0.1")
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("com.google.android.material:material:1.2.1")
 }
