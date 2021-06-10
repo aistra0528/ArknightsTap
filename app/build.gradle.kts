@@ -11,9 +11,8 @@ android {
         applicationId = "com.icebem.akt"
         minSdk = 21
         targetSdk = 30
-        versionCode = 55
-        versionName = "2.8.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 56
+        versionName = "2.8.1"
         resConfigs("zh-rCN", "en", "ja", "in")
     }
     signingConfigs {
