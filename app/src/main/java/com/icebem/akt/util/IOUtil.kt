@@ -23,6 +23,7 @@ object IOUtil {
             requestMethod = METHOD_GET
             connectTimeout = CONNECT_TIMEOUT
             readTimeout = CONNECT_TIMEOUT
+            if (url.startsWith("https://gitee.com")) addRequestProperty("User-Agent", "Mozilla/5.0")
             return inputStream
         }
     }
