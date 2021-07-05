@@ -87,7 +87,10 @@ class MainActivity : AppCompatActivity() {
                 setNegativeButton(R.string.no_thanks, null)
                 create().show()
             }
-        } else startService(Intent(this, OverlayService::class.java))
+        } else {
+            startService(Intent(this, OverlayService::class.java))
+            finishAndRemoveTask()
+        }
     }
 
     private fun startGestureAction(): Boolean {
