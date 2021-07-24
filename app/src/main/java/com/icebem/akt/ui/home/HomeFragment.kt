@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -67,6 +68,19 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (manager.autoUpdate) startUpdateThread() else onStateEnd()
+        if (manager.isPro) stateImg.setOnLongClickListener {
+            AlertDialog.Builder(requireContext()).run {
+                setTitle(R.string.customize_points)
+                val edit = EditText(requireContext())
+                edit.append(manager.customizePoints)
+                setView(edit)
+                setPositiveButton(android.R.string.ok) { _, _ -> if (!manager.setCustomizePoints(edit.text.toString())) Snackbar.make(it, R.string.wrong_format, Snackbar.LENGTH_LONG).show() }
+                setNeutralButton(R.string.action_reset) { _, _ -> manager.setCustomizePoints(null) }
+                setNegativeButton(android.R.string.cancel, null)
+                create().show()
+            }
+            true
+        }
     }
 
     private fun onStateEnd() {

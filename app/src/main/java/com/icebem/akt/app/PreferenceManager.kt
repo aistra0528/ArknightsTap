@@ -11,6 +11,7 @@ import com.icebem.akt.R
 import com.icebem.akt.service.GestureService
 import com.icebem.akt.util.DataUtil
 import com.icebem.akt.util.RandomUtil
+import org.json.JSONObject
 import java.util.*
 
 class PreferenceManager private constructor(context: Context) {
@@ -27,6 +28,8 @@ class PreferenceManager private constructor(context: Context) {
         private const val KEY_BLUE_Y = "blue_y"
         private const val KEY_RED_X = "red_x"
         private const val KEY_RED_Y = "red_y"
+        private const val KEY_GREEN_X = "green_x"
+        private const val KEY_GREEN_Y = "green_y"
         private const val KEY_SPRITE_X = "sprite_x"
         private const val KEY_SPRITE_Y = "sprite_y"
         private const val KEY_PRO = "pro"
@@ -42,6 +45,7 @@ class PreferenceManager private constructor(context: Context) {
         private const val KEY_ASCENDING_STAR = "ascending_star"
         private const val KEY_SCROLL_TO_RESULT = "scroll_to_result"
         private const val KEY_RECRUIT_PREVIEW = "recruit_preview"
+        private const val KEY_CUSTOMIZE_POINTS = "customize_points"
         private const val KEY_DOUBLE_SPEED = "double_speed"
         private const val KEY_VOLUME_CONTROL = "volume_control"
         private const val KEY_NO_BACKGROUND = "no_background"
@@ -192,9 +196,48 @@ class PreferenceManager private constructor(context: Context) {
     val scrollToResult: Boolean get() = preferences.getBoolean(KEY_SCROLL_TO_RESULT, true)
     val recruitPreview: Boolean get() = preferences.getBoolean(KEY_RECRUIT_PREVIEW, false)
 
+    private val defaultPoints: String
+        get() = JSONObject().run {
+            put(KEY_BLUE_X, 0)
+            put(KEY_BLUE_Y, 0)
+            put(KEY_RED_X, 0)
+            put(KEY_RED_Y, 0)
+            put(KEY_GREEN_X, 0)
+            put(KEY_GREEN_Y, 0)
+            toString()
+        }
+
+    val customizePoints: String get() = preferences.getString(KEY_CUSTOMIZE_POINTS, defaultPoints)!!
+    fun setCustomizePoints(string: String?): Boolean {
+        try {
+            if (string == null) {
+                preferences.edit().putString(KEY_CUSTOMIZE_POINTS, defaultPoints).apply()
+                return true
+            }
+            val obj = JSONObject(string)
+            if (obj.getInt(KEY_BLUE_X) >= 0 && obj.getInt(KEY_BLUE_Y) >= 0 && obj.getInt(KEY_RED_X) >= 0 && obj.getInt(KEY_RED_Y) >= 0 && obj.getInt(KEY_GREEN_X) >= 0 && obj.getInt(KEY_GREEN_Y) >= 0) {
+                preferences.edit().putString(KEY_CUSTOMIZE_POINTS, obj.toString()).apply()
+                return true
+            }
+        } catch (e: Exception) {
+        }
+        return false
+    }
+
     val unsupportedResolution: Boolean
         get() {
             try {
+                if (customizePoints != defaultPoints) {
+                    val obj = JSONObject(customizePoints)
+                    points = IntArray(6)
+                    points[0] = obj.getInt(KEY_BLUE_X)
+                    points[1] = obj.getInt(KEY_BLUE_Y)
+                    points[2] = obj.getInt(KEY_RED_X)
+                    points[3] = obj.getInt(KEY_RED_Y)
+                    points[4] = obj.getInt(KEY_GREEN_X)
+                    points[5] = obj.getInt(KEY_GREEN_Y)
+                    return false
+                }
                 val res = ResolutionConfig.getAbsoluteResolution(applicationContext)
                 val array = DataUtil.getResolutionData(applicationContext)
                 for (i in 0 until array.length()) {

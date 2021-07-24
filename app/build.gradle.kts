@@ -12,7 +12,7 @@ android {
         minSdk = 21
         targetSdk = 30
         versionCode = 58
-        versionName = "2.9.1"
+        versionName = "2.9.2"
         resConfigs("zh-rCN", "en", "ja", "in")
     }
     signingConfigs {
@@ -62,7 +62,7 @@ android {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.20")
     implementation("androidx.annotation:annotation:1.2.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.0.0")

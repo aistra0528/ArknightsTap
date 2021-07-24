@@ -101,4 +101,6 @@
     <string name="info_share">Url copied</string>
     <string name="action_support">Support</string>
     <string name="volume_control">Volume down to stop</string>
+    <string name="customize_points">Customize points</string>
+    <string name="wrong_format">Wrong format</string>
 </resources>

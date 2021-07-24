@@ -109,4 +109,6 @@
     <string name="info_share">下载链接已复制</string>
     <string name="action_support">支持</string>
     <string name="volume_control">音量键-结束</string>
+    <string name="customize_points">自定义坐标</string>
+    <string name="wrong_format">格式有误</string>
 </resources>
