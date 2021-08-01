@@ -63,7 +63,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.20")
     implementation("androidx.annotation:annotation:1.2.0")
     implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.0.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
