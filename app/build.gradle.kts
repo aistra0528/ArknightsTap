@@ -11,9 +11,9 @@ android {
         applicationId = "com.icebem.akt"
         minSdk = 21
         targetSdk = 30
-        versionCode = 58
-        versionName = "2.9.2"
-        resConfigs("zh-rCN", "en", "ja", "in")
+        versionCode = 59
+        versionName = "2.10.0"
+        resourceConfigurations += arrayOf("zh-rCN", "en", "ja", "in")
     }
     signingConfigs {
         create("release") {

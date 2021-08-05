@@ -2,8 +2,8 @@
   {
     "name": "entry.json",
     "compat": 29,
-    "version": 58,
-    "tag": "2021-07-05"
+    "version": 59,
+    "tag": "2021-08-05"
   },
   {
     "name": "recruit.json",
@@ -26,7 +26,7 @@
   {
     "name": "slogan.json",
     "compat": 49,
-    "version": 4,
-    "tag": "2021-08-01"
+    "version": 5,
+    "tag": "2021-08-05"
   }
 ]
