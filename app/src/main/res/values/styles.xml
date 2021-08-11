@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="alertDialogTheme">@style/AlertDialogStyle</item>
+        <item name="toolbarStyle">@style/Widget.AppTheme.Toolbar</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
@@ -18,6 +19,8 @@
     <style name="AppTheme.NoActionBar.TransparentStatusBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="Widget.AppTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar" />
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 

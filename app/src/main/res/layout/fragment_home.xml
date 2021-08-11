@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/control_margin"
         android:gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         android:text="@string/coming_soon" />
 
     <ImageView
@@ -28,5 +29,5 @@
         android:layout_below="@id/img_state"
         android:layout_centerHorizontal="true"
         android:text="@string/state_loading"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 </RelativeLayout>

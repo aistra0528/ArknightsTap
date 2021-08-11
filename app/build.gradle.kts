@@ -12,7 +12,7 @@ android {
         minSdk = 21
         targetSdk = 30
         versionCode = 59
-        versionName = "2.10.0"
+        versionName = "2.10.1"
         resourceConfigurations += arrayOf("zh-rCN", "en", "ja", "in")
     }
     signingConfigs {
@@ -60,7 +60,7 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.20")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21")
     implementation("androidx.annotation:annotation:1.2.0")
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")

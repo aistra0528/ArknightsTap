@@ -11,7 +11,7 @@
         android:fillColor="@color/colorSecondary"
         android:pathData="M21,51l15,-30 15,30z" />
     <path
-        android:pathData="M21,51l15,-30 15,30h-19.2"
+        android:pathData="M21,51l15,-30M36,21l15,30M51,51h-19.2"
         android:strokeWidth="4.2"
         android:strokeColor="@android:color/white"
         android:strokeLineCap="round" />
