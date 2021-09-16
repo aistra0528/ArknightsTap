@@ -78,6 +78,8 @@ class HomeFragment : Fragment() {
                 setNeutralButton(R.string.action_reset) { _, _ -> manager.setCustomizePoints(null) }
                 setNegativeButton(android.R.string.cancel, null)
                 create().show()
+                val margin = requireContext().resources.getDimensionPixelOffset(R.dimen.activity_margin)
+                (edit.layoutParams as ViewGroup.MarginLayoutParams).setMargins(margin, 0, margin, 0)
             }
             true
         }
