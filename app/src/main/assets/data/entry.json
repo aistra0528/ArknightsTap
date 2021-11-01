@@ -13,9 +13,9 @@
   },
   {
     "name": "material.json",
-    "compat": 30,
-    "version": 7,
-    "tag": "2020-11-08"
+    "compat": 61,
+    "version": 8,
+    "tag": "2021-11-01"
   },
   {
     "name": "resolution.json",

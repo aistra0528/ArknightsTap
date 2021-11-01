@@ -1,6 +1,5 @@
 [
   {
-    "star": 1,
     "id": 30011,
     "name": "Orirock",
     "nameCN": "源岩",
@@ -11,13 +10,12 @@
       {
         "mission": "S2-5",
         "sanity": 12,
-        "frequency": 3.645
+        "frequency": 3.695
       }
     ],
     "workshop": []
   },
   {
-    "star": 2,
     "id": 30012,
     "name": "Orirock Cube",
     "nameCN": "固源岩",
@@ -34,7 +32,6 @@
     "workshop": []
   },
   {
-    "star": 3,
     "id": 30013,
     "name": "Orirock Cluster",
     "nameCN": "固源岩组",
@@ -50,7 +47,6 @@
     ]
   },
   {
-    "star": 4,
     "id": 30014,
     "name": "Orriock Concentration",
     "nameCN": "提纯源岩",
@@ -66,7 +62,6 @@
     ]
   },
   {
-    "star": 1,
     "id": 30021,
     "name": "Sugar Substitute",
     "nameCN": "代糖",
@@ -77,13 +72,12 @@
       {
         "mission": "S2-6",
         "sanity": 12,
-        "frequency": 2.434
+        "frequency": 2.455
       }
     ],
     "workshop": []
   },
   {
-    "star": 2,
     "id": 30022,
     "name": "Sugar",
     "nameCN": "糖",
@@ -94,13 +88,12 @@
       {
         "mission": "S3-1",
         "sanity": 15,
-        "frequency": 1.510
+        "frequency": 1.517
       }
     ],
     "workshop": []
   },
   {
-    "star": 3,
     "id": 30023,
     "name": "Sugar Pack",
     "nameCN": "糖组",
@@ -117,7 +110,6 @@
     "workshop": []
   },
   {
-    "star": 4,
     "id": 30024,
     "name": "Sugar Lump",
     "nameCN": "糖聚块",
@@ -141,7 +133,6 @@
     ]
   },
   {
-    "star": 1,
     "id": 30031,
     "name": "Ester",
     "nameCN": "酯原料",
@@ -152,13 +143,12 @@
       {
         "mission": "S2-7",
         "sanity": 12,
-        "frequency": 2.529
+        "frequency": 2.541
       }
     ],
     "workshop": []
   },
   {
-    "star": 2,
     "id": 30032,
     "name": "Polyester",
     "nameCN": "聚酸酯",
@@ -169,18 +159,17 @@
       {
         "mission": "1-8",
         "sanity": 9,
-        "frequency": 0.950
+        "frequency": 0.909
       },
       {
         "mission": "S3-2",
         "sanity": 15,
-        "frequency": 1.523
+        "frequency": 1.516
       }
     ],
     "workshop": []
   },
   {
-    "star": 3,
     "id": 30033,
     "name": "Polyester Pack",
     "nameCN": "聚酸酯组",
@@ -191,18 +180,17 @@
       {
         "mission": "7-4",
         "sanity": 18,
-        "frequency": 0.557
+        "frequency": 0.555
       },
       {
         "mission": "2-6",
         "sanity": 12,
-        "frequency": 0.364
+        "frequency": 0.363
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 30034,
     "name": "Polyester Lump",
     "nameCN": "聚酸酯块",
@@ -226,7 +214,6 @@
     ]
   },
   {
-    "star": 1,
     "id": 30041,
     "name": "Oriron Shard",
     "nameCN": "异铁碎片",
@@ -237,18 +224,17 @@
       {
         "mission": "1-3",
         "sanity": 6,
-        "frequency": 0.981
+        "frequency": 0.962
       },
       {
         "mission": "S2-8",
         "sanity": 12,
-        "frequency": 1.919
+        "frequency": 1.909
       }
     ],
     "workshop": []
   },
   {
-    "star": 2,
     "id": 30042,
     "name": "Oriron",
     "nameCN": "异铁",
@@ -259,13 +245,12 @@
       {
         "mission": "S3-3",
         "sanity": 15,
-        "frequency": 1.213
+        "frequency": 1.223
       }
     ],
     "workshop": []
   },
   {
-    "star": 3,
     "id": 30043,
     "name": "Oriron Cluster",
     "nameCN": "异铁组",
@@ -276,18 +261,17 @@
       {
         "mission": "7-18",
         "sanity": 21,
-        "frequency": 0.414
+        "frequency": 0.398
       },
       {
         "mission": "2-8",
         "sanity": 12,
-        "frequency": 0.225
+        "frequency": 0.224
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 30044,
     "name": "Oriron Block",
     "nameCN": "异铁块",
@@ -311,7 +295,6 @@
     ]
   },
   {
-    "star": 1,
     "id": 30051,
     "name": "Diketon",
     "nameCN": "双酮",
@@ -320,20 +303,19 @@
     "nameKR": "디케톤",
     "stages": [
       {
-        "mission": "1-6",
-        "sanity": 6,
-        "frequency": 1.040
-      },
-      {
         "mission": "S2-9",
         "sanity": 12,
-        "frequency": 1.921
+        "frequency": 1.950
+      },
+      {
+        "mission": "1-6",
+        "sanity": 6,
+        "frequency": 0.860
       }
     ],
     "workshop": []
   },
   {
-    "star": 2,
     "id": 30052,
     "name": "Polyketon",
     "nameCN": "酮凝集",
@@ -344,13 +326,12 @@
       {
         "mission": "3-7",
         "sanity": 15,
-        "frequency": 1.230
+        "frequency": 1.225
       }
     ],
     "workshop": []
   },
   {
-    "star": 3,
     "id": 30053,
     "name": "Aketon",
     "nameCN": "酮凝集组",
@@ -361,18 +342,17 @@
       {
         "mission": "JT8-3",
         "sanity": 18,
-        "frequency": 0.450
+        "frequency": 0.448
       },
       {
         "mission": "3-1",
         "sanity": 15,
-        "frequency": 0.364
+        "frequency": 0.367
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 30054,
     "name": "Keton Colloid",
     "nameCN": "酮阵列",
@@ -396,7 +376,6 @@
     ]
   },
   {
-    "star": 1,
     "id": 30061,
     "name": "Damaged Device",
     "nameCN": "破损装置",
@@ -407,18 +386,17 @@
       {
         "mission": "1-5",
         "sanity": 6,
-        "frequency": 0.809
+        "frequency": 0.735
       },
       {
         "mission": "2-3",
         "sanity": 12,
-        "frequency": 1.440
+        "frequency": 1.448
       }
     ],
     "workshop": []
   },
   {
-    "star": 2,
     "id": 30062,
     "name": "Device",
     "nameCN": "装置",
@@ -429,7 +407,7 @@
       {
         "mission": "S3-4",
         "sanity": 15,
-        "frequency": 0.913
+        "frequency": 0.916
       },
       {
         "mission": "1-12",
@@ -440,7 +418,6 @@
     "workshop": []
   },
   {
-    "star": 3,
     "id": 30063,
     "name": "Integrated Device",
     "nameCN": "全新装置",
@@ -449,9 +426,14 @@
     "nameKR": "리뉴얼 장치",
     "stages": [
       {
+        "mission": "9-10",
+        "sanity": 18,
+        "frequency": 0.337
+      },
+      {
         "mission": "7-15",
         "sanity": 18,
-        "frequency": 0.331
+        "frequency": 0.333
       },
       {
         "mission": "3-4",
@@ -462,7 +444,6 @@
     "workshop": []
   },
   {
-    "star": 4,
     "id": 30064,
     "name": "Optimized Device",
     "nameCN": "改量装置",
@@ -486,7 +467,6 @@
     ]
   },
   {
-    "star": 3,
     "id": 30073,
     "name": "Loxic Kohl",
     "nameCN": "扭转醇",
@@ -497,18 +477,17 @@
       {
         "mission": "6-11",
         "sanity": 21,
-        "frequency": 0.486
+        "frequency": 0.492
       },
       {
         "mission": "2-9",
         "sanity": 12,
-        "frequency": 0.262
+        "frequency": 0.263
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 30074,
     "name": "White Horse Kohl",
     "nameCN": "白马醇",
@@ -532,7 +511,6 @@
     ]
   },
   {
-    "star": 3,
     "id": 30083,
     "name": "Manganese Ore",
     "nameCN": "轻锰矿",
@@ -543,18 +521,17 @@
       {
         "mission": "3-2",
         "sanity": 15,
-        "frequency": 0.368
+        "frequency": 0.369
       },
       {
         "mission": "7-16",
         "sanity": 18,
-        "frequency": 0.431
+        "frequency": 0.436
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 30084,
     "name": "Manganese Trihydrate",
     "nameCN": "三水锰矿",
@@ -578,7 +555,6 @@
     ]
   },
   {
-    "star": 3,
     "id": 30093,
     "name": "Grindstone",
     "nameCN": "研磨石",
@@ -587,15 +563,19 @@
     "nameKR": "연마석",
     "stages": [
       {
+        "mission": "9-16",
+        "sanity": 18,
+        "frequency": 0.384
+      },
+      {
         "mission": "3-3",
         "sanity": 15,
-        "frequency": 0.314
+        "frequency": 0.319
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 30094,
     "name": "Grindstone Pentahydrate",
     "nameCN": "五水研磨石",
@@ -619,7 +599,6 @@
     ]
   },
   {
-    "star": 3,
     "id": 30103,
     "name": "RMA70-12",
     "nameCN": "RMA70-12",
@@ -628,6 +607,11 @@
     "nameKR": "RMA70-12",
     "stages": [
       {
+        "mission": "9-19",
+        "sanity": 21,
+        "frequency": 0.406
+      },
+      {
         "mission": "R8-9",
         "sanity": 18,
         "frequency": 0.344
@@ -635,18 +619,17 @@
       {
         "mission": "7-10",
         "sanity": 18,
-        "frequency": 0.338
+        "frequency": 0.343
       },
       {
         "mission": "2-10",
         "sanity": 15,
-        "frequency": 0.275
+        "frequency": 0.276
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 30104,
     "name": "RMA70-24",
     "nameCN": "RMA70-24",
@@ -670,7 +653,6 @@
     ]
   },
   {
-    "star": 3,
     "id": 31013,
     "name": "Coagulating Gel",
     "nameCN": "凝胶",
@@ -681,18 +663,17 @@
       {
         "mission": "JT8-2",
         "sanity": 21,
-        "frequency": 0.351
+        "frequency": 0.336
       },
       {
         "mission": "S4-10",
         "sanity": 18,
-        "frequency": 0.287
+        "frequency": 0.280
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 31014,
     "name": "Polymerized Gel",
     "nameCN": "聚合凝胶",
@@ -716,7 +697,6 @@
     ]
   },
   {
-    "star": 3,
     "id": 31023,
     "name": "Incandescent Alloy",
     "nameCN": "炽合金",
@@ -727,13 +707,12 @@
       {
         "mission": "S3-6",
         "sanity": 15,
-        "frequency": 0.385
+        "frequency": 0.399
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 31024,
     "name": "Incandescent Alloy Block",
     "nameCN": "炽合金块",
@@ -757,7 +736,6 @@
     ]
   },
   {
-    "star": 3,
     "id": 31033,
     "name": "晶体元件*",
     "nameCN": "晶体元件",
@@ -768,23 +746,27 @@
       {
         "mission": "R8-11",
         "sanity": 21,
-        "frequency": 0.563
+        "frequency": 0.525
+      },
+      {
+        "mission": "9-14",
+        "sanity": 21,
+        "frequency": 0.500
       },
       {
         "mission": "S5-9",
         "sanity": 18,
-        "frequency": 0.329
+        "frequency": 0.338
       },
       {
         "mission": "S3-7",
         "sanity": 18,
-        "frequency": 0.256
+        "frequency": 0.258
       }
     ],
     "workshop": []
   },
   {
-    "star": 4,
     "id": 31034,
     "name": "晶体电路*",
     "nameCN": "晶体电路",
@@ -803,6 +785,89 @@
       },
       {
         "id": 31023,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": 31043,
+    "name": "半自然溶剂*",
+    "nameCN": "半自然溶剂",
+    "nameTW": "半自然溶剂*",
+    "nameJP": "半自然溶剂*",
+    "nameKR": "半自然溶剂*",
+    "stages": [
+      {
+        "mission": "9-18",
+        "sanity": 21,
+        "frequency": 0.333
+      },
+      {
+        "mission": "9-4",
+        "sanity": 18,
+        "frequency": 0.278
+      }
+    ],
+    "workshop": []
+  },
+  {
+    "id": 31044,
+    "name": "精炼溶剂*",
+    "nameCN": "精炼溶剂",
+    "nameTW": "精炼溶剂*",
+    "nameJP": "精炼溶剂*",
+    "nameKR": "精炼溶剂*",
+    "stages": [],
+    "workshop": [
+      {
+        "id": 31013,
+        "quantity": 1
+      },
+      {
+        "id": 31043,
+        "quantity": 1
+      },
+      {
+        "id": 31053,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": 31053,
+    "name": "化合切削液*",
+    "nameCN": "化合切削液",
+    "nameTW": "化合切削液*",
+    "nameJP": "化合切削液*",
+    "nameKR": "化合切削液*",
+    "stages": [
+      {
+        "mission": "9-6",
+        "sanity": 18,
+        "frequency": 0.268
+      }
+    ],
+    "workshop": []
+  },
+  {
+    "id": 31054,
+    "name": "切削原液*",
+    "nameCN": "切削原液",
+    "nameTW": "切削原液*",
+    "nameJP": "切削原液*",
+    "nameKR": "切削原液*",
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30103,
+        "quantity": 1
+      },
+      {
+        "id": 31033,
+        "quantity": 1
+      },
+      {
+        "id": 31053,
         "quantity": 1
       }
     ]

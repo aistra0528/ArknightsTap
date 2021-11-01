@@ -9,7 +9,6 @@ import java.io.IOException
 class MaterialInfo private constructor(obj: JSONObject) {
     companion object {
         private const val KEY_ID = "id"
-        private const val KEY_STAR = "star"
         private const val KEY_NAME = "name"
         private const val KEY_NAME_CN = "nameCN"
         private const val KEY_NAME_TW = "nameTW"
@@ -28,7 +27,6 @@ class MaterialInfo private constructor(obj: JSONObject) {
     }
 
     val id: Int = obj.getInt(KEY_ID)
-    val star: Int = obj.getInt(KEY_STAR)
     private val name: String = obj.getString(KEY_NAME)
     private val nameCN: String = obj.getString(KEY_NAME_CN)
     private val nameTW: String = obj.getString(KEY_NAME_TW)

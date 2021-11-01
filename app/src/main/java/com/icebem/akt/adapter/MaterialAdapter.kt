@@ -12,7 +12,6 @@ import com.icebem.akt.overlay.OverlayToast
 class MaterialAdapter(private val manager: PreferenceManager, private val spanCount: Int) : RecyclerView.Adapter<MaterialAdapter.ViewHolder>() {
     companion object {
         private const val RES_START_MTL = "mtl_"
-        private const val RES_START_BG = "bg_mtl_t"
         private const val RES_TYPE = "mipmap"
         private val mtlId = intArrayOf(
                 30011, 30021, 30031, 30041, 30051, 30061,
@@ -21,7 +20,7 @@ class MaterialAdapter(private val manager: PreferenceManager, private val spanCo
                 30014, 30024, 30034, 30044, 30054, 30064,
                 30073, 30074, 30083, 30084, 30093, 30094,
                 30103, 30104, 31013, 31014, 31023, 31024,
-                31033, 31034
+                31033, 31034, 31043, 31044, 31053, 31054
         )
     }
 
@@ -34,15 +33,12 @@ class MaterialAdapter(private val manager: PreferenceManager, private val spanCo
         var size = view.context.resources.getDimensionPixelOffset(R.dimen.control_padding) shl 1
         size = (ResolutionConfig.getAbsoluteHeight(view.context) - size) / spanCount
         view.layoutParams = ViewGroup.LayoutParams(size, size)
-        size = size shr 4
-        view.setPadding(size, size, size, size)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = findMaterialById(mtlId[position]) ?: return
         val view = holder.itemView as ImageView
-        view.setBackgroundResource(view.resources.getIdentifier(RES_START_BG + info.star, RES_TYPE, view.context.packageName))
         view.setImageResource(view.resources.getIdentifier(RES_START_MTL + info.id, RES_TYPE, view.context.packageName))
         view.setOnClickListener {
             val builder = StringBuilder()
