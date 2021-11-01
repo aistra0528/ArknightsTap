@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    compileSdk = 30
-    buildToolsVersion = "30.0.3"
+    compileSdk = 31
+    buildToolsVersion = "31.0.0"
 
     defaultConfig {
         applicationId = "com.icebem.akt"
         minSdk = 21
         targetSdk = 30
-        versionCode = 60
-        versionName = "2.10.1"
+        versionCode = 61
+        versionName = "2.10.2"
         resourceConfigurations += arrayOf("zh-rCN", "en", "ja", "in")
     }
     signingConfigs {
@@ -63,8 +63,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31")
     implementation("androidx.annotation:annotation:1.2.0")
     implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
-    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
+    implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.0.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
