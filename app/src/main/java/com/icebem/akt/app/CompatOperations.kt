@@ -38,9 +38,6 @@ object CompatOperations {
 
     fun getDisplayMetrics(context: Context): DisplayMetrics {
         val metric = DisplayMetrics()
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && context.display != null)
-            context.display!!.getRealMetrics(metric)
-        else*/
         (context.applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getRealMetrics(metric)
         return metric
     }
@@ -93,9 +90,7 @@ object CompatOperations {
             val builder = GestureDescription.Builder()
             builder.addStroke(GestureDescription.StrokeDescription(path, 0, RandomUtil.randomTime(GESTURE_DURATION)))
             service.dispatchGesture(builder.build(), null, null)
-        } else if (PreferenceManager.getInstance(service).rootMode) {
-            executeCommand(String.format("input tap %s %s", rX, rY))
-        }
+        } else executeCommand("input tap $rX $rY")
     }
 
     /**
@@ -103,20 +98,21 @@ object CompatOperations {
      *
      * @param command 命令内容
      */
-    private fun executeCommand(command: String) {
+    private fun executeCommand(command: String): Boolean {
         try {
-            Runtime.getRuntime().exec(arrayOf("su", "-c", command))
+            return Runtime.getRuntime().exec("su -c $command").waitFor() == 0
         } catch (e: Exception) {
         }
+        return false
     }
 
-    fun checkRootPermission() = executeCommand("su")
+    fun requireRootPermission(): Boolean = Build.VERSION.SDK_INT < Build.VERSION_CODES.N && !executeCommand("clear")
 
     fun showRootModeDialog(context: Context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             AlertDialog.Builder(context).run {
                 setCancelable(false)
-                setTitle(R.string.root_mode_title)
+                setTitle(R.string.gesture_label)
                 setMessage(R.string.root_mode_msg)
                 setPositiveButton(R.string.got_it, null)
                 create().show()

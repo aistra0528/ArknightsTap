@@ -4,7 +4,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.os.Build
 import android.provider.Settings
 import com.icebem.akt.BuildConfig
 import com.icebem.akt.R
@@ -49,7 +48,6 @@ class PreferenceManager private constructor(context: Context) {
         private const val KEY_DOUBLE_SPEED = "double_speed"
         private const val KEY_VOLUME_CONTROL = "volume_control"
         private const val KEY_NO_BACKGROUND = "no_background"
-        private const val KEY_ROOT_MODE = "root_mode"
         private const val KEY_HEADHUNT_COUNT_NORMAL = "headhunt_count"
         private const val KEY_HEADHUNT_COUNT_LIMITED = "headhunt_count_limited"
         private const val TIMER_POSITION = 1
@@ -98,10 +96,6 @@ class PreferenceManager private constructor(context: Context) {
         get() = preferences.getBoolean(KEY_PRO, false)
         set(pro) {
             preferences.edit().putBoolean(KEY_PRO, pro).apply()
-            if (pro && Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                preferences.edit().putBoolean(KEY_ROOT_MODE, true).apply()
-                CompatOperations.checkRootPermission()
-            }
             applicationContext.packageManager.setComponentEnabledSetting(ComponentName(applicationContext, GestureService::class.java.name), if (pro) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP)
         }
 
@@ -262,7 +256,6 @@ class PreferenceManager private constructor(context: Context) {
     val updateTime: Long get() = RandomUtil.randomTime(if (doubleSpeed) UPDATE_TIME shr 1 else UPDATE_TIME)
     val volumeControl: Boolean get() = preferences.getBoolean(KEY_VOLUME_CONTROL, true)
     val noBackground: Boolean get() = preferences.getBoolean(KEY_NO_BACKGROUND, false)
-    val rootMode: Boolean get() = preferences.getBoolean(KEY_ROOT_MODE, false)
 
     fun setHeadhuntCount(count: Int, limited: Boolean) = preferences.edit().putInt(if (limited) KEY_HEADHUNT_COUNT_LIMITED else KEY_HEADHUNT_COUNT_NORMAL, count).apply()
     fun getHeadhuntCount(limited: Boolean): Int = preferences.getInt(if (limited) KEY_HEADHUNT_COUNT_LIMITED else KEY_HEADHUNT_COUNT_NORMAL, 0)

@@ -28,8 +28,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    val list by lazy { arrayListOf<Int>() }
-    val array by lazy {
+    private val list by lazy { arrayListOf<Int>() }
+    private val array by lazy {
         try {
             DataUtil.getSloganData(this)
         } catch (e: Exception) {

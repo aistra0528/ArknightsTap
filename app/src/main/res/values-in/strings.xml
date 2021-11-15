@@ -89,8 +89,6 @@
     <string name="no_background_title">Mengurangi penggunaan memori</string>
     <string name="no_background_summary">Dimulai ketika membuka Aksesibilitas, dan menghentikan fitur aksesibilitas setelah selesai.</string>
     <string name="free_android">ArkTap adalah perangkat lunak bebas.</string>
-    <string name="root_mode_title">mode Root</string>
-    <string name="root_mode_summary">Kompatibel dengan perangkat Android 7.0 keatas</string>
     <string name="root_mode_msg">Akses root diperlukan</string>
     <string name="action_details">Detail</string>
     <string name="msg_network_error">Tidak dapat tersambung ke server.\nUlangi lagi nanti.</string>

@@ -63,12 +63,15 @@ class GestureService : AccessibilityService() {
         super.onServiceConnected()
         manager = PreferenceManager.getInstance(this)
         if (!manager.isActivated) manager.setActivatedId()
-        if (CompatOperations.requireOverlayPermission(this) || manager.unsupportedResolution) {
+        if (manager.unsupportedResolution || CompatOperations.requireRootPermission() || CompatOperations.requireOverlayPermission(this)) {
             disableSelfCompat()
-            if (CompatOperations.requireOverlayPermission(this)) {
+            if (manager.unsupportedResolution) {
+                OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT)
+            } else {
                 Toast.makeText(this, R.string.state_permission_request, Toast.LENGTH_SHORT).show()
-                startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-            } else if (manager.unsupportedResolution) OverlayToast.show(this, R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT)
+                if (CompatOperations.requireOverlayPermission(this))
+                    startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            }
             return
         }
         handler = Handler(Looper.getMainLooper())
@@ -85,7 +88,6 @@ class GestureService : AccessibilityService() {
 
     private fun startAction() {
         running = true
-        if (manager.rootMode) CompatOperations.checkRootPermission()
         if (manager.launchGame) launchGame()
         if (thread == null || !thread!!.isAlive) thread = Thread({ performGestures() }, THREAD_GESTURE)
         if (!thread!!.isAlive) thread!!.start()

@@ -89,8 +89,6 @@
     <string name="no_background_title">减少内存占用</string>
     <string name="no_background_summary">打开无障碍后开始，结束后关闭无障碍</string>
     <string name="free_android">ArkTap is a free software.</string>
-    <string name="root_mode_title">Root モード</string>
-    <string name="root_mode_summary">Android 7.0 以下のデバイスへの下位互換性</string>
     <string name="root_mode_msg">Root is required.</string>
     <string name="action_details">詳細情報</string>
     <string name="msg_network_error">サーバーへの接続エラー。\n少しく時間が経ってから再度お試しください。</string>

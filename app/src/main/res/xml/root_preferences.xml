@@ -65,10 +65,5 @@
             app:key="no_background"
             app:summary="@string/no_background_summary"
             app:title="@string/no_background_title" />
-
-        <SwitchPreferenceCompat
-            app:key="root_mode"
-            app:summary="@string/root_mode_summary"
-            app:title="@string/root_mode_title" />
     </PreferenceCategory>
 </PreferenceScreen>

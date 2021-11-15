@@ -13,7 +13,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preference = findPreference<Preference>(when {
             !PreferenceManager.getInstance(requireContext()).isPro -> "gesture_category"
             Build.VERSION.SDK_INT < Build.VERSION_CODES.N -> "no_background"
-            else -> "root_mode"
+            else -> ""
         })
         preference?.isVisible = false
     }
