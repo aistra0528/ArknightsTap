@@ -11,8 +11,8 @@ android {
         applicationId = "com.icebem.akt"
         minSdk = 21
         targetSdk = 30
-        versionCode = 61
-        versionName = "2.10.2"
+        versionCode = 62
+        versionName = "2.10.3"
         resourceConfigurations += arrayOf("zh-rCN", "en", "ja", "in")
     }
     signingConfigs {
@@ -25,11 +25,11 @@ android {
         }
     }
     buildTypes {
-        getByName("debug") {
+        debug {
             versionNameSuffix = "-Lune-${`java.text`.SimpleDateFormat("yyyyMMdd").format(System.currentTimeMillis())}"
             signingConfig = signingConfigs.getByName("release")
         }
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             isShrinkResources = true
             signingConfig = signingConfigs.getByName("release")
@@ -42,6 +42,13 @@ android {
                 outputFileName = "ArkTap-v$versionName.apk"
         }
     }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
     buildFeatures {
         viewBinding = false
         dataBinding = false
@@ -50,20 +57,12 @@ android {
         includeInApk = false
         includeInBundle = false
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31")
-    implementation("androidx.annotation:annotation:1.2.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.0.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")

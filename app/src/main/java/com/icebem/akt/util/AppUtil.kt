@@ -7,12 +7,10 @@ import com.icebem.akt.R
 
 object AppUtil {
     const val THREAD_UPDATE = "update"
-    const val MARKET_COOLAPK = "com.coolapk.market"
     const val DATE_FORMAT = "yyyy-MM-dd HH:mm"
-    const val URL_ALIPAY_API = "intent://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx02922ajwj6xekqyd1rbf#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end"
+    const val URL_ALIPAY_API = "alipays://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx02922ajwj6xekqyd1rbf"
     const val URL_PAYPAL = "https://paypal.me/aistra0528"
-    const val URL_QQ_API = "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DN_OjFuCOkERq58jO2KoJEDD2a48vzB53"
-    const val URL_MARKET = "market://details?id=${BuildConfig.APPLICATION_ID}"
+    const val URL_QQ_API = "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Fk%3DN_OjFuCOkERq58jO2KoJEDD2a48vzB53"
     const val URL_PROJECT = "https://github.com/aistra0528/ArknightsTap"
     const val URL_COOLAPK = "https://www.coolapk.com/apk/${BuildConfig.APPLICATION_ID}"
     const val URL_FREE_ANDROID = "https://www.gnu.org/philosophy/free-software-even-more-important.html"

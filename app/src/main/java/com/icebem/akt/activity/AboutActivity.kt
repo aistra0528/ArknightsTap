@@ -76,11 +76,8 @@ class AboutActivity : AppCompatActivity() {
                     create().show()
                 }
             }
-            R.id.container_comment -> {
-                var intent = Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_MARKET)).setPackage(AppUtil.MARKET_COOLAPK)
-                if (intent.resolveActivity(packageManager) == null) intent = Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_COOLAPK))
-                startActivity(intent)
-            }
+            R.id.container_comment ->
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_COOLAPK)))
             R.id.container_discuss -> {
                 intent = Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_QQ_API))
                 if (intent.resolveActivity(packageManager) == null) intent.data = Uri.parse(AppUtil.URL_PROJECT)

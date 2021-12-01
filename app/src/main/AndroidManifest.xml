@@ -9,8 +9,6 @@
         <package android:name="com.YoStarEN.Arknights" />
         <package android:name="com.YoStarJP.Arknights" />
         <package android:name="com.YoStarKR.Arknights" />
-        <package android:name="com.coolapk.market" />
-
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="mqqopensdkapi" />
@@ -46,6 +44,7 @@
             android:name=".activity.AboutActivity"
             android:label="@string/title_about"
             android:launchMode="singleTop"
+            android:exported="false"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar.TransparentStatusBar" />
 
@@ -78,7 +77,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.icebem.akt.fileprovider"
+            android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
