@@ -91,15 +91,184 @@
   {"star":5,"name":"Executor*","nameCN":"送葬人","nameTW":"送葬人*","nameJP":"イグゼキュター*","nameKR":"送葬人*","type":"Sniper","tags":["Ranged","AoE"]},
   {"star":6,"name":"Magallan*","nameCN":"麦哲伦","nameTW":"麦哲伦*","nameJP":"マゼラン*","nameKR":"麦哲伦*","type":"Supporter","tags":["Ranged","Support","Slow","DPS"]},
   {"star":4,"name":"Purestream*","nameCN":"清流","nameTW":"清流*","nameJP":"セイリュウ*","nameKR":"清流*","type":"Medic","tags":["Ranged","Healing","Support"]},
-  {"star":4,"name":"May*","nameCN":"梅","nameTW":"梅*","nameJP":"メイ*","nameKR":"梅*","type":"Sniper","tags":["Ranged","DPS","Slow"]},
-  {"star":5,"name":"Waai Fu*","nameCN":"槐琥","nameTW":"槐琥*","nameJP":"ワイフー*","nameKR":"槐琥*","type":"Specialist","tags":["Melee","Fast-Redeploy","Debuff"]},
-  {"star":6,"name":"Mostima*","nameCN":"莫斯提马","nameTW":"莫斯提马*","nameJP":"モスティマ*","nameKR":"莫斯提马*","type":"Caster","tags":["Ranged","AoE","Support","Crowd-Control"]},
-  {"star":4,"name":"Ambriel*","nameCN":"安比尔","nameTW":"安比尔*","nameJP":"アンブリエル*","nameKR":"安比尔*","type":"Sniper","tags":["Ranged","DPS","Slow"]},
-  {"star":5,"name":"Broca*","nameCN":"布洛卡","nameTW":"布洛卡*","nameJP":"ブローカ*","nameKR":"布洛卡*","type":"Guard","tags":["Melee","AoE","Survival"]},
-  {"star":5,"name":"Reed*","nameCN":"苇草","nameTW":"苇草*","nameJP":"リード*","nameKR":"苇草*","type":"Vanguard","tags":["Melee","DP-Recovery","DPS"]},
-  {"star":5,"name":"GreyThroat*","nameCN":"灰喉","nameTW":"灰喉*","nameJP":"グレースロート*","nameKR":"灰喉*","type":"Sniper","tags":["Ranged","DPS"]},
-  {"star":6,"name":"Blaze*","nameCN":"煌","nameTW":"煌*","nameJP":"ブレイズ*","nameKR":"煌*","type":"Guard","tags":["Melee","DPS","Survival"]},
-  {"star":1,"name":"\"Justice Knight\"*","nameCN":"正义骑士号","nameTW":"正义骑士号*","nameJP":"正义骑士号*","nameKR":"正义骑士号*","type":"Sniper","tags":["Ranged","Support"]},
-  {"star":5,"name":"Hung*","nameCN":"吽","nameTW":"吽*","nameJP":"ウン*","nameKR":"吽*","type":"Defender","tags":["Melee","Defense","Healing"]},
-  {"star":6,"name":"Aak*","nameCN":"阿","nameTW":"阿*","nameJP":"ア*","nameKR":"阿*","type":"Specialist","tags":["Ranged","Support","DPS"]}
+  {
+    "star": 4,
+    "name": "May*",
+    "nameCN": "梅",
+    "nameTW": "梅*",
+    "nameJP": "メイ*",
+    "nameKR": "梅*",
+    "type": "Sniper",
+    "tags": [
+      "Ranged",
+      "DPS",
+      "Slow"
+    ]
+  },
+  {
+    "star": 5,
+    "name": "Waai Fu*",
+    "nameCN": "槐琥",
+    "nameTW": "槐琥*",
+    "nameJP": "ワイフー*",
+    "nameKR": "槐琥*",
+    "type": "Specialist",
+    "tags": [
+      "Melee",
+      "Fast-Redeploy",
+      "Debuff"
+    ]
+  },
+  {
+    "star": 6,
+    "name": "Mostima*",
+    "nameCN": "莫斯提马",
+    "nameTW": "莫斯提马*",
+    "nameJP": "モスティマ*",
+    "nameKR": "莫斯提马*",
+    "type": "Caster",
+    "tags": [
+      "Ranged",
+      "AoE",
+      "Support",
+      "Crowd-Control"
+    ]
+  },
+  {
+    "star": 4,
+    "name": "Ambriel*",
+    "nameCN": "安比尔",
+    "nameTW": "安比尔*",
+    "nameJP": "アンブリエル*",
+    "nameKR": "安比尔*",
+    "type": "Sniper",
+    "tags": [
+      "Ranged",
+      "DPS",
+      "Slow"
+    ]
+  },
+  {
+    "star": 5,
+    "name": "Broca*",
+    "nameCN": "布洛卡",
+    "nameTW": "布洛卡*",
+    "nameJP": "ブローカ*",
+    "nameKR": "布洛卡*",
+    "type": "Guard",
+    "tags": [
+      "Melee",
+      "AoE",
+      "Survival"
+    ]
+  },
+  {
+    "star": 5,
+    "name": "Reed*",
+    "nameCN": "苇草",
+    "nameTW": "苇草*",
+    "nameJP": "リード*",
+    "nameKR": "苇草*",
+    "type": "Vanguard",
+    "tags": [
+      "Melee",
+      "DP-Recovery",
+      "DPS"
+    ]
+  },
+  {
+    "star": 5,
+    "name": "GreyThroat*",
+    "nameCN": "灰喉",
+    "nameTW": "灰喉*",
+    "nameJP": "グレースロート*",
+    "nameKR": "灰喉*",
+    "type": "Sniper",
+    "tags": [
+      "Ranged",
+      "DPS"
+    ]
+  },
+  {
+    "star": 6,
+    "name": "Blaze*",
+    "nameCN": "煌",
+    "nameTW": "煌*",
+    "nameJP": "ブレイズ*",
+    "nameKR": "煌*",
+    "type": "Guard",
+    "tags": [
+      "Melee",
+      "DPS",
+      "Survival"
+    ]
+  },
+  {
+    "star": 1,
+    "name": "\"Justice Knight\"*",
+    "nameCN": "正义骑士号",
+    "nameTW": "正义骑士号*",
+    "nameJP": "正义骑士号*",
+    "nameKR": "正义骑士号*",
+    "type": "Sniper",
+    "tags": [
+      "Ranged",
+      "Support"
+    ]
+  },
+  {
+    "star": 5,
+    "name": "Hung*",
+    "nameCN": "吽",
+    "nameTW": "吽*",
+    "nameJP": "ウン*",
+    "nameKR": "吽*",
+    "type": "Defender",
+    "tags": [
+      "Melee",
+      "Defense",
+      "Healing"
+    ]
+  },
+  {
+    "star": 6,
+    "name": "Aak*",
+    "nameCN": "阿",
+    "nameTW": "阿*",
+    "nameJP": "ア*",
+    "nameKR": "阿*",
+    "type": "Specialist",
+    "tags": [
+      "Ranged",
+      "Support",
+      "DPS"
+    ]
+  },
+  {
+    "star": 5,
+    "name": "Leizi*",
+    "nameCN": "惊蛰",
+    "nameTW": "惊蛰*",
+    "nameJP": "レイズ*",
+    "nameKR": "惊蛰*",
+    "type": "Caster",
+    "tags": [
+      "Ranged",
+      "DPS"
+    ]
+  },
+  {
+    "star": 6,
+    "name": "Ceobe*",
+    "nameCN": "刻俄柏",
+    "nameTW": "刻俄柏*",
+    "nameJP": "ケオベ*",
+    "nameKR": "刻俄柏*",
+    "type": "Caster",
+    "tags": [
+      "Ranged",
+      "DPS",
+      "Crowd-Control"
+    ]
+  }
 ]
