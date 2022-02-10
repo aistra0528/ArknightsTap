@@ -1,0 +1,12 @@
+<h3>Features</h3>
+<h4>ARSS™</h4>
+<p>You can use it in game by a floating window.</p>
+<h4>Recruit Guide</h4>
+<p>Show possible operators in recruitment and help you choose the best combination of tags.</p>
+<h4>Headhunt Counter</h4>
+<p>Count the rolls of headhunt and show the possibility of 6★.</p>
+<h4>Material Guide</h4>
+<p>Recommend missions of elite materials.</p>
+<h4>ARGS™</h4>
+<p><strong>Tap Version type 15 times in About to unlock this service</strong></p>
+<p>Tap the mission start button automatically. In that way you can put down your phone and do something more meaningful.</p>
