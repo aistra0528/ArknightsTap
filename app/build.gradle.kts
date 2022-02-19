@@ -11,8 +11,8 @@ android {
         applicationId = "com.icebem.akt"
         minSdk = 21
         targetSdk = 30
-        versionCode = 62
-        versionName = "2.10.3"
+        versionCode = 63
+        versionName = "2.10.4"
         resourceConfigurations += arrayOf("zh-rCN", "en", "ja", "in")
     }
     signingConfigs {
@@ -60,15 +60,15 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.core:core-ktx:1.7.0")
     /** @Deprecated */
-    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.0.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
-    implementation("androidx.preference:preference-ktx:1.1.1")
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.0")
+    implementation("androidx.preference:preference-ktx:1.2.0")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
-    implementation("com.google.android.material:material:1.4.0")
+    implementation("com.google.android.material:material:1.5.0")
 }
