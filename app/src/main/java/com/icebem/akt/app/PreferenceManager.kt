@@ -11,7 +11,6 @@ import com.icebem.akt.service.GestureService
 import com.icebem.akt.util.DataUtil
 import com.icebem.akt.util.RandomUtil
 import org.json.JSONObject
-import java.util.*
 
 class PreferenceManager private constructor(context: Context) {
     val applicationContext: Context = context.applicationContext
@@ -162,7 +161,7 @@ class PreferenceManager private constructor(context: Context) {
             val selected = preferences.getString(KEY_GAME_SERVER, null)
             if (selected != null && applicationContext.packageManager.getLaunchIntentForPackage(selected) != null) return selected
             for (installed in availablePackages) return installed
-            return null
+            return selected
         }
     val gamePackagePosition: Int
         get() {
