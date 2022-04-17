@@ -103,5 +103,8 @@
   {"star":5,"name":"Hung*","nameCN":"吽","nameTW":"吽*","nameJP":"ウン*","nameKR":"吽*","type":"Defender","tags":["Melee","Defense","Healing"]},
   {"star":6,"name":"Aak*","nameCN":"阿","nameTW":"阿*","nameJP":"ア*","nameKR":"阿*","type":"Specialist","tags":["Ranged","Support","DPS"]},
   {"star":5,"name":"Leizi*","nameCN":"惊蛰","nameTW":"惊蛰*","nameJP":"レイズ*","nameKR":"惊蛰*","type":"Caster","tags":["Ranged","DPS"]},
-  {"star":6,"name":"Ceobe*","nameCN":"刻俄柏","nameTW":"刻俄柏*","nameJP":"ケオベ*","nameKR":"刻俄柏*","type":"Caster","tags":["Ranged","DPS","Crowd-Control"]}
+  {"star":6,"name":"Ceobe*","nameCN":"刻俄柏","nameTW":"刻俄柏*","nameJP":"ケオベ*","nameKR":"刻俄柏*","type":"Caster","tags":["Ranged","DPS","Crowd-Control"]},
+  {"star":4,"name":"Utage*","nameCN":"宴","nameTW":"宴*","nameJP":"ウタゲ*","nameKR":"宴*","type":"Guard","tags":["Melee","DPS","Survival"]},
+  {"star":5,"name":"Sesa*","nameCN":"慑砂","nameTW":"慑砂*","nameJP":"シェーシャ*","nameKR":"慑砂*","type":"Sniper","tags":["Ranged","AoE","Debuff"]},
+  {"star":6,"name":"Bagpipe*","nameCN":"风笛","nameTW":"风笛*","nameJP":"バグパイプ*","nameKR":"风笛*","type":"Vanguard","tags":["Melee","DP-Recovery","DPS"]}
 ]
