@@ -52,6 +52,12 @@
         app:title="@string/gesture_label">
 
         <SwitchPreferenceCompat
+            app:key="green_point"
+            app:summary="@string/green_point_summary"
+            app:title="@string/green_point_title" />
+
+        <SwitchPreferenceCompat
+            app:dependency="green_point"
             app:key="double_speed"
             app:summary="@string/double_speed_summary"
             app:title="@string/double_speed_title" />

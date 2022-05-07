@@ -101,4 +101,6 @@
     <string name="volume_control">Tekan Volume bawah untuk menghentikan</string>
     <string name="customize_points">Kustomisasi Points</string>
     <string name="wrong_format">Format Salah</string>
+    <string name="green_point_title">额外点击坐标</string>
+    <string name="green_point_summary">防止嗑药碎石和结算循环</string>
 </resources>

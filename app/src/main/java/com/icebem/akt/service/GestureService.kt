@@ -123,7 +123,7 @@ class GestureService : AccessibilityService() {
                 when (process) {
                     0 -> CompatOperations.performClick(this, manager.blueX, manager.blueY)
                     2 -> CompatOperations.performClick(this, manager.redX, manager.redY)
-                    else -> CompatOperations.performClick(this, manager.greenX, manager.greenY)
+                    else -> if (manager.greenPoint) CompatOperations.performClick(this, manager.greenX, manager.greenY)
                 }
                 if (++process > 4) process = 0
                 SystemClock.sleep(manager.updateTime)

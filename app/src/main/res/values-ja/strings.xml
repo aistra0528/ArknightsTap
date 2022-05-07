@@ -101,4 +101,6 @@
     <string name="volume_control">Volume down to stop</string>
     <string name="customize_points">Customize points</string>
     <string name="wrong_format">Wrong format</string>
+    <string name="green_point_title">额外点击坐标</string>
+    <string name="green_point_summary">防止嗑药碎石和结算循环</string>
 </resources>

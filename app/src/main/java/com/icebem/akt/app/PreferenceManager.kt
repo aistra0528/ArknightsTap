@@ -44,6 +44,7 @@ class PreferenceManager private constructor(context: Context) {
         private const val KEY_SCROLL_TO_RESULT = "scroll_to_result"
         private const val KEY_RECRUIT_PREVIEW = "recruit_preview"
         private const val KEY_CUSTOMIZE_POINTS = "customize_points"
+        private const val KEY_GREEN_POINT = "green_point"
         private const val KEY_DOUBLE_SPEED = "double_speed"
         private const val KEY_VOLUME_CONTROL = "volume_control"
         private const val KEY_NO_BACKGROUND = "no_background"
@@ -251,6 +252,7 @@ class PreferenceManager private constructor(context: Context) {
             return true
         }
 
+    val greenPoint: Boolean get() = preferences.getBoolean(KEY_GREEN_POINT, false)
     private val doubleSpeed: Boolean get() = preferences.getBoolean(KEY_DOUBLE_SPEED, false)
     val updateTime: Long get() = RandomUtil.randomTime(if (doubleSpeed) UPDATE_TIME shr 1 else UPDATE_TIME)
     val volumeControl: Boolean get() = preferences.getBoolean(KEY_VOLUME_CONTROL, true)

@@ -109,4 +109,6 @@
     <string name="volume_control">音量键-结束</string>
     <string name="customize_points">自定义坐标</string>
     <string name="wrong_format">格式有误</string>
+    <string name="green_point_title">额外点击坐标</string>
+    <string name="green_point_summary">防止嗑药碎石和结算循环</string>
 </resources>
