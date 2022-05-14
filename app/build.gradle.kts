@@ -6,13 +6,14 @@ plugins {
 android {
     compileSdk = 31
     buildToolsVersion = "31.0.0"
+    namespace = "com.icebem.akt"
 
     defaultConfig {
         applicationId = "com.icebem.akt"
         minSdk = 21
         targetSdk = 30
-        versionCode = 63
-        versionName = "2.10.4"
+        versionCode = 64
+        versionName = "2.10.5"
         resourceConfigurations += arrayOf("zh-rCN", "en", "ja", "in")
     }
     signingConfigs {
