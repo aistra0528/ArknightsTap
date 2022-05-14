@@ -10,7 +10,7 @@
       {
         "mission": "S2-5",
         "sanity": 12,
-        "frequency": 3.695
+        "frequency": 3.672
       }
     ],
     "workshop": []
@@ -26,7 +26,7 @@
       {
         "mission": "1-7",
         "sanity": 6,
-        "frequency": 1.244
+        "frequency": 1.245
       }
     ],
     "workshop": []
@@ -72,7 +72,7 @@
       {
         "mission": "S2-6",
         "sanity": 12,
-        "frequency": 2.455
+        "frequency": 2.466
       }
     ],
     "workshop": []
@@ -88,7 +88,7 @@
       {
         "mission": "S3-1",
         "sanity": 15,
-        "frequency": 1.517
+        "frequency": 1.518
       }
     ],
     "workshop": []
@@ -104,7 +104,7 @@
       {
         "mission": "2-5",
         "sanity": 12,
-        "frequency": 0.367
+        "frequency": 0.368
       }
     ],
     "workshop": []
@@ -143,7 +143,7 @@
       {
         "mission": "S2-7",
         "sanity": 12,
-        "frequency": 2.541
+        "frequency": 2.537
       }
     ],
     "workshop": []
@@ -157,14 +157,14 @@
     "nameKR": "폴리에스테르",
     "stages": [
       {
-        "mission": "1-8",
-        "sanity": 9,
-        "frequency": 0.909
+      "mission": "S3-2",
+      "sanity": 15,
+      "frequency": 1.515
       },
       {
-        "mission": "S3-2",
-        "sanity": 15,
-        "frequency": 1.516
+        "mission": "1-8",
+        "sanity": 9,
+        "frequency": 0.893
       }
     ],
     "workshop": []
@@ -180,12 +180,12 @@
       {
         "mission": "7-4",
         "sanity": 18,
-        "frequency": 0.555
+        "frequency": 0.554
       },
       {
         "mission": "2-6",
         "sanity": 12,
-        "frequency": 0.363
+        "frequency": 0.364
       }
     ],
     "workshop": []
@@ -222,14 +222,14 @@
     "nameKR": "이철 조각",
     "stages": [
       {
-        "mission": "1-3",
-        "sanity": 6,
-        "frequency": 0.962
-      },
-      {
         "mission": "S2-8",
         "sanity": 12,
-        "frequency": 1.909
+        "frequency": 1.925
+      },
+      {
+        "mission": "1-3",
+        "sanity": 6,
+        "frequency": 0.946
       }
     ],
     "workshop": []
@@ -245,7 +245,7 @@
       {
         "mission": "S3-3",
         "sanity": 15,
-        "frequency": 1.223
+        "frequency": 1.225
       }
     ],
     "workshop": []
@@ -259,9 +259,9 @@
     "nameKR": "이철 번들",
     "stages": [
       {
-        "mission": "7-18",
-        "sanity": 21,
-        "frequency": 0.398
+        "mission": "10-11",
+        "sanity": 24,
+        "frequency": 0.468
       },
       {
         "mission": "2-8",
@@ -305,12 +305,12 @@
       {
         "mission": "S2-9",
         "sanity": 12,
-        "frequency": 1.950
+        "frequency": 1.936
       },
       {
         "mission": "1-6",
         "sanity": 6,
-        "frequency": 0.860
+        "frequency": 0.871
       }
     ],
     "workshop": []
@@ -324,9 +324,14 @@
     "nameKR": "아케톤 응집체",
     "stages": [
       {
+        "mission": "10-9",
+        "sanity": 21,
+        "frequency": 1.739
+      },
+      {
         "mission": "3-7",
         "sanity": 15,
-        "frequency": 1.225
+        "frequency": 1.220
       }
     ],
     "workshop": []
@@ -340,9 +345,13 @@
     "nameKR": "아케톤 응집체 번들",
     "stages": [
       {
+        "mission": "10-4",
+        "sanity": 21,
+        "frequency": 0.525
+      },{
         "mission": "JT8-3",
         "sanity": 18,
-        "frequency": 0.448
+        "frequency": 0.449
       },
       {
         "mission": "3-1",
@@ -384,14 +393,14 @@
     "nameKR": "파손된 장치",
     "stages": [
       {
-        "mission": "1-5",
-        "sanity": 6,
-        "frequency": 0.735
-      },
-      {
         "mission": "2-3",
         "sanity": 12,
-        "frequency": 1.448
+        "frequency": 1.454
+      },
+      {
+        "mission": "1-5",
+        "sanity": 6,
+        "frequency": 0.717
       }
     ],
     "workshop": []
@@ -407,12 +416,12 @@
       {
         "mission": "S3-4",
         "sanity": 15,
-        "frequency": 0.916
+        "frequency": 0.923
       },
       {
         "mission": "1-12",
         "sanity": 9,
-        "frequency": 0.516
+        "frequency": 0.509
       }
     ],
     "workshop": []
@@ -428,7 +437,7 @@
       {
         "mission": "9-10",
         "sanity": 18,
-        "frequency": 0.337
+        "frequency": 0.333
       },
       {
         "mission": "7-15",
@@ -438,7 +447,7 @@
       {
         "mission": "3-4",
         "sanity": 15,
-        "frequency": 0.273
+        "frequency": 0.274
       }
     ],
     "workshop": []
@@ -477,12 +486,12 @@
       {
         "mission": "6-11",
         "sanity": 21,
-        "frequency": 0.492
+        "frequency": 0.491
       },
       {
         "mission": "2-9",
         "sanity": 12,
-        "frequency": 0.263
+        "frequency": 0.262
       }
     ],
     "workshop": []
@@ -519,14 +528,14 @@
     "nameKR": "망간 광석",
     "stages": [
       {
+        "mission": "10-16",
+        "sanity": 21,
+        "frequency": 0.548
+      },
+      {
         "mission": "3-2",
         "sanity": 15,
         "frequency": 0.369
-      },
-      {
-        "mission": "7-16",
-        "sanity": 18,
-        "frequency": 0.436
       }
     ],
     "workshop": []
@@ -563,9 +572,9 @@
     "nameKR": "연마석",
     "stages": [
       {
-        "mission": "9-16",
-        "sanity": 18,
-        "frequency": 0.384
+        "mission": "10-12",
+        "sanity": 21,
+        "frequency": 0.452
       },
       {
         "mission": "3-3",
@@ -607,14 +616,19 @@
     "nameKR": "RMA70-12",
     "stages": [
       {
+        "mission": "10-5",
+        "sanity": 21,
+        "frequency": 0.425
+      },
+      {
         "mission": "9-19",
         "sanity": 21,
-        "frequency": 0.406
+        "frequency": 0.411
       },
       {
         "mission": "R8-9",
         "sanity": 18,
-        "frequency": 0.344
+        "frequency": 0.343
       },
       {
         "mission": "7-10",
@@ -663,12 +677,22 @@
       {
         "mission": "JT8-2",
         "sanity": 21,
-        "frequency": 0.336
+        "frequency": 0.334
+      },
+      {
+        "mission": "R8-8",
+        "sanity": 18,
+        "frequency": 0.286
+      },
+      {
+        "mission": "10-3",
+        "sanity": 21,
+        "frequency": 0.333
       },
       {
         "mission": "S4-10",
         "sanity": 18,
-        "frequency": 0.280
+        "frequency": 0.281
       }
     ],
     "workshop": []
@@ -707,7 +731,7 @@
       {
         "mission": "S3-6",
         "sanity": 15,
-        "frequency": 0.399
+        "frequency": 0.400
       }
     ],
     "workshop": []
@@ -737,11 +761,11 @@
   },
   {
     "id": 31033,
-    "name": "晶体元件*",
+    "name": "Crystalline Component",
     "nameCN": "晶体元件",
     "nameTW": "晶体元件*",
-    "nameJP": "晶体元件*",
-    "nameKR": "晶体元件*",
+    "nameJP": "素子結晶",
+    "nameKR": "결정 부품",
     "stages": [
       {
         "mission": "R8-11",
@@ -751,7 +775,7 @@
       {
         "mission": "9-14",
         "sanity": 21,
-        "frequency": 0.500
+        "frequency": 0.516
       },
       {
         "mission": "S5-9",
@@ -761,18 +785,18 @@
       {
         "mission": "S3-7",
         "sanity": 18,
-        "frequency": 0.258
+        "frequency": 0.261
       }
     ],
     "workshop": []
   },
   {
     "id": 31034,
-    "name": "晶体电路*",
+    "name": "Crystalline Circuit",
     "nameCN": "晶体电路",
     "nameTW": "晶体电路*",
-    "nameJP": "晶体电路*",
-    "nameKR": "晶体电路*",
+    "nameJP": "結晶回路",
+    "nameKR": "결정 회로",
     "stages": [],
     "workshop": [
       {
@@ -791,16 +815,16 @@
   },
   {
     "id": 31043,
-    "name": "半自然溶剂*",
+    "name": "Semi-Synthetic Solvent",
     "nameCN": "半自然溶剂",
     "nameTW": "半自然溶剂*",
-    "nameJP": "半自然溶剂*",
-    "nameKR": "半自然溶剂*",
+    "nameJP": "半自然溶剤",
+    "nameKR": "반합성 용제",
     "stages": [
       {
         "mission": "9-18",
         "sanity": 21,
-        "frequency": 0.333
+        "frequency": 0.330
       },
       {
         "mission": "9-4",
@@ -812,11 +836,11 @@
   },
   {
     "id": 31044,
-    "name": "精炼溶剂*",
+    "name": "Refined Solvent",
     "nameCN": "精炼溶剂",
     "nameTW": "精炼溶剂*",
-    "nameJP": "精炼溶剂*",
-    "nameKR": "精炼溶剂*",
+    "nameJP": "精錬溶剤",
+    "nameKR": " 정제된 용제",
     "stages": [],
     "workshop": [
       {
@@ -835,27 +859,27 @@
   },
   {
     "id": 31053,
-    "name": "化合切削液*",
+    "name": "Cutting Fluid",
     "nameCN": "化合切削液",
     "nameTW": "化合切削液*",
-    "nameJP": "化合切削液*",
-    "nameKR": "化合切削液*",
+    "nameJP": "切削液",
+    "nameKR": "중합 적살유",
     "stages": [
       {
-        "mission": "9-6",
-        "sanity": 18,
-        "frequency": 0.268
+        "mission": "10-17",
+        "sanity": 24,
+        "frequency": 0.579
       }
     ],
     "workshop": []
   },
   {
     "id": 31054,
-    "name": "切削原液*",
+    "name": "Fluid Solution",
     "nameCN": "切削原液",
     "nameTW": "切削原液*",
-    "nameJP": "切削原液*",
-    "nameKR": "切削原液*",
+    "nameJP": "上級切削液",
+    "nameKR": "절삭유 원액",
     "stages": [],
     "workshop": [
       {
