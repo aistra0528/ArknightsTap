@@ -72,7 +72,7 @@ class PreferenceManager private constructor(context: Context) {
                 DataUtil.updateData(applicationContext, null)
                 setVersionCode()
                 setVersionName()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
         }
     }
@@ -213,7 +213,7 @@ class PreferenceManager private constructor(context: Context) {
                 preferences.edit().putString(KEY_CUSTOMIZE_POINTS, obj.toString()).apply()
                 return true
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
         }
         return false
     }
@@ -247,7 +247,7 @@ class PreferenceManager private constructor(context: Context) {
                         return false
                     }
                 }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
             return true
         }

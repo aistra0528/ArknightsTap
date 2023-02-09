@@ -12,7 +12,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.google.android.material.snackbar.Snackbar
@@ -28,14 +31,15 @@ import com.icebem.akt.util.IOUtil
 import org.json.JSONObject
 import java.io.IOException
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), MenuProvider {
     private var i = 0
     private lateinit var state: TextView
     private lateinit var stateImg: ImageView
     private lateinit var manager: PreferenceManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setHasOptionsMenu(true)
+        val menuHost = requireActivity() as MenuHost
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val tip = root.findViewById<TextView>(R.id.txt_tips)
         stateImg = root.findViewById(R.id.img_state)
@@ -65,8 +69,8 @@ class HomeFragment : Fragment() {
         return root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (manager.autoUpdate) startUpdateThread() else onStateEnd()
         if (manager.isPro) stateImg.setOnLongClickListener {
             AlertDialog.Builder(requireContext()).run {
@@ -123,7 +127,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_timer -> {
                 AlertDialog.Builder(requireContext()).run {
@@ -140,7 +144,7 @@ class HomeFragment : Fragment() {
             R.id.action_night -> AppCompatDelegate.setDefaultNightMode(if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM else AppCompatDelegate.MODE_NIGHT_YES)
             R.id.action_about -> startActivity(Intent(requireContext(), AboutActivity::class.java))
         }
-        return super.onOptionsItemSelected(item)
+        return false
     }
 
     private fun startUpdateThread() {
@@ -186,8 +190,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_home, menu)
         if (manager.isPro) menu.findItem(R.id.action_timer).isVisible = true
     }

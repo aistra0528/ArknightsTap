@@ -8,6 +8,7 @@
         <package android:name="com.YoStarEN.Arknights" />
         <package android:name="com.YoStarJP.Arknights" />
         <package android:name="com.YoStarKR.Arknights" />
+
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="mqqopensdkapi" />
@@ -22,16 +23,15 @@
     <application
         android:name=".app.BaseApplication"
         android:allowBackup="true"
-        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar.TransparentStatusBar"
-            android:exported="true">
+            android:theme="@style/AppTheme.NoActionBar.TransparentStatusBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -41,18 +41,18 @@
         </activity>
         <activity
             android:name=".activity.AboutActivity"
+            android:exported="false"
             android:label="@string/title_about"
             android:launchMode="singleTop"
-            android:exported="false"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar.TransparentStatusBar" />
 
         <service
             android:name=".service.GestureService"
             android:enabled="false"
+            android:exported="true"
             android:label="@string/gesture_label"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="true">
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
@@ -63,9 +63,9 @@
         </service>
         <service
             android:name=".service.QuickService"
+            android:exported="true"
             android:icon="@drawable/ic_akt"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
-            android:exported="true">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>

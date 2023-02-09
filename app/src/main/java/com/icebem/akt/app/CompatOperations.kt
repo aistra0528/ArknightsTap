@@ -101,7 +101,7 @@ object CompatOperations {
     private fun executeCommand(command: String): Boolean {
         try {
             return Runtime.getRuntime().exec("su -c $command").waitFor() == 0
-        } catch (e: Exception) {
+        } catch (_: Exception) {
         }
         return false
     }

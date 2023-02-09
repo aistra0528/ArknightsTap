@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:accessibilityFlags="flagRequestFilterKeyEvents"
     android:canPerformGestures="true"
     android:canRequestFilterKeyEvents="true"
-    android:description="@string/gesture_description" />
+    android:description="@string/gesture_description"
+    tools:targetApi="n" />

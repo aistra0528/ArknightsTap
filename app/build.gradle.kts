@@ -6,16 +6,16 @@ plugins {
 android {
     namespace = "com.icebem.akt"
     compileSdk = 33
-    buildToolsVersion = "33.0.0"
 
     defaultConfig {
         applicationId = "com.icebem.akt"
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 33
         versionCode = 64
         versionName = "2.10.5"
         resourceConfigurations += arrayOf("zh-rCN", "en", "ja", "in")
     }
+
     val signing = if (file("../signing.properties").exists()) {
         signingConfigs.create("release") {
             val props = `java.util`.Properties().apply { load(file("../signing.properties").reader()) }
@@ -36,18 +36,17 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    applicationVariants.all {
-        outputs.all {
-            (this as? com.android.build.gradle.internal.api.ApkVariantOutputImpl)
-                    ?.outputFileName = "ArkTap-v$versionName.apk"
+    applicationVariants.configureEach {
+        outputs.configureEach {
+            (this as? com.android.build.gradle.internal.api.ApkVariantOutputImpl)?.outputFileName = "ArkTap-v$versionName.apk"
         }
+    }
+    compileOptions {
+        sourceCompatibility(JavaVersion.VERSION_1_8)
+        targetCompatibility(JavaVersion.VERSION_1_8)
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
     dependenciesInfo {
         includeInApk = false
@@ -56,8 +55,7 @@ android {
 }
 
 dependencies {
-    val kotlinVersion: String by rootProject
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0")
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.core:core-ktx:1.8.0")
@@ -66,6 +64,4 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.0")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("com.google.android.material:material:1.6.1")
-    /** @Deprecated */
-    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
 }
