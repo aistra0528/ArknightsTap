@@ -12,12 +12,6 @@
     "tag": "2023-01-18"
   },
   {
-    "name": "material.json",
-    "compat": 61,
-    "version": 9,
-    "tag": "2022-05-14"
-  },
-  {
     "name": "resolution.json",
     "compat": 29,
     "version": 47,
@@ -26,7 +20,13 @@
   {
     "name": "slogan.json",
     "compat": 49,
-    "version": 8,
-    "tag": "2022-05-07"
+    "version": 9,
+    "tag": "2023-02-09"
+  },
+  {
+    "name": "material.json",
+    "compat": 61,
+    "version": 9,
+    "tag": "2022-05-14"
   }
 ]
