@@ -16,6 +16,7 @@ object AppUtil {
     const val URL_FREE_ANDROID = "https://www.gnu.org/philosophy/free-software-even-more-important.html"
     const val URL_RELEASE_LATEST = "https://github.com/aistra0528/ArknightsTap/releases/latest"
     const val URL_RELEASE_LATEST_API = "https://api.github.com/repos/aistra0528/ArknightsTap/releases/latest"
+    const val URL_PENGUIN_STATS = "https://penguin-stats.cn/"
 
     private fun showAlertDialog(context: Context, title: String, msg: String) {
         AlertDialog.Builder(context).run {

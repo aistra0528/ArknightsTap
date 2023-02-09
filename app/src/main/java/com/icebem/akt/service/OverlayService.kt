@@ -21,6 +21,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.IBinder
 import android.provider.Settings
 import android.util.Log
@@ -34,24 +35,23 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.icebem.akt.R
-import com.icebem.akt.adapter.MaterialAdapter
 import com.icebem.akt.app.*
 import com.icebem.akt.model.HeadhuntCounter
 import com.icebem.akt.model.RecruitViewer
 import com.icebem.akt.overlay.OverlayToast
 import com.icebem.akt.overlay.OverlayView
+import com.icebem.akt.util.AppUtil
 
 class OverlayService : Service() {
-    companion object {
+    /* companion object {
         private const val COUNT_SPAN = 6
-    }
+    } */
 
     private var screenSize = 0
-    private var mtlEnabled = false
+
+    // private var mtlEnabled = false
     private var viewer: RecruitViewer? = null
     private lateinit var manager: PreferenceManager
     private lateinit var current: OverlayView
@@ -59,7 +59,7 @@ class OverlayService : Service() {
     private lateinit var menu: OverlayView
     private lateinit var recruit: OverlayView
     private lateinit var counter: OverlayView
-    private lateinit var material: OverlayView
+    // private lateinit var material: OverlayView
 
     override fun onCreate() {
         super.onCreate()
@@ -67,7 +67,7 @@ class OverlayService : Service() {
         screenSize = ResolutionConfig.getAbsoluteHeight(this)
         manager = PreferenceManager.getInstance(this)
         createRecruitView()
-        createMaterialView()
+        // createMaterialView()
         createCounterView()
         createMenuView()
         current = menu
@@ -131,7 +131,7 @@ class OverlayService : Service() {
         }
     }
 
-    private fun createMaterialView() {
+    /* private fun createMaterialView() {
         material = OverlayView(this, R.layout.overlay_material)
         material.setGravity(Gravity.START or Gravity.TOP)
         material.setMobilizable(true)
@@ -151,7 +151,7 @@ class OverlayService : Service() {
             setOnClickListener { showTargetView(fab) }
             setOnLongClickListener { disableSelf() }
         }
-    }
+    } */
 
     private fun createMenuView() {
         menu = OverlayView(themeWrapper, R.layout.overlay_menu)
@@ -160,7 +160,10 @@ class OverlayService : Service() {
             elevation = resources.getDimensionPixelOffset(R.dimen.overlay_elevation).toFloat()
             findViewById<View>(R.id.action_recruit).setOnClickListener { if (viewer == null) OverlayToast.show(context, R.string.error_occurred, OverlayToast.LENGTH_SHORT) else showTargetView(recruit) }
             findViewById<View>(R.id.action_counter).setOnClickListener { showTargetView(counter) }
-            findViewById<View>(R.id.action_material).setOnClickListener { if (mtlEnabled) showTargetView(material) else OverlayToast.show(context, R.string.error_occurred, OverlayToast.LENGTH_SHORT) }
+            findViewById<View>(R.id.action_material).setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PENGUIN_STATS)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                showTargetView(fab)
+            }
             if (manager.isPro) {
                 findViewById<View>(R.id.action_gesture).run {
                     visibility = View.VISIBLE
@@ -171,8 +174,7 @@ class OverlayService : Service() {
                 }
             }
             findViewById<View>(R.id.action_collapse).setOnClickListener { showTargetView(fab) }
-            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-                findViewById<View>(R.id.img_collapse).backgroundTintList = ContextCompat.getColorStateList(context, R.color.colorSecondaryNight)
+            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) findViewById<View>(R.id.img_collapse).backgroundTintList = ContextCompat.getColorStateList(context, R.color.colorSecondaryNight)
             findViewById<View>(R.id.action_disconnect).setOnClickListener { stopSelf() }
         }
     }
@@ -262,7 +264,7 @@ class OverlayService : Service() {
         if (isPortrait) manager.setSpritePosition(fab.relativeX, fab.relativeY)
         setFabPosition(isPortrait)
         counter.setRelativePosition(0, 0)
-        material.setRelativePosition(0, 0)
+        // material.setRelativePosition(0, 0)
     }
 
     override fun onDestroy() {

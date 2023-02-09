@@ -1,5 +1,6 @@
 package com.icebem.akt.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
@@ -16,6 +17,8 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.google.android.material.snackbar.Snackbar
@@ -69,24 +72,30 @@ class HomeFragment : Fragment(), MenuProvider {
         return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if (manager.autoUpdate) startUpdateThread() else onStateEnd()
-        if (manager.isPro) stateImg.setOnLongClickListener {
-            AlertDialog.Builder(requireContext()).run {
-                setTitle(R.string.customize_points)
-                val edit = EditText(requireContext())
-                edit.append(manager.customizePoints)
-                setView(edit)
-                setPositiveButton(android.R.string.ok) { _, _ -> if (!manager.setCustomizePoints(edit.text.toString())) Snackbar.make(it, R.string.wrong_format, Snackbar.LENGTH_LONG).show() }
-                setNeutralButton(R.string.action_reset) { _, _ -> manager.setCustomizePoints(null) }
-                setNegativeButton(android.R.string.cancel, null)
-                create().show()
-                val margin = requireContext().resources.getDimensionPixelOffset(R.dimen.activity_margin)
-                (edit.layoutParams as ViewGroup.MarginLayoutParams).setMargins(margin, 0, margin, 0)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().lifecycle.addObserver(object : LifecycleEventObserver {
+            override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                if (event.targetState != Lifecycle.State.CREATED) return
+                if (manager.autoUpdate) startUpdateThread() else onStateEnd()
+                if (manager.isPro) stateImg.setOnLongClickListener {
+                    AlertDialog.Builder(requireContext()).run {
+                        setTitle(R.string.customize_points)
+                        val edit = EditText(requireContext())
+                        edit.append(manager.customizePoints)
+                        setView(edit)
+                        setPositiveButton(android.R.string.ok) { _, _ -> if (!manager.setCustomizePoints(edit.text.toString())) Snackbar.make(it, R.string.wrong_format, Snackbar.LENGTH_LONG).show() }
+                        setNeutralButton(R.string.action_reset) { _, _ -> manager.setCustomizePoints(null) }
+                        setNegativeButton(android.R.string.cancel, null)
+                        create().show()
+                        val margin = requireContext().resources.getDimensionPixelOffset(R.dimen.activity_margin)
+                        (edit.layoutParams as ViewGroup.MarginLayoutParams).setMargins(margin, 0, margin, 0)
+                    }
+                    true
+                }
+                lifecycle.removeObserver(this)
             }
-            true
-        }
+        })
     }
 
     private fun onStateEnd() {
