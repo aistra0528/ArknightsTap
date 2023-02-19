@@ -161,8 +161,11 @@ class OverlayService : Service() {
             findViewById<View>(R.id.action_recruit).setOnClickListener { if (viewer == null) OverlayToast.show(context, R.string.error_occurred, OverlayToast.LENGTH_SHORT) else showTargetView(recruit) }
             findViewById<View>(R.id.action_counter).setOnClickListener { showTargetView(counter) }
             findViewById<View>(R.id.action_material).setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PENGUIN_STATS)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                showTargetView(fab)
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppUtil.URL_PENGUIN_STATS)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    showTargetView(fab)
+                } catch (_: Throwable) {
+                }
             }
             if (manager.isPro) {
                 findViewById<View>(R.id.action_gesture).run {
