@@ -106,7 +106,7 @@ object CompatOperations {
         return false
     }
 
-    fun requireRootPermission(): Boolean = Build.VERSION.SDK_INT < Build.VERSION_CODES.N && !executeCommand("clear")
+    fun requireRootPermission(): Boolean = Build.VERSION.SDK_INT < Build.VERSION_CODES.N && !executeCommand("whoami")
 
     fun showRootModeDialog(context: Context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
