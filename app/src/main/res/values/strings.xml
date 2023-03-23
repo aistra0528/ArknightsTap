@@ -3,9 +3,7 @@
     <string name="gesture_label">戳戳乐™</string>
     <string name="gesture_description">打开戳戳乐™后，可在选择的非剿灭作战关卡持续进行代理作战。\n\n使用前请先选择好要代理的关卡，并使用代理指挥作战。如设备为异形屏，还需在游戏设置中将“异形屏UI适配”调至0以避免误触。\n\n使用本服务可能会导致账号异常，请参照游戏运营组最新的判断标准，开发者不承担相关责任。\n\n戳戳乐™所需权限仅用于代理博士行动，方舟帮帮忙不会通过本服务收集个人信息。\n\n如有问题与建议可在关于向开发者反馈。\n\n使用技巧：\n1. 在首页可设置行动时长\n2. 行动时可按下音量键-结束行动\n3. 高版本 Android 可使用音量键快捷方式打开无障碍服务，即开即用（推荐在设置打开“减少内存占用”以获取最佳体验）</string>
     <string name="overlay_label">帮帮忙™</string>
-    <string name="menu_home">首页</string>
-    <string name="menu_tools">工具</string>
-    <string name="menu_settings">设置</string>
+    <string name="action_settings">设置</string>
     <string name="state_permission_request">需要权限</string>
     <string name="state_resolution_unsupported">设备未适配</string>
     <string name="state_loading">程序启动</string>
@@ -35,7 +33,7 @@
     <string name="msg_resolution_unsupported">戳戳乐™暂未适配%1$d×%2$d分辨率，请在关于向开发者反馈。其他功能不受影响。\n\n点击“更新”获取最新数据。已是最新版本时，请向开发者提供以下截图原图进行适配。游戏截图需在游戏设置中将“异形屏UI适配”调至0。\n\n1. 本“设备未适配”界面截图，需带有设备分辨率信息。\n2. 游戏“关卡选择”界面截图，需带有蓝色“开始行动”按钮。\n3. 游戏“战前编队”界面截图，需带有红色“开始行动”按钮。\n\n* 请检查设备分辨率信息与游戏截图分辨率是否一致。\n* 可能无法适配部分设备。</string>
     <string name="title_about">关于</string>
     <string name="action_donate">捐赠</string>
-    <string name="msg_donate">方舟帮帮忙是一款自由软件，所有的开发和维护工作都是由一位主要开发者和来自世界各地的热心志愿者们共同完成，可在GitHub查看。\n\n请多多分享方舟帮帮忙，我们非常欢迎新博士的加入！我们同样欢迎您成为志愿者或提供捐赠来支持方舟帮帮忙项目的开发和维护。</string>
+    <string name="desc_support">方舟帮帮忙是一款自由软件，欢迎您分享、成为志愿者或提供捐赠来支持方舟帮帮忙项目。</string>
     <string name="info_donate_thanks">感谢你的信任，博士</string>
     <string name="title_comment">评论应用</string>
     <string name="desc_comment">在应用评论区反馈</string>
@@ -54,7 +52,7 @@
     <string name="got_it">知道了</string>
     <string name="permission_permit">授权</string>
     <string name="no_thanks">不用了</string>
-    <string name="not_now">下次一定</string>
+    <string name="not_now">算了算了</string>
     <string name="error_occurred">发生错误</string>
     <string name="coming_soon">敬请期待</string>
     <string name="auto_update_title">自动更新</string>
@@ -69,7 +67,6 @@
     <string name="recruit_preview_summary">显示当前渠道尚未实装的干员</string>
     <string name="scroll_to_result_title">快速导航</string>
     <string name="scroll_to_result_summary">选择5个标签后向下滑动到规划方案</string>
-    <string name="special_thanks_extra">当然，还有你。\n感谢您使用方舟帮帮忙！\n© 2019–2021 艾星Aistra</string>
     <string name="special_thanks_desc">酷安 @neko1da - 日语翻译\nTelegram @twiceYuan - 贡献者\nTelegram @dwipaa11 和 @AdityaTamamo - 印尼语翻译\nGitHub @FhrShadow - 贡献者</string>
     <string name="special_thanks_title">特别感谢</string>
     <string name="version_type_lite" translatable="false">Lis</string>
@@ -88,27 +85,26 @@
     <string name="tip_material_data">数据来自企鹅物流数据统计，仅供参考</string>
     <string name="tip_material_workshop">%s > 加工站</string>
     <string name="tip_material_mission">%1$s | %2$.1f%% | %3$.1f理智</string>
-    <string name="tip_material_item" translatable="false">- %s x %d</string>
+    <string name="tip_material_item" translatable="false">- %s × %d</string>
     <string name="counter_normal">标准寻访</string>
     <string name="counter_limited">限定寻访</string>
     <string name="anti_burn_in_title">半透明悬浮球</string>
     <string name="no_background_title">减少内存占用</string>
     <string name="no_background_summary">打开无障碍后开始，结束后关闭无障碍</string>
-    <string name="free_android">方舟帮帮忙尊重用户自由。</string>
     <string name="root_mode_msg">低于 Android 7.0 需要 Root 权限。\n虚拟设备推荐使用480×360分辨率。</string>
     <string name="action_details">详情</string>
-    <string name="msg_network_error">无法连接服务器。\n请稍后再试。</string>
     <string name="error_accessibility_killed">戳戳乐™失联了！\n请覆盖安装应用。\n反复发生此问题时，请在设置打开“减少内存占用”。</string>
     <string name="tip_not_found">无障碍找不到戳戳乐™？戳我一下！</string>
     <string name="action_reinstall">重装</string>
-    <string name="operator_slogan" translatable="false">%s by %s</string>
-    <string name="error_slogan" translatable="false">发生错误。 by 白面鸮</string>
+    <string name="operator_slogan" translatable="false">%s\n%s</string>
+    <string name="error_slogan" translatable="false">白面鸮\n发生错误。</string>
     <string name="action_share">分享</string>
-    <string name="info_share">下载链接已复制</string>
-    <string name="action_support">支持</string>
+    <string name="title_support">支持</string>
     <string name="volume_control">音量键-结束</string>
     <string name="customize_points">自定义坐标</string>
     <string name="wrong_format">格式有误</string>
     <string name="green_point_title">额外点击坐标</string>
     <string name="green_point_summary">防止嗑药碎石和结算循环</string>
+    <string name="action_penguin">企鹅物流数据统计</string>
+    <string name="action_wiki">PRTS Wiki</string>
 </resources>

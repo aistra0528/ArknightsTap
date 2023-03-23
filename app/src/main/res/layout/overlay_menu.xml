@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +13,7 @@
             android:id="@+id/action_recruit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
+            android:background="?selectableItemBackground"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="@dimen/control_padding">
@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
                 android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/colorRecruit"
+                android:backgroundTint="@color/color_recruit"
                 android:contentDescription="@null"
                 android:padding="@dimen/control_padding"
                 android:src="@drawable/ic_recruit"
@@ -42,7 +42,7 @@
             android:id="@+id/action_counter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
+            android:background="?selectableItemBackground"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="@dimen/control_padding">
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
                 android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/colorHeadhunt"
+                android:backgroundTint="@color/color_headhunt"
                 android:contentDescription="@null"
                 android:padding="@dimen/control_padding"
                 android:src="@drawable/ic_headhunt"
@@ -71,7 +71,7 @@
             android:id="@+id/action_material"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
+            android:background="?selectableItemBackground"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="@dimen/control_padding">
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
                 android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/colorMaterial"
+                android:backgroundTint="@color/color_material"
                 android:contentDescription="@null"
                 android:padding="@dimen/control_padding"
                 android:src="@drawable/ic_explore"
@@ -100,7 +100,7 @@
             android:id="@+id/action_gesture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
+            android:background="?selectableItemBackground"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="@dimen/control_padding"
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
                 android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/color_primary"
                 android:contentDescription="@null"
                 android:padding="@dimen/control_padding"
                 android:src="@drawable/ic_akt"
@@ -145,7 +145,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:background="?attr/selectableItemBackground"
+                android:background="?selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/control_padding">
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/control_margin"
                     android:background="@drawable/bg_oval"
-                    android:backgroundTint="@color/colorSecondary"
+                    android:backgroundTint="@color/color_secondary"
                     android:contentDescription="@null"
                     android:padding="@dimen/control_padding"
                     android:src="@drawable/ic_collapse"
@@ -175,7 +175,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:background="?attr/selectableItemBackground"
+                android:background="?selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/control_padding">
@@ -185,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/control_margin"
                     android:background="@drawable/bg_oval"
-                    android:backgroundTint="@color/colorError"
+                    android:backgroundTint="@color/color_warn"
                     android:contentDescription="@null"
                     android:padding="@dimen/control_padding"
                     android:src="@drawable/ic_exit"
@@ -200,4 +200,4 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>

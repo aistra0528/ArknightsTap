@@ -5,7 +5,7 @@
             <solid android:color="@android:color/transparent" />
             <stroke
                 android:width="@dimen/control_stroke"
-                android:color="?attr/colorControlNormal" />
+                android:color="?colorControlNormal" />
         </shape>
     </item>
     <item android:drawable="@drawable/ripple_tag" />

@@ -10,7 +10,7 @@
       {
         "mission": "S2-5",
         "sanity": 12,
-        "frequency": 3.672
+        "frequency": 3.734
       }
     ],
     "workshop": []
@@ -72,7 +72,7 @@
       {
         "mission": "S2-6",
         "sanity": 12,
-        "frequency": 2.466
+        "frequency": 2.478
       }
     ],
     "workshop": []
@@ -88,7 +88,7 @@
       {
         "mission": "S3-1",
         "sanity": 15,
-        "frequency": 1.518
+        "frequency": 1.523
       }
     ],
     "workshop": []
@@ -143,7 +143,7 @@
       {
         "mission": "S2-7",
         "sanity": 12,
-        "frequency": 2.537
+        "frequency": 2.503
       }
     ],
     "workshop": []
@@ -157,14 +157,9 @@
     "nameKR": "폴리에스테르",
     "stages": [
       {
-      "mission": "S3-2",
-      "sanity": 15,
-      "frequency": 1.515
-      },
-      {
-        "mission": "1-8",
-        "sanity": 9,
-        "frequency": 0.893
+        "mission": "S3-2",
+        "sanity": 15,
+        "frequency": 1.529
       }
     ],
     "workshop": []
@@ -180,12 +175,7 @@
       {
         "mission": "7-4",
         "sanity": 18,
-        "frequency": 0.554
-      },
-      {
-        "mission": "2-6",
-        "sanity": 12,
-        "frequency": 0.364
+        "frequency": 0.555
       }
     ],
     "workshop": []
@@ -224,12 +214,7 @@
       {
         "mission": "S2-8",
         "sanity": 12,
-        "frequency": 1.925
-      },
-      {
-        "mission": "1-3",
-        "sanity": 6,
-        "frequency": 0.946
+        "frequency": 1.973
       }
     ],
     "workshop": []
@@ -245,7 +230,7 @@
       {
         "mission": "S3-3",
         "sanity": 15,
-        "frequency": 1.225
+        "frequency": 1.215
       }
     ],
     "workshop": []
@@ -261,12 +246,7 @@
       {
         "mission": "10-11",
         "sanity": 24,
-        "frequency": 0.468
-      },
-      {
-        "mission": "2-8",
-        "sanity": 12,
-        "frequency": 0.224
+        "frequency": 0.455
       }
     ],
     "workshop": []
@@ -305,12 +285,7 @@
       {
         "mission": "S2-9",
         "sanity": 12,
-        "frequency": 1.936
-      },
-      {
-        "mission": "1-6",
-        "sanity": 6,
-        "frequency": 0.871
+        "frequency": 1.992
       }
     ],
     "workshop": []
@@ -323,11 +298,6 @@
     "nameJP": "初級アケトン",
     "nameKR": "아케톤 응집체",
     "stages": [
-      {
-        "mission": "10-9",
-        "sanity": 21,
-        "frequency": 1.739
-      },
       {
         "mission": "3-7",
         "sanity": 15,
@@ -347,16 +317,7 @@
       {
         "mission": "10-4",
         "sanity": 21,
-        "frequency": 0.525
-      },{
-        "mission": "JT8-3",
-        "sanity": 18,
-        "frequency": 0.449
-      },
-      {
-        "mission": "3-1",
-        "sanity": 15,
-        "frequency": 0.367
+        "frequency": 0.549
       }
     ],
     "workshop": []
@@ -395,12 +356,7 @@
       {
         "mission": "2-3",
         "sanity": 12,
-        "frequency": 1.454
-      },
-      {
-        "mission": "1-5",
-        "sanity": 6,
-        "frequency": 0.717
+        "frequency": 1.488
       }
     ],
     "workshop": []
@@ -416,12 +372,7 @@
       {
         "mission": "S3-4",
         "sanity": 15,
-        "frequency": 0.923
-      },
-      {
-        "mission": "1-12",
-        "sanity": 9,
-        "frequency": 0.509
+        "frequency": 0.918
       }
     ],
     "workshop": []
@@ -435,19 +386,9 @@
     "nameKR": "리뉴얼 장치",
     "stages": [
       {
-        "mission": "9-10",
-        "sanity": 18,
-        "frequency": 0.333
-      },
-      {
-        "mission": "7-15",
-        "sanity": 18,
-        "frequency": 0.333
-      },
-      {
-        "mission": "3-4",
-        "sanity": 15,
-        "frequency": 0.274
+        "mission": "11-7",
+        "sanity": 21,
+        "frequency": 0.403
       }
     ],
     "workshop": []
@@ -486,12 +427,7 @@
       {
         "mission": "6-11",
         "sanity": 21,
-        "frequency": 0.491
-      },
-      {
-        "mission": "2-9",
-        "sanity": 12,
-        "frequency": 0.262
+        "frequency": 0.493
       }
     ],
     "workshop": []
@@ -530,12 +466,7 @@
       {
         "mission": "10-16",
         "sanity": 21,
-        "frequency": 0.548
-      },
-      {
-        "mission": "3-2",
-        "sanity": 15,
-        "frequency": 0.369
+        "frequency": 0.549
       }
     ],
     "workshop": []
@@ -572,14 +503,9 @@
     "nameKR": "연마석",
     "stages": [
       {
-        "mission": "10-12",
-        "sanity": 21,
-        "frequency": 0.452
-      },
-      {
-        "mission": "3-3",
-        "sanity": 15,
-        "frequency": 0.319
+        "mission": "9-16",
+        "sanity": 18,
+        "frequency": 0.392
       }
     ],
     "workshop": []
@@ -616,29 +542,9 @@
     "nameKR": "RMA70-12",
     "stages": [
       {
-        "mission": "10-5",
-        "sanity": 21,
-        "frequency": 0.425
-      },
-      {
         "mission": "9-19",
         "sanity": 21,
-        "frequency": 0.411
-      },
-      {
-        "mission": "R8-9",
-        "sanity": 18,
-        "frequency": 0.343
-      },
-      {
-        "mission": "7-10",
-        "sanity": 18,
-        "frequency": 0.343
-      },
-      {
-        "mission": "2-10",
-        "sanity": 15,
-        "frequency": 0.276
+        "frequency": 0.399
       }
     ],
     "workshop": []
@@ -675,24 +581,9 @@
     "nameKR": "젤",
     "stages": [
       {
-        "mission": "JT8-2",
-        "sanity": 21,
-        "frequency": 0.334
-      },
-      {
         "mission": "R8-8",
         "sanity": 18,
-        "frequency": 0.286
-      },
-      {
-        "mission": "10-3",
-        "sanity": 21,
-        "frequency": 0.333
-      },
-      {
-        "mission": "S4-10",
-        "sanity": 18,
-        "frequency": 0.281
+        "frequency": 0.303
       }
     ],
     "workshop": []
@@ -731,7 +622,7 @@
       {
         "mission": "S3-6",
         "sanity": 15,
-        "frequency": 0.400
+        "frequency": 0.394
       }
     ],
     "workshop": []
@@ -768,24 +659,9 @@
     "nameKR": "결정 부품",
     "stages": [
       {
-        "mission": "R8-11",
-        "sanity": 21,
-        "frequency": 0.525
-      },
-      {
         "mission": "9-14",
         "sanity": 21,
-        "frequency": 0.516
-      },
-      {
-        "mission": "S5-9",
-        "sanity": 18,
-        "frequency": 0.338
-      },
-      {
-        "mission": "S3-7",
-        "sanity": 18,
-        "frequency": 0.261
+        "frequency": 0.573
       }
     ],
     "workshop": []
@@ -824,12 +700,7 @@
       {
         "mission": "9-18",
         "sanity": 21,
-        "frequency": 0.330
-      },
-      {
-        "mission": "9-4",
-        "sanity": 18,
-        "frequency": 0.278
+        "frequency": 0.329
       }
     ],
     "workshop": []
@@ -868,7 +739,7 @@
       {
         "mission": "10-17",
         "sanity": 24,
-        "frequency": 0.579
+        "frequency": 0.533
       }
     ],
     "workshop": []
@@ -892,6 +763,45 @@
       },
       {
         "id": 31053,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": 31063,
+    "name": "转质盐组*",
+    "nameCN": "转质盐组",
+    "nameTW": "转质盐组*",
+    "nameJP": "转质盐组*",
+    "nameKR": "转质盐组*",
+    "stages": [
+      {
+        "mission": "11-3",
+        "sanity": 21,
+        "frequency": 0.313
+      }
+    ],
+    "workshop": []
+  },
+  {
+    "id": 31064,
+    "name": "转质盐聚块*",
+    "nameCN": "转质盐聚块",
+    "nameTW": "转质盐聚块*",
+    "nameJP": "转质盐聚块*",
+    "nameKR": "转质盐聚块*",
+    "stages": [],
+    "workshop": [
+      {
+        "id": 30023,
+        "quantity": 1
+      },
+      {
+        "id": 31043,
+        "quantity": 1
+      },
+      {
+        "id": 31063,
         "quantity": 1
       }
     ]

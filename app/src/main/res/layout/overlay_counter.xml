@@ -16,7 +16,7 @@
             android:id="@+id/action_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@null"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_menu" />
@@ -33,7 +33,7 @@
             android:id="@+id/action_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/action_counter"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_headhunt_toggle" />
@@ -58,7 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:background="?attr/selectableItemBackground"
+            android:background="?selectableItemBackground"
             android:contentDescription="@null"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_remove" />
@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:background="?attr/selectableItemBackground"
+            android:background="?selectableItemBackground"
             android:contentDescription="@null"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_add" />
@@ -78,7 +78,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:background="?attr/selectableItemBackground"
+            android:background="?selectableItemBackground"
             android:contentDescription="@string/action_overlay_collapse"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_collapse" />

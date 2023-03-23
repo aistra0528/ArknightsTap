@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.Base" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="Theme.Ark" parent="Theme.Base">
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar</item>
+        <item name="alertDialogTheme">@style/Theme.Ark.AlertDialogOverlay</item>
+        <item name="materialAlertDialogTheme">@style/Theme.Ark.AlertDialogOverlay</item>
+    </style>
+
+    <style name="Theme.Ark.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="ThemeOverlay.Ark.DayNight" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="Theme.Ark.AlertDialogOverlay" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/color_secondary</item>
+        <item name="dialogCornerRadius">4dp</item>
+    </style>
+</resources>

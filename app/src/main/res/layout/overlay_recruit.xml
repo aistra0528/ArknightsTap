@@ -2,7 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorOverlay"
+    android:background="@color/color_overlay"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -15,7 +15,7 @@
             android:id="@+id/action_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@null"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_menu" />
@@ -33,22 +33,24 @@
             android:id="@+id/action_server"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/game_server_title"
             android:padding="@dimen/view_padding"
-            android:src="@drawable/ic_action_language"
+            android:src="@drawable/ic_language"
             android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/action_collapse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/action_overlay_collapse"
             android:padding="@dimen/view_padding"
             android:src="@drawable/ic_collapse" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <include layout="@layout/fragment_recruit" />
+    <include
+        android:id="@+id/fragment_recruit"
+        layout="@layout/fragment_recruit" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

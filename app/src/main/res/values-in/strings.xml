@@ -3,9 +3,7 @@
     <string name="gesture_label">ARGS™</string>
     <string name="gesture_description">ARGS™ dapat menekan tombol Mulai Misi secara otomatis.\n\nPilih Misi sebelum memulai, dan jangan lupa mengaktifkan Auto Deploy.\n\nMenggunakan ARGS™ dapat menyebabkan akun anda diBAN, dan kami TIDAK bertanggung jawab untuk ini. Anda memilih untuk menggunakan ARGS™, dan jika anda menyalahkan kami, kami hanya akan menertawakan anda\n\nIzin Yang Diperlukan Oleh ARGS™ Hanya Digunakan Untuk Menekan layar, dan ini tidak merekam informasi pribadi anda\n\nJika anda punya pertanyaan, silahkan hubungi kami di GitHub.</string>
     <string name="overlay_label">ARSS™</string>
-    <string name="menu_home">Home</string>
-    <string name="menu_tools">Alat</string>
-    <string name="menu_settings">Pengaturan</string>
+    <string name="action_settings">Pengaturan</string>
     <string name="state_permission_request">Aplikasi ini membutuhkan perizinan</string>
     <string name="state_resolution_unsupported">Resolusi perangkatmu tidak didukung</string>
     <string name="state_loading">Layanan sedang dimuat…</string>
@@ -35,7 +33,7 @@
     <string name="msg_resolution_unsupported">Perangkatmu (%1$d×%2$d resolusi) belum mendukung ARGS™, tolong hubungi kami di GitHub. \nARSS™ tersedia tanpa terpengaruh.</string>
     <string name="title_about">Tentang</string>
     <string name="action_donate">Donasi</string>
-    <string name="msg_donate">Anda dapat menunjukkan rasa terima kasih ke developer dengan cara donasi loh!</string>
+    <string name="desc_support">Anda dapat menunjukkan rasa terima kasih ke developer dengan cara donasi loh!</string>
     <string name="info_donate_thanks">Terima kasih atas donasimu, Doctor</string>
     <string name="title_comment">Beri rating aplikasi ini</string>
     <string name="desc_comment">Beri rating aplikasi ini di Store anda</string>
@@ -71,7 +69,6 @@
     <string name="scroll_to_result_summary">Gulir ke area hasil setelah memilih 5 tag</string>
     <string name="special_thanks_title">Terima kasih khusus</string>
     <string name="special_thanks_desc">Twitter @op_satoshi - Penerjemah bahasa Jepang\nTelegram @twiceYuan - Penyumbang\nTelegram @dwipaa11 dan @AdityaTamamo - Penerjemah bahasa Indonesia\nGitHub @FhrShadow - Penyumbang</string>
-    <string name="special_thanks_extra">Dan tentu saja, Anda.\nTerima kasih banyak telah menggunakan ArkTap!\n© 2019–2021 艾星Aistra</string>
     <string name="action_counter">Penghitung Headhunt</string>
     <string name="tip_counter_default">Roll: %1$d\nKemungkinan 6 ★ diroll berikutnya: %2$d%%\nTekan lama + untuk x10, - untuk membersihkan</string>
     <string name="msg_data_reset">Reset data yang diunduh?</string>
@@ -88,19 +85,18 @@
     <string name="anti_burn_in_title">Translucent sprite</string>
     <string name="no_background_title">Mengurangi penggunaan memori</string>
     <string name="no_background_summary">Dimulai ketika membuka Aksesibilitas, dan menghentikan fitur aksesibilitas setelah selesai.</string>
-    <string name="free_android">ArkTap adalah perangkat lunak bebas.</string>
     <string name="root_mode_msg">Akses root diperlukan</string>
     <string name="action_details">Detail</string>
-    <string name="msg_network_error">Tidak dapat tersambung ke server.\nUlangi lagi nanti.</string>
     <string name="error_accessibility_killed">ARGS™ tidak dapat dimulai karena akses Aksesibilitas telah di matikan, mohon install ulang aplikasi.</string>
     <string name="tip_not_found">Tidak dapat menemukan ARGS™ di menu aksesibilitas? tekan disini </string>
     <string name="action_reinstall">Install ulang</string>
     <string name="action_share">Bagikan</string>
-    <string name="info_share">URL telah disalin</string>
-    <string name="action_support">Support</string>
+    <string name="title_support">Support</string>
     <string name="volume_control">Tekan Volume bawah untuk menghentikan</string>
     <string name="customize_points">Kustomisasi Points</string>
     <string name="wrong_format">Format Salah</string>
     <string name="green_point_title">额外点击坐标</string>
     <string name="green_point_summary">防止嗑药碎石和结算循环</string>
+    <string name="action_penguin">Penguin Statistics</string>
+    <string name="action_wiki">PRTS Wiki</string>
 </resources>

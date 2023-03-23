@@ -1,19 +1,19 @@
 <resources>
-    <color name="colorPrimary">#212121</color>
-    <color name="colorPrimaryDark">#212121</color>
-    <color name="colorSecondary">#FFA000</color>
-    <color name="colorSecondaryNight">#FF80AB</color>
-    <color name="colorOverlay">#99000000</color>
-    <color name="colorToast">#E6EEEEEE</color>
-    <color name="colorError">#FF1744</color>
-    <color name="colorRecruit">#8BC34A</color>
-    <color name="colorHeadhunt">#FBC02D</color>
-    <color name="colorMaterial">#00B0FF</color>
-    <color name="colorControlActivated">#8D6E63</color>
-    <color name="colorStar6">#B71C1C</color>
-    <color name="colorStar5">#E65100</color>
-    <color name="colorStar4">#512DA8</color>
-    <color name="colorStar3">#0097A7</color>
-    <color name="colorStar2">#388E3C</color>
-    <color name="colorStar1">#616161</color>
+    <color name="color_primary">#212121</color>
+    <color name="color_primary_dark">#212121</color>
+    <color name="color_secondary">#FFA000</color>
+    <color name="color_secondary_night">#FF80AB</color>
+    <color name="color_overlay">#99000000</color>
+    <color name="color_toast">#E6EEEEEE</color>
+    <color name="color_warn">#F44336</color>
+    <color name="color_recruit">#8BC34A</color>
+    <color name="color_headhunt">#FBC02D</color>
+    <color name="color_material">#00B0FF</color>
+    <color name="color_control_activated">#8D6E63</color>
+    <color name="color_star_6">#D32F2F</color>
+    <color name="color_star_5">#E65100</color>
+    <color name="color_star_4">#0097A7</color>
+    <color name="color_star_3">#388E3C</color>
+    <color name="color_star_2">#5D4037</color>
+    <color name="color_star_1">#616161</color>
 </resources>

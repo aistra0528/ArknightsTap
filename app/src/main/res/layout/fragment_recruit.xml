@@ -1,9 +1,7 @@
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scroll_recruit_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -314,7 +312,7 @@
                 android:id="@+id/action_recruit_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorError"
+                android:backgroundTint="@color/color_warn"
                 android:text="@string/action_reset"
                 android:textColor="@android:color/white" />
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -326,4 +324,4 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/control_padding" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>
