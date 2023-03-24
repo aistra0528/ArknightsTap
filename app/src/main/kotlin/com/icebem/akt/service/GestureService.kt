@@ -25,8 +25,8 @@ import android.os.SystemClock
 import android.util.Log
 import android.view.KeyEvent
 import android.view.accessibility.AccessibilityEvent
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.icebem.akt.BuildConfig
 import com.icebem.akt.R
 import com.icebem.akt.overlay.OverlayToast
@@ -35,7 +35,7 @@ import com.icebem.akt.util.ArkPref
 import java.lang.ref.WeakReference
 import java.util.*
 
-class GestureService : AccessibilityService() {
+class GestureService : AccessibilityService(), Observer<Long> {
     companion object {
         private const val WAIT_TIME = 3500L
         private const val MINUTE_TIME = 60000L
@@ -44,8 +44,8 @@ class GestureService : AccessibilityService() {
         private var instance: WeakReference<GestureService?>? = null
 
         val isGestureRunning: Boolean get() = instance?.get()?.running == true
-        val millis = MutableLiveData<Long>()
-        fun toggle() = millis.postValue(System.currentTimeMillis())
+        val now = MutableLiveData<Long>()
+        fun toggle() = now.postValue(System.currentTimeMillis())
     }
 
     private lateinit var handler: Handler
@@ -57,22 +57,22 @@ class GestureService : AccessibilityService() {
     override fun onServiceConnected() {
         super.onServiceConnected()
         if (!ArkPref.isActivated) ArkPref.setActivatedId()
-        if (ArkPref.unsupportedResolution || ArkMaid.requireRootPermission || ArkMaid.requireOverlayPermission) {
+        if (ArkMaid.requireOverlayPermission || ArkPref.unsupportedResolution || ArkMaid.requireRootPermission) {
             disableSelfCompat()
-            if (ArkPref.unsupportedResolution) {
-                OverlayToast.show(R.string.state_resolution_unsupported, OverlayToast.LENGTH_SHORT)
-            } else {
-                Toast.makeText(this, R.string.state_permission_request, Toast.LENGTH_SHORT).show()
-                if (ArkMaid.requireOverlayPermission) ArkMaid.startManageOverlay(this)
+            when {
+                ArkMaid.requireOverlayPermission -> ArkMaid.startManageOverlay(this)
+                ArkPref.unsupportedResolution -> OverlayToast.show(R.string.state_resolution_unsupported, OverlayToast.LENGTH_LONG)
+                ArkMaid.requireRootPermission -> OverlayToast.show(R.string.root_mode_msg, OverlayToast.LENGTH_LONG)
             }
             return
         }
         handler = Handler(Looper.getMainLooper())
-        millis.observeForever { dispatchCurrentAction() }
+        now.observeForever(this)
         if (ArkPref.noBackground) toggle()
     }
 
-    private fun dispatchCurrentAction() {
+
+    override fun onChanged(now: Long) {
         instance = WeakReference(this)
         if (running) pauseAction() else startAction()
     }
@@ -138,7 +138,7 @@ class GestureService : AccessibilityService() {
     }
 
     override fun onUnbind(intent: Intent): Boolean {
-        millis.removeObserver { dispatchCurrentAction() }
+        now.removeObserver(this)
         stopAction()
         return super.onUnbind(intent)
     }

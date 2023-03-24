@@ -17,13 +17,13 @@
  */
 package com.icebem.akt.overlay
 
+import android.annotation.SuppressLint
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.widget.TextViewCompat
 import com.google.android.material.textview.MaterialTextView
 import com.icebem.akt.ArkApp.Companion.app
 import com.icebem.akt.R
 import com.icebem.akt.util.Resolution
-import java.lang.ref.WeakReference
 
 /**
  * 悬浮吐司
@@ -32,32 +32,33 @@ object OverlayToast {
     const val LENGTH_INDEFINITE = 0L
     const val LENGTH_SHORT = 2000L
     const val LENGTH_LONG = 3000L
-    private val runnable = Runnable { instance?.get()?.remove() }
+    private val removal = Runnable { toast?.remove() }
 
-    private var instance: WeakReference<OverlayView?>? = null
+    @SuppressLint("StaticFieldLeak")
+    private var toast: OverlayView? = null
 
     fun show(text: String, duration: Long) {
-        view.removeCallbacks(runnable)
-        runnable.run()
+        view.removeCallbacks(removal)
+        removal.run()
         view.text = text
-        instance?.get()?.show()
-        if (duration > LENGTH_INDEFINITE) view.postDelayed(runnable, duration)
+        toast?.show()
+        if (duration > LENGTH_INDEFINITE) view.postDelayed(removal, duration)
     }
 
     fun show(resId: Int, duration: Long) = show(app.getString(resId), duration)
 
     private val view: MaterialTextView
-        get() = instance?.get()?.view as? MaterialTextView
+        get() = toast?.view as? MaterialTextView
                 ?: MaterialTextView(ContextThemeWrapper(app, R.style.Theme_MaterialComponents_Light)).apply {
                     TextViewCompat.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Body2)
                     val padding = context.resources.getDimensionPixelOffset(R.dimen.view_padding)
                     setPadding(padding, padding, padding, padding)
                     setBackgroundResource(R.drawable.bg_toast)
                     setOnClickListener {
-                        it.removeCallbacks(runnable)
-                        runnable.run()
+                        it.removeCallbacks(removal)
+                        removal.run()
                     }
                 }.also {
-                    instance = WeakReference(OverlayView(it).apply { setRelativePosition(0, Resolution.absoluteHeight shr 2) })
+                    toast = OverlayView(it).apply { setRelativePosition(0, Resolution.absoluteHeight shr 2) }
                 }
 }
