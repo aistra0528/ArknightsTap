@@ -10,9 +10,7 @@ class ArkApp : Application() {
         clearCache()
     }
 
-    private fun clearCache() {
-        ArkIO.delete("$cacheDir/apk/base.apk")
-    }
+    private fun clearCache() = ArkIO.clearDirectory(cacheDir.path)
 
     companion object {
         lateinit var app: ArkApp private set

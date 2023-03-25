@@ -19,9 +19,6 @@ package com.icebem.akt.service
 
 import android.accessibilityservice.AccessibilityService
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
-import android.os.SystemClock
 import android.util.Log
 import android.view.KeyEvent
 import android.view.accessibility.AccessibilityEvent
@@ -30,35 +27,32 @@ import androidx.lifecycle.Observer
 import com.icebem.akt.BuildConfig
 import com.icebem.akt.R
 import com.icebem.akt.overlay.OverlayToast
+import com.icebem.akt.util.ArkData
 import com.icebem.akt.util.ArkMaid
 import com.icebem.akt.util.ArkPref
+import kotlinx.coroutines.*
 import java.lang.ref.WeakReference
-import java.util.*
 
-class GestureService : AccessibilityService(), Observer<Long> {
+class GestureService : AccessibilityService(), Observer<Boolean> {
     companion object {
         private const val WAIT_TIME = 3500L
         private const val MINUTE_TIME = 60000L
-        private const val THREAD_GESTURE = "gesture"
-        private const val THREAD_TIMER = "timer"
         private var instance: WeakReference<GestureService?>? = null
 
         val isGestureRunning: Boolean get() = instance?.get()?.running == true
-        val now = MutableLiveData<Long>()
-        fun toggle() = now.postValue(System.currentTimeMillis())
+        val action = MutableLiveData<Boolean>()
+        fun toggle() = action.postValue(true)
     }
 
-    private lateinit var handler: Handler
-    private var time = 0
     private var running = false
-    private var thread: Thread? = null
-    private var timer: Timer? = null
+    private var gesture: Job? = null
+    private var timer: Job? = null
 
     override fun onServiceConnected() {
         super.onServiceConnected()
         if (!ArkPref.isActivated) ArkPref.setActivatedId()
         if (ArkMaid.requireOverlayPermission || ArkPref.unsupportedResolution || ArkMaid.requireRootPermission) {
-            disableSelfCompat()
+            ArkMaid.disableSelf(this, ::stopAction)
             when {
                 ArkMaid.requireOverlayPermission -> ArkMaid.startManageOverlay(this)
                 ArkPref.unsupportedResolution -> OverlayToast.show(R.string.state_resolution_unsupported, OverlayToast.LENGTH_LONG)
@@ -66,68 +60,85 @@ class GestureService : AccessibilityService(), Observer<Long> {
             }
             return
         }
-        handler = Handler(Looper.getMainLooper())
-        now.observeForever(this)
+        action.observeForever(this)
         if (ArkPref.noBackground) toggle()
     }
 
-
-    override fun onChanged(now: Long) {
+    override fun onChanged(value: Boolean) {
+        if (!value) return
         instance = WeakReference(this)
         if (running) pauseAction() else startAction()
+        action.postValue(false)
     }
 
     private fun startAction() {
         running = true
-        ArkMaid.launchGame(this)
-        if (thread?.isAlive?.not() != false) thread = Thread(::performGestures, THREAD_GESTURE).apply { start() }
-        time = ArkPref.timerTime
-        if (time > 0) {
-            timer = Timer(THREAD_TIMER).apply {
-                schedule(object : TimerTask() {
-                    override fun run() {
-                        if (time > 0) {
-                            handler.post(::showTimeLeft)
-                        } else {
-                            pauseAction()
-                            ArkMaid.disableKeepScreen(this@GestureService)
-                        }
-                    }
-                }, 0, MINUTE_TIME)
+        gesture?.cancel()
+        timer?.cancel()
+        startService(Intent(this, OverlayService::class.java))
+        CoroutineScope(Dispatchers.Default).launch {
+            gesture = launch {
+                delay(WAIT_TIME)
+                if (ArkData.hasGestureData) performCustomizedGestures()
+                else performGestures()
             }
-        } else OverlayToast.show(R.string.info_gesture_connected, OverlayToast.LENGTH_SHORT)
+            var time = ArkPref.timerTime
+            if (time > 0) {
+                timer = launch {
+                    while (time > 0) {
+                        showTimeLeft(time--)
+                        delay(MINUTE_TIME)
+                    }
+                    performGlobalAction(GLOBAL_ACTION_HOME)
+                    pauseAction()
+                }
+            } else showGestureTip(R.string.info_gesture_connected)
+        }
     }
 
-    private fun pauseAction() = if (ArkPref.noBackground) disableSelfCompat() else stopAction()
+    private fun pauseAction() {
+        if (ArkPref.noBackground) ArkMaid.disableSelf(this, ::stopAction) else stopAction()
+    }
 
     private fun stopAction() {
         running = false
+        gesture?.cancel()
         timer?.cancel()
+        runCatching { OverlayToast.show(R.string.info_gesture_disconnected, OverlayToast.LENGTH_SHORT) }
     }
 
-    private fun performGestures() {
-        SystemClock.sleep(WAIT_TIME)
-        if (running) {
-            startService(Intent(this, OverlayService::class.java))
-            var process = 0
-            while (running) {
-                when (process) {
-                    0 -> ArkMaid.performClick(this, ArkPref.blueX, ArkPref.blueY)
-                    2 -> ArkMaid.performClick(this, ArkPref.redX, ArkPref.redY)
-                    else -> if (ArkPref.greenPoint) ArkMaid.performClick(this, ArkPref.greenX, ArkPref.greenY)
-                }
-                if (++process > 4) process = 0
-                SystemClock.sleep(ArkPref.updateTime)
+    private suspend fun performGestures() {
+        var process = 0
+        while (true) {
+            when (process++) {
+                0 -> ArkMaid.performClick(this, ArkPref.blueX, ArkPref.blueY)
+                1 -> if (ArkPref.greenPoint) ArkMaid.performClick(this, ArkPref.greenX, ArkPref.greenY)
+                2 -> ArkMaid.performClick(this, ArkPref.redX, ArkPref.redY)
+                3 -> if (ArkPref.greenPoint) ArkMaid.performClick(this, ArkPref.greenX, ArkPref.greenY)
+                4 -> if (ArkPref.greenPoint) ArkMaid.performClick(this, ArkPref.greenX, ArkPref.greenY)
             }
+            if (process > 4) process = 0
+            delay(ArkPref.updateTime)
         }
-        handler.post(::showActionFinished)
     }
 
-    private fun showActionFinished() = OverlayToast.show(R.string.info_gesture_disconnected, OverlayToast.LENGTH_SHORT)
+    private suspend fun performCustomizedGestures() {
+        val array = ArkData.getGestureData()
+        var process = 0
+        while (true) {
+            val obj = array.getJSONObject(process)
+            when (obj.optString(ArkData.KEY_NAME)) {
+                ArkData.KEY_TAP ->
+                    ArkMaid.performClick(this, obj.optInt(ArkData.KEY_X), obj.optInt(ArkData.KEY_Y))
+            }
+            if (++process == array.length()) process = 0
+            delay(ArkPref.updateTime)
+        }
+    }
 
-    private fun showTimeLeft() = OverlayToast.show(getString(R.string.info_gesture_running, time--), OverlayToast.LENGTH_SHORT)
+    private suspend fun showGestureTip(resId: Int) = withContext(Dispatchers.Main) { OverlayToast.show(resId, OverlayToast.LENGTH_SHORT) }
 
-    private fun disableSelfCompat() = ArkMaid.disableSelf(this, ::stopAction)
+    private suspend fun showTimeLeft(time: Int) = withContext(Dispatchers.Main) { OverlayToast.show(getString(R.string.info_gesture_running, time), OverlayToast.LENGTH_SHORT) }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         if (BuildConfig.DEBUG) Log.d(javaClass.simpleName, "onAccessibilityEvent: $event")
@@ -138,7 +149,7 @@ class GestureService : AccessibilityService(), Observer<Long> {
     }
 
     override fun onUnbind(intent: Intent): Boolean {
-        now.removeObserver(this)
+        action.removeObserver(this)
         stopAction()
         return super.onUnbind(intent)
     }

@@ -2,13 +2,15 @@ package com.icebem.akt.util
 
 import android.os.Build
 import com.icebem.akt.ArkApp.Companion.app
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
-import kotlin.io.path.exists
+import kotlin.io.path.*
 
 object ArkIO {
     @Throws(IOException::class)
@@ -24,9 +26,11 @@ object ArkIO {
     fun fromFile(path: String): String = File(path).readText()
 
     @Throws(IOException::class)
-    fun fromWeb(url: String): String = (URL(url).openConnection() as HttpURLConnection).run {
-        if (url.startsWith("https://gitee.com")) addRequestProperty("User-Agent", "Mozilla/5.0")
-        stream2String(inputStream)
+    suspend fun fromWeb(url: String): String = withContext(Dispatchers.IO) {
+        (URL(url).openConnection() as HttpURLConnection).run {
+            if (url.startsWith("https://gitee.com")) addRequestProperty("User-Agent", "Mozilla/5.0")
+            stream2String(inputStream)
+        }
     }
 
     @Throws(IOException::class)
@@ -39,6 +43,20 @@ object ArkIO {
     private fun createDirectories(dir: String): Boolean = when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> Files.createDirectories(Paths.get(dir)).exists()
         else -> File(dir).mkdirs()
+    }
+
+    @Throws(IOException::class)
+    fun clearDirectory(path: String) {
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> Files.list(Paths.get(path)).forEach {
+                if (it.isDirectory()) clearDirectory(it.pathString)
+                it.deleteExisting()
+            }
+            else -> File(path).listFiles()?.forEach {
+                if (it.isDirectory) clearDirectory(it.path)
+                it.delete()
+            }
+        }
     }
 
     @Throws(IOException::class)

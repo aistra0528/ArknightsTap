@@ -95,10 +95,10 @@ class OverlayService : Service() {
             setGravity(Gravity.END or Gravity.TOP)
             resize(screenSize, screenSize)
         }
-        try {
+        runCatching {
             viewer = RecruitViewer(this, binding.fragmentRecruit)
-        } catch (e: Exception) {
-            Log.e(javaClass.simpleName, e.toString())
+        }.onFailure {
+            Log.e(javaClass.simpleName, it.toString())
         }
         viewer ?: return
         binding.txtTitle.setOnTouchListener { view, event ->
@@ -135,11 +135,11 @@ class OverlayService : Service() {
         }
         binding.recyclerView.run {
             layoutManager = GridLayoutManager(context, MaterialAdapter.COUNT_SPAN)
-            try {
+            runCatching {
                 adapter = MaterialAdapter()
                 mtlEnabled = true
-            } catch (e: Exception) {
-                Log.e(javaClass.simpleName, e.toString())
+            }.onFailure {
+                Log.e(javaClass.simpleName, it.toString())
             }
         }
         if (mtlEnabled) setBarButtonListeners(binding.actionMenu, binding.actionCollapse)

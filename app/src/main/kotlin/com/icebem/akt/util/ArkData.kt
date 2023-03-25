@@ -37,8 +37,10 @@ object ArkData {
     const val INDEX_JP = 3
     const val INDEX_KR = 4
     const val FLAG_UNRELEASED = "*"
-    const val THREAD_UPDATE = "update"
-    private const val KEY_NAME = "name"
+    const val KEY_NAME = "name"
+    const val KEY_TAP = "tap"
+    const val KEY_X = "x"
+    const val KEY_Y = "y"
     private const val KEY_COMPAT = "compat"
     private const val KEY_VERSION = "version"
     private const val TYPE_DATA = "data"
@@ -47,14 +49,15 @@ object ArkData {
     private const val DATA_RECRUIT = "recruit.json"
     private const val DATA_RESOLUTION = "resolution.json"
     private const val DATA_SLOGAN = "slogan.json"
+    private const val DATA_GESTURE = "gesture.json"
     private const val URL_WEB_DATA = "https://gitee.com/aistra0528/ArknightsTap/raw/master/app/src/main/assets/data/"
     val updateResult = MutableLiveData<JSONArray?>()
 
-    fun requireUpdate() {
+    suspend fun requireUpdate() {
         var id = R.string.version_update
         var log = String()
         var url = ArkMaid.URL_RELEASE_LATEST
-        try {
+        runCatching {
             val entry = requestOnlineEntry()
             if (latestApp(entry)) {
                 id = if (updateData(entry)) R.string.data_updated else R.string.version_latest
@@ -64,45 +67,61 @@ object ArkData {
                 url = getDownloadUrl(json)
             }
             ArkPref.setCheckLastTime(true)
-        } catch (e: Exception) {
+        }.onFailure {
             id = R.string.version_checking_failed
-            log = e.toString()
+            log = it.toString()
         }
         updateResult.postValue(JSONArray().put(id).put(log).put(url))
     }
 
-    /**
-     * 更新/重置本地数据
-     *
-     * @param onlineEntry 传入 null 时重置本地数据
-     * @return 是否更新/重置了数据
-     */
     @Throws(IOException::class, JSONException::class)
-    fun updateData(onlineEntry: JSONArray? = null): Boolean {
-        val updatedEntry = onlineEntry ?: JSONArray(getAssetsData(DATA_ENTRY))
+    suspend fun updateData(onlineEntry: JSONArray): Boolean {
         val entry = getOfflineData(DATA_ENTRY)
         var updated = false
-        for (i in 0 until updatedEntry.length()) {
-            val data = updatedEntry.getJSONObject(i)
+        for (i in 0 until onlineEntry.length()) {
+            val data = onlineEntry.getJSONObject(i)
             if (data.getString(KEY_NAME) == DATA_ENTRY) {
                 if (!compatible(data)) return updated
-                if (onlineEntry == null || updatable(data, entry)) updated = true
-            } else if (compatible(data) && (onlineEntry == null || updatable(data, entry))) {
-                setOfflineData(data.getString(KEY_NAME), onlineEntry)
+                if (updatable(data, entry)) updated = true
+            } else if (compatible(data) && (updatable(data, entry))) {
+                updateOfflineData(data.getString(KEY_NAME), onlineEntry)
                 updated = true
             }
         }
-        if (updated) setOfflineData(DATA_ENTRY, onlineEntry)
+        if (updated) updateOfflineData(DATA_ENTRY, onlineEntry)
         return updated
     }
 
+    @Throws(IOException::class, JSONException::class)
+    fun resetData() = ArkIO.clearDirectory(app.filesDir.path)
+
     @Throws(IOException::class)
-    private fun setOfflineData(data: String, onlineEntry: JSONArray?) {
-        ArkIO.writeText(app.filesDir.path + File.separatorChar + data, when {
-            onlineEntry == null -> getAssetsData(data)
-            data == DATA_ENTRY -> onlineEntry.toString()
+    private suspend fun updateOfflineData(data: String, onlineEntry: JSONArray) {
+        ArkIO.writeText(app.filesDir.path + File.separatorChar + data, when (data) {
+            DATA_ENTRY -> onlineEntry.toString()
             else -> ArkIO.fromWeb(URL_WEB_DATA + data)
         })
+    }
+
+    val hasGestureData get() = ArkIO.exists(app.filesDir.path + File.separatorChar + DATA_GESTURE)
+
+    @Throws(IOException::class)
+    fun resetGestureData() = ArkIO.delete(app.filesDir.path + File.separatorChar + DATA_GESTURE)
+
+    fun setGestureData(string: String? = null): Boolean {
+        string ?: return false
+        runCatching {
+            val array = JSONArray(string)
+            if (array.length() == 0) return false
+            for (i in 0 until array.length()) {
+                val obj = array.getJSONObject(i)
+                if (obj.optString(KEY_NAME) != KEY_TAP || obj.optInt(KEY_X) <= 0 || obj.optInt(KEY_Y) <= 0)
+                    return false
+            }
+            ArkIO.writeText(app.filesDir.path + File.separatorChar + DATA_GESTURE, string)
+            return true
+        }
+        return false
     }
 
     @Throws(IOException::class, JSONException::class)
@@ -126,7 +145,10 @@ object ArkData {
     fun getSloganData(): JSONArray = getOfflineData(DATA_SLOGAN)
 
     @Throws(IOException::class, JSONException::class)
-    private fun requestOnlineEntry(): JSONArray = JSONArray(ArkIO.fromWeb(URL_WEB_DATA + DATA_ENTRY))
+    fun getGestureData(): JSONArray = getOfflineData(DATA_GESTURE)
+
+    @Throws(IOException::class, JSONException::class)
+    private suspend fun requestOnlineEntry(): JSONArray = JSONArray(ArkIO.fromWeb(URL_WEB_DATA + DATA_ENTRY))
 
     @Throws(JSONException::class)
     private fun updatable(data: JSONObject, entry: JSONArray): Boolean {

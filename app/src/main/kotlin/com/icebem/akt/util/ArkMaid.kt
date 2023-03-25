@@ -22,6 +22,9 @@ import com.icebem.akt.BuildConfig
 import com.icebem.akt.R
 import com.icebem.akt.service.GestureService
 import com.icebem.akt.service.OverlayService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.io.File
 
@@ -63,8 +66,6 @@ object ArkMaid {
         return false
     }
 
-    private const val GESTURE_DURATION = 120
-
     /**
      * 执行点击操作
      */
@@ -75,7 +76,7 @@ object ArkMaid {
             val path = Path()
             path.moveTo(rX.toFloat(), rY.toFloat())
             val builder = GestureDescription.Builder()
-            builder.addStroke(GestureDescription.StrokeDescription(path, 0, Random.randomTime(GESTURE_DURATION)))
+            builder.addStroke(GestureDescription.StrokeDescription(path, 0, 120))
             service.dispatchGesture(builder.build(), null, null)
         } else execSU("input tap $rX $rY")
     }
@@ -85,7 +86,7 @@ object ArkMaid {
      *
      * @param command 命令内容
      */
-    private fun execSU(command: String): Boolean = try {
+    private fun execSU(command: String): Boolean = runCatching {
         Runtime.getRuntime().exec("su").run {
             outputStream.use {
                 it.write(command.toByteArray())
@@ -94,9 +95,7 @@ object ArkMaid {
                 destroy()
             }
         }
-    } catch (t: Throwable) {
-        false
-    }
+    }.getOrDefault(false)
 
     val requireRootPermission: Boolean get() = Build.VERSION.SDK_INT < Build.VERSION_CODES.N && !execSU("whoami")
 
@@ -107,8 +106,6 @@ object ArkMaid {
      * @param stopAction API 不支持时的回退方案
      */
     fun disableSelf(service: AccessibilityService, stopAction: () -> Unit) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) service.disableSelf() else stopAction()
-
-    fun disableKeepScreen(service: AccessibilityService) = service.performGlobalAction(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN else AccessibilityService.GLOBAL_ACTION_HOME)
 
     @Suppress("DEPRECATION")
     private fun isServiceRunning(name: String): Boolean {
@@ -124,8 +121,8 @@ object ArkMaid {
             it != null && it.contains(app.packageName + "/" + GestureService::class.java.name)
         }
 
-    fun startUpdateThread(view: View) {
-        Thread(ArkData::requireUpdate, ArkData.THREAD_UPDATE).start()
+    fun startUpdate(view: View) = CoroutineScope(Dispatchers.Main).launch {
+        ArkData.requireUpdate()
         Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_LONG).show()
     }
 

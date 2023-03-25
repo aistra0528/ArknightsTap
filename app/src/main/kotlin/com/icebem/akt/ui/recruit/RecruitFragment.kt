@@ -19,10 +19,10 @@ class RecruitFragment : Fragment(), MenuProvider {
         val menuHost = requireActivity() as MenuHost
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return FragmentRecruitBinding.inflate(layoutInflater).run {
-            try {
+            runCatching {
                 viewer = RecruitViewer(requireContext(), this)
-            } catch (e: Exception) {
-                ArkMaid.showLogDialog(requireActivity(), e.toString())
+            }.onFailure {
+                ArkMaid.showLogDialog(requireActivity(), it.toString())
             }
             root
         }

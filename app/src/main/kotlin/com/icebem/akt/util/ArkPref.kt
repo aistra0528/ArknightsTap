@@ -9,7 +9,6 @@ import com.icebem.akt.BuildConfig
 import com.icebem.akt.R
 import com.icebem.akt.service.GestureService
 import org.json.JSONArray
-import org.json.JSONObject
 
 object ArkPref {
     private const val PACKAGE_TW = 2
@@ -22,8 +21,6 @@ object ArkPref {
     private const val KEY_BLUE_Y = "blue_y"
     private const val KEY_RED_X = "red_x"
     private const val KEY_RED_Y = "red_y"
-    private const val KEY_GREEN_X = "green_x"
-    private const val KEY_GREEN_Y = "green_y"
     private const val KEY_SPRITE_X = "sprite_x"
     private const val KEY_SPRITE_Y = "sprite_y"
     private const val KEY_PRO = "pro"
@@ -39,7 +36,6 @@ object ArkPref {
     private const val KEY_ASCENDING_STAR = "ascending_star"
     private const val KEY_SCROLL_TO_RESULT = "scroll_to_result"
     private const val KEY_RECRUIT_PREVIEW = "recruit_preview"
-    private const val KEY_CUSTOMIZE_POINTS = "customize_points"
     private const val KEY_GREEN_POINT = "green_point"
     private const val KEY_DOUBLE_SPEED = "double_speed"
     private const val KEY_VOLUME_CONTROL = "volume_control"
@@ -57,22 +53,19 @@ object ArkPref {
 
     init {
         if (versionCode < BuildConfig.VERSION_CODE || versionName != BuildConfig.VERSION_NAME) {
-            try {
-                ArkData.updateData()
+            runCatching {
+                ArkData.resetData()
                 setVersionCode()
                 setVersionName()
-            } catch (_: Throwable) {
             }
         }
     }
 
     private val sloganList by lazy { mutableListOf<Int>() }
     private val sloganArray by lazy {
-        try {
+        runCatching {
             ArkData.getSloganData()
-        } catch (_: Throwable) {
-            JSONArray()
-        }
+        }.getOrDefault(JSONArray())
     }
 
     val nextSlogan: String
@@ -194,34 +187,10 @@ object ArkPref {
     val scrollToResult: Boolean get() = preferences.getBoolean(KEY_SCROLL_TO_RESULT, true)
     val recruitPreview: Boolean get() = preferences.getBoolean(KEY_RECRUIT_PREVIEW, false)
 
-    private val defaultPoints: String
-        get() = JSONObject().put(KEY_BLUE_X, 0).put(KEY_BLUE_Y, 0).put(KEY_RED_X, 0).put(KEY_RED_Y, 0).put(KEY_GREEN_X, 0).put(KEY_GREEN_Y, 0).toString()
-
-    val customizePoints: String get() = preferences.getString(KEY_CUSTOMIZE_POINTS, defaultPoints)!!
-    fun setCustomizePoints(string: String? = null): Boolean {
-        if (string == null) {
-            preferences.edit().putString(KEY_CUSTOMIZE_POINTS, defaultPoints).apply()
-            return true
-        }
-        try {
-            val obj = JSONObject(string)
-            if (obj.getInt(KEY_BLUE_X) >= 0 && obj.getInt(KEY_BLUE_Y) >= 0 && obj.getInt(KEY_RED_X) >= 0 && obj.getInt(KEY_RED_Y) >= 0 && obj.getInt(KEY_GREEN_X) >= 0 && obj.getInt(KEY_GREEN_Y) >= 0) {
-                preferences.edit().putString(KEY_CUSTOMIZE_POINTS, obj.toString()).apply()
-                return true
-            }
-        } catch (_: Throwable) {
-        }
-        return false
-    }
-
     val unsupportedResolution: Boolean
         get() {
-            try {
-                if (customizePoints != defaultPoints) {
-                    val obj = JSONObject(customizePoints)
-                    points = intArrayOf(obj.getInt(KEY_BLUE_X), obj.getInt(KEY_BLUE_Y), obj.getInt(KEY_RED_X), obj.getInt(KEY_RED_Y), obj.getInt(KEY_GREEN_X), obj.getInt(KEY_GREEN_Y))
-                    return false
-                }
+            runCatching {
+                if (ArkData.hasGestureData) return false
                 val res = Resolution.absoluteResolution
                 val array = ArkData.getResolutionData()
                 for (i in 0 until array.length()) {
@@ -231,7 +200,6 @@ object ArkPref {
                         return false
                     }
                 }
-            } catch (_: Throwable) {
             }
             return true
         }

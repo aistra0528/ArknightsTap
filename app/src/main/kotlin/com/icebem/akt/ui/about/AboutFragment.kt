@@ -45,7 +45,7 @@ class AboutFragment : Fragment(), OnClickListener {
             R.id.container_version_state -> {
                 view.isClickable = false
                 view.isLongClickable = false
-                ArkMaid.startUpdateThread(view)
+                ArkMaid.startUpdate(view)
             }
             R.id.container_version_type -> {
                 view.tag = (view.tag as? Int)?.plus(1) ?: 1
@@ -59,9 +59,8 @@ class AboutFragment : Fragment(), OnClickListener {
             }
             R.id.container_comment -> ArkMaid.startUrl(requireActivity(), ArkMaid.URL_COOLAPK)
             R.id.container_project -> ArkMaid.startUrl(requireActivity(), ArkMaid.URL_PROJECT)
-            R.id.container_discuss -> try {
+            R.id.container_discuss -> runCatching {
                 ArkMaid.startUrl(requireActivity(), ArkMaid.URL_QQ_API)
-            } catch (_: Throwable) {
             }
             R.id.container_support -> ArkMaid.startUrl(requireActivity(), ArkMaid.URL_WHY_FREE_SOFTWARE)
             R.id.action_share -> startActivity(Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, ArkMaid.URL_COOLAPK).setType("text/plain"))
@@ -75,11 +74,11 @@ class AboutFragment : Fragment(), OnClickListener {
             setMessage(R.string.msg_data_reset)
             setPositiveButton(R.string.action_reset) { _, _ ->
                 var id = R.string.data_reset_done
-                try {
-                    ArkData.updateData()
+                runCatching {
+                    ArkData.resetData()
                     ArkPref.setCheckLastTime(false)
-                } catch (e: Exception) {
-                    Log.e(javaClass.simpleName, e.toString())
+                }.onFailure {
+                    Log.e(javaClass.simpleName, it.toString())
                     id = R.string.error_occurred
                 }
                 Snackbar.make(binding.root, id, Snackbar.LENGTH_LONG).show()
@@ -96,9 +95,9 @@ class AboutFragment : Fragment(), OnClickListener {
             setSingleChoiceItems(resources.getStringArray(R.array.donate_payment_entries), 0) { dialog, which ->
                 dialog.dismiss()
                 when (which) {
-                    0 -> try {
+                    0 -> runCatching {
                         startActivity(Intent.parseUri(ArkMaid.URL_ALIPAY_API, Intent.URI_INTENT_SCHEME))
-                    } catch (e: Exception) {
+                    }.onFailure {
                         showQRDialog(true)
                     }
                     1 -> showQRDialog(false)

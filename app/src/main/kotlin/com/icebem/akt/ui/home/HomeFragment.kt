@@ -73,15 +73,15 @@ class HomeFragment : Fragment(), MenuProvider, OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        if (ArkPref.autoUpdate) ArkMaid.startUpdateThread(binding.root) else onStateEnd()
+        if (ArkPref.autoUpdate) ArkMaid.startUpdate(binding.root) else onStateEnd()
         if (ArkPref.isPro) binding.imgState.setOnLongClickListener {
             val input = DialogInputBinding.inflate(layoutInflater, FrameLayout(requireActivity()), true)
             input.inputLayout.setHint(R.string.customize_points)
-            input.editText.setText(ArkPref.customizePoints)
+            input.editText.setText(ArkData.getGestureData().toString())
             MaterialAlertDialogBuilder(requireActivity()).run {
                 setView(input.root.parent as View)
-                setPositiveButton(android.R.string.ok) { _, _ -> if (!ArkPref.setCustomizePoints(input.editText.text.toString())) Snackbar.make(it, R.string.wrong_format, Snackbar.LENGTH_LONG).show() }
-                setNeutralButton(R.string.action_reset) { _, _ -> ArkPref.setCustomizePoints() }
+                setPositiveButton(android.R.string.ok) { _, _ -> if (!ArkData.setGestureData(input.editText.text.toString())) Snackbar.make(it, R.string.wrong_format, Snackbar.LENGTH_LONG).show() }
+                setNeutralButton(R.string.action_reset) { _, _ -> ArkData.resetGestureData() }
                 setNegativeButton(android.R.string.cancel, null)
                 show()
             }
@@ -103,7 +103,7 @@ class HomeFragment : Fragment(), MenuProvider, OnClickListener {
                 setTitle(R.string.state_resolution_unsupported)
                 setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]))
                 setPositiveButton(R.string.got_it, null)
-                setNeutralButton(R.string.action_update) { _, _ -> ArkMaid.startUpdateThread(binding.root) }
+                setNeutralButton(R.string.action_update) { _, _ -> ArkMaid.startUpdate(binding.root) }
                 show()
             }
         } else {
