@@ -76,7 +76,7 @@ object ArkMaid {
             val path = Path()
             path.moveTo(rX.toFloat(), rY.toFloat())
             val builder = GestureDescription.Builder()
-            builder.addStroke(GestureDescription.StrokeDescription(path, 0, 120))
+            builder.addStroke(GestureDescription.StrokeDescription(path, 0, 100))
             service.dispatchGesture(builder.build(), null, null)
         } else execSU("input tap $rX $rY")
     }

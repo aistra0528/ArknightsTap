@@ -206,7 +206,7 @@ object ArkPref {
 
     val greenPoint: Boolean get() = preferences.getBoolean(KEY_GREEN_POINT, false)
     private val doubleSpeed: Boolean get() = preferences.getBoolean(KEY_DOUBLE_SPEED, false)
-    val updateTime: Long get() = Random.randomTime(if (doubleSpeed) UPDATE_TIME shr 1 else UPDATE_TIME)
+    val updateTime: Int get() = if (doubleSpeed) UPDATE_TIME shr 1 else UPDATE_TIME
     val volumeControl: Boolean get() = preferences.getBoolean(KEY_VOLUME_CONTROL, true)
     val noBackground: Boolean get() = preferences.getBoolean(KEY_NO_BACKGROUND, false)
 

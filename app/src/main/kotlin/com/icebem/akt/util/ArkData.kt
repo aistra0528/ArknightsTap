@@ -38,6 +38,7 @@ object ArkData {
     const val INDEX_KR = 4
     const val FLAG_UNRELEASED = "*"
     const val KEY_NAME = "name"
+    const val KEY_DELAY = "delay"
     const val KEY_TAP = "tap"
     const val KEY_X = "x"
     const val KEY_Y = "y"

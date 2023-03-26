@@ -30,6 +30,7 @@ import com.icebem.akt.overlay.OverlayToast
 import com.icebem.akt.util.ArkData
 import com.icebem.akt.util.ArkMaid
 import com.icebem.akt.util.ArkPref
+import com.icebem.akt.util.Random
 import kotlinx.coroutines.*
 import java.lang.ref.WeakReference
 
@@ -118,7 +119,7 @@ class GestureService : AccessibilityService(), Observer<Boolean> {
                 4 -> if (ArkPref.greenPoint) ArkMaid.performClick(this, ArkPref.greenX, ArkPref.greenY)
             }
             if (process > 4) process = 0
-            delay(ArkPref.updateTime)
+            delay(Random.randomTime(ArkPref.updateTime))
         }
     }
 
@@ -132,7 +133,7 @@ class GestureService : AccessibilityService(), Observer<Boolean> {
                     ArkMaid.performClick(this, obj.optInt(ArkData.KEY_X), obj.optInt(ArkData.KEY_Y))
             }
             if (++process == array.length()) process = 0
-            delay(ArkPref.updateTime)
+            delay(Random.randomTime(if (obj.optInt(ArkData.KEY_DELAY) > 0) obj.optInt(ArkData.KEY_DELAY) else ArkPref.updateTime))
         }
     }
 
