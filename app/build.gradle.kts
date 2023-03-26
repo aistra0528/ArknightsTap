@@ -11,8 +11,8 @@ android {
         applicationId = "com.icebem.akt"
         minSdk = 21
         targetSdk = 33
-        versionCode = 66
-        versionName = "3.0.0"
+        versionCode = 67
+        versionName = "3.0.1"
         resourceConfigurations += arrayOf("zh-rCN", "en", "ja", "in")
     }
 
