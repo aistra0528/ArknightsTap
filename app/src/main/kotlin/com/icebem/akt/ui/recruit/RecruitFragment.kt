@@ -11,6 +11,9 @@ import com.icebem.akt.databinding.FragmentRecruitBinding
 import com.icebem.akt.model.RecruitViewer
 import com.icebem.akt.util.ArkMaid
 import com.icebem.akt.util.ArkPref
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RecruitFragment : Fragment(), MenuProvider {
     private var viewer: RecruitViewer? = null
@@ -19,10 +22,14 @@ class RecruitFragment : Fragment(), MenuProvider {
         val menuHost = requireActivity() as MenuHost
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return FragmentRecruitBinding.inflate(layoutInflater).run {
-            runCatching {
-                viewer = RecruitViewer(requireContext(), this)
-            }.onFailure {
-                ArkMaid.showLogDialog(requireActivity(), it.toString())
+            root.visibility = View.INVISIBLE
+            CoroutineScope(Dispatchers.Main).launch {
+                runCatching {
+                    viewer = RecruitViewer(requireContext(), this@run)
+                    root.visibility = View.VISIBLE
+                }.onFailure {
+                    ArkMaid.showLogDialog(requireActivity(), it.toString())
+                }
             }
             root
         }
@@ -38,7 +45,7 @@ class RecruitFragment : Fragment(), MenuProvider {
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_tools, menu)
-        if (viewer != null && ArkPref.multiPackage) menu.findItem(R.id.action_language).isVisible = true
+        if (ArkPref.multiPackage) menu.findItem(R.id.action_language).isVisible = true
     }
 
     override fun onDestroyView() {

@@ -259,12 +259,12 @@ class RecruitViewer(private val context: Context, private val binding: FragmentR
         return (LayoutInflater.from(context).inflate(R.layout.tag_overlay, container, false) as TextView).apply {
             text = info.getName(index)
             setOnClickListener {
-                val str = StringBuilder().run {
+                val str = buildString {
                     val space = ' '
                     append(info.getName(index))
                     append(space)
                     append(info.getName(if (index == ArkData.INDEX_CN) ArkData.INDEX_EN else ArkData.INDEX_CN))
-                    append(if (context is MainActivity) space else System.lineSeparator())
+                    if (context is MainActivity) append(space) else appendLine()
                     when (info.star) {
                         1 -> {
                             append(RecruitTag.QUALIFICATION_1[index])
@@ -284,7 +284,6 @@ class RecruitViewer(private val context: Context, private val binding: FragmentR
                         append(space)
                         append(RecruitTag.getTagName(tag, index))
                     }
-                    toString()
                 }
                 if (context is MainActivity) Snackbar.make(container, str, Snackbar.LENGTH_LONG).show() else OverlayToast.show(str, OverlayToast.LENGTH_LONG)
             }

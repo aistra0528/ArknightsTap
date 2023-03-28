@@ -37,26 +37,27 @@ class MaterialAdapter : RecyclerView.Adapter<MaterialAdapter.ViewHolder>() {
         val view = holder.itemView as ImageView
         view.setImageResource(view.resources.getIdentifier(RES_START_MTL + info.id, RES_TYPE, view.context.packageName))
         view.setOnClickListener {
-            val builder = StringBuilder()
-            if (info.items.isEmpty()) {
-                builder.append(info.getName(ArkPref.translationIndex))
-            } else {
-                builder.append(it.context.getString(R.string.tip_material_workshop, info.getName(ArkPref.translationIndex)))
-                for (item in info.items) {
-                    val mtl = findMaterialById(item.id) ?: break
-                    builder.append(System.lineSeparator())
-                    builder.append(it.context.getString(R.string.tip_material_item, mtl.getName(ArkPref.translationIndex), item.quantity))
+            val str = buildString {
+                if (info.items.isEmpty()) {
+                    append(info.getName(ArkPref.translationIndex))
+                } else {
+                    append(it.context.getString(R.string.tip_material_workshop, info.getName(ArkPref.translationIndex)))
+                    for (item in info.items) {
+                        val mtl = findMaterialById(item.id) ?: break
+                        appendLine()
+                        append(it.context.getString(R.string.tip_material_item, mtl.getName(ArkPref.translationIndex), item.quantity))
+                    }
+                }
+                if (info.stages.isNotEmpty()) {
+                    for (mission in info.stages) {
+                        appendLine()
+                        val sanity = mission.sanity
+                        val frequency = mission.frequency
+                        append(it.context.getString(R.string.tip_material_mission, mission.mission, frequency * 100, sanity / frequency))
+                    }
                 }
             }
-            if (info.stages.isNotEmpty()) {
-                for (mission in info.stages) {
-                    builder.append(System.lineSeparator())
-                    val sanity = mission.sanity
-                    val frequency = mission.frequency
-                    builder.append(it.context.getString(R.string.tip_material_mission, mission.mission, frequency * 100, sanity / frequency))
-                }
-            }
-            OverlayToast.show(builder.toString(), OverlayToast.LENGTH_LONG)
+            OverlayToast.show(str, OverlayToast.LENGTH_LONG)
         }
     }
 
