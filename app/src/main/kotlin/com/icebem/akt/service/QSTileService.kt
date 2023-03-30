@@ -11,11 +11,11 @@ import com.icebem.akt.R
 import com.icebem.akt.util.ArkMaid
 
 @RequiresApi(Build.VERSION_CODES.N)
-class QuickService : TileService() {
+class QSTileService : TileService() {
     override fun onStartListening() {
         super.onStartListening()
-        qsTile.icon = Icon.createWithResource(this, if (ArkMaid.requireOverlayPermission) R.drawable.ic_akt else R.drawable.ic_error)
-        qsTile.label = if (ArkMaid.requireOverlayPermission) getString(R.string.overlay_label) else getString(R.string.state_permission_request)
+        qsTile.icon = Icon.createWithResource(this, if (ArkMaid.requireOverlayPermission) R.drawable.ic_error else R.drawable.ic_akt)
+        qsTile.label = getString(if (ArkMaid.requireOverlayPermission) R.string.state_permission_request else R.string.overlay_label)
         qsTile.state = if (ArkMaid.isOverlayServiceRunning) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
         qsTile.updateTile()
     }
@@ -23,6 +23,8 @@ class QuickService : TileService() {
     override fun onClick() {
         super.onClick()
         if (ArkMaid.requireOverlayPermission) {
+            ArkMaid.startManageOverlay(this)
+        } else {
             val intent = Intent(this, OverlayService::class.java)
             if (ArkMaid.isOverlayServiceRunning) {
                 stopService(intent)
@@ -32,6 +34,6 @@ class QuickService : TileService() {
                 qsTile.state = Tile.STATE_ACTIVE
             }
             qsTile.updateTile()
-        } else ArkMaid.startManageOverlay(this)
+        }
     }
 }
