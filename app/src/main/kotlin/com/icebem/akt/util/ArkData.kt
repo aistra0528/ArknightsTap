@@ -164,10 +164,10 @@ object ArkData {
     private fun latestApp(onlineEntry: JSONArray): Boolean = BuildConfig.VERSION_CODE >= onlineEntry.getJSONObject(0).getInt(KEY_VERSION)
 
     @Throws(JSONException::class)
-    private fun getChangelog(json: JSONObject): String = """
-        ${json.getString("name")}
-        ${json.getString("body")}
-    """.trimIndent()
+    private fun getChangelog(json: JSONObject): String = buildString {
+        appendLine(json.getString("name"))
+        append(json.getString("body"))
+    }
 
     @Throws(JSONException::class)
     private fun getDownloadUrl(json: JSONObject): String = json.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
