@@ -51,5 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/control_margin"
         android:gravity="center_horizontal"
-        android:text="@string/tip_material_data" />
+        android:text="@string/tip_material_data"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 </androidx.appcompat.widget.LinearLayoutCompat>

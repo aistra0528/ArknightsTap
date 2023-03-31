@@ -6,9 +6,9 @@
     <color name="color_overlay">#99000000</color>
     <color name="color_toast">#E6EEEEEE</color>
     <color name="color_warn">#F44336</color>
-    <color name="color_recruit">#8BC34A</color>
-    <color name="color_headhunt">#FBC02D</color>
-    <color name="color_material">#00B0FF</color>
+    <color name="color_material_green">#8BC34A</color>
+    <color name="color_material_yellow">#FBC02D</color>
+    <color name="color_material_blue">#00B0FF</color>
     <color name="color_control_activated">#8D6E63</color>
     <color name="color_star_6">#D32F2F</color>
     <color name="color_star_5">#E65100</color>

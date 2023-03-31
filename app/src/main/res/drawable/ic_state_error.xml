@@ -10,11 +10,11 @@
         <path
             android:pathData="M12,4l8,8l-8,8l-8,-8z"
             android:strokeWidth="1.2"
-            android:strokeColor="?android:attr/textColorPrimary"
+            android:strokeColor="?colorOnSurface"
             android:strokeLineCap="square" />
     </group>
     <path
         android:pathData="M12,9v3.6M12,13.8v1.2"
         android:strokeWidth="1.2"
-        android:strokeColor="?android:attr/textColorPrimary" />
+        android:strokeColor="?colorOnSurface" />
 </vector>

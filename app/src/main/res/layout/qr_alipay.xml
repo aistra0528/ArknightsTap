@@ -7,5 +7,5 @@
     android:contentDescription="@null"
     android:padding="@dimen/view_padding"
     app:srcCompat="@mipmap/qr_alipay"
-    app:tint="?android:attr/textColorPrimary"
+    app:tint="?colorOnSurface"
     tools:viewBindingIgnore="true" />

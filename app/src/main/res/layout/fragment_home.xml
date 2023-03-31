@@ -77,11 +77,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/control_margin"
                         android:background="@drawable/bg_oval"
-                        android:backgroundTint="@color/color_headhunt"
+                        android:backgroundTint="@color/color_material_yellow"
                         android:contentDescription="@null"
                         android:padding="@dimen/control_padding"
-                        android:src="@drawable/ic_recruit"
-                        android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+                        android:src="@drawable/ic_recruit" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -104,11 +103,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/control_margin"
                         android:background="@drawable/bg_oval"
-                        android:backgroundTint="@color/color_material"
+                        android:backgroundTint="@color/color_material_blue"
                         android:contentDescription="@null"
                         android:padding="@dimen/control_padding"
-                        android:src="@drawable/ic_settings"
-                        android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+                        android:src="@drawable/ic_settings" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -131,11 +129,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/control_margin"
                         android:background="@drawable/bg_oval"
-                        android:backgroundTint="@color/color_recruit"
+                        android:backgroundTint="@color/color_material_green"
                         android:contentDescription="@null"
                         android:padding="@dimen/control_padding"
-                        android:src="@drawable/ic_info"
-                        android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+                        android:src="@drawable/ic_info" />
 
                     <TextView
                         android:layout_width="wrap_content"

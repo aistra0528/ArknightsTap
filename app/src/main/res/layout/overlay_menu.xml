@@ -23,11 +23,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
                 android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/color_recruit"
+                android:backgroundTint="@color/color_material_yellow"
                 android:contentDescription="@null"
                 android:padding="@dimen/control_padding"
-                android:src="@drawable/ic_recruit"
-                android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+                android:src="@drawable/ic_recruit" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
@@ -52,11 +51,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
                 android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/color_headhunt"
+                android:backgroundTint="@color/color_material_blue"
                 android:contentDescription="@null"
                 android:padding="@dimen/control_padding"
-                android:src="@drawable/ic_headhunt"
-                android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+                android:src="@drawable/ic_counter" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
@@ -81,11 +79,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/control_margin"
                 android:background="@drawable/bg_oval"
-                android:backgroundTint="@color/color_material"
+                android:backgroundTint="@color/color_material_green"
                 android:contentDescription="@null"
                 android:padding="@dimen/control_padding"
-                android:src="@drawable/ic_explore"
-                android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+                android:src="@drawable/ic_place" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
@@ -159,8 +156,7 @@
                     android:backgroundTint="@color/color_secondary"
                     android:contentDescription="@null"
                     android:padding="@dimen/control_padding"
-                    android:src="@drawable/ic_collapse"
-                    android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+                    android:src="@drawable/ic_collapse" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
@@ -188,8 +184,7 @@
                     android:backgroundTint="@color/color_warn"
                     android:contentDescription="@null"
                     android:padding="@dimen/control_padding"
-                    android:src="@drawable/ic_exit"
-                    android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+                    android:src="@drawable/ic_exit" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
