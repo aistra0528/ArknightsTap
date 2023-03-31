@@ -122,8 +122,8 @@ object ArkMaid {
         }
 
     fun startUpdate(view: View) = CoroutineScope(Dispatchers.Main).launch {
-        ArkData.requireUpdate()
         Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_LONG).show()
+        ArkData.requireUpdate()
     }
 
     fun showUpdateResult(activity: Activity, view: View, result: JSONArray?, updateView: () -> Unit) {
