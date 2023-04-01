@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.icebem.akt.BuildConfig
@@ -45,7 +46,7 @@ class AboutFragment : Fragment(), OnClickListener {
             R.id.container_version_state -> {
                 view.isClickable = false
                 view.isLongClickable = false
-                ArkMaid.startUpdate(view)
+                ArkMaid.startUpdate(lifecycleScope, view)
             }
             R.id.container_version_type -> {
                 view.tag = (view.tag as? Int)?.plus(1) ?: 1
