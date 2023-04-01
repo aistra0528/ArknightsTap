@@ -11,6 +11,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
@@ -73,7 +74,7 @@ class HomeFragment : Fragment(), MenuProvider, OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        if (ArkPref.autoUpdate) ArkMaid.startUpdate(binding.root) else onStateEnd()
+        if (ArkPref.autoUpdate) ArkMaid.startUpdate(lifecycleScope, binding.root) else onStateEnd()
         if (ArkPref.isPro) binding.imgState.setOnLongClickListener {
             val input = DialogInputBinding.inflate(layoutInflater, FrameLayout(requireActivity()), true)
             input.inputLayout.setHint(R.string.customize_points)
@@ -103,7 +104,7 @@ class HomeFragment : Fragment(), MenuProvider, OnClickListener {
                 setTitle(R.string.state_resolution_unsupported)
                 setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]))
                 setPositiveButton(R.string.got_it, null)
-                setNeutralButton(R.string.action_update) { _, _ -> ArkMaid.startUpdate(binding.root) }
+                setNeutralButton(R.string.action_update) { _, _ -> ArkMaid.startUpdate(lifecycleScope, binding.root) }
                 show()
             }
         } else {

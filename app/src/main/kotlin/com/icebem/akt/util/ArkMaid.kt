@@ -15,6 +15,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.icebem.akt.ArkApp.Companion.app
@@ -22,8 +23,6 @@ import com.icebem.akt.BuildConfig
 import com.icebem.akt.R
 import com.icebem.akt.service.GestureService
 import com.icebem.akt.service.OverlayService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.io.File
@@ -121,7 +120,7 @@ object ArkMaid {
             it != null && it.contains(app.packageName + "/" + GestureService::class.java.name)
         }
 
-    fun startUpdate(view: View) = CoroutineScope(Dispatchers.Main).launch {
+    fun startUpdate(lifecycleScope: LifecycleCoroutineScope, view: View) = lifecycleScope.launch {
         Snackbar.make(view, R.string.version_checking, Snackbar.LENGTH_LONG).show()
         ArkData.requireUpdate()
     }

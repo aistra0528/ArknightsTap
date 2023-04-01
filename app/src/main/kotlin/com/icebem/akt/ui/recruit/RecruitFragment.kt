@@ -6,13 +6,12 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import com.icebem.akt.R
 import com.icebem.akt.databinding.FragmentRecruitBinding
 import com.icebem.akt.model.RecruitViewer
 import com.icebem.akt.util.ArkMaid
 import com.icebem.akt.util.ArkPref
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RecruitFragment : Fragment(), MenuProvider {
@@ -23,7 +22,7 @@ class RecruitFragment : Fragment(), MenuProvider {
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return FragmentRecruitBinding.inflate(layoutInflater).run {
             root.visibility = View.INVISIBLE
-            CoroutineScope(Dispatchers.Main).launch {
+            lifecycleScope.launch {
                 runCatching {
                     viewer = RecruitViewer(requireContext(), this@run)
                     root.visibility = View.VISIBLE
