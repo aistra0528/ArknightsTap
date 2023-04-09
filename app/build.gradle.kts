@@ -13,7 +13,7 @@ android {
         targetSdk = 33
         versionCode = 68
         versionName = "3.0.2"
-        resourceConfigurations += arrayOf("zh-rCN", "en", "ja", "in")
+        resourceConfigurations += setOf("zh-rCN", "en", "ja", "in", "fr")
     }
 
     val signing = if (file("../signing.properties").exists()) {
