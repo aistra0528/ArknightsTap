@@ -76,17 +76,17 @@
             {
                 "name": "John Doe",
                 "type": [
-                    "contributor",
-                    "translator_xxx",
-                    "translator_xyz",
+                    id for contributor,
+                    id for translator_xxx,
+                    id for translator_xyz,
                 ],
                 "networks": [
-                    "network_xxx",
-                    "network_xyz",
+                    id for network_xxx,
+                    id for network_xyz,
                 ]
             }
         ]
-        Cf PR here : TODO mathiusD for add ref of PR
+        Cf PR here : https://github.com/aistra0528/ArknightsTap/pull/39
     -->
     <string name="special_thanks_desc">Twitter @op_satoshi - Traduction japonaise\nTelegram @twiceYuan - Contributeur\nTelegram @dwipaa11 and @AdityaTamamo - Traduction indonésienne\nGitHub @FhrShadow - Contributeur\nGitHub/GitLab @MathiusD - Traduction française</string>
     <string name="action_counter">Nombre de tirages en chasse à la tête</string>
@@ -127,4 +127,15 @@
     <string name="donation_alipay">Alipay</string>
     <string name="donation_wechat">Wechat</string>
     <string name="donation_paypal">PayPal</string>
+    <!-- Translations related to special thanks management -->
+    <!--
+        <string name="contributor">Contributeur</string>
+        <string name="translator_jp">Traducteur japonais</string>
+        <string name="translator_in">Traducteur indonésien</string>
+        <string name="translator_fr">Traducteur Français</string>
+        <string name="network_twitter">Twitter</string>
+        <string name="network_telegram">Telegram</string>
+        <string name="network_github">GitHub</string>
+        <string name="network_gitlab">GitLab</string>
+     -->
 </resources>
