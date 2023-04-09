@@ -68,7 +68,6 @@
     <string name="scroll_to_result_title">Navigasi cepat</string>
     <string name="scroll_to_result_summary">Gulir ke area hasil setelah memilih 5 tag</string>
     <string name="special_thanks_title">Terima kasih khusus</string>
-    <string name="special_thanks_desc">Twitter @op_satoshi - Penerjemah bahasa Jepang\nTelegram @twiceYuan - Penyumbang\nTelegram @dwipaa11 dan @AdityaTamamo - Penerjemah bahasa Indonesia\nGitHub @FhrShadow - Penyumbang</string>
     <string name="action_counter">Penghitung Headhunt</string>
     <string name="tip_counter_default">Roll: %1$d\nKemungkinan 6 ★ diroll berikutnya: %2$d%%\nTekan lama + untuk x10, - untuk membersihkan</string>
     <string name="msg_data_reset">Reset data yang diunduh?</string>
@@ -99,4 +98,13 @@
     <string name="green_point_summary">防止嗑药碎石和结算循环</string>
     <string name="action_penguin">Penguin Statistics</string>
     <string name="action_wiki">PRTS Wiki</string>
+    <string name="contributor">Penyumbang</string>
+    <string name="translator_jp">Penerjemah bahasa Jepang</string>
+    <string name="translator_in">Penerjemah bahasa Indonesia</string>
+    <!-- I don't speak indonesian, it potentially wrong :( -->
+    <string name="translator_fr">Penerjemah bahasa Prancis</string>
+    <string name="network_twitter">Twitter</string>
+    <string name="network_telegram">Telegram</string>
+    <string name="network_github">GitHub</string>
+    <string name="network_gitlab">GitLab</string>
 </resources>

@@ -1,0 +1,67 @@
+[
+  {
+    "name": "@neko1da",
+    "types": [
+      1
+    ],
+    "networks": [
+
+    ]
+  },
+  {
+    "name": "@op_satoshi",
+    "types": [
+      1
+    ],
+    "networks": [
+      0
+    ]
+  },
+  {
+    "name": "@twiceYuan",
+    "types": [
+      0
+    ],
+    "networks": [
+      1
+    ]
+  },
+  {
+    "name": "@dwipaa11",
+    "types": [
+      2
+    ],
+    "networks": [
+      1
+    ]
+  },
+  {
+    "name": "@AdityaTamamo",
+    "types": [
+      2
+    ],
+    "networks": [
+      1
+    ]
+  },
+  {
+    "name": "@FhrShadow",
+    "types": [
+      0
+    ],
+    "networks": [
+      2
+    ]
+  },
+  {
+    "name": "@MathiusD",
+    "types": [
+      3,
+      0
+    ],
+    "networks": [
+      2,
+      3
+    ]
+  }
+]

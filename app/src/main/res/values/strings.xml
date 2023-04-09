@@ -67,7 +67,6 @@
     <string name="recruit_preview_summary">显示当前渠道尚未实装的干员</string>
     <string name="scroll_to_result_title">快速导航</string>
     <string name="scroll_to_result_summary">选择5个标签后向下滑动到规划方案</string>
-    <string name="special_thanks_desc">酷安 @neko1da - 日语翻译\nTelegram @twiceYuan - 贡献者\nTelegram @dwipaa11 和 @AdityaTamamo - 印尼语翻译\nGitHub @FhrShadow - 贡献者</string>
     <string name="special_thanks_title">特别感谢</string>
     <string name="version_type_lite" translatable="false">Lis</string>
     <string name="version_type_pro" translatable="false">Originium</string>
@@ -107,4 +106,13 @@
     <string name="green_point_summary">防止嗑药碎石和结算循环</string>
     <string name="action_penguin">企鹅物流数据统计</string>
     <string name="action_wiki">PRTS Wiki</string>
+    <string name="contributor">贡献者</string>
+    <string name="translator_jp">日语翻译</string>
+    <string name="translator_in">印尼语翻译</string>
+    <!-- I don't speak chinese, it potentially wrong :( -->
+    <string name="translator_fr">法文翻译</string>
+    <string name="network_twitter">Twitter</string>
+    <string name="network_telegram">Telegram</string>
+    <string name="network_github">GitHub</string>
+    <string name="network_gitlab">GitLab</string>
 </resources>
