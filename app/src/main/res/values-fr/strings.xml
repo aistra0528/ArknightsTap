@@ -1,0 +1,141 @@
+<resources>
+    <string name="app_name">ArkTap</string>
+    <string name="gesture_label">ARGS™</string>
+    <string name="gesture_description">ARGS™ peut appuyer automatiquement sur le bouton de démarrage de la mission.\n\nChoisissez une mission avant de commencer, et n\'oubliez pas d\'autoriser le déploiement automatique.\n\nL\'utilisation d\'ARGS™ peut entraîner des bannissements de comptes, et nous n\'en sommes PAS responsables. C\'est VOUS qui choisissez d\'utiliser ARGS™, et si vous nous montrez du doigt, nous nous moquerons de vous.\n\nLes autorisations requises par ARGS™ sont UNIQUEMENT utilisées pour tapoter l\'écran, et ne collectent PAS d\'informations personnelles.\n\nSi vous avez des questions, n\'hésitez pas à nous contacter sur GitHub.</string>
+    <string name="overlay_label">ARSS™</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="state_permission_request">L\'application nécessite des autorisations</string>
+    <string name="state_resolution_unsupported">Résolution non prise en charge</string>
+    <string name="state_loading">Chargement des services…</string>
+    <string name="state_ready">Prêt à être connecté</string>
+    <string name="msg_permission_overlay">- Afficher par-dessus les autres applications\nMontrer une fenêtre flottante d\'aide dans le jeu</string>
+    <string name="info_overlay_connected">ARSS™ connecté</string>
+    <string name="info_overlay_disconnected">ARSS™ déconnecté</string>
+    <string name="action_disconnect">Fin</string>
+    <string name="action_overlay_collapse">Min</string>
+    <string name="title_recruit">Guide de recrutement</string>
+    <string name="action_reset">Reset</string>
+    <string name="tip_recruit_result_none">Aucun opérateur</string>
+    <string name="tip_recruit_result_default">Opérateurs possibles</string>
+    <string name="tip_recruit_result_1">Machine de soutien et 3:50 garantissent un opérateur 1★</string>
+    <string name="tip_recruit_result_4">Opérateur de 4★ ou supérieur garantis</string>
+    <string name="tip_recruit_result_5">Opérateur de 5★ ou supérieur garantis</string>
+    <string name="tip_recruit_result_6">Senior avancé et 9 heure garantissent un opérateur 6★ ! Félicitation!</string>
+    <string name="action_timer">Temps d\'exécution d\'ARGS™</string>
+    <string name="info_timer_min">%d min</string>
+    <string name="info_timer_none">∞</string>
+    <string name="info_timer_set">Fixer le temps pour %s</string>
+    <string name="action_night">Mode nuit</string>
+    <string name="info_gesture_request">Veuillez démarrer ARGS™</string>
+    <string name="info_gesture_connected">ARGS™ commence à saisir</string>
+    <string name="info_gesture_disconnected">ARGS™ a terminé</string>
+    <string name="info_gesture_running">ARGS™ est en cours d\'exécution, il reste %d min</string>
+    <string name="msg_resolution_unsupported">Votre appareil (Résolution : %1$d×%2$d) ne prend pas encore en charge ARGS™, veuillez nous contacter sur GitHub. \nARSS™ est disponible sans être affecté.</string>
+    <string name="title_about">À propos</string>
+    <string name="action_donate">Faire un don</string>
+    <string name="desc_support">Vous pouvez montrer votre gratitude au développeur en faisant un don.</string>
+    <string name="info_donate_thanks">Merci pour votre confiance, Docteur</string>
+    <string name="title_comment">Notez cette application</string>
+    <string name="desc_comment">Notez l\'application sur le store</string>
+    <string name="title_discuss">Rejoindre la conversation</string>
+    <string name="desc_discuss">Vous pouvez nous suivre sur GitHub pour les mises à jour.</string>
+    <string name="title_project">Contribuer à ArkTap</string>
+    <string name="desc_project">Soumettre des tickets ou des contributions sur GitHub</string>
+    <string name="version_current">Version actuelle</string>
+    <string name="version_checking">Vérification des mises à jour…</string>
+    <string name="version_checking_failed">La vérification des mises à jour a échoué</string>
+    <string name="version_latest">Il s\'agit de la dernière version</string>
+    <string name="version_update">Nouvelle version disponible</string>
+    <string name="version_type">Type de version</string>
+    <string name="version_type_changed">Le type de version a changé, veuillez réinstaller l\'application</string>
+    <string name="action_update">Mettre à jour</string>
+    <string name="got_it">C\'est compris</string>
+    <string name="permission_permit">Autoriser</string>
+    <string name="no_thanks">Non merci</string>
+    <string name="not_now">Plus tard</string>
+    <string name="error_occurred">Une erreur s\'est produite</string>
+    <string name="coming_soon">Prochainement</string>
+    <string name="auto_update_title">Vérification automatique</string>
+    <string name="auto_update_summary_on">Vérifier les mises à jour selon le rythme programmé</string>
+    <string name="auto_update_summary_off">Vous pouvez vérifier les mises à jour en allant dans la rubrique À propos</string>
+    <string name="launch_game_title">Lancer le jeu</string>
+    <string name="launch_game_summary">Lancer le jeu si nécessaire</string>
+    <string name="game_server_title">Serveur de jeu</string>
+    <string name="ascending_star_title">Tri ascendant</string>
+    <string name="ascending_star_summary">Trier les opérateurs par ★ dans l\'ordre ascendant</string>
+    <string name="recruit_preview_title">Afficher les opérateurs non publiés</string>
+    <string name="recruit_preview_summary">Afficher les opérateurs non publiés dans le serveur actuel</string>
+    <string name="scroll_to_result_title">Navigation rapide</string>
+    <string name="scroll_to_result_summary">Faire défiler jusqu\'à la zone de résultat après avoir sélectionné 5 étiquettes</string>
+    <string name="special_thanks_title">Remerciements spéciaux</string>
+    <!-- TODO For contributors/translators management :
+        Maybe mutualise this string with translation keys for avoid update field only on first translation
+        for each person with contribution type like 'translator_xxx' and/or 'contributors' and networks like 'network_xxx'
+        and put the entries in a json array like that :
+        [
+            {
+                "name": "John Doe",
+                "type": [
+                    id for contributor,
+                    id for translator_xxx,
+                    id for translator_xyz,
+                ],
+                "networks": [
+                    id for network_xxx,
+                    id for network_xyz,
+                ]
+            }
+        ]
+        Cf PR here : https://github.com/aistra0528/ArknightsTap/pull/39
+    -->
+    <string name="special_thanks_desc">Twitter @op_satoshi - Traduction japonaise\nTelegram @twiceYuan - Contributeur\nTelegram @dwipaa11 and @AdityaTamamo - Traduction indonésienne\nGitHub @FhrShadow - Contributeur\nGitHub/GitLab @MathiusD - Traduction française</string>
+    <string name="action_counter">Nombre de tirages en chasse à la tête</string>
+    <string name="tip_counter_default">Tirages : %1$d\nPossibilité de 6★ au prochain tirage : %2$d%%\nLongue pression sur le + pour ajouter 10, sur le - pour remettre à 0</string>
+    <string name="msg_data_reset">Réinitialiser les données téléchargées ?</string>
+    <string name="data_reset_done">Réinitialisation réussie</string>
+    <string name="data_updated">Dernières données mises à jour</string>
+    <string name="action_material">Guide des matériaux</string>
+    <string name="double_speed_title">Double vitesse</string>
+    <string name="double_speed_summary">Fonction à une vitesse de 2x</string>
+    <string name="tip_material_data">Données de Penguin Statistics, pour référence uniquement</string>
+    <string name="tip_material_workshop">%s > Atelier</string>
+    <string name="tip_material_mission">%1$s | %2$.1f%% | %3$.1f Sanity</string>
+    <!-- For french translators :
+        Si vous voulez changer la trad de HeadHunt par autre chose que Chasse à la tête n'hésitez pas
+    -->
+    <string name="counter_normal">Chasse à la tête standard</string>
+    <string name="counter_limited">Chasse à la tête limitée</string>
+    <string name="anti_burn_in_title">Sprite translucide</string>
+    <!-- I don't speek chinese if anyone want to translate following entries go for it -->
+    <string name="no_background_title">减少内存占用</string>
+    <string name="no_background_summary">打开无障碍后开始，结束后关闭无障碍</string>
+    <string name="root_mode_msg">L\'appareil doit être rooté.</string>
+    <string name="action_details">Détails</string>
+    <string name="error_accessibility_killed">L\'accessibilité a été supprimée, veuillez réinstaller l\'application</string>
+    <string name="tip_not_found">ARGS™ n\'a pas été trouvé dans Accessibilité ? Cliquez ici</string>
+    <string name="action_reinstall">Réinstallation</string>
+    <string name="action_share">Partager</string>
+    <string name="title_support">Support</string>
+    <string name="volume_control">Diminuer le volume pour arrêter</string>
+    <string name="customize_points">Personnaliser les points</string>
+    <string name="wrong_format">Format incorrect</string>
+    <!-- I don't speek chinese if anyone want to translate following entries go for it -->
+    <string name="green_point_title">额外点击坐标</string>
+    <string name="green_point_summary">防止嗑药碎石和结算循环</string>
+    <string name="action_penguin">Penguin Statistics</string>
+    <string name="action_wiki">PRTS Wiki</string>
+    <string name="donation_alipay">Alipay</string>
+    <string name="donation_wechat">Wechat</string>
+    <string name="donation_paypal">PayPal</string>
+    <!-- Translations related to special thanks management -->
+    <!--
+        <string name="contributor">Contributeur</string>
+        <string name="translator_jp">Traducteur japonais</string>
+        <string name="translator_in">Traducteur indonésien</string>
+        <string name="translator_fr">Traducteur Français</string>
+        <string name="network_twitter">Twitter</string>
+        <string name="network_telegram">Telegram</string>
+        <string name="network_github">GitHub</string>
+        <string name="network_gitlab">GitLab</string>
+     -->
+</resources>

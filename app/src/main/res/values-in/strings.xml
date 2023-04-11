@@ -98,6 +98,9 @@
     <string name="green_point_summary">防止嗑药碎石和结算循环</string>
     <string name="action_penguin">Penguin Statistics</string>
     <string name="action_wiki">PRTS Wiki</string>
+    <string name="donation_alipay">Alipay</string>
+    <string name="donation_wechat">Wechat</string>
+    <string name="donation_paypal">PayPal</string>
     <string name="contributor">Penyumbang</string>
     <string name="translator_jp">Penerjemah bahasa Jepang</string>
     <string name="translator_in">Penerjemah bahasa Indonesia</string>

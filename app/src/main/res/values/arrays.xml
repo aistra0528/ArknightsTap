@@ -18,9 +18,9 @@
     </string-array>
 
     <string-array name="donate_payment_entries">
-        <item>支付宝</item>
-        <item>微信</item>
-        <item>PayPal</item>
+        <item>@string/donation_alipay</item>
+        <item>@string/donation_wechat</item>
+        <item>@string/donation_paypal</item>
     </string-array>
 
     <string-array name="network_names">

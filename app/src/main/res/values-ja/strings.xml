@@ -98,11 +98,13 @@
     <string name="green_point_summary">防止嗑药碎石和结算循环</string>
     <string name="action_penguin">Penguin Statistics</string>
     <string name="action_wiki">PRTS Wiki</string>
+    <string name="donation_alipay">Alipay</string>
+    <string name="donation_wechat">Wechat</string>
+    <string name="donation_paypal">PayPal</string>
     <string name="contributor">寄稿者</string>
     <string name="translator_jp">日本語訳</string>
     <string name="translator_in">インドネシア語訳</string>
-    <string name="translator_fr">仏訳</string>
-    <!-- I don't speak japanese, it potentially wrong :( -->
+    <string name="translator_fr">フランス語訳</string>
     <string name="network_twitter">Twitter</string>
     <string name="network_telegram">Telegram</string>
     <string name="network_github">GitHub</string>
