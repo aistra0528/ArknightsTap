@@ -99,14 +99,8 @@
     <string name="action_penguin">Penguin Statistics</string>
     <string name="action_wiki">PRTS Wiki</string>
     <string name="donation_alipay">Alipay</string>
-    <string name="donation_wechat">Wechat</string>
+    <string name="donation_wechat">WeChat Pay</string>
     <string name="donation_paypal">PayPal</string>
     <string name="contributor">Contributor</string>
-    <string name="translator_jp">Japanese translation</string>
-    <string name="translator_in">Indonesian translation</string>
-    <string name="translator_fr">French translation</string>
-    <string name="network_twitter">Twitter</string>
-    <string name="network_telegram">Telegram</string>
-    <string name="network_github">GitHub</string>
-    <string name="network_gitlab">GitLab</string>
+    <string name="translator">Translator</string>
 </resources>

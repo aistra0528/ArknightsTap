@@ -39,16 +39,12 @@ class AboutFragment : Fragment(), OnClickListener {
         binding.containerSupport.setOnClickListener(this)
         binding.actionShare.setOnClickListener(this)
         binding.actionDonate.setOnClickListener(this)
-        val contributors = ContributorInfo.array
-        var contributorsText = ""
-        contributors.forEach { contributor ->
-            contributorsText = if (contributorsText.isEmpty()) {
-                contributor.toLocalizedString(resources)
-            } else {
-               String.format("%s\n%s", contributorsText, contributor.toLocalizedString(resources))
+        binding.contributorsText.text = buildString {
+            ContributorInfo.array.forEach {
+                if (isNotEmpty()) appendLine()
+                append(it.toLocalizedString(resources))
             }
         }
-        binding.contributorsText.text = contributorsText
         return binding.root
     }
 

@@ -110,11 +110,5 @@
     <string name="donation_wechat">微信</string>
     <string name="donation_paypal">PayPal</string>
     <string name="contributor">贡献者</string>
-    <string name="translator_jp">日语翻译</string>
-    <string name="translator_in">印尼语翻译</string>
-    <string name="translator_fr">法语翻译</string>
-    <string name="network_twitter">Twitter</string>
-    <string name="network_telegram">Telegram</string>
-    <string name="network_github">GitHub</string>
-    <string name="network_gitlab">GitLab</string>
+    <string name="translator">翻译</string>
 </resources>

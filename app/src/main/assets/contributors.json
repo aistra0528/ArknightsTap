@@ -1,67 +1,62 @@
 [
   {
-    "name": "@neko1da",
-    "types": [
-      1
+    "name": "neko1da",
+    "languages": [
+      "日本語"
     ],
     "networks": [
-
+      "GitHub"
     ]
   },
   {
-    "name": "@op_satoshi",
-    "types": [
-      1
+    "name": "op_satoshi",
+    "languages": [
+      "日本語"
     ],
     "networks": [
-      0
+      "Twitter"
     ]
   },
   {
-    "name": "@twiceYuan",
-    "types": [
-      0
-    ],
+    "name": "twiceYuan",
+    "languages": [],
     "networks": [
-      1
+      "Telegram"
     ]
   },
   {
-    "name": "@dwipaa11",
-    "types": [
-      2
+    "name": "dwipaa11",
+    "languages": [
+      "Indonesia"
     ],
     "networks": [
-      1
+      "Telegram"
     ]
   },
   {
-    "name": "@AdityaTamamo",
-    "types": [
-      2
+    "name": "AdityaTamamo",
+    "languages": [
+      "Indonesia"
     ],
     "networks": [
-      1
+      "Telegram"
     ]
   },
   {
-    "name": "@FhrShadow",
-    "types": [
-      0
-    ],
+    "name": "FhrShadow",
+    "languages": [],
     "networks": [
-      2
+      "GitHub"
     ]
   },
   {
-    "name": "@MathiusD",
-    "types": [
-      3,
-      0
+    "name": "MathiusD",
+    "languages": [
+      "Français"
     ],
     "networks": [
-      2,
-      3
+      "GitHub",
+      "GitLab"
     ]
   }
 ]

@@ -10,7 +10,7 @@ import java.io.IOException
 class ContributorInfo private constructor(obj: JSONObject) {
     companion object {
         private const val KEY_NAME = "name"
-        private const val KEY_TYPE = "types"
+        private const val KEY_LANGUAGES = "languages"
         private const val KEY_NETWORKS = "networks"
 
         @get:Throws(IOException::class, JSONException::class)
@@ -24,38 +24,24 @@ class ContributorInfo private constructor(obj: JSONObject) {
     }
 
     private val name: String = obj.getString(KEY_NAME)
-    private val types: Array<Int> = mutableListOf<Int>().apply {
-        val array = obj.getJSONArray(KEY_TYPE)
-        for (i in 0 until array.length()) add(array.getInt(i))
+    private val languages: Array<String> = mutableListOf<String>().apply {
+        val array = obj.getJSONArray(KEY_LANGUAGES)
+        for (i in 0 until array.length()) add(array.getString(i))
     }.toTypedArray()
-    private val networks: Array<Int> = mutableListOf<Int>().apply {
+    private val networks: Array<String> = mutableListOf<String>().apply {
         val array = obj.getJSONArray(KEY_NETWORKS)
-        for (i in 0 until array.length()) add(array.getInt(i))
+        for (i in 0 until array.length()) add(array.getString(i))
     }.toTypedArray()
 
-    fun toLocalizedString(resources : Resources): String {
-        var result = ""
-        for (i in networks.indices step 1) {
-            val networkName = resources.getStringArray(R.array.network_names)[networks[i]]
-            result = if (i == 0) {
-                networkName
-            } else {
-                String.format("%s\\%s", result, networkName)
-            }
-
-            if (i != networks.size - 2) {
-                result = String.format("%s ", result)
-            }
+    fun toLocalizedString(resources: Resources): String = buildString {
+        if (networks.isNotEmpty()) append(networks.joinToString(separator = "/", postfix = " @"))
+        append(name)
+        append(" - ")
+        append(resources.getString(R.string.contributor))
+        if (languages.isNotEmpty()) {
+            append("&")
+            append(resources.getString(R.string.translator))
+            append(languages.joinToString(prefix = " (", postfix = ")"))
         }
-        result = String.format("%s%s", result, name)
-        for (i in types.indices step 1) {
-            val typeName = resources.getStringArray(R.array.contributor_type_names)[types[i]]
-            result = if (i == 0) {
-                String.format("%s - %s", result, typeName)
-            } else {
-                String.format("%s, %s", result, typeName)
-            }
-        }
-        return result
     }
 }

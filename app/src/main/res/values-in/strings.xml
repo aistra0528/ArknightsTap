@@ -99,15 +99,8 @@
     <string name="action_penguin">Penguin Statistics</string>
     <string name="action_wiki">PRTS Wiki</string>
     <string name="donation_alipay">Alipay</string>
-    <string name="donation_wechat">Wechat</string>
+    <string name="donation_wechat">WeChat Pay</string>
     <string name="donation_paypal">PayPal</string>
     <string name="contributor">Penyumbang</string>
-    <string name="translator_jp">Penerjemah bahasa Jepang</string>
-    <string name="translator_in">Penerjemah bahasa Indonesia</string>
-    <!-- I don't speak indonesian, it potentially wrong :( -->
-    <string name="translator_fr">Penerjemah bahasa Prancis</string>
-    <string name="network_twitter">Twitter</string>
-    <string name="network_telegram">Telegram</string>
-    <string name="network_github">GitHub</string>
-    <string name="network_gitlab">GitLab</string>
+    <string name="translator">Penerjemah</string>
 </resources>
