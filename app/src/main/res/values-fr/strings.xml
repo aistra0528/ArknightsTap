@@ -107,5 +107,11 @@
     <string name="donation_wechat">WeChat Pay</string>
     <string name="donation_paypal">PayPal</string>
     <string name="contributor">Contributeur</string>
-    <string name="translator">Traducteur</string>
+    <string name="translator_jp">Traducteur japonais</string>
+    <string name="translator_in">Traducteur indonésien</string>
+    <string name="translator_fr">Traducteur Français</string>
+    <string name="network_twitter">Twitter</string>
+    <string name="network_telegram">Telegram</string>
+    <string name="network_github">GitHub</string>
+    <string name="network_gitlab">GitLab</string>
 </resources>
