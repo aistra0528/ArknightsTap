@@ -103,7 +103,7 @@ class HomeFragment : Fragment(), MenuProvider, OnClickListener {
             MaterialAlertDialogBuilder(requireActivity()).run {
                 setTitle(R.string.state_resolution_unsupported)
                 setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]))
-                setPositiveButton(R.string.got_it, null)
+                setPositiveButton(R.string.not_now, null)
                 setNeutralButton(R.string.action_update) { _, _ -> ArkMaid.startUpdate(lifecycleScope, binding.root) }
                 show()
             }

@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.icebem.akt.BuildConfig
 import com.icebem.akt.R
 import com.icebem.akt.databinding.FragmentAboutBinding
+import com.icebem.akt.model.ContributorInfo
 import com.icebem.akt.util.ArkData
 import com.icebem.akt.util.ArkMaid
 import com.icebem.akt.util.ArkPref
@@ -38,6 +39,16 @@ class AboutFragment : Fragment(), OnClickListener {
         binding.containerSupport.setOnClickListener(this)
         binding.actionShare.setOnClickListener(this)
         binding.actionDonate.setOnClickListener(this)
+        val contributors = ContributorInfo.array
+        var contributorsText = ""
+        contributors.forEach { contributor ->
+            contributorsText = if (contributorsText.isEmpty()) {
+                contributor.toLocalizedString(resources)
+            } else {
+               String.format("%s\n%s", contributorsText, contributor.toLocalizedString(resources))
+            }
+        }
+        binding.contributorsText.text = contributorsText
         return binding.root
     }
 
@@ -115,7 +126,7 @@ class AboutFragment : Fragment(), OnClickListener {
         MaterialAlertDialogBuilder(requireActivity()).run {
             setTitle(R.string.action_donate)
             setView(if (isAlipay) R.layout.qr_alipay else R.layout.qr_wechat)
-            setPositiveButton(R.string.got_it, null)
+            setPositiveButton(R.string.not_now, null)
             show()
         }
     }

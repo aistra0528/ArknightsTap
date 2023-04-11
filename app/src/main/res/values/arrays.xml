@@ -22,4 +22,18 @@
         <item>@string/donation_wechat</item>
         <item>@string/donation_paypal</item>
     </string-array>
+
+    <string-array name="network_names">
+        <item>@string/network_twitter</item>
+        <item>@string/network_telegram</item>
+        <item>@string/network_github</item>
+        <item>@string/network_gitlab</item>
+    </string-array>
+
+    <string-array name="contributor_type_names">
+        <item>@string/contributor</item>
+        <item>@string/translator_jp</item>
+        <item>@string/translator_in</item>
+        <item>@string/translator_fr</item>
+    </string-array>
 </resources>

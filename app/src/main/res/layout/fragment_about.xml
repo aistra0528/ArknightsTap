@@ -233,9 +233,9 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                 <TextView
+                    android:id="@+id/contributors_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/special_thanks_desc" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

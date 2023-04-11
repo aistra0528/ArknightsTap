@@ -67,7 +67,6 @@
     <string name="recruit_preview_summary">選択したサーバーで未実装キャラを加える</string>
     <string name="scroll_to_result_title">オートスライディング</string>
     <string name="scroll_to_result_summary">5つのタグを選び終えたら下方にスライドする</string>
-    <string name="special_thanks_desc">Twitter @op_satoshi - 日本語訳\nTelegram @twiceYuan - 寄稿者\nTelegram @dwipaa11 と @AdityaTamamo - インドネシア語訳\nGitHub @FhrShadow - 寄稿者</string>
     <string name="special_thanks_title">特別感謝</string>
     <string name="action_counter">ガチャカウンタ</string>
     <string name="tip_counter_default">ガチャ回数：%1$d回\n次回★6入手確率：%2$d%%\n＋を長押し→十連ガチャ\n−を長押し→リセット</string>
@@ -102,4 +101,12 @@
     <string name="donation_alipay">Alipay</string>
     <string name="donation_wechat">Wechat</string>
     <string name="donation_paypal">PayPal</string>
+    <string name="contributor">寄稿者</string>
+    <string name="translator_jp">日本語訳</string>
+    <string name="translator_in">インドネシア語訳</string>
+    <string name="translator_fr">フランス語訳</string>
+    <string name="network_twitter">Twitter</string>
+    <string name="network_telegram">Telegram</string>
+    <string name="network_github">GitHub</string>
+    <string name="network_gitlab">GitLab</string>
 </resources>
