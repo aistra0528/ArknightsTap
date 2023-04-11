@@ -115,7 +115,7 @@ class AboutFragment : Fragment(), OnClickListener {
         MaterialAlertDialogBuilder(requireActivity()).run {
             setTitle(R.string.action_donate)
             setView(if (isAlipay) R.layout.qr_alipay else R.layout.qr_wechat)
-            setPositiveButton(R.string.got_it, null)
+            setPositiveButton(R.string.not_now, null)
             show()
         }
     }
