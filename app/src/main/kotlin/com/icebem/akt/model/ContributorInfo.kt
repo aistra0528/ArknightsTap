@@ -39,7 +39,7 @@ class ContributorInfo private constructor(obj: JSONObject) {
         append(" - ")
         append(resources.getString(R.string.contributor))
         if (languages.isNotEmpty()) {
-            append("&")
+            append(" & ")
             append(resources.getString(R.string.translator))
             append(languages.joinToString(prefix = " (", postfix = ")"))
         }
