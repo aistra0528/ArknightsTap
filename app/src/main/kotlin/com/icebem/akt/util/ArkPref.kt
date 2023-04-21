@@ -191,7 +191,7 @@ object ArkPref {
         get() {
             runCatching {
                 if (ArkData.hasGestureData) return false
-                val res = Resolution.absoluteResolution
+                val res = Resolution.physicalResolution
                 val array = ArkData.getResolutionData()
                 for (i in 0 until array.length()) {
                     val obj = array.getJSONObject(i)

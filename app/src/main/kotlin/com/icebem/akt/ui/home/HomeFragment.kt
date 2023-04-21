@@ -3,8 +3,13 @@ package com.icebem.akt.ui.home
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.view.View.OnClickListener
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.MenuHost
@@ -99,7 +104,7 @@ class HomeFragment : Fragment(), MenuProvider, OnClickListener {
         if (ArkPref.isPro && ArkPref.unsupportedResolution) {
             binding.imgState.setImageResource(R.drawable.ic_state_running)
             binding.txtState.setText(R.string.state_resolution_unsupported)
-            val res = Resolution.absoluteResolution
+            val res = Resolution.physicalResolution
             MaterialAlertDialogBuilder(requireActivity()).run {
                 setTitle(R.string.state_resolution_unsupported)
                 setMessage(getString(R.string.msg_resolution_unsupported, res[0], res[1]))

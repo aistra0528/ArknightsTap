@@ -68,7 +68,7 @@ class OverlayService : Service() {
     override fun onCreate() {
         super.onCreate()
         setTheme(R.style.Theme_MaterialComponents)
-        screenSize = Resolution.absoluteHeight
+        screenSize = Resolution.physicalHeight
         createRecruitView()
         createMaterialView()
         createCounterView()

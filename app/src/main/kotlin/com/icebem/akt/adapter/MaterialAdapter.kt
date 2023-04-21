@@ -26,7 +26,7 @@ class MaterialAdapter : RecyclerView.Adapter<MaterialAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ImageView(parent.context)
         var size = view.context.resources.getDimensionPixelOffset(R.dimen.control_padding) shl 1
-        size = (Resolution.absoluteHeight - size) / COUNT_SPAN
+        size = (Resolution.physicalHeight - size) / COUNT_SPAN
         view.layoutParams = ViewGroup.LayoutParams(size, size)
         return ViewHolder(view)
     }

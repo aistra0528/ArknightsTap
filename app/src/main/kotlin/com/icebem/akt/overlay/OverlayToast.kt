@@ -59,6 +59,6 @@ object OverlayToast {
                         removal.run()
                     }
                 }.also {
-                    toast = OverlayView(it).apply { setRelativePosition(0, Resolution.absoluteHeight shr 2) }
+                    toast = OverlayView(it).apply { setRelativePosition(0, Resolution.physicalHeight shr 2) }
                 }
 }
