@@ -116,5 +116,8 @@
   {"star":6,"name":"Weedy*","nameCN":"温蒂","nameTW":"温蒂*","nameJP":"ウィーディ*","nameKR":"温蒂*","type":"Specialist","tags":["Melee","Shift","DPS","Crowd-Control"]},
   {"star":4,"name":"Podenco*","nameCN":"波登可","nameTW":"波登可*","nameJP":"ポデンコ*","nameKR":"波登可*","type":"Supporter","tags":["Ranged","Slow","Healing"]},
   {"star":5,"name":"Leonhardt*","nameCN":"莱恩哈特","nameTW":"莱恩哈特*","nameJP":"レオンハルト*","nameKR":"莱恩哈特*","type":"Caster","tags":["Ranged","AoE","Nuker"]},
-  {"star":6,"name":"Роса*","nameCN":"早露","nameTW":"早露*","nameJP":"ロサ*","nameKR":"早露*","type":"Sniper","tags":["Ranged","DPS","Crowd-Control"]}
+  {"star":6,"name":"Роса*","nameCN":"早露","nameTW":"早露*","nameJP":"ロサ*","nameKR":"早露*","type":"Sniper","tags":["Ranged","DPS","Crowd-Control"]},
+  {"star":4,"name":"Click*","nameCN":"卡达","nameTW":"卡达*","nameJP":"カシャ*","nameKR":"卡达*","type":"Caster","tags":["Ranged","DPS","Crowd-Control"]},
+  {"star":5,"name":"Ayerscarpe*","nameCN":"断崖","nameTW":"断崖*","nameJP":"エアースカーペ*","nameKR":"断崖*","type":"Guard","tags":["Melee","DPS","AoE"]},
+  {"star":6,"name":"Suzuran*","nameCN":"铃兰","nameTW":"铃兰*","nameJP":"スズラン*","nameKR":"铃兰*","type":"Supporter","tags":["Ranged","Slow","Support","DPS"]}
 ]
