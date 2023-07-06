@@ -119,5 +119,6 @@
   {"star":6,"name":"Роса*","nameCN":"早露","nameTW":"早露*","nameJP":"ロサ*","nameKR":"早露*","type":"Sniper","tags":["Ranged","DPS","Crowd-Control"]},
   {"star":4,"name":"Click*","nameCN":"卡达","nameTW":"卡达*","nameJP":"カシャ*","nameKR":"卡达*","type":"Caster","tags":["Ranged","DPS","Crowd-Control"]},
   {"star":5,"name":"Ayerscarpe*","nameCN":"断崖","nameTW":"断崖*","nameJP":"エアースカーペ*","nameKR":"断崖*","type":"Guard","tags":["Melee","DPS","AoE"]},
-  {"star":6,"name":"Suzuran*","nameCN":"铃兰","nameTW":"铃兰*","nameJP":"スズラン*","nameKR":"铃兰*","type":"Supporter","tags":["Ranged","Slow","Support","DPS"]}
+  {"star":6,"name":"Suzuran*","nameCN":"铃兰","nameTW":"铃兰*","nameJP":"スズラン*","nameKR":"铃兰*","type":"Supporter","tags":["Ranged","Slow","Support","DPS"]},
+  {"star":1,"name":"Friston-3*","nameCN":"Friston-3","nameTW":"Friston-3*","nameJP":"Friston-3*","nameKR":"Friston-3*","type":"Defender","tags":["Melee","Defense"]}
 ]
