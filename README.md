@@ -1,3 +1,6 @@
+# This project is no longer maintained
+# 此项目不再维护
+
 简体中文 | [English](README_EN.md) | [日本語](README_JP.md)
 # 方舟帮帮忙
 方舟帮帮忙是一款辅助博士们游玩明日方舟的自由软件。
