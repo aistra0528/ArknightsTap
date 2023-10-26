@@ -51,7 +51,7 @@ object ArkData {
     private const val DATA_RESOLUTION = "resolution.json"
     private const val DATA_SLOGAN = "slogan.json"
     private const val DATA_GESTURE = "gesture.json"
-    private const val URL_WEB_DATA = "https://gitee.com/aistra0528/ArknightsTap/raw/master/app/src/main/assets/data/"
+    private const val URL_WEB_DATA = "https://github.com/aistra0528/ArknightsTap/raw/master/app/src/main/assets/data/"
     val updateResult = MutableLiveData<JSONArray?>()
 
     suspend fun requireUpdate() {
